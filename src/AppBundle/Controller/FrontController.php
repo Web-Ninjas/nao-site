@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Page;
 use AppBundle\Form\ContactType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -50,6 +51,19 @@ class FrontController extends Controller
 
         return $this->render('front/contact.html.twig', array(
             'form' => $form->createView(),
+        ));
+    }
+
+    /**
+     * @Route("/mentions", name="mentions")
+     */
+    public function mentionsAction()
+    {
+
+        $page = $this->getDoctrine()->getRepository('AppBundle:Page')->find(2);
+
+        return $this->render('front/mentions.html.twig', array(
+            'page' => $page,
         ));
     }
 }
