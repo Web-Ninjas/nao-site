@@ -45,29 +45,33 @@ height: 3px;
     font-weight:bold;
 }
 
-.nav.vert li {
-    background-color:#86E523;
+.nav.bleu li {
+    background-color:#519D9E;
+    border-radius: 9px;
 }
 
-.nav.vert li:hover a {
-    color: #792EE5;
+.nav.bleu li:hover a {
+    background-color:#9DC8C8;
+    border-radius: 9px;
 }
 
-.nav.orange li {
-    background: #FFBA33;
+.nav.turquoise li {
+    background: #58C9B9;
+    border-radius: 9px;
 }
 
-.nav.orange li:hover a {
-    color:#792EE5;
+.nav.turquoise li:hover a {
+    background-color:#9DC8C8;
+    border-radius: 9px;
 }
 
-.orange{
+.turquoise{
     float:right;
     margin-left:40px;
     margin-top:10px;
 }
 
-.vert{
+.bleu{
     float:right;
     margin-top:10px;
 }
@@ -83,7 +87,7 @@ height: 3px;
 }
 
 .footer{
-    background-color:#86E523;
+    background-color:#519D9E;
     padding-top:15px;
     padding-bottom: 15px;
     text-align:center;
@@ -109,7 +113,7 @@ height: 3px;
 }
 
 .liens li a:hover, a:focus {
-    color: #792EE5;
+    color: #9DC8C8;
     text-decoration: underline;
 }
 
@@ -122,13 +126,13 @@ img.instagram{
 }
 
 img.reseau:hover, img.reseau:focus {
-    background-color: #792EE5;
+    background-color:#9DC8C8;
     border-radius: 5px;
     padding: 2px;
 }
 
 img.instagram:hover, img.instagram:focus {
-    background-color: #792EE5;
+    background-color:#9DC8C8;
     border-radius: 13px;
 }
 
@@ -141,13 +145,13 @@ img.instagram:hover, img.instagram:focus {
         padding-top: 15px;
     }
 
-    .nav.orange {
+    .nav.turquoise {
         float:none;
         margin-left:auto;
         margin-right:auto;
     }
 
-    .nav.orange li {
+    .nav.turquoise li {
         display:inline-block;
     }
 
@@ -156,11 +160,11 @@ img.instagram:hover, img.instagram:focus {
         padding-left: 30px;
     }
 
-    ul.nav.navbar-nav.vert.collapse.navbar-collapse {
+    ul.nav.navbar-nav.bleu.collapse.navbar-collapse {
         padding-right: 11px;
         }
 
-    ul.nav.navbar-nav.orange{
+    ul.nav.navbar-nav.turquoise{
         text-align: center;
     }
 
@@ -171,10 +175,10 @@ img.instagram:hover, img.instagram:focus {
 
 @media (min-width: 768px){
 
-    ul.nav.navbar-nav.vert.collapse.navbar-collapse{
+    ul.nav.navbar-nav.bleu.collapse.navbar-collapse{
         padding-right: 0;
     }
-    ul.nav.navbar-nav.orange {
+    ul.nav.navbar-nav.turquoise {
         float: right;
     }
 
