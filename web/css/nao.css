@@ -191,3 +191,10 @@ img.instagram:hover, img.instagram:focus {
         padding-top: 0;
     }
 }
+
+@media (max-width: 1199px){
+
+    .menu-general {
+        padding-top: 0;
+    }
+}
