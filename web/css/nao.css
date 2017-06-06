@@ -150,9 +150,7 @@ img.instagram:hover, img.instagram:focus {
 
 @media (max-width: 768px){
 
-    .langue-bis{
 
-    }
     ul.list-inline.liens{
         padding-top: 15px;
     }
@@ -187,6 +185,7 @@ img.instagram:hover, img.instagram:focus {
     .mentions {
         margin-left: 40px;
         margin-right: 40px;
+    }
 }
 
 @media (min-width: 768px){
