@@ -1,3 +1,7 @@
+body{
+    background-color:whitesmoke;
+}
+
 .header {
 padding-top: 30px;
 }
@@ -90,6 +94,7 @@ h2{
     background-color: #58C9B9;
     padding: 7px;
     text-align: center;
+    color:white;
 }
 
 .mentions{

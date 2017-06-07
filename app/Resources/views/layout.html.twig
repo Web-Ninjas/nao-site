@@ -85,6 +85,13 @@
         </div>
 
         <div class="row"> <!-- contenu -->
+            {% if app.session.flashBag.has('notice') %}
+                <div class="alert alert-success">
+                    {% for msg in app.session.flashBag.get('notice') %}
+                        {{ msg }}
+                    {% endfor %}
+                </div>
+            {% endif %}
             {% block body %}
             {% endblock %}
         </div>
