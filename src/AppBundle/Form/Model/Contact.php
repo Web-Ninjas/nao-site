@@ -2,15 +2,29 @@
 
 namespace AppBundle\Form\Model;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 class Contact
 {
-   
+    /**
+     * @Assert\NotBlank(message="Ce champs ne doit pas être vide")
+    */
     private $nom;
 
+    /**
+    * @Assert\NotBlank(message="Ce champs ne doit pas être vide")
+    */
     private $prenom;
 
+    /**
+     * @Assert\Email(message="Veuillez entrer une adresse email valide")
+     * @Assert\NotBlank(message="Ce champs ne doit pas être vide")
+    */
     private $email;
 
+    /**
+    * @Assert\NotBlank(message="Ce champs ne doit pas être vide")
+    */
     private $contenu;
 
     /**
