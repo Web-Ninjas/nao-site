@@ -8,6 +8,9 @@ use UserBundle\Form\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Doctrine\ORM\EntityManagerInterface;
+
 
 class UserController extends Controller
 {
@@ -35,7 +38,7 @@ class UserController extends Controller
     /**
      * @Route("/inscription", name="inscription")
      */
-    public function createAccountAction(Request $request)
+    public function createAccountAction(Request $request,UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $em)
     {
     	$user = new User();
     	$form = $this->createForm(UserType::class, $user);
@@ -44,13 +47,17 @@ class UserController extends Controller
 
     	if ($form->isSubmitted() && $form->isValid() )
     	{
-    		// Si l'utilisateur a demandé à être naturaliste on modifie la propriété demandeNaturaliste en DateTime
+
+			$password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+			$user->setPassword($password);
+			
+    		/*// Si l'utilisateur a demandé à être naturaliste on modifie la propriété demandeNaturaliste en DateTime
     		if ($request->getContent('demandeNaturaliste') === '1')
     		{
     			$user->setDemandeNaturaliste(new \DateTime('now'));
     		} else {
     			$user->setDemandeNaturaliste(null);
-    		}
+    		}*/
 
     		// On enregistre en bdd
     		$em = $this->getDoctrine()->getManager();

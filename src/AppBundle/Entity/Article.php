@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Article
@@ -24,6 +25,7 @@ class Article
     /**
     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
     * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank()
     */
     private $author;
 
@@ -31,6 +33,7 @@ class Article
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="datetime")
+     * @Assert\NotBlank()
      */
     private $date;
 
@@ -38,6 +41,7 @@ class Article
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $title;
 
@@ -45,6 +49,7 @@ class Article
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+     * @Assert\NotBlank()
      */
     private $content;
 
@@ -52,6 +57,7 @@ class Article
      * @var string
      *
      * @ORM\Column(name="photo", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $photo;
 
@@ -59,6 +65,8 @@ class Article
      * @var \DateTime
      *
      * @ORM\Column(name="deleted", type="datetime", nullable=true)
+     * @Assert\NotBlank()
+     * @Assert\DateTime()
      */
     private $deleted;
 

@@ -71,9 +71,9 @@ class OiseauTaxref
     private $nomVern;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="habitat", type="integer", nullable=true)
+     * @ORM\Column(name="habitat", type="string", nullable=true)
      */
     private $habitat;
 
