@@ -22,12 +22,6 @@ class OiseauTaxref
     private $id;
 
     /**
-    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Observation")
-    * @ORM\JoinColumn(nullable=true)
-    */
-    private $observation;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="ordre", type="string", length=255, nullable=true)
