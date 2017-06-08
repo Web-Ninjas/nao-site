@@ -131,7 +131,7 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $this->registrationDate = new \DateTime('now');
+        $this->registrationDate = new \DateTime();
         $this->roles = ['ROLE_PARTICULIER'];
     }
 

@@ -4,11 +4,10 @@ UserBundle\Entity\User:
         roles: [ROLE_PARTICULIER]
         name: <name()>
         firstName: <firstName()>
-        birthDate: <date($format = 'Y-m-d', $max = 'now')>
+        birthDate: <dateTime()>
         email: <email()>
         password: <password()>
         registrationDate: <dateTime()>
-        salt:
 
 AppBundle\Entity\Article:
     article_{1..15}:
