@@ -23,7 +23,7 @@ class UserType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('firstName', TextType::class)
-            ->add('email', EmailType::CLASS)
+            ->add('email', EmailType::class)
             ->add('username', TextType::class)
             ->add('birthDate', BirthdayType::class, [
                 'format' => 'dd MM yyyy'

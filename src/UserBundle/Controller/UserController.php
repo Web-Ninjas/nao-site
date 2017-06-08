@@ -65,7 +65,7 @@ class UserController extends Controller
     		$em->flush();
 
     		return $this->redirectToRoute('login');
-    	}
+        }
 
     	return $this->render('front/inscription.html.twig', array(
     		'form' => $form->createView()

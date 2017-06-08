@@ -27,16 +27,10 @@ class User implements UserInterface
      * @var array
      *
      * @ORM\Column(name="roles", type="simple_array")
-     * @Assert\NotBlank()
      */
     private $roles = [];
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="salt", type="string", length=255)
-     */
-    private $salt = null;
+   
 
     /**
      * @var string
@@ -50,6 +44,7 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank()
      * @Assert\Length(min=2)
      */
     private $name;
@@ -58,6 +53,7 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="firstName", type="string", length=255)
+     * @Assert\NotBlank()
      * @Assert\Length(min=2)
      */
     private $firstName;
@@ -105,7 +101,6 @@ class User implements UserInterface
      * the password, but this works well with bcrypt.
      *
      * @ORM\Column(type="string", length=64)
-     * @Assert\NotBlank()
      */
     private $password;
 
@@ -409,7 +404,7 @@ class User implements UserInterface
     {
         return $this->roles;
     }
-    
+
 
     public function getSalt()
     {
