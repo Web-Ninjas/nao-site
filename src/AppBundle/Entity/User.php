@@ -50,9 +50,9 @@ class User
     private $firstName;
 
     /**
-     * @var \DateTime
+     * @var string
      *
-     * @ORM\Column(name="birthDate", type="date")
+     * @ORM\Column(name="birthDate", type="string", length=255)
      */
     private $birthDate;
 
@@ -99,6 +99,11 @@ class User
     private $deleted;
 
 
+    public function __construct()
+    {
+        $this->registrationDate = new \DateTime('now');
+    }
+
     /**
      * Get id
      *
@@ -107,6 +112,30 @@ class User
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get role
+     *
+     * @return string
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
+     * Set role
+     *
+     * @param string $role
+     *
+     * @return User
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
+
+        return $this;
     }
 
     /**

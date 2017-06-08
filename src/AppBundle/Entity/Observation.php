@@ -22,6 +22,12 @@ class Observation
     private $id;
 
     /**
+    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\OiseauTaxref")
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $oiseau;
+
+    /**
     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
     * @ORM\JoinColumn(nullable=false)
     */
