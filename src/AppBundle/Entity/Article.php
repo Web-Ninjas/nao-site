@@ -22,7 +22,7 @@ class Article
     private $id;
 
     /**
-    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+    * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
     * @ORM\JoinColumn(nullable=false)
     */
     private $author;

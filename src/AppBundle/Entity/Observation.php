@@ -28,7 +28,7 @@ class Observation
     private $oiseau;
 
     /**
-    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+    * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
     * @ORM\JoinColumn(nullable=false)
     */
     private $author;

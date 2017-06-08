@@ -68,4 +68,6 @@ class FrontController extends Controller
             'page' => $page,
         ));
     }
+
+    
 }
