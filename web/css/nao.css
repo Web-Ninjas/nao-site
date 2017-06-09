@@ -15,6 +15,11 @@ p
     padding-left: 0;
 }
 
+.title{
+    font-size: 31px;
+    width: 303px;
+}
+
 .logo{
     text-align:center;
 }
@@ -95,14 +100,28 @@ height: 3px;
     padding-top:40px;
 }
 
+.index-page{
+    position: relative;
+    margin-top: 36px;
+}
+
+.index{
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.photo-index{
+    height: 300px
+}
+
 h1{
     position: absolute;
-    top: 217px;
-    right: 122px;
+    font-weight:bold;
+    text-transform: uppercase;
+    top: 94px;
+    right: 78px;
     width: 444px;
     color: white;
-    font-weight:bold;
-    text-transform: uppercase
 }
 
 h1 p{
@@ -118,10 +137,11 @@ h2{
     color:white;
 }
 
-h3{
+h3.blocs{
     text-align: center;
     color: #5C7EE5;
     font-weight:bold;
+    margin-top: 40px;
 }
 
 
@@ -218,13 +238,28 @@ img.instagram:hover, img.instagram:focus {
         text-align: center;
     }
 
-    .img-responsive{
+    .logo{
         max-width: 80%;
     }
 
     .mentions {
         margin-left: 40px;
         margin-right: 40px;
+    }
+
+    h1 {
+        position: absolute;
+        font-weight: bold;
+        text-transform: uppercase;
+        top: 94px;
+        right: 0;
+        width: 324px;
+        font-size: 29px;
+}
+
+    h1 p{
+        padding-left: 23px;
+        padding-top: 14px;
     }
 }
 
@@ -249,11 +284,32 @@ img.instagram:hover, img.instagram:focus {
     ul.list-inline.liens {
         padding-top: 0;
     }
+
+
 }
 
 @media (max-width: 1199px){
 
     .menu-general {
         padding-top: 0;
+    }
+
+
+
+}
+
+@media (max-width: 960px){
+
+    .title{
+        font-size: 20px;
+        width: 303px;
+    }
+}
+
+@media (max-width: 767px){
+
+    .title{
+        font-size: 30px;
+        width: 303px;
     }
 }
