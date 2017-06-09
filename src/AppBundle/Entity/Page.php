@@ -52,7 +52,12 @@ class Page
      * @var string
      *
      * @ORM\Column(name="photoBanner", type="string", length=255, nullable=true)
-     * @Assert\Image
+     * @Assert\Image(
+     *     minWidth = 1140,
+     *     maxWidth = 1140,
+     *     minHeight = 300,
+     *     maxHeight = 300
+     * )
      */
     private $photoBanner;
 
