@@ -69,5 +69,24 @@ class FrontController extends Controller
         ));
     }
 
-    
+    /**
+     * @Route("/actualites/{page}", requirements={"page" = "\d+"}, defaults={"page" = 1}, name="actualites")
+    */
+    public function newsAction($page)
+    {
+    	// On cherche les 4 premiers articles pour les afficher
+    	$em = $this->getDoctrine()->getManager();
+    	$listArticles = $em->getRepository('AppBundle:Article')
+    		->findBy(
+    			array(),
+    			array('date' => 'desc'),
+    			4,
+    			($page - 1) * 4
+    		);
+
+    	return $this->render('front/news.html.twig', array(
+    		'listArticles' => $listArticles,
+    		'page' => $page
+    		));
+    }
 }

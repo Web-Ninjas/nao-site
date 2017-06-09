@@ -1,0 +1,32 @@
+{% extends "layout.html.twig" %}
+
+{% block body %}
+
+	<h2>Actualités</h2>
+
+	<div class="container">
+		<div class="row">
+			{% for article in listArticles %}
+
+				<div class="col-lg-6 col-xs-12">
+
+					<h3>{{ article.title }}</h3>
+					<img src="{{ article.photo }}" alt="" width="180" height="200" style="float: left; margin-right: 10px;">
+					<p>{{ article.content | truncate(300) }}</p>
+					<p><a href="#" style="float: right;">Lire la suite...</a></p>
+
+				</div>
+
+			{% endfor %}
+		</div><!-- row -->
+
+		<ul class="pager">
+			{% if page > 1 %}
+  				<li><a href="{{ path('actualites', {'page': page-1}) }}">Précédent</a></li>
+  			{% endif %}
+  			<li><a href="{{ path('actualites', {'page': page+1}) }}">Suivant</a></li>
+		</ul>
+
+	</div><!-- container -->
+
+{% endblock %}
