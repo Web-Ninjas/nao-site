@@ -144,8 +144,29 @@ h3.blocs{
     margin-top: 40px;
 }
 
+.miniature{
+    margin-right: 0;
+    margin-left: 0;
+    padding-right: 0;
+    padding-left: 0;
+}
 
+.article-content{
+    padding-left: 40px;
+    padding-right: 40px;
+    margin-top: 20px;
+    text-align: left;
+    font-size: 20px;
+}
 
+.content{
+    text-align: left;
+}
+
+.articleB{
+    font-size: 20px;
+    margin-top: 40px;
+}
 
 .texte{
     text-align: center;
