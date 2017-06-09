@@ -5,7 +5,7 @@ namespace AppBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use AppBundle\Entity\User;
+use UserBundle\Entity\User;
 use Nelmio\Alice\Fixtures;
 
 class LoadUserData implements FixtureInterface
@@ -15,8 +15,4 @@ class LoadUserData implements FixtureInterface
     	Fixtures::load(__DIR__.'/fixtures.yml', $manager);
     }
 
-    public function getOrder()
-    {
-    	return 1;
-    }
 }

@@ -1,10 +1,10 @@
-AppBundle\Entity\User:
+UserBundle\Entity\User:
     user_{1..10}:
         username (unique): <userName()>
-        role: particulier
+        roles: [ROLE_PARTICULIER]
         name: <name()>
         firstName: <firstName()>
-        birthDate: <date($format = 'Y-m-d', $max = 'now')>
+        birthDate: <dateTime()>
         email: <email()>
         password: <password()>
         registrationDate: <dateTime()>

@@ -6,7 +6,7 @@ namespace AppBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Entity\Article;
-use AppBundle\Entity\User;
+use UserBundle\Entity\User;
 use Nelmio\Alice\Fixtures;
 
 class LoadArticleData implements FixtureInterface
@@ -20,25 +20,5 @@ class LoadArticleData implements FixtureInterface
     		'providers' => [$this]
     		));
     }
-
-    public function getOrder()
-    {
-    	return 2;
-    }
-
-    /*
-    public function author()
-    {
-    	$user = new User();
-    	$user->setRole('admin');
-    	$user->setUsername('admiiin');
-    	$user->setName('radius_server_secret(radius_handle)');
-    	$user->setFirstName('Fred');
-    	$user->setBirthDate('1988-05-19');
-    	$user->setEmail('lalala@gmail.com');
-    	$user->setPassword('@dmin');
-
-    	return $user;
-    }
-    */
+    
 }

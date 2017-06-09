@@ -1,8 +1,10 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
@@ -10,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var int
@@ -22,16 +24,19 @@ class User
     private $id;
 
     /**
-     * @var string
+     * @var array
      *
-     * @ORM\Column(name="role", type="string", length=255)
+     * @ORM\Column(name="roles", type="simple_array")
      */
-    private $role;
+    private $roles = [];
+
+   
 
     /**
      * @var string
      *
      * @ORM\Column(name="username", type="string", length=255, unique=true)
+     * @Assert\NotBlank()
      */
     private $username;
 
@@ -39,6 +44,8 @@ class User
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Length(min=2)
      */
     private $name;
 
@@ -46,13 +53,18 @@ class User
      * @var string
      *
      * @ORM\Column(name="firstName", type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Length(min=2)
      */
     private $firstName;
 
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="birthDate", type="string", length=255)
+     * @ORM\Column(name="birthDate", type="date")
+     * @Assert\NotBlank()
+     * @Assert\Date()
+     * @Assert\LessThan("today")
      */
     private $birthDate;
 
@@ -60,6 +72,7 @@ class User
      * @var \DateTime
      *
      * @ORM\Column(name="registrationDate", type="datetime")
+     * @Assert\DateTime()
      */
     private $registrationDate;
 
@@ -67,13 +80,27 @@ class User
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Email()
      */
     private $email;
 
     /**
-     * @var string
+     * 
+     * @Assert\Regex(
+     *  pattern="/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{7,}/",
+     *  message="Le mot de passe doit avoir au moins 7 caractères et contenir au moins 1 chiffre, une majuscule et une minuscule.")
+     * @Assert\NotBlank()
+     * @Assert\Length(max=4096)
      *
-     * @ORM\Column(name="password", type="string", length=255)
+     */
+    protected $plainPassword;
+
+    /**
+     * The below length depends on the "algorithm" you use for encoding
+     * the password, but this works well with bcrypt.
+     *
+     * @ORM\Column(type="string", length=64)
      */
     private $password;
 
@@ -81,6 +108,7 @@ class User
      * @var \DateTime
      *
      * @ORM\Column(name="demandeNaturaliste", type="datetime", nullable=true)
+     * @Assert\DateTime()
      */
     private $demandeNaturaliste;
 
@@ -88,6 +116,7 @@ class User
      * @var \DateTime
      *
      * @ORM\Column(name="demandeContributeur", type="datetime", nullable=true)
+     * @Assert\DateTime()
      */
     private $demandeContributeur;
 
@@ -95,13 +124,15 @@ class User
      * @var \DateTime
      *
      * @ORM\Column(name="deleted", type="datetime", nullable=true)
+     * @Assert\DateTime()
      */
     private $deleted;
 
 
     public function __construct()
     {
-        $this->registrationDate = new \DateTime('now');
+        $this->registrationDate = new \DateTime();
+        $this->roles = ['ROLE_PARTICULIER'];
     }
 
     /**
@@ -112,30 +143,6 @@ class User
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Get role
-     *
-     * @return string
-     */
-    public function getRole()
-    {
-        return $this->role;
-    }
-
-    /**
-     * Set role
-     *
-     * @param string $role
-     *
-     * @return User
-     */
-    public function setRole($role)
-    {
-        $this->role = $role;
-
-        return $this;
     }
 
     /**
@@ -282,28 +289,24 @@ class User
         return $this->email;
     }
 
-    /**
-     * Set password
-     *
-     * @param string $password
-     *
-     * @return User
-     */
-    public function setPassword($password)
+    public function getPlainPassword()
     {
-        $this->password = $password;
-
-        return $this;
+        return $this->plainPassword;
     }
 
-    /**
-     * Get password
-     *
-     * @return string
-     */
+    public function setPlainPassword($password)
+    {
+        $this->plainPassword = $password;
+    }
+
     public function getPassword()
     {
         return $this->password;
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
     }
 
     /**
@@ -377,5 +380,41 @@ class User
     {
         return $this->deleted;
     }
-}
 
+    /**
+     * Set roles
+     *
+     * @param array $roles
+     *
+     * @return User
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * Get roles
+     *
+     * @return array
+     */
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+
+
+    public function getSalt()
+    {
+        // The bcrypt algorithm doesn't require a separate salt.
+        // You *may* need a real salt if you choose a different encoder.
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
+        
+    }
+}

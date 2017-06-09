@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Observation
@@ -24,12 +25,14 @@ class Observation
     /**
     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\OiseauTaxref")
     * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank()
     */
     private $oiseau;
 
     /**
-    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+    * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
     * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank()
     */
     private $author;
 
@@ -37,6 +40,8 @@ class Observation
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="datetime")
+     * @Assert\NotBlank()
+     * @Assert\DateTime()
      */
     private $date;
 
@@ -44,6 +49,7 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+     * @Assert\NotBlank()
      */
     private $content;
 
@@ -58,6 +64,7 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="longitude", type="decimal", precision=10, scale=0)
+     * @Assert\NotBlank()
      */
     private $longitude;
 
@@ -65,6 +72,7 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="latitude", type="decimal", precision=10, scale=0)
+     * @Assert\NotBlank()
      */
     private $latitude;
 
