@@ -47,6 +47,7 @@ class Page
      * @var string
      *
      * @ORM\Column(name="photoBanner", type="string", length=255, nullable=true)
+     * @Assert\Image
      */
     private $photoBanner;
 

@@ -80,6 +80,7 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="photo", type="string", length=255, nullable=true)
+     * @Assert\Image
      */
     private $photo;
 

@@ -2,7 +2,27 @@
 
 {% block body %}
 
-            <h2>Blabla</h2>
+    <h1>{{ page.title|raw }}</h1>
+
+    <img src="{{ page.photoBanner }}" alt="" width="1140" height="300">
+
+
+        <div class="col-lg-offset-1 col-lg-2 col-xs-4">
+            <h3>Rechercher</h3>
+            <p class="texte">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac turpis risus.
+                Mauris tincidunt molestie ligula vitae </p>
+        </div>
+        <div class="col-lg-2 col-lg-offset-2 col-xs-4">
+            <h3>Observer</h3>
+            <p class="texte">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac turpis risus.
+                Mauris tincidunt molestie ligula vitae </p>
+        </div>
+        <div class="col-lg-2 col-lg-offset-2 col-xs-4">
+            <h3>Actualité</h3>
+            <p class="texte">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac turpis risus.
+                Mauris tincidunt molestie ligula vitae </p>
+        </div>
+
 
 
 {% endblock %}
