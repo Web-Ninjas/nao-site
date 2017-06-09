@@ -23,6 +23,11 @@ class Page
     private $id;
 
     /**
+     * @ORM\Column(name="nameIdentifier", type="string", length=255)
+    */
+    private $nameIdentifier;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="lastUpdate", type="datetime")
@@ -156,6 +161,16 @@ class Page
     public function getPhotoBanner()
     {
         return $this->photoBanner;
+    }
+
+    public function getNameIdentifier()
+    {
+        return $this->nameIdentifier;
+    }
+
+    public function setNameIdentifier($nameIdentifier)
+    {
+        $this->nameIdentifier = $nameIdentifier;
     }
 }
 

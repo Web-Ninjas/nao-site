@@ -18,7 +18,9 @@ class FrontController extends Controller
      */
     public function indexAction(Request $request)
     {
-            $page = $this->getDoctrine()->getRepository('AppBundle:Page')->find(1);
+            $page = $this->getDoctrine()->getRepository('AppBundle:Page')->findOneBy(
+            	array('nameIdentifier' => 'accueil')          	
+            	);
 
             return $this->render('front/index.html.twig', array(
                 'page' => $page,
@@ -66,7 +68,9 @@ class FrontController extends Controller
     public function mentionsAction()
     {
 
-        $page = $this->getDoctrine()->getRepository('AppBundle:Page')->find(2);
+        $page = $this->getDoctrine()->getRepository('AppBundle:Page')->findOneBy(
+        	array('nameIdentifier' => 'mentions légales')
+        	);
 
         return $this->render('front/mentions.html.twig', array(
             'page' => $page,
