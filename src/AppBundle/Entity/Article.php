@@ -58,6 +58,7 @@ class Article
      *
      * @ORM\Column(name="photo", type="string", length=255)
      * @Assert\NotBlank()
+     * @Assert\Image
      */
     private $photo;
 

@@ -1,5 +1,5 @@
 body{
-    background-color:whitesmoke;
+    background-color:#FFFFFF;
 }
 
 .header {
@@ -95,11 +95,40 @@ height: 3px;
     padding-top:40px;
 }
 
+h1{
+    position: absolute;
+    top: 217px;
+    right: 122px;
+    width: 444px;
+    color: white;
+    font-weight:bold;
+    text-transform: uppercase
+}
+
+h1 p{
+    padding-left: 73px;
+    padding-top: 14px;
+}
+
+
 h2{
-    background-color: #58C9B9;
+    background-color: #519D9E;
     padding: 7px;
     text-align: center;
     color:white;
+}
+
+h3{
+    text-align: center;
+    color: #5C7EE5;
+    font-weight:bold;
+}
+
+
+
+
+.texte{
+    text-align: center;
 }
 
 .mentions{
@@ -113,6 +142,7 @@ h2{
     padding-top:15px;
     padding-bottom: 15px;
     text-align:center;
+    margin-top: 31px;
 }
 
 .reseau{

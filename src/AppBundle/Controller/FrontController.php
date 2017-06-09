@@ -18,7 +18,11 @@ class FrontController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->render('front/index.html.twig');
+            $page = $this->getDoctrine()->getRepository('AppBundle:Page')->find(1);
+
+            return $this->render('front/index.html.twig', array(
+                'page' => $page,
+            ));
     }
 
     /**
