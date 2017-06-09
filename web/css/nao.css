@@ -6,6 +6,11 @@ body{
 padding-top: 30px;
 }
 
+p 
+{
+    text-align: justify;
+}
+
 .titre{
     padding-left: 0;
 }
