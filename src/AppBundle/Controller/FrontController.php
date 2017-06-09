@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Article;
 use AppBundle\Form\ContactType;
 use AppBundle\Form\Model\Contact;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -96,5 +97,26 @@ class FrontController extends Controller
     		'listArticles' => $listArticles,
     		'page' => $page
     		));
+    }
+
+    /**
+     * @Route("/article/{id}", requirements={"id" = "\d+"}, name="article")
+     * @param Article $article
+     */
+    public function voirNewsAction(Article $article)
+    {
+        // On cherche les 3 premiers articles pour les afficher
+        $em = $this->getDoctrine()->getManager();
+        $listArticles = $em->getRepository('AppBundle:Article')
+            ->findBy(
+                array(),
+                array('date' => 'desc'),
+                3
+            );
+
+        return $this->render('front/voirNews.html.twig', array(
+            'listArticles' => $listArticles,
+            'article'=>$article,
+        ));
     }
 }
