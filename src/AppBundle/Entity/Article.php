@@ -201,5 +201,10 @@ class Article
     {
         return $this->deleted;
     }
+
+    public function getAuthor()
+    {
+        return $this->author;
+    }
 }
 

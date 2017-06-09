@@ -119,4 +119,19 @@ class FrontController extends Controller
             'article'=>$article,
         ));
     }
+
+    /**
+     * @Route("/qui sommes nous", name="about")
+     */
+    public function aboutAction()
+    {
+
+        $page = $this->getDoctrine()->getRepository('AppBundle:Page')->findOneBy(
+            array('nameIdentifier' => 'about')
+        );
+
+        return $this->render('front/about.html.twig', array(
+            'page' => $page,
+        ));
+    }
 }
