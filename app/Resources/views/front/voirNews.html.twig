@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col-md-12 col-xs-12 ">
                     <p class="articleB"><strong>Date de création: </strong> {{ article.date|date('d/m/Y') }}</p>
-                    <p class="articleB"><strong>Auteur: </strong> </p>{#{{ article.author }}#}
+                    <p class="articleB"><strong>Auteur: </strong> {{ article.author.name }}</p>
                 </div>
             </div>
         </div>
