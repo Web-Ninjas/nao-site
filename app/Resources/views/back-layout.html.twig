@@ -3,19 +3,19 @@
 {% block body %}
 
     <div class="col-sm-3">
-        <h4>Dashboard</h4>
+        <h5>Tableau de bord</h5>
 
-        <ul>
+        <ul class="menu_dashboard">
             <li class="active"><a href="#">Profil</a></li>
-            <li>Mes observations</li>
-            <li>Toutes les observations</li>
-            <li>Gestion des articles</li>
-            <li>Gestion des utilisateurs</li>
-            <li>Rédiger un article</li>
+            <li><a href="#">Mes observations</a></li>
+            <li><a href="#">Toutes les observations</a></li>
+            <li><a href="#">Gestion des articles</a></li>
+            <li><a href="#">Gestion des utilisateurs</a></li>
+            <li><a href="#">Rédiger un article</a></li>
         </ul>
     </div>
 
-    <div class="col-sm-9">
+    <div class="col-sm-9 cadre">
         {% block content %}
 
         {% endblock %}

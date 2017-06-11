@@ -1,0 +1,135 @@
+{% extends "back-layout.html.twig" %}
+
+{% set profils = {
+'ROLE_PARTICULIER': 'Particulier',
+'ROLE_ADMIN': 'Admin',
+'ROLE_NATURALISTE': 'Naturaliste',
+'ROLE_CONTRIBUTEUR': 'Contributeur'
+
+
+} %}
+{% block content %}
+
+
+    <h4>Mes informations Personnelles</h4>
+
+
+    <div class="formProfil row">
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+        {# Les erreurs générales du formulaire. #}
+        {{ form_errors(form) }}
+
+        {# Génération manuelle et éclatée : #}
+        <div class="form-group">
+            {# Génération du label. #}
+            {{ form_label(form.name, "Nom :", {'label_attr': {'class': 'col-lg-4 control-label titre_formulaire'}}) }}
+
+            {# Affichage des erreurs pour ce champ précis. #}
+            {{ form_errors(form.name) }}
+
+            <div class="col-lg-5">
+                {# Génération de l'input. #}
+                {{ form_widget(form.name, {'attr': {'class': 'form-control blocs'}}) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {# Génération du label. #}
+            {{ form_label(form.firstName, "Prénom :", {'label_attr': {'class': 'col-lg-4 control-label titre_formulaire'}}) }}
+
+            {# Affichage des erreurs pour ce champ précis. #}
+            {{ form_errors(form.firstName) }}
+
+            <div class="col-lg-5">
+                {# Génération de l'input. #}
+                {{ form_widget(form.firstName, {'attr': {'class': 'form-control blocs'}}) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {# Génération du label. #}
+            {{ form_label(form.username, "Pseudo :", {'label_attr': {'class': 'col-lg-4 control-label titre_formulaire'}}) }}
+
+            {# Affichage des erreurs pour ce champ précis. #}
+            {{ form_errors(form.username) }}
+
+            <div class="col-lg-5">
+                {# Génération de l'input. #}
+                {{ form_widget(form.username, {'attr': {'class': 'form-control blocs' }}) }}
+            </div>
+
+        </div>
+
+        <div class="form-group">
+
+            <label class="col-lg-4 control-label titre_formulaire control-label required"
+                   for="profil_username">Statut:</label>
+
+            <div class="col-lg-5">
+                <input disabled="disabled" type="text" name="statut" class="fixe form-control form-control blocs"
+                       value={{ profils[app.user.roles[0]] }}>
+            </div>
+        </div>
+
+        <div class="form-group">
+            {# Génération du label. #}
+            {{ form_label(form.email, "Email :", {'label_attr': {'class': 'col-lg-4 control-label titre_formulaire'}}) }}
+
+            {# Affichage des erreurs pour ce champ précis. #}
+            {{ form_errors(form.email) }}
+
+            <div class="col-lg-5">
+                {# Génération de l'input. #}
+                {{ form_widget(form.email, {'attr': {'class': 'form-control blocs'}}) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {# Génération du label. #}
+            {{ form_label(form.birthDate, "Date de Naissance :", {'label_attr': {'class': 'col-lg-4 control-label titre_formulaire'}}) }}
+
+            {# Affichage des erreurs pour ce champ précis. #}
+            {{ form_errors(form.birthDate) }}
+
+            <div class="col-lg-5">
+                {# Génération de l'input. #}
+                {{ form_widget(form.birthDate, {'attr': {'class': 'form-control blocs'}}) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            <label class="col-lg-4 control-label titre_formulaire control-label required"
+                   for="profil_username">Date de création de compte :</label>
+
+            <div class="col-lg-5">
+                <input disabled="disabled" type="text" name="registrationDate" class="fixe form-control form-control blocs"
+                       value={{ app.user.registrationDate |date('d/m/Y') }}>
+            </div>
+        </div>
+
+        <div class="form-group">
+            {# Génération du label. #}
+            {{ form_label(form.plainPassword, "Mot de passe :", {'label_attr': {'class': 'col-lg-4 control-label titre_formulaire'}}) }}
+
+            {# Affichage des erreurs pour ce champ précis. #}
+            {{ form_errors(form.plainPassword) }}
+
+            <div class="col-lg-5">
+                {# Génération de l'input. #}
+                {{ form_widget(form.plainPassword, {'attr': {'class': 'form-control blocs', 'value': '*******' }}) }}
+            </div>
+        </div>
+
+        <div class="col-lg-offset-10">
+            {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
+            {{ form_widget(form.enregistrer, {'attr': {'class': 'btn envoyer_formulaire'}}) }}
+
+        </div>
+
+        {{ form_widget(form._token) }}
+    </div>
+
+
+{% endblock %}

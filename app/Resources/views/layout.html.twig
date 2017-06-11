@@ -60,7 +60,7 @@
                 <div class="menu-general">
                     <ul class="nav navbar-nav turquoise">
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                            <li><a href="{{ path('dashboard') }}">Tableau de bord</a></li>
+                            <li><a href="{{ path('profil') }}">Tableau de bord</a></li>
                             <li><a href="{{ path('logout') }}">Déconnexion</a></li>
                         {% else %}
                             <li><a href="{{ path('login') }}">Se connecter</a></li>
