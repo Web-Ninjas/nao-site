@@ -1,0 +1,23 @@
+{% extends "layout.html.twig" %}
+
+{% block body %}
+
+    <div class="col-sm-3">
+        <h4>Dashboard</h4>
+
+        <ul>
+            <li class="active"><a href="#">Profil</a></li>
+            <li>Mes observations</li>
+            <li>Toutes les observations</li>
+            <li>Gestion des articles</li>
+            <li>Gestion des utilisateurs</li>
+            <li>Rédiger un article</li>
+        </ul>
+    </div>
+
+    <div class="col-sm-9">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+{% endblock %}
