@@ -6,12 +6,24 @@
         <h5>Tableau de bord</h5>
 
         <ul class="menu_dashboard">
-            <li class="active"><a href="{{ path('dashboard_profil') }}">Profil</a></li>
-            <li><a href="{{ path('dashboard_observations', {'only-me': 'true'}) }}">Mes observations {#{{ nbObservations }}#} </a></li>
-            <li><a href="{{ path('dashboard_observations') }}">Toutes les observations</a></li>
-            <li><a href="#">Gestion des articles</a></li>
-            <li><a href="#">Gestion des utilisateurs</a></li>
-            <li><a href="#">Rédiger un article</a></li>
+            <li class=" {% if app.request.attributes.get('_route') == 'dashboard_profil' %} color {% endif %}">
+                <a href="{{ path('dashboard_profil') }}">Profil</a>
+            </li>
+            <li class=" {% if app.request.attributes.get('_route') == 'dashboard_observations' %} color {% endif %}">
+            <a href="{{ path('dashboard_observations', {'only-me': 'true'}) }}">Mes observations {#{{ nbObservations }}#} </a>
+            </li>
+            <li >
+                <a href="{{ path('dashboard_observations') }}">Toutes les observations</a>
+            </li>
+            <li>
+                <a href="#">Gestion des articles</a>
+            </li>
+            <li>
+                Gestion des utilisateurs</a>
+            </li>
+            <li>
+                <a href="#">Rédiger un article</a>
+            </li>
         </ul>
     </div>
 

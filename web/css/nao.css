@@ -175,7 +175,7 @@ ul.menu_dashboard{
 }
 
 .menu_dashboard li {
-    background-color: #519D9E;
+    background-color: #58C9B9;
     list-style: none;
     margin: 5px;
     padding: 7px;
@@ -190,7 +190,10 @@ ul.menu_dashboard{
     color: white;
     font-size: 18px;
     text-decoration: none;
+}
 
+li.color  {
+    background-color: #9DC8C8;
 }
 
  #profil_birthDate{
@@ -254,6 +257,68 @@ input.recherche{
     font-size: 16px;
 }
 
+.tableau{
+    padding-right: 10px;
+    padding-left: 10px;
+}
+.table{
+
+}
+
+.fond_tableau{
+    background-color: #FFFFFF;
+}
+
+th, td{
+    border-right: #519D9E solid 3px;
+}
+
+th{
+    color: white;
+}
+
+.tableau_action{
+    border-right: none;
+}
+
+.action{
+    text-align: center;
+}
+
+.tableau_observation{
+    background-color:#58C9B9 ;
+    border-radius: 5px;
+    padding: 5px ;
+    text-align: left;
+}
+
+.tableau_observation a{
+    color: white;
+}
+
+.tableau_observation p{
+    text-align: left;
+}
+
+.tableau td {
+    vertical-align: middle !important;
+}
+
+.taille_td{
+    width: 145px;
+}
+
+.glyphicon-ok{
+    color: #58C9B9;
+}
+
+.glyphicon-trash{
+    color: red;
+}
+
+.icone{
+    padding-right: 10px;
+}
 
 .miniature{
 margin-right: 0;
@@ -420,15 +485,25 @@ ul.list-inline.liens {
 
 }
 
-@media (max-width: 1199px){
+@media (min-width: 1199px){
 
-.menu-general {
+    .menu-general {
     padding-top: 0;
+    }
+
+    td.content_observation{
+        width: 224px !important;
+    }
 }
 
+@media (min-width: 992px){
 
+    td.content_observation{
+        width: 50px;
+    }
 
 }
+
 
 @media (max-width: 960px){
 
