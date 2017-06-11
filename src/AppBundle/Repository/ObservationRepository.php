@@ -10,4 +10,11 @@ namespace AppBundle\Repository;
  */
 class ObservationRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function countNbObservations()
+    {
+        $qb = $this->createQueryBuilder('b');
+        $qb->select('COUNT(b.id)');
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
 }

@@ -8,7 +8,7 @@
 
         {% block stylesheets %}
             {# On charge le CSS de bootstrap depuis le site directement #}
-            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
             <link rel="stylesheet" href="{{ asset('css/nao.css') }}">
             <link rel="stylesheet"
                   href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css">
@@ -60,7 +60,7 @@
                 <div class="menu-general">
                     <ul class="nav navbar-nav turquoise">
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                            <li><a href="{{ path('profil') }}">Tableau de bord</a></li>
+                            <li><a href="{{ path('dashboard_profil') }}">Tableau de bord</a></li>
                             <li><a href="{{ path('logout') }}">Déconnexion</a></li>
                         {% else %}
                             <li><a href="{{ path('login') }}">Se connecter</a></li>
