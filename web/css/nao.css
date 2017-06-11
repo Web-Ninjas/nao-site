@@ -144,176 +144,269 @@ h3.blocs{
     margin-top: 40px;
 }
 
-.miniature{
-    margin-right: 0;
-    margin-left: 0;
+h4{
+    background-color: #519D9E;
+    padding: 14px;
+    color:white;
+    font-size: 23px;
+    margin-top: 0;
+    margin-bottom: 35px;
+}
+
+h5{
+    font-weight: bold;
+    text-align: center;
+    font-size: 23px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    margin-top: 0;
+
+}
+
+.cadre{
+    background-color: #9DC8C8;
+    padding-left: 0;
     padding-right: 0;
+    padding-bottom: 20px;
+}
+
+ul.menu_dashboard{
     padding-left: 0;
 }
 
+.menu_dashboard li {
+    background-color: #519D9E;
+    list-style: none;
+    margin: 5px;
+    padding: 7px;
+}
+
+.menu_dashboard li:hover {
+    background-color: #9DC8C8;
+}
+
+.menu_dashboard li a{
+
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+
+}
+
+ #profil_birthDate{
+     background-color: inherit;
+     border: inherit;
+     box-shadow: inherit;
+     padding-left: 0;
+ }
+
+.titre_formulaire{
+    color: white;
+}
+
+.blocs{
+    box-shadow: 0 4px 0 #519D9E;
+}
+
+#profil_birthDate{
+    padding: 0;
+}
+#profil_birthDate_day{
+    box-shadow: 0 4px 0 #519D9E;
+}
+
+#profil_birthDate_month{
+    box-shadow: 0 4px 0 #519D9E;
+}
+
+#profil_birthDate_year{
+    box-shadow: 0 4px 0 #519D9E;
+}
+
+.envoyer_formulaire{
+    background-color: #5C7EE5 ;
+    color: white;
+    border-radius: 0;
+    margin-top: 26px;
+}
+
+
+
+.form-control:focus{
+    background-color: #58C9B9;
+    color: white;
+}
+
+.miniature{
+margin-right: 0;
+margin-left: 0;
+padding-right: 0;
+padding-left: 0;
+}
+
 .article-content{
-    padding-left: 40px;
-    padding-right: 40px;
-    margin-top: 20px;
-    text-align: left;
-    font-size: 20px;
+padding-left: 40px;
+padding-right: 40px;
+margin-top: 20px;
+text-align: left;
+font-size: 20px;
 }
 
 .content{
-    text-align: left;
+text-align: left;
 }
 
 .articleB{
-    font-size: 20px;
-    margin-top: 40px;
+font-size: 20px;
+margin-top: 40px;
 }
 
 .texte{
-    text-align: center;
+text-align: center;
 }
 
 .mentions{
-    text-align: justify;
-    margin: 30px 90px 30px 90px;
+text-align: justify;
+margin: 30px 90px 30px 90px;
 
 }
 
 .footer{
-    background-color:#519D9E;
-    padding-top:15px;
-    padding-bottom: 15px;
-    text-align:center;
-    margin-top: 31px;
+background-color:#519D9E;
+padding-top:15px;
+padding-bottom: 15px;
+text-align:center;
+margin-top: 31px;
 }
 
 .reseau{
-    margin-right:20px;
+margin-right:20px;
 }
 
 .liens{
-    line-height: 32px;
-    margin-top:0;
-    margin-bottom:0;
+line-height: 32px;
+margin-top:0;
+margin-bottom:0;
 }
 
 .liens li a{
-    color: white;
-    font-weight: bold;
+color: white;
+font-weight: bold;
 }
 
 .contact{
-    margin-right:10px;
+margin-right:10px;
 }
 
 .liens li a:hover, a:focus {
-    color: #9DC8C8;
-    text-decoration: underline;
+color: #9DC8C8;
+text-decoration: underline;
 }
 
 img.reseau{
-    width: 32px;
+width: 32px;
 }
 
 img.instagram{
-    width: 32px;
+width: 32px;
 }
 
 img.reseau:hover, img.reseau:focus {
-    background-color:#9DC8C8;
-    border-radius: 5px;
-    padding: 2px;
+background-color:#9DC8C8;
+border-radius: 5px;
+padding: 2px;
 }
 
 img.instagram:hover, img.instagram:focus {
-    background-color:#9DC8C8;
-    border-radius: 13px;
+background-color:#9DC8C8;
+border-radius: 13px;
 }
 
 @media (max-width: 768px){
 
 
-    ul.list-inline.liens{
-        padding-top: 15px;
-    }
-
-    .nav.turquoise {
-        float:none;
-        margin-left:auto;
-        margin-right:auto;
-    }
-
-    .nav.turquoise li {
-        display:inline-block;
-    }
-
-    .container {
-        padding-right: 30px;
-        padding-left: 30px;
-    }
-
-    ul.nav.navbar-nav.bleu.collapse.navbar-collapse {
-        padding-right: 11px;
-        }
-
-    ul.nav.navbar-nav.turquoise{
-        text-align: center;
-    }
-
-    .logo{
-        max-width: 80%;
-    }
-
-    .mentions {
-        margin-left: 40px;
-        margin-right: 40px;
-    }
-
-    h1 {
-        position: absolute;
-        font-weight: bold;
-        text-transform: uppercase;
-        top: 94px;
-        right: 0;
-        width: 324px;
-        font-size: 29px;
+ul.list-inline.liens{
+    padding-top: 15px;
 }
 
-    h1 p{
-        padding-left: 23px;
-        padding-top: 14px;
+.nav.turquoise {
+    float:none;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.nav.turquoise li {
+    display:inline-block;
+}
+
+.container {
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
+ul.nav.navbar-nav.bleu.collapse.navbar-collapse {
+    padding-right: 11px;
     }
+
+ul.nav.navbar-nav.turquoise{
+    text-align: center;
+}
+
+.logo{
+    max-width: 80%;
+}
+
+.mentions {
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+h1 {
+    position: absolute;
+    font-weight: bold;
+    text-transform: uppercase;
+    top: 94px;
+    right: 0;
+    width: 324px;
+    font-size: 29px;
+}
+
+h1 p{
+    padding-left: 23px;
+    padding-top: 14px;
+}
 }
 
 @media (min-width: 768px){
 
-    ul.nav.navbar-nav.bleu.collapse.navbar-collapse{
-        padding-right: 0;
-    }
-    ul.nav.navbar-nav.turquoise {
-        float: right;
-    }
+ul.nav.navbar-nav.bleu.collapse.navbar-collapse{
+    padding-right: 0;
+}
+ul.nav.navbar-nav.turquoise {
+    float: right;
+}
 
-    .container {
-        padding-right: 30px;
-        padding-left: 30px;
-    }
+.container {
+    padding-right: 30px;
+    padding-left: 30px;
+}
 
-    .img-responsive{
-        max-width: 100%;
-    }
+.img-responsive{
+    max-width: 100%;
+}
 
-    ul.list-inline.liens {
-        padding-top: 0;
-    }
+ul.list-inline.liens {
+    padding-top: 0;
+}
 
 
 }
 
 @media (max-width: 1199px){
 
-    .menu-general {
-        padding-top: 0;
-    }
+.menu-general {
+    padding-top: 0;
+}
 
 
 
@@ -321,16 +414,16 @@ img.instagram:hover, img.instagram:focus {
 
 @media (max-width: 960px){
 
-    .title{
-        font-size: 20px;
-        width: 303px;
-    }
+.title{
+    font-size: 20px;
+    width: 303px;
+}
 }
 
 @media (max-width: 767px){
 
-    .title{
-        font-size: 30px;
-        width: 303px;
-    }
+.title{
+    font-size: 30px;
+    width: 303px;
+}
 }
