@@ -406,6 +406,25 @@ img.instagram:hover, img.instagram:focus {
 background-color:#9DC8C8;
 border-radius: 13px;
 }
+.formContact{
+    margin-top: 65px;
+}
+.formulaire_contact{
+    border: none;
+    border-radius: inherit;
+    box-shadow: none;
+    background-color: inherit;
+    border-bottom: 2px solid #519D9E;
+    width: inherit;
+}
+
+.message_contact{
+    border: 2px solid #519D9E;
+    border-radius: 23px;
+    height: 113px !important;
+    width: 288px !important;
+    margin-top: 20px;
+}
 
 @media (max-width: 768px){
 
