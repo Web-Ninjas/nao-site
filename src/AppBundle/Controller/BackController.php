@@ -42,7 +42,7 @@ class BackController extends Controller
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('profil');
+            return $this->redirectToRoute('dashboard_profil');
         }
 
         $this->addFlash('notice', 'Votre profil a bien été modifié !');

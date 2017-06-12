@@ -1,11 +1,11 @@
 {% extends "back-layout.html.twig" %}
 
 {% set couleurs = {
-1: 'black',
-2: '#519D9E',
-3: 'green',
-4: 'orange',
-5: 'red'
+'A valider': 'black',
+'Validée': '#519D9E',
+'A modifier': 'green',
+'Signalée': 'orange',
+'Supprimée': 'red'
 } %}
 
 {% block content %}
@@ -53,7 +53,7 @@
                         {{ observation.date | date('d-m-Y') }}
                     </td>
                     <td>
-                        <span style="color: {{ couleurs[observation.status.id] }}">{{ observation.status.statut }}</span>
+                        <span style="color: {{ couleurs[observation.status] }}">{{ observation.status }}</span>
                     </td>
                     <td class="content_observation">
                         <div class="tableau_observation">
@@ -62,9 +62,9 @@
 
                     </td>
                     <td class="tableau_action action">
-                        {% if  observation.status.id == 2 %}
+                        {% if  observation.status ==  constant('AppBundle\\Entity\\Observation::VALIDEE') %}
                             <span class=" glyphicon glyphicon glyphicon-ok icone" title="Observation publiée"></span>
-                        {% elseif observation.status.id == 5 %}
+                        {% elseif observation.status ==  constant('AppBundle\\Entity\\Observation::SUPPRIMEE')   %}
                             <span class=" glyphicon glyphicon glyphicon-trash icone"
                                   title="Supprimer le commentaire"></span>
                         {% else %}

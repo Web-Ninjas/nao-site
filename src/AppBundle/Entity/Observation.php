@@ -13,6 +13,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Observation
 {
+
+    const A_VALIDER = "A valider";
+    const VALIDEE = "Validée";
+    const A_MODIFIER = "A modifier";
+    const SIGNALEE = "Signalée";
+    const SUPPRIMEE = "Supprimée";
+    
     /**
      * @var int
      *
@@ -96,8 +103,7 @@ class Observation
     /**
      * @var int
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Statut")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(name="status", type="string", length=255)
      */
     private $status;
 
