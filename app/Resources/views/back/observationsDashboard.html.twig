@@ -1,11 +1,11 @@
 {% extends "back-layout.html.twig" %}
 
 {% set couleurs = {
-    1: 'black',
-    2: '#519D9E',
-    3: 'green',
-    4: 'orange',
-    5: 'red'
+1: 'black',
+2: '#519D9E',
+3: 'green',
+4: 'orange',
+5: 'red'
 } %}
 
 {% block content %}
@@ -44,9 +44,9 @@
                         {{ observation.id }}
                     </td>
                     <td class="taille_td">
-                    {% if observation.oiseau.nomVern is not empty %}
-                        {{ observation.oiseau.nomVern }}<br>
-                    {% endif %}
+                        {% if observation.oiseau.nomVern is not empty %}
+                            {{ observation.oiseau.nomVern }}<br>
+                        {% endif %}
                         {{ observation.oiseau.nomValide }}
                     </td>
                     <td>
@@ -62,11 +62,16 @@
 
                     </td>
                     <td class="tableau_action action">
-                       <span class=" glyphicon glyphicon-eye-open icone"></span></span>
-                            <span class=" glyphicon glyphicon-pencil icone"></span></span>
-                            <span class=" glyphicon glyphicon glyphicon-ok icone"></span></span>
-                            <span class=" glyphicon glyphicon glyphicon-trash icone"></span></span>
-
+                        {% if  observation.status.id == 2 %}
+                            <span class=" glyphicon glyphicon glyphicon-ok icone" title="Observation publiée"></span>
+                        {% elseif observation.status.id == 5 %}
+                            <span class=" glyphicon glyphicon glyphicon-trash icone"
+                                  title="Supprimer le commentaire"></span>
+                        {% else %}
+                            <span class=" glyphicon glyphicon-eye-open icone" title="Voir l'observation"></span>
+                            <span class=" glyphicon glyphicon-pencil icone" title="Modifier l'observation"></span>
+                            <span class=" glyphicon glyphicon glyphicon-trash icone" title="Supprimer l'observation"></span>
+                        {% endif %}
                     </td>
 
                 </tr>
