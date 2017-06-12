@@ -1,0 +1,18 @@
+UserBundle\Entity\User:
+    user_{1..10}:
+        username (unique): <userName()>
+        roles: [ROLE_PARTICULIER]
+        name: <name()>
+        firstName: <firstName()>
+        birthDate: <dateTime()>
+        email: <email()>
+        password: <password()>
+        registrationDate: <dateTime()>
+
+AppBundle\Entity\Article:
+    article_{1..15}:
+        author: '@user*'
+        date: <dateTime()>
+        title: <text($maxNbChars = 10)>
+        content: <text($maxNbChars = 400)>
+        photo: <imageUrl($width = 640, $height = 480, 'nature')>

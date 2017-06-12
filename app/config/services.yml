@@ -33,3 +33,12 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+    UserBundle\Controller\UserController:
+        autowire: true
+        tags: ['controller.service_arguments']
+
+    twig.extension.text:
+       class: Twig_Extensions_Extension_Text
+       tags:
+           - { name: 'twig.extension' }

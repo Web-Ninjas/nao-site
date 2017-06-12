@@ -2,7 +2,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Article;
 use AppBundle\Form\ContactType;
+use AppBundle\Form\Model\Contact;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -17,7 +19,13 @@ class FrontController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->render('front/index.html.twig');
+            $page = $this->getDoctrine()->getRepository('AppBundle:Page')->findOneBy(
+            	array('nameIdentifier' => 'accueil')          	
+            	);
+
+            return $this->render('front/index.html.twig', array(
+                'page' => $page,
+            ));
     }
 
     /**
@@ -27,7 +35,9 @@ class FrontController extends Controller
     public function ContactAction(Request $request)
     {
 
-        $form = $this->get('form.factory')->create(ContactType::class);
+        $contact = new Contact();
+
+        $form = $this->get('form.factory')->create(ContactType::class, $contact);
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
@@ -35,21 +45,93 @@ class FrontController extends Controller
             if ($form->isSubmitted() && $form->isValid()) {
                 $message = \Swift_Message::newInstance()
                     ->setContentType('text/html')//Message en HTML
-                    ->setSubject("NAO - Contact de :" . $contact->getEmail())//Email devient le sujet de mon objet contact
-                    ->setFrom($this->getParameter('mailer_user'))// Email de l'expéditeur est le destinataire du mail
+                    ->setSubject("NAO - Contact de :" . $contact->getNom() ." ".$contact->getPrenom())//Email devient le sujet de mon objet contact
+                    ->setFrom($contact->getEmail())// Email de l'expéditeur est le destinataire du mail
                     ->setTo($this->getParameter('mailer_user'))// destinataire du mail
-                    ->setBody($contact->getContenu()); // contenu du mail
+                    ->setBody("Message : " .$contact->getContenu()); // contenu du mail
 
                 $this->get('mailer')->send($message);//Envoi mail
 
                 $this->addFlash('notice', 'Votre message a bien été envoyé !');
 
-                return $this->redirectToRoute('front/index.html.twig');
+                return $this->redirectToRoute('homepage');
             }
         }
 
         return $this->render('front/contact.html.twig', array(
             'form' => $form->createView(),
+        ));
+    }
+
+    /**
+     * @Route("/mentions", name="mentions")
+     */
+    public function mentionsAction()
+    {
+
+        $page = $this->getDoctrine()->getRepository('AppBundle:Page')->findOneBy(
+        	array('nameIdentifier' => 'mentions légales')
+        	);
+
+        return $this->render('front/mentions.html.twig', array(
+            'page' => $page,
+        ));
+    }
+
+    /**
+     * @Route("/actualites/{page}", requirements={"page" = "\d+"}, defaults={"page" = 1}, name="actualites")
+    */
+    public function newsAction($page)
+    {
+    	// On cherche les 4 premiers articles pour les afficher
+    	$em = $this->getDoctrine()->getManager();
+    	$listArticles = $em->getRepository('AppBundle:Article')
+    		->findBy(
+    			array(),
+    			array('date' => 'desc'),
+    			4,
+    			($page - 1) * 4
+    		);
+
+    	return $this->render('front/news.html.twig', array(
+    		'listArticles' => $listArticles,
+    		'page' => $page
+    		));
+    }
+
+    /**
+     * @Route("/article/{id}", requirements={"id" = "\d+"}, name="article")
+     * @param Article $article
+     */
+    public function voirNewsAction(Article $article)
+    {
+        // On cherche les 3 premiers articles pour les afficher
+        $em = $this->getDoctrine()->getManager();
+        $listArticles = $em->getRepository('AppBundle:Article')
+            ->findBy(
+                array(),
+                array('date' => 'desc'),
+                3
+            );
+
+        return $this->render('front/voirNews.html.twig', array(
+            'listArticles' => $listArticles,
+            'article'=>$article,
+        ));
+    }
+
+    /**
+     * @Route("/qui sommes nous", name="about")
+     */
+    public function aboutAction()
+    {
+
+        $page = $this->getDoctrine()->getRepository('AppBundle:Page')->findOneBy(
+            array('nameIdentifier' => 'about')
+        );
+
+        return $this->render('front/about.html.twig', array(
+            'page' => $page,
         ));
     }
 }

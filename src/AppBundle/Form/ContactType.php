@@ -33,15 +33,11 @@ class ContactType extends AbstractType
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
-            'data_class' => null,
-        ]);
+        $resolver->setDefaults(array(
+            'data_class' => 'AppBundle\Form\Model\Contact'
+        ));
     }
-
 
 }
