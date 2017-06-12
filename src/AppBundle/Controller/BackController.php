@@ -69,7 +69,7 @@ class BackController extends Controller
         if ($isSeulementMoi) {
             $observations = $repository->findBy(['author' => $this->getUser()],array("id" => "desc"));
         } else {
-            $observations = $repository->findAll();
+            $observations = $repository->findBy(array(),array("id" => "desc"));
         }
 
 
@@ -82,19 +82,12 @@ class BackController extends Controller
      * @Route("/dashboard/all_observations", name="dashboard_all_observations")
      * @Method({"GET","POST"})
      */
-    public function AllObservationsAction(Request $request)
+    public function AllObservationsAction()
     {
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AppBundle:Observation');
 
-        $isSeulementMoi = $request->query->has('only-me');
-
-
-        if ($isSeulementMoi) {
-            $observations = $repository->findBy(['author' => $this->getUser()],array("id" => "desc"));
-        } else {
-            $observations = $repository->findAll();
-        }
+        $observations = $repository->findBy(array(), array("id" => "desc"));
 
 
         return $this->render('back/allObservationsDashboard.html.twig', array(
@@ -189,4 +182,21 @@ class BackController extends Controller
             "id" => $observation->getId()));
 
     }
+
+    /**
+     * @Route("/dashboard/all_articles", name="dashboard_all_articles")
+     * @Method({"GET","POST"})
+     */
+    public function AllArticlesAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('AppBundle:Article');
+        
+        $articles = $repository->findBy(array(),array("id" => "desc"));
+     
+        return $this->render('back/allArticlesDashboard.html.twig', array(
+            'articles' => $articles,
+        ));
+    }
+
 }
