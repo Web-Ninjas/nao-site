@@ -1,0 +1,21 @@
+{% extends "layout.html.twig" %}
+
+{% block body %}
+
+<h2>Observation</h2>
+
+    <h3>{% if observation.oiseau.nomVern is not empty %}
+            {{ observation.oiseau.nomVern }}<br>
+        {% endif %}
+        {{ observation.oiseau.nomValide }}</h3>
+
+    <div>Lieu :</div>
+
+    <div>Date : {{ observation.date | date('d-m-Y') }}</div>
+    <div>Heure : </div>
+
+    <div>Observation : {{ observation.content|raw }}</div>
+    <div>Photo : </div>
+    <div>Son enregistré : </div>
+    <div>Fiche de l'éspèce : </div>
+{% endblock %}

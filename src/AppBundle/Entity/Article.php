@@ -58,6 +58,7 @@ class Article
      *
      * @ORM\Column(name="photo", type="string", length=255)
      * @Assert\NotBlank()
+     * @Assert\File(mimeTypes={ "image/jpeg", "image/png", "image/jpg"})
      * @Assert\Image
      */
     private $photo;

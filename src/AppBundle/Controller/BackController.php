@@ -2,20 +2,21 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Observation;
 use AppBundle\Form\ProfilType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use Symfony\Component\HttpFoundation\Request;
 
 
 class BackController extends Controller
 {
     /**
-     * @Route("/dashboard/profil", name="profil")
+     * @Route("/dashboard/profil", name="dashboard_profil")
      * @Method({"GET","POST"})
      */
-    public function profilAction(\Symfony\Component\HttpFoundation\Request $request)
+    public function profilAction(Request $request)
     {
 
         $user = $this->getUser();
@@ -48,6 +49,30 @@ class BackController extends Controller
 
         return $this->render('back/profilDashboard.html.twig', array(
             'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * @Route("/dashboard/observations", name="dashboard_observations")
+     * @Method({"GET","POST"})
+     */
+    public function observationsAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('AppBundle:Observation');
+
+        $isSeulementMoi = $request->query->has('only-me');
+
+
+        if ($isSeulementMoi) {
+            $observations = $repository->findBy(['author' => $this->getUser()],array("id" => "desc"));
+        } else {
+            $observations = $repository->findAll();
+        }
+
+
+        return $this->render('back/observationsDashboard.html.twig', array(
+            'observations' => $observations,
         ));
     }
 }

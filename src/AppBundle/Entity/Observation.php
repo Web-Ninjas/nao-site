@@ -25,16 +25,17 @@ class Observation
     /**
     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\OiseauTaxref")
     * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotBlank()
+    * @Assert\NotBlank()
     */
     private $oiseau;
 
     /**
     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
     * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotBlank()
+    * @Assert\NotBlank()
     */
     private $author;
+    
 
     /**
      * @var \DateTime
@@ -80,6 +81,7 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="photo", type="string", length=255, nullable=true)
+     * @Assert\File(mimeTypes={ "image/jpeg", "image/png", "image/jpg"})
      * @Assert\Image
      */
     private $photo;
@@ -94,7 +96,8 @@ class Observation
     /**
      * @var int
      *
-     * @ORM\Column(name="status", type="integer")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Statut")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $status;
 
@@ -112,7 +115,7 @@ class Observation
      */
     private $deleted;
 
-
+    
     /**
      * Get id
      *
@@ -123,6 +126,38 @@ class Observation
         return $this->id;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getOiseau()
+    {
+        return $this->oiseau;
+    }
+
+    /**
+     * @param mixed $oiseau
+     */
+    public function setOiseau($oiseau)
+    {
+        $this->oiseau = $oiseau;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param mixed $author
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+    }
+    
     /**
      * Set date
      *
