@@ -28,7 +28,6 @@ class ProfilType extends AbstractType
             ->add('username', TextType::class)
             ->add('email',    EmailType::class, array('constraints' =>(array(new Email())))  )
             ->add('birthDate', BirthdayType::class)
-            ->add('plainPassword', PasswordType::class)
             ->add('enregistrer',      SubmitType::class)
         ;
     }
@@ -36,7 +35,8 @@ class ProfilType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'UserBundle\Entity\User'
+            'data_class' => 'UserBundle\Entity\User',
+            'allow_extra_fields' => true,
         ));
     }
 

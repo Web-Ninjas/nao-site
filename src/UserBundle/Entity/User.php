@@ -90,7 +90,7 @@ class User implements UserInterface
      * @Assert\Regex(
      *  pattern="/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{7,}/",
      *  message="Le mot de passe doit avoir au moins 7 caractères et contenir au moins 1 chiffre, une majuscule et une minuscule.")
-     * @Assert\NotBlank()
+     *
      * @Assert\Length(max=4096)
      *
      */

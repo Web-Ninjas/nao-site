@@ -240,6 +240,12 @@ li.color  {
     color: white;
 }
 
+.password a{
+    margin-top: 18px;
+    color: white;
+}
+
+
 input.recherche{
     float: right;
     padding: 5px;

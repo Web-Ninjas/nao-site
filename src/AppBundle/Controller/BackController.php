@@ -29,6 +29,7 @@ class BackController extends Controller
 
         if ($form->isSubmitted() && $form->isValid() )
         {
+            
             /*// Si l'utilisateur a demandé à être naturaliste on modifie la propriété demandeNaturaliste en DateTime
             if ($request->getContent('demandeNaturaliste') === '1')
             {
