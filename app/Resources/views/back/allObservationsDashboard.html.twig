@@ -81,10 +81,10 @@
                             <a href="#">
                                 <span class=" glyphicon glyphicon-share-alt icone" title="Observation à modifier"></span>
                             </a>
-                            <a href="{{ path('validerObservation', {'id': observation.id}) }}">
+                            <a href="{{ path('validerObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
                                 <span class=" glyphicon glyphicon-ok icone" title="Valider l'observation"></span>
                             </a>
-                            <a href="#">
+                            <a href="{{ path('supprimerObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
                                 <span class=" glyphicon glyphicon-trash icone" title="Supprimer l'observation"></span>
                             </a>
 
@@ -98,13 +98,13 @@
                             <a href="#">
                                 <span class=" glyphicon glyphicon-share-alt icone" title="Observation à modifier"></span>
                             </a>
-                            <a href="{{ path('validerObservation', {'id': observation.id}) }}">
+                            <a href="{{ path('validerObservation', {'id': observation.id,'redirect': 'all_observations'}) }}">
                                 <span class=" glyphicon glyphicon-ok icone" title="Valider l'observation"></span>
                             </a>
-                            <a href="{{ path('signalerObservation', {'id': observation.id}) }}">
+                            <a href="{{ path('signalerObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
                                 <span class=" glyphicon glyphicon-exclamation-sign icone" title="Signaler l'observation"></span>
                             </a>
-                            <a href="#">
+                            <a href="{{ path('supprimerObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
                                 <span class=" glyphicon glyphicon-trash icone" title="Supprimer l'observation"></span>
                             </a>
                         {% endif %}

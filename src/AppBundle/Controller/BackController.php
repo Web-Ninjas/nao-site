@@ -108,8 +108,10 @@ class BackController extends Controller
      * @param Observation $observation
      * @ParamConverter()
      */
-    public function validerObservationAction(Observation $observation)
+    public function validerObservationAction(Observation $observation, Request $request)
     {
+        $redirect = $request->query->get('redirect');
+        
         $em = $this->getDoctrine()->getManager();
         $observation
             ->setStatus(Observation::VALIDEE)
@@ -118,7 +120,11 @@ class BackController extends Controller
         $em->flush();
 
         $this->addFlash('notice', "L'observation a bien été validée !");
-
+        
+        if ($redirect === 'all_observations') {
+            return $this->redirectToRoute('dashboard_all_observations');
+        }
+        
         return $this->redirectToRoute('observation', array(
             "id" => $observation->getId()));
 
@@ -130,8 +136,10 @@ class BackController extends Controller
      * @param Observation $observation
      * @ParamConverter()
      */
-    public function signalerAction(Observation $observation)
+    public function signalerAction(Observation $observation, Request $request)
     {
+        $redirect = $request->query->get('redirect');
+
         $em = $this->getDoctrine()->getManager();
         $observation
             ->setStatus(Observation::SIGNALEE)
@@ -140,8 +148,13 @@ class BackController extends Controller
 
         $this->addFlash('notice', "L'observation a bien été signalée !");
 
+        if ($redirect === 'all_observations') {
+            return $this->redirectToRoute('dashboard_all_observations');
+        }
+
         return $this->redirectToRoute('observation', array(
-            "id" => $observation->getId()));
+            "id" => $observation->getId())
+        );
 
     }
 
@@ -151,8 +164,10 @@ class BackController extends Controller
      * @param Observation $observation
      * @ParamConverter()
      */
-    public function supprimerObservationAction(Observation $observation)
+    public function supprimerObservationAction(Observation $observation, Request $request)
     {
+        $redirect = $request->query->get('redirect');
+        
         $em = $this->getDoctrine()->getManager();
         $observation
             ->setStatus(Observation::SUPPRIMEE)
@@ -161,6 +176,14 @@ class BackController extends Controller
         $em->flush();
 
         $this->addFlash('notice', "L'observation a bien été supprimée !");
+
+        if ($redirect === 'all_observations') {
+            return $this->redirectToRoute('dashboard_all_observations');
+        }
+
+        if ($redirect === 'observations') {
+            return $this->redirectToRoute('dashboard_observations');
+        }
 
         return $this->redirectToRoute('observation', array(
             "id" => $observation->getId()));
