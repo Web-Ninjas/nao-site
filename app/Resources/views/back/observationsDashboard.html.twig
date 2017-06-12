@@ -3,9 +3,9 @@
 {% set couleurs = {
 'A valider': 'black',
 'Validée': '#519D9E',
-'A modifier': 'green',
-'Signalée': 'orange',
-'Supprimée': 'red'
+'A modifier': 'orange',
+'Signalée': '#ff6000',
+'Supprimée': '#d30000'
 } %}
 
 {% block content %}
@@ -63,14 +63,23 @@
                     </td>
                     <td class="tableau_action action">
                         {% if  observation.status ==  constant('AppBundle\\Entity\\Observation::VALIDEE') %}
-                            <span class=" glyphicon glyphicon glyphicon-ok icone" title="Observation publiée"></span>
-                        {% elseif observation.status ==  constant('AppBundle\\Entity\\Observation::SUPPRIMEE')   %}
-                            <span class=" glyphicon glyphicon glyphicon-trash icone"
-                                  title="Supprimer le commentaire"></span>
+                            <a href="{{ path('observation', {'id': observation.id}) }}">
+                                <span class=" glyphicon glyphicon-eye-open icone" title="Voir l'observation"></span>
+                            </a>
+                        {% elseif observation.status ==  constant('AppBundle\\Entity\\Observation::SUPPRIMEE') %}
+                            <a href="#">
+                                <span class=" glyphicon glyphicon-trash icone" title="Supprimer le commentaire"></span>
+                            </a>
                         {% else %}
-                            <a  href="{{ path('observation', {'id': observation.id}) }}"><span class=" glyphicon glyphicon-eye-open icone" title="Voir l'observation"></span></a>
-                            <span class=" glyphicon glyphicon-pencil icone" title="Modifier l'observation"></span>
-                            <span class=" glyphicon glyphicon glyphicon-trash icone" title="Supprimer l'observation"></span>
+                            <a href="{{ path('observation', {'id': observation.id}) }}">
+                                <span class=" glyphicon glyphicon-eye-open icone" title="Voir l'observation"></span>
+                            </a>
+                            <a href="#">
+                                <span class=" glyphicon glyphicon-pencil icone" title="Modifier l'observation"></span>
+                            </a>
+                            <a href="#">
+                                <span class=" glyphicon glyphicon-trash icone" title="Supprimer l'observation"></span>
+                            </a>
                         {% endif %}
                     </td>
 

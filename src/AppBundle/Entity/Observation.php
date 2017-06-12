@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use UserBundle\Entity\User;
 
 /**
  * Observation
@@ -110,7 +111,7 @@ class Observation
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="publish", type="datetime")
+     * @ORM\Column(name="publish", type="datetime", nullable=true)
      */
     private $publish;
 
@@ -121,7 +122,31 @@ class Observation
      */
     private $deleted;
 
-    
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $validateur;
+
+    /**
+     * @return mixed
+     */
+    public function getValidateur()
+    {
+        return $this->validateur;
+    }
+
+    /**
+     * @param User $validateur
+     */
+    public function setValidateur(User $validateur)
+    {
+        $this->validateur = $validateur;
+    }
+
+
     /**
      * Get id
      *

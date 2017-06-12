@@ -265,6 +265,14 @@ input.recherche{
     font-size: 16px;
 }
 
+.glyphicon-share-alt{
+    color: orange;
+}
+
+.glyphicon-exclamation-sign{
+    color: #ff6000;
+}
+
 .tableau{
     padding-right: 10px;
     padding-left: 10px;
@@ -321,7 +329,11 @@ th{
 }
 
 .glyphicon-trash{
-    color: red;
+    color: #d30000;
+}
+
+.glyphicon-pencil{
+    color: black;
 }
 
 .icone{

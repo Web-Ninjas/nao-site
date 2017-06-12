@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Observation;
 use AppBundle\Form\ProfilType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -99,5 +100,70 @@ class BackController extends Controller
         return $this->render('back/allObservationsDashboard.html.twig', array(
             'observations' => $observations,
         ));
+    }
+
+    /**
+     * @Route("/dashboard/observations/{id}/valider", requirements={"id" = "\d+"}, name="validerObservation")
+     * @Method({"GET","POST"})
+     * @param Observation $observation
+     * @ParamConverter()
+     */
+    public function validerObservationAction(Observation $observation)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $observation
+            ->setStatus(Observation::VALIDEE)
+            ->setPublish(new \Datetime())
+            ->setValidateur($this->getUser());
+        $em->flush();
+
+        $this->addFlash('notice', "L'observation a bien été validée !");
+
+        return $this->redirectToRoute('observation', array(
+            "id" => $observation->getId()));
+
+    }
+
+    /**
+     * @Route("/dashboard/observations/{id}/signaler", requirements={"id" = "\d+"}, name="signalerObservation")
+     * @Method({"GET","POST"})
+     * @param Observation $observation
+     * @ParamConverter()
+     */
+    public function signalerAction(Observation $observation)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $observation
+            ->setStatus(Observation::SIGNALEE)
+            ->setValidateur($this->getUser());;
+        $em->flush();
+
+        $this->addFlash('notice', "L'observation a bien été signalée !");
+
+        return $this->redirectToRoute('observation', array(
+            "id" => $observation->getId()));
+
+    }
+
+    /**
+     * @Route("/dashboard/observations/{id}/supprimer", requirements={"id" = "\d+"}, name="supprimerObservation")
+     * @Method({"GET","POST"})
+     * @param Observation $observation
+     * @ParamConverter()
+     */
+    public function supprimerObservationAction(Observation $observation)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $observation
+            ->setStatus(Observation::SUPPRIMEE)
+            ->setDeleted(new \Datetime())
+            ->setValidateur($this->getUser());
+        $em->flush();
+
+        $this->addFlash('notice', "L'observation a bien été supprimée !");
+
+        return $this->redirectToRoute('observation', array(
+            "id" => $observation->getId()));
+
     }
 }
