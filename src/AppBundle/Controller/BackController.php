@@ -184,18 +184,34 @@ class BackController extends Controller
     }
 
     /**
-     * @Route("/dashboard/all_articles", name="dashboard_all_articles")
-     * @Method({"GET","POST"})
-     */
+ * @Route("/dashboard/all_articles", name="dashboard_all_articles")
+ * @Method({"GET","POST"})
+ */
     public function AllArticlesAction()
     {
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AppBundle:Article');
-        
+
         $articles = $repository->findBy(array(),array("id" => "desc"));
-     
+
         return $this->render('back/allArticlesDashboard.html.twig', array(
             'articles' => $articles,
+        ));
+    }
+
+    /**
+     * @Route("/dashboard/utilisateurs", name="dashboard_utilisateurs")
+     * @Method({"GET","POST"})
+     */
+    public function UtilisateursAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('UserBundle:User');
+
+        $utilisateurs = $repository->findBy(array(),array("id" => "desc"));
+
+        return $this->render('back/utilisateursDashboard.html.twig', array(
+            'utilisateurs' => $utilisateurs,
         ));
     }
 
