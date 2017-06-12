@@ -12,8 +12,8 @@
             <li class=" {% if app.request.attributes.get('_route') == 'dashboard_observations' %} color {% endif %}">
             <a href="{{ path('dashboard_observations', {'only-me': 'true'}) }}">Mes observations {#{{ nbObservations }}#} </a>
             </li>
-            <li >
-                <a href="{{ path('dashboard_observations') }}">Toutes les observations</a>
+            <li class=" {% if app.request.attributes.get('_route') == 'dashboard_all_observations' %} color {% endif %}">
+                <a href="{{ path('dashboard_all_observations') }}">Toutes les observations</a>
             </li>
             <li>
                 <a href="#">Gestion des articles</a>

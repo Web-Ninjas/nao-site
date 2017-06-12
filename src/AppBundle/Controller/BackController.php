@@ -76,4 +76,28 @@ class BackController extends Controller
             'observations' => $observations,
         ));
     }
+
+    /**
+     * @Route("/dashboard/all_observations", name="dashboard_all_observations")
+     * @Method({"GET","POST"})
+     */
+    public function AllObservationsAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('AppBundle:Observation');
+
+        $isSeulementMoi = $request->query->has('only-me');
+
+
+        if ($isSeulementMoi) {
+            $observations = $repository->findBy(['author' => $this->getUser()],array("id" => "desc"));
+        } else {
+            $observations = $repository->findAll();
+        }
+
+
+        return $this->render('back/allObservationsDashboard.html.twig', array(
+            'observations' => $observations,
+        ));
+    }
 }
