@@ -13,12 +13,12 @@
     {# Génération manuelle et éclatée : #}
     <div class="form-group">
         {# Génération du label. #}
-        {{ form_label(form.nom, "Nom :", {'label_attr': {'class': 'col-lg-5 control-label  '}}) }}
+        {{ form_label(form.nom, "Nom :", {'label_attr': {'class': 'col-xs-5  control-label  label_contact'}}) }}
 
         {# Affichage des erreurs pour ce champ précis. #}
         {{ form_errors(form.nom) }}
 
-        <div class="col-lg-6">
+        <div class="col-xs-6">
             {# Génération de l'input. #}
             {{ form_widget(form.nom, {'attr': {'class': 'form-control formulaire_contact'}}) }}
         </div>
@@ -26,12 +26,12 @@
 
     <div class="form-group">
         {# Génération du label. #}
-        {{ form_label(form.prenom, "Prénom :", {'label_attr': {'class': 'col-lg-5 control-label '}}) }}
+        {{ form_label(form.prenom, "Prénom :", {'label_attr': {'class': 'col-xs-5 control-label label_contact'}}) }}
 
         {# Affichage des erreurs pour ce champ précis. #}
         {{ form_errors(form.prenom) }}
 
-        <div class="col-lg-6">
+        <div class="col-xs-6">
             {# Génération de l'input. #}
             {{ form_widget(form.prenom, {'attr': {'class': 'form-control formulaire_contact'}}) }}
         </div>
@@ -39,12 +39,12 @@
 
     <div class="form-group">
         {# Génération du label. #}
-        {{ form_label(form.email, "Email :", {'label_attr': {'class': 'col-lg-5 control-label'}}) }}
+        {{ form_label(form.email, "Email :", {'label_attr': {'class': 'col-xs-5 control-label label_contact'}}) }}
 
         {# Affichage des erreurs pour ce champ précis. #}
         {{ form_errors(form.email) }}
 
-        <div class="col-lg-6">
+        <div class="col-xs-6">
             {# Génération de l'input. #}
             {{ form_widget(form.email, {'attr': {'class': 'form-control formulaire_contact'}}) }}
         </div>
@@ -52,18 +52,18 @@
 
     <div class="form-group">
         {# Génération du label. #}
-        {{ form_label(form.contenu, "Votre message :", {'label_attr': {'class': 'col-lg-5 control-label '}}) }}
+        {{ form_label(form.contenu, "Votre message :", {'label_attr': {'class': 'col-xs-5 control-label label_contact'}}) }}
 
         {# Affichage des erreurs pour ce champ précis. #}
         {{ form_errors(form.contenu) }}
 
-        <div class="col-lg-6">
+        <div class="col-xs-6">
             {# Génération de l'input. #}
             {{ form_widget(form.contenu, {'attr': {'class': 'form-control message_contact'}}) }}
         </div>
     </div>
 
-    <div class="col-lg-offset-6">
+    <div class="col-xs-offset-6">
         {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
         {{ form_widget(form.envoyer, {'attr': {'class': 'btn envoyer_formulaire'}}) }}
 
