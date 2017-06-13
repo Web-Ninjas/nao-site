@@ -16,3 +16,5 @@ AppBundle\Entity\Article:
         title: <text($maxNbChars = 10)>
         content: <text($maxNbChars = 400)>
         photo: <imageUrl($width = 640, $height = 480, 'nature')>
+
+

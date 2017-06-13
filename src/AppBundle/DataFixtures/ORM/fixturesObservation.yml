@@ -1,0 +1,11 @@
+AppBundle\Entity\Observation:
+    observation_{1..100}:
+        author: <user()>
+        date: <dateTime($max = 'now')>
+        content: <text($maxNbChars = 200)>
+        longitude: <longitude($min = -1.50, $max = 6.20)>
+        latitude: <latitude($min = 43.50, $max = 49)>
+        photo: <imageUrl($width = 640, $height = 480, 'animals')>
+        status: <status()>
+        publish: <dateTime($max = 'now')>
+        oiseau: <oiseau()>

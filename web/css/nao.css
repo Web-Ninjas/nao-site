@@ -1,9 +1,30 @@
-body{
+body, html {
     background-color:#FFFFFF;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#map
+{
+    height: 400px;
+    width: 100%;
 }
 
 .header {
 padding-top: 30px;
+}
+
+#search
+{
+    position: relative;
+    z-index: 1;
+    left: 6px;
+    top: -27px;
+    color: #7B7B7B;
+    cursor:pointer;
+    width: 0;
 }
 
 p 

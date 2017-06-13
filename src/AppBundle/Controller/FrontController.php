@@ -156,4 +156,16 @@ class FrontController extends Controller
             'page' => $page,
         ));
     }
+
+    /**
+    * @Route("/rechercher", name="map")
+    */
+    public function map()
+    {
+    	$listObservations = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->findAll();
+
+    	return $this->render('front/map.html.twig', [
+    		'observations' => $listObservations
+    		]);
+    }
 }
