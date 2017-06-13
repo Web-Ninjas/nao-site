@@ -128,11 +128,57 @@ class User implements UserInterface
      */
     private $deleted;
 
+    /**
+     * @var
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Article", mappedBy="author", fetch="EXTRA_LAZY")
+     */
+    private $articles;
 
+    
+    /**
+     * @var
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Observation", mappedBy="author", fetch="EXTRA_LAZY")
+     */
+    private $observations;
+
+
+    
     public function __construct()
     {
         $this->registrationDate = new \DateTime();
         $this->roles = ['ROLE_PARTICULIER'];
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getArticles()
+    {
+        return $this->articles;
+    }
+
+    /**
+     * @param mixed $articles
+     */
+    public function setArticles($articles)
+    {
+        $this->articles = $articles;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getObservations()
+    {
+        return $this->observations;
+    }
+
+    /**
+     * @param mixed $observations
+     */
+    public function setObservations($observations)
+    {
+        $this->observations = $observations;
     }
 
     /**

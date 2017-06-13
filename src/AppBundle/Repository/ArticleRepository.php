@@ -10,4 +10,12 @@ namespace AppBundle\Repository;
  */
 class ArticleRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function countNbArticles()
+    {
+        $qb = $this->createQueryBuilder('a');
+        $qb->select('COUNT(a.id)');
+          
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
 }

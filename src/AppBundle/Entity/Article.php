@@ -23,7 +23,7 @@ class Article
     private $id;
 
     /**
-    * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
+    * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User",inversedBy="articles" )
     * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank()
     */
