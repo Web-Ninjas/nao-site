@@ -345,6 +345,12 @@ th{
     padding-right: 10px;
 }
 
+.nb{
+    float: right;
+    color: white;
+    font-size: 18px;
+}
+
 .miniature{
 margin-right: 0;
 margin-left: 0;

@@ -210,9 +210,14 @@ class BackController extends Controller
 
         $utilisateurs = $repository->findBy(array(),array("id" => "desc"));
 
+        $repository= $em->getRepository('AppBundle:Observation');
+        $nbObservations = $repository->countNbObservations();
+
         return $this->render('back/utilisateursDashboard.html.twig', array(
             'utilisateurs' => $utilisateurs,
+            'nbObservations' => $nbObservations,
         ));
     }
+
 
 }
