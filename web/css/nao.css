@@ -341,6 +341,14 @@ th{
     color: black;
 }
 
+.glyphicon-arrow-up{
+    color: #58C9B9;
+}
+
+.glyphicon-arrow-down{
+    color: #ff6000;
+}
+
 .icone{
     padding-right: 10px;
 }

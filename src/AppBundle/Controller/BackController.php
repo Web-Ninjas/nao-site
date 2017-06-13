@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use UserBundle\Entity\User;
 
 
 class BackController extends Controller
@@ -210,14 +211,36 @@ class BackController extends Controller
 
         $utilisateurs = $repository->findBy(array(),array("id" => "desc"));
 
-        $repository= $em->getRepository('AppBundle:Observation');
-        $nbObservations = $repository->countNbObservations();
-
         return $this->render('back/utilisateursDashboard.html.twig', array(
             'utilisateurs' => $utilisateurs,
-            'nbObservations' => $nbObservations,
+
         ));
     }
 
+    /**
+     * @Route("/dashboard/utilisateurs/{id}/supprimer", name="supprimerUtilisateurs")
+     * @Method({"GET","POST"})
+     * @param User $user
+     * @ParamConverter()
+     */
+    public function SupprimerUtilisateursAction(User $user, Request $request)
+    {
+        $redirect = $request->query->get('redirect');
+
+        $em = $this->getDoctrine()->getManager();
+        $user ->setDeleted(new \Datetime());
+        $em->flush();
+
+        $this->addFlash('notice', "L'utilisateur a bien été supprimé !");
+
+        if ($redirect === 'utilisateurs') {
+            return $this->redirectToRoute('dashboard_utilisateurs');
+        }
+        
+
+        return $this->redirectToRoute('', array(
+            "id" => $user->getId()));
+
+    }
 
 }

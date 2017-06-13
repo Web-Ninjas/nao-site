@@ -45,11 +45,11 @@
                         {{ profils[utilisateur.roles[0]] }}
                     </td>
 
-                    <td>
+                    <td class="texte">
                         {{ utilisateur.observations| length }}
                     </td>
 
-                    <td>
+                    <td class="texte">
                         {{ utilisateur.articles| length }}
                     </td>
 
@@ -60,23 +60,19 @@
                     <td class="tableau_action action">
 
                         <a href="#">
-                            <span class=" glyphicon glyphicon-eye-open icone" title="Voir l'article"></span>
-                        </a>
-
-                        <a href="#">
-                            <span class=" glyphicon glyphicon-pencil icone" title="Modifier l'article"></span>
+                            <span class=" glyphicon glyphicon-eye-open icone" title="Détail de l'utilisateur"></span>
                         </a>
                         <a href="#">
-                            <span class=" glyphicon glyphicon-share-alt icone" title="Article à modifier"></span>
+                            <span class=" glyphicon glyphicon-pencil icone" title="Modifier l'utilisateur"></span>
                         </a>
                         <a href="#">
-                            <span class=" glyphicon glyphicon-ok icone" title="Valider l'article"></span>
+                            <span class=" glyphicon glyphicon-arrow-up icone" title="Promouvoir l'utilisateur"></span>
                         </a>
                         <a href="#">
-                            <span class=" glyphicon glyphicon-exclamation-sign icone" title="Signaler l'article"></span>
+                            <span class=" glyphicon glyphicon-arrow-down icone" title="Rétrograder l'utilisateur"></span>
                         </a>
-                        <a href="#">
-                            <span class=" glyphicon glyphicon-trash icone" title="Supprimer l'article"></span>
+                        <a href="{{ path('supprimerUtilisateurs',{'id': utilisateur.id, 'redirect': 'utilisateurs'}) }}">
+                            <span class=" glyphicon glyphicon-trash icone" title="Supprimer l'utilisateur"></span>
                         </a>
                     </td>
 
