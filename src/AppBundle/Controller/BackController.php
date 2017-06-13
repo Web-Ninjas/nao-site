@@ -45,10 +45,12 @@ class BackController extends Controller
             $em->persist($user);
             $em->flush();
 
+            $this->addFlash('notice', 'Votre profil a bien été modifié !');
+
             return $this->redirectToRoute('dashboard_profil');
         }
 
-        $this->addFlash('notice', 'Votre profil a bien été modifié !');
+
 
         return $this->render('back/profilDashboard.html.twig', array(
             'form' => $form->createView()
@@ -221,10 +223,8 @@ class BackController extends Controller
      * @Route("/dashboard/detailUtilisateur/{id}", requirements={"id" = "\d+"}, name="detailUtilisateur")
      * @param User $user
      */
-    public function voirObservationAction(User $user, Request $request)
+    public function voirUtilisateurAction(User $user, Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-
         $form = $this->get('form.factory')->create(ProfilType::class, $user);
 
         $form->handleRequest($request);
@@ -238,7 +238,7 @@ class BackController extends Controller
         }
         
         return $this->render('back/detailUtilisateur.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ));
  
     }
@@ -281,14 +281,10 @@ class BackController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        if ($user->getDemandeNaturaliste()== NULL){
-            $user
-                ->setDemandeNaturaliste(new \Datetime())
-                ->setRoles(['ROLE_NATURALISTE']);
-        }  elseif ($user->getDemandeContributeur()== NULL){
-            $user
-                ->setDemandeContributeur(new \Datetime())
-                ->setRoles(['ROLE_CONTRIBUTEUR']);
+        if (in_array('ROLE_PARTICULIER', $user->getRoles())) {
+            $user->setRoles(['ROLE_NATURALISTE']);
+        }  elseif (in_array('ROLE_NATURALISTE', $user->getRoles())) {
+            $user->setRoles(['ROLE_CONTRIBUTEUR']);
         }
 
         $em->flush();
@@ -300,7 +296,8 @@ class BackController extends Controller
         }
 
         return $this->redirectToRoute('detailUtilisateur', array(
-            "id" => $user->getId()));
+            "id" => $user->getId(),
+        ));
 
     }
 
@@ -316,13 +313,13 @@ class BackController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        if ($user->getRoles()==['ROLE_NATURALISTE']){
+        if (in_array('ROLE_NATURALISTE', $user->getRoles())){
             $user
                 ->setDemandeNaturaliste(NULL)
                 ->setRoles(['ROLE_PARTICULIER']);
-        }  elseif ($user->getRoles()==['ROLE_CONTRIBUTEUR']){
+        }  elseif (in_array('ROLE_CONTRIBUTEUR', $user->getRoles())){
             $user
-                ->setDemandeNaturaliste(NULL)
+                ->setDemandeContributeur(NULL)
                 ->setRoles(['ROLE_NATURALISTE']);
         }
 
