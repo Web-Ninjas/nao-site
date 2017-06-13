@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\User;
+use UserBundle\UserBundle;
 
 
 class BackController extends Controller
@@ -29,9 +30,8 @@ class BackController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid() )
-        {
-            
+        if ($form->isSubmitted() && $form->isValid()) {
+
             /*// Si l'utilisateur a demandé à être naturaliste on modifie la propriété demandeNaturaliste en DateTime
             if ($request->getContent('demandeNaturaliste') === '1')
             {
@@ -68,9 +68,9 @@ class BackController extends Controller
 
 
         if ($isSeulementMoi) {
-            $observations = $repository->findBy(['author' => $this->getUser()],array("id" => "desc"));
+            $observations = $repository->findBy(['author' => $this->getUser()], array("id" => "desc"));
         } else {
-            $observations = $repository->findBy(array(),array("id" => "desc"));
+            $observations = $repository->findBy(array(), array("id" => "desc"));
         }
 
 
@@ -105,7 +105,7 @@ class BackController extends Controller
     public function validerObservationAction(Observation $observation, Request $request)
     {
         $redirect = $request->query->get('redirect');
-        
+
         $em = $this->getDoctrine()->getManager();
         $observation
             ->setStatus(Observation::VALIDEE)
@@ -114,11 +114,11 @@ class BackController extends Controller
         $em->flush();
 
         $this->addFlash('notice', "L'observation a bien été validée !");
-        
+
         if ($redirect === 'all_observations') {
             return $this->redirectToRoute('dashboard_all_observations');
         }
-        
+
         return $this->redirectToRoute('observation', array(
             "id" => $observation->getId()));
 
@@ -137,7 +137,7 @@ class BackController extends Controller
         $em = $this->getDoctrine()->getManager();
         $observation
             ->setStatus(Observation::SIGNALEE)
-            ->setValidateur($this->getUser());;
+            ->setValidateur($this->getUser());
         $em->flush();
 
         $this->addFlash('notice', "L'observation a bien été signalée !");
@@ -147,7 +147,7 @@ class BackController extends Controller
         }
 
         return $this->redirectToRoute('observation', array(
-            "id" => $observation->getId())
+                "id" => $observation->getId())
         );
 
     }
@@ -161,7 +161,7 @@ class BackController extends Controller
     public function supprimerObservationAction(Observation $observation, Request $request)
     {
         $redirect = $request->query->get('redirect');
-        
+
         $em = $this->getDoctrine()->getManager();
         $observation
             ->setStatus(Observation::SUPPRIMEE)
@@ -185,15 +185,15 @@ class BackController extends Controller
     }
 
     /**
- * @Route("/dashboard/all_articles", name="dashboard_all_articles")
- * @Method({"GET","POST"})
- */
+     * @Route("/dashboard/all_articles", name="dashboard_all_articles")
+     * @Method({"GET","POST"})
+     */
     public function AllArticlesAction()
     {
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AppBundle:Article');
 
-        $articles = $repository->findBy(array(),array("id" => "desc"));
+        $articles = $repository->findBy(array(), array("id" => "desc"));
 
         return $this->render('back/allArticlesDashboard.html.twig', array(
             'articles' => $articles,
@@ -209,12 +209,38 @@ class BackController extends Controller
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('UserBundle:User');
 
-        $utilisateurs = $repository->findBy(array(),array("id" => "desc"));
+        $utilisateurs = $repository->findBy(array(), array("id" => "desc"));
 
         return $this->render('back/utilisateursDashboard.html.twig', array(
             'utilisateurs' => $utilisateurs,
 
         ));
+    }
+
+    /**
+     * @Route("/dashboard/detailUtilisateur/{id}", requirements={"id" = "\d+"}, name="detailUtilisateur")
+     * @param User $user
+     */
+    public function voirObservationAction(User $user, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $form = $this->get('form.factory')->create(ProfilType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // On enregistre en bdd
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+        }
+        
+        return $this->render('back/detailUtilisateur.html.twig', array(
+            'form' => $form->createView()
+        ));
+ 
     }
 
     /**
@@ -228,7 +254,7 @@ class BackController extends Controller
         $redirect = $request->query->get('redirect');
 
         $em = $this->getDoctrine()->getManager();
-        $user ->setDeleted(new \Datetime());
+        $user->setDeleted(new \Datetime());
         $em->flush();
 
         $this->addFlash('notice', "L'utilisateur a bien été supprimé !");
@@ -236,11 +262,82 @@ class BackController extends Controller
         if ($redirect === 'utilisateurs') {
             return $this->redirectToRoute('dashboard_utilisateurs');
         }
-        
+
 
         return $this->redirectToRoute('', array(
             "id" => $user->getId()));
 
     }
+
+    /**
+     * @Route("/dashboard/utilisateurs/{id}/promouvoir", name="promouvoirUtilisateurs")
+     * @Method({"GET","POST"})
+     * @param User $user
+     * @ParamConverter()
+     */
+    public function PromouvoirUtilisateursAction(User $user, Request $request)
+    {
+        $redirect = $request->query->get('redirect');
+
+        $em = $this->getDoctrine()->getManager();
+
+        if ($user->getDemandeNaturaliste()== NULL){
+            $user
+                ->setDemandeNaturaliste(new \Datetime())
+                ->setRoles(['ROLE_NATURALISTE']);
+        }  elseif ($user->getDemandeContributeur()== NULL){
+            $user
+                ->setDemandeContributeur(new \Datetime())
+                ->setRoles(['ROLE_CONTRIBUTEUR']);
+        }
+
+        $em->flush();
+
+        $this->addFlash('notice', "L'utilisateur a bien été promu !");
+
+        if ($redirect === 'utilisateurs') {
+            return $this->redirectToRoute('dashboard_utilisateurs');
+        }
+
+        return $this->redirectToRoute('detailUtilisateur', array(
+            "id" => $user->getId()));
+
+    }
+
+    /**
+     * @Route("/dashboard/utilisateurs/{id}/destituer", name="destituerUtilisateurs")
+     * @Method({"GET","POST"})
+     * @param User $user
+     * @ParamConverter()
+     */
+    public function DestituerUtilisateursAction(User $user, Request $request)
+    {
+        $redirect = $request->query->get('redirect');
+
+        $em = $this->getDoctrine()->getManager();
+
+        if ($user->getRoles()==['ROLE_NATURALISTE']){
+            $user
+                ->setDemandeNaturaliste(NULL)
+                ->setRoles(['ROLE_PARTICULIER']);
+        }  elseif ($user->getRoles()==['ROLE_CONTRIBUTEUR']){
+            $user
+                ->setDemandeNaturaliste(NULL)
+                ->setRoles(['ROLE_NATURALISTE']);
+        }
+
+        $em->flush();
+
+        $this->addFlash('notice', "L'utilisateur a bien été rétrogradé !");
+
+        if ($redirect === 'utilisateurs') {
+            return $this->redirectToRoute('dashboard_utilisateurs');
+        }
+
+        return $this->redirectToRoute('detailUtilisateur', array(
+            "id" => $user->getId()));
+
+    }
+
 
 }

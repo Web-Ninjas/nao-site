@@ -59,16 +59,16 @@
 
                     <td class="tableau_action action">
 
-                        <a href="#">
+                        <a href="{{ path('detailUtilisateur',{'id': utilisateur.id}) }}">
                             <span class=" glyphicon glyphicon-eye-open icone" title="Détail de l'utilisateur"></span>
                         </a>
-                        <a href="#">
+                        <a href="{{ path('detailUtilisateur',{'id': utilisateur.id}) }}">
                             <span class=" glyphicon glyphicon-pencil icone" title="Modifier l'utilisateur"></span>
                         </a>
-                        <a href="#">
+                       <a href="{{ path('promouvoirUtilisateurs',{'id': utilisateur.id, 'redirect': 'utilisateurs'}) }}">
                             <span class=" glyphicon glyphicon-arrow-up icone" title="Promouvoir l'utilisateur"></span>
                         </a>
-                        <a href="#">
+                        <a href="{{ path('destituerUtilisateurs',{'id': utilisateur.id, 'redirect': 'utilisateurs'}) }}">
                             <span class=" glyphicon glyphicon-arrow-down icone" title="Rétrograder l'utilisateur"></span>
                         </a>
                         <a href="{{ path('supprimerUtilisateurs',{'id': utilisateur.id, 'redirect': 'utilisateurs'}) }}">
