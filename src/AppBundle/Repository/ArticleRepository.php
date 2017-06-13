@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Repository;
+use UserBundle\Entity\User;
 
 /**
  * ArticleRepository
@@ -17,5 +18,20 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
           
 
         return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function listeArticlesNonSupprimer(User $user = null)
+    {
+        $qb = $this->createQueryBuilder('a');
+        $qb
+            ->orderBy('a.id', 'desc')
+            ->andWhere('a.deleted IS NULL');
+
+        if ($user !== null) {
+            $qb->andWhere('o.author = :author');
+            $qb->setParameter('author', $user);
+        }
+
+        return $qb->getQuery()->getResult();
     }
 }
