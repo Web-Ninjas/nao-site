@@ -46,15 +46,24 @@
                     </td>
 
                     <td class="texte">
-                        {{ utilisateur.observations| length }}
+
+                        {% if    utilisateur.observations| length != 0 %}
+                            {{ utilisateur.observations| length }}
+                        {% endif %}
                     </td>
 
                     <td class="texte">
-                        {{ utilisateur.articles| length }}
+                        {% if utilisateur.articles| length != 00 %}
+                            {{ utilisateur.articles| length }}
+                        {% endif %}
                     </td>
 
-                    <td>
-
+                    <td class="texte">
+                {% if (utilisateur.demandeContributeur != false)  and (utilisateur.roles != ['ROLE_CONTRIBUTEUR'])%}
+                    Contributeur ?
+                {% elseif  (utilisateur.demandeNaturaliste  != false) and  (utilisateur.roles != ['ROLE_NATURALISTE']) and (utilisateur.roles != ['ROLE_CONTRIBUTEUR'])%}
+                    Naturaliste ?
+                {% endif %}
                     </td>
 
                     <td class="tableau_action action">
@@ -65,11 +74,12 @@
                         <a href="{{ path('detailUtilisateur',{'id': utilisateur.id}) }}">
                             <span class=" glyphicon glyphicon-pencil icone" title="Modifier l'utilisateur"></span>
                         </a>
-                       <a href="{{ path('promouvoirUtilisateurs',{'id': utilisateur.id, 'redirect': 'utilisateurs'}) }}">
+                        <a href="{{ path('promouvoirUtilisateurs',{'id': utilisateur.id, 'redirect': 'utilisateurs'}) }}">
                             <span class=" glyphicon glyphicon-arrow-up icone" title="Promouvoir l'utilisateur"></span>
                         </a>
                         <a href="{{ path('destituerUtilisateurs',{'id': utilisateur.id, 'redirect': 'utilisateurs'}) }}">
-                            <span class=" glyphicon glyphicon-arrow-down icone" title="Rétrograder l'utilisateur"></span>
+                            <span class=" glyphicon glyphicon-arrow-down icone"
+                                  title="Rétrograder l'utilisateur"></span>
                         </a>
                         <a href="{{ path('supprimerUtilisateurs',{'id': utilisateur.id, 'redirect': 'utilisateurs'}) }}">
                             <span class=" glyphicon glyphicon-trash icone" title="Supprimer l'utilisateur"></span>
