@@ -2,7 +2,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Article;
 use AppBundle\Entity\Observation;
+use AppBundle\Form\OservationType;
 use AppBundle\Form\ProfilType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -51,7 +53,6 @@ class BackController extends Controller
         }
 
 
-
         return $this->render('back/profilDashboard.html.twig', array(
             'form' => $form->createView()
         ));
@@ -67,7 +68,7 @@ class BackController extends Controller
         $repository = $em->getRepository('AppBundle:Observation');
 
         $observations = $repository->listeObservationsNonSupprimer($this->getUser());
-        
+
         return $this->render('back/observationsDashboard.html.twig', array(
             'observations' => $observations,
         ));
@@ -124,7 +125,7 @@ class BackController extends Controller
      * @param Observation $observation
      * @ParamConverter()
      */
-    public function signalerAction(Observation $observation, Request $request)
+    public function signalerObservationAction(Observation $observation, Request $request)
     {
         $redirect = $request->query->get('redirect');
 
@@ -179,20 +180,88 @@ class BackController extends Controller
     }
 
     /**
+     * @Route("/dashboard/observations/{id}/demandeDeModification", requirements={"id" = "\d+"}, name="demandeDeModificationObservation")
+     * @Method({"GET","POST"})
+     * @param Observation $observation
+     * @ParamConverter()
+     */
+    public function demandeDeModificationObservationAction(Observation $observation, Request $request)
+    {
+        $redirect = $request->query->get('redirect');
+
+        $em = $this->getDoctrine()->getManager();
+        $observation
+            ->setStatus(Observation::A_MODIFIER)
+            ->setValidateur($this->getUser());
+        $em->flush();
+
+
+        /*Swift_Message::newInstance*/
+
+
+        $this->addFlash('notice', "La demande de modification de l'observation a bien été envoyée !");
+
+        if ($redirect === 'all_observations') {
+            return $this->redirectToRoute('dashboard_all_observations');
+        }
+
+        if ($redirect === 'observations') {
+            return $this->redirectToRoute('dashboard_observations');
+        }
+
+        return $this->redirectToRoute('observation', array(
+            "id" => $observation->getId()));
+
+    }
+
+
+    /**
      * @Route("/dashboard/all_articles", name="dashboard_all_articles")
      * @Method({"GET","POST"})
      */
-    public function allArticlesAction()
+    public function allArticlesAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AppBundle:Article');
 
-        $articles = $repository->findBy(array(), array("id" => "desc"));
+        $isSeulementMoi = $request->query->has('only-me');
 
+        if ($isSeulementMoi) {
+            $articles = $repository->findBy(['author' => $this->getUser()],array("id" => "desc"));
+        } else {
+            $articles = $repository->listeArticlesNonSupprimer();
+        }
         return $this->render('back/allArticlesDashboard.html.twig', array(
             'articles' => $articles,
         ));
     }
+
+    /**
+     * @Route("/dashboard/article/{id}/supprimer", requirements={"id" = "\d+"}, name="supprimerArticle")
+     * @Method({"GET","POST"})
+     * @param Article $article
+     * @ParamConverter()
+     */
+    public function supprimerArticleAction(Article $article, Request $request)
+    {
+        $redirect = $request->query->get('redirect');
+
+        $em = $this->getDoctrine()->getManager();
+        $article
+            ->setDeleted(new \Datetime());
+        $em->flush();
+
+        $this->addFlash('notice', "L'article a bien été supprimé !");
+
+        if ($redirect === 'all_articles') {
+            return $this->redirectToRoute('dashboard_all_articles');
+        }
+
+        return $this->redirectToRoute('article', array(
+            "id" => $observation->getId()));
+
+    }
+
 
     /**
      * @Route("/dashboard/utilisateurs", name="dashboard_utilisateurs")
@@ -228,11 +297,11 @@ class BackController extends Controller
             $em->persist($user);
             $em->flush();
         }
-        
+
         return $this->render('back/detailUtilisateur.html.twig', array(
             'form' => $form->createView(),
         ));
- 
+
     }
 
     /**
@@ -275,7 +344,7 @@ class BackController extends Controller
 
         if (in_array('ROLE_PARTICULIER', $user->getRoles())) {
             $user->setRoles(['ROLE_NATURALISTE']);
-        }  elseif (in_array('ROLE_NATURALISTE', $user->getRoles())) {
+        } elseif (in_array('ROLE_NATURALISTE', $user->getRoles())) {
             $user->setRoles(['ROLE_CONTRIBUTEUR']);
         }
 
@@ -305,11 +374,11 @@ class BackController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        if (in_array('ROLE_NATURALISTE', $user->getRoles())){
+        if (in_array('ROLE_NATURALISTE', $user->getRoles())) {
             $user
                 ->setDemandeNaturaliste(NULL)
                 ->setRoles(['ROLE_PARTICULIER']);
-        }  elseif (in_array('ROLE_CONTRIBUTEUR', $user->getRoles())){
+        } elseif (in_array('ROLE_CONTRIBUTEUR', $user->getRoles())) {
             $user
                 ->setDemandeContributeur(NULL)
                 ->setRoles(['ROLE_NATURALISTE']);

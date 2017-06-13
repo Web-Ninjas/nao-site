@@ -15,7 +15,10 @@
             <li class=" {% if app.request.attributes.get('_route') == 'dashboard_all_observations' %} color {% endif %}">
                 <a href="{{ path('dashboard_all_observations') }}">Toutes les observations </a> <span class="nb">{#{{ nbObservations  }}#}</span>
             </li>
-            <li class=" {% if app.request.attributes.get('_route') == 'dashboard_all_articles' %} color {% endif %}">
+            <li class=" {% if app.request.attributes.get('_route') == 'dashboard_all_articles' and app.request.query.get('only-me') == 'true' %} color {% endif %}">
+                <a href="{{ path('dashboard_all_articles', {'only-me': 'true'}) }}">Mes articles</a><span class="nb">{#{{ nbArticles  }}#}</span>
+            </li>
+            <li class=" {% if app.request.attributes.get('_route') == 'dashboard_all_articles' and app.request.query.get('only-me') == NULL %} color {% endif %}">
                 <a href="{{ path('dashboard_all_articles') }}">Gestion des articles</a><span class="nb">{#{{ nbArticles  }}#}</span>
             </li>
             <li class=" {% if app.request.attributes.get('_route') == 'dashboard_utilisateurs' %} color {% endif %}">
