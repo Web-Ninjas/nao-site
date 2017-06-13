@@ -137,7 +137,7 @@ class BackController extends Controller
         $em = $this->getDoctrine()->getManager();
         $observation
             ->setStatus(Observation::SIGNALEE)
-            ->setValidateur($this->getUser());;
+            ->setValidateur($this->getUser());
         $em->flush();
 
         $this->addFlash('notice', "L'observation a bien été signalée !");
@@ -242,6 +242,7 @@ class BackController extends Controller
         ));
  
     }
+
     /**
      * @Route("/dashboard/utilisateurs/{id}/supprimer", name="supprimerUtilisateurs")
      * @Method({"GET","POST"})
@@ -264,6 +265,76 @@ class BackController extends Controller
 
 
         return $this->redirectToRoute('', array(
+            "id" => $user->getId()));
+
+    }
+
+    /**
+     * @Route("/dashboard/utilisateurs/{id}/promouvoir", name="promouvoirUtilisateurs")
+     * @Method({"GET","POST"})
+     * @param User $user
+     * @ParamConverter()
+     */
+    public function PromouvoirUtilisateursAction(User $user, Request $request)
+    {
+        $redirect = $request->query->get('redirect');
+
+        $em = $this->getDoctrine()->getManager();
+
+        if ($user->getDemandeNaturaliste()== NULL){
+            $user
+                ->setDemandeNaturaliste(new \Datetime())
+                ->setRoles(['ROLE_NATURALISTE']);
+        }  elseif ($user->getDemandeContributeur()== NULL){
+            $user
+                ->setDemandeContributeur(new \Datetime())
+                ->setRoles(['ROLE_CONTRIBUTEUR']);
+        }
+
+        $em->flush();
+
+        $this->addFlash('notice', "L'utilisateur a bien été promu !");
+
+        if ($redirect === 'utilisateurs') {
+            return $this->redirectToRoute('dashboard_utilisateurs');
+        }
+
+        return $this->redirectToRoute('detailUtilisateur', array(
+            "id" => $user->getId()));
+
+    }
+
+    /**
+     * @Route("/dashboard/utilisateurs/{id}/destituer", name="destituerUtilisateurs")
+     * @Method({"GET","POST"})
+     * @param User $user
+     * @ParamConverter()
+     */
+    public function DestituerUtilisateursAction(User $user, Request $request)
+    {
+        $redirect = $request->query->get('redirect');
+
+        $em = $this->getDoctrine()->getManager();
+
+        if ($user->getRoles()==['ROLE_NATURALISTE']){
+            $user
+                ->setDemandeNaturaliste(NULL)
+                ->setRoles(['ROLE_PARTICULIER']);
+        }  elseif ($user->getRoles()==['ROLE_CONTRIBUTEUR']){
+            $user
+                ->setDemandeNaturaliste(NULL)
+                ->setRoles(['ROLE_NATURALISTE']);
+        }
+
+        $em->flush();
+
+        $this->addFlash('notice', "L'utilisateur a bien été rétrogradé !");
+
+        if ($redirect === 'utilisateurs') {
+            return $this->redirectToRoute('dashboard_utilisateurs');
+        }
+
+        return $this->redirectToRoute('detailUtilisateur', array(
             "id" => $user->getId()));
 
     }
