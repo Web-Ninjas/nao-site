@@ -59,35 +59,54 @@ class BackController extends Controller
     }
 
     /**
-     * @Route("/dashboard/observations", name="dashboard_observations")
+     * @Route("/dashboard/observations{page}", defaults={"page" = "1" } ,requirements={"id" = "\d+"}, name="dashboard_observations")
      * @Method({"GET","POST"})
      */
-    public function observationsAction(Request $request)
+    public function observationsAction($page)
     {
+        $nbObservationsParPage = $this->container->getParameter('front_nb_observations_par_page');
+        
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AppBundle:Observation');
 
-        $observations = $repository->listeObservationsNonSupprimer($this->getUser());
+        $observations = $repository->findAllPagineEtTrie($page, $nbObservationsParPage, $this->getUser());
+        
+        $pagination = array(
+            'page' => $page,
+            'nbPages' => ceil(count($observations) / $nbObservationsParPage),
+            'nomRoute' => 'dashboard_all_observations',
+            'paramsRoute' => array()
+        );
 
         return $this->render('back/observationsDashboard.html.twig', array(
             'observations' => $observations,
+            'pagination' => $pagination
         ));
     }
 
     /**
-     * @Route("/dashboard/all_observations", name="dashboard_all_observations")
+     * @Route("/dashboard/all_observations{page}", defaults={"page" = "1" } ,requirements={"id" = "\d+"}, name="dashboard_all_observations")
      * @Method({"GET","POST"})
      */
-    public function allObservationsAction()
+    public function allObservationsAction($page)
     {
+        $nbObservationsParPage = $this->container->getParameter('front_nb_observations_par_page');
+        
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AppBundle:Observation');
 
-        $observations = $repository->listeObservationsNonSupprimer();
-
-
+        $observations = $repository->findAllPagineEtTrie($page, $nbObservationsParPage);
+        
+        $pagination = array(
+            'page' => $page,
+            'nbPages' => ceil(count($observations) / $nbObservationsParPage),
+            'nomRoute' => 'dashboard_all_observations',
+            'paramsRoute' => array()
+        );
+        
         return $this->render('back/allObservationsDashboard.html.twig', array(
             'observations' => $observations,
+            'pagination' => $pagination
         ));
     }
 
@@ -216,23 +235,35 @@ class BackController extends Controller
 
 
     /**
-     * @Route("/dashboard/all_articles", name="dashboard_all_articles")
+     * @Route("/dashboard/all_articles{page}", defaults={"page" = "1" } ,requirements={"id" = "\d+"}, name="dashboard_all_articles")
      * @Method({"GET","POST"})
      */
-    public function allArticlesAction(Request $request)
+    public function allArticlesAction(Request $request, $page)
     {
+        $nbArticlesParPage = $this->container->getParameter('front_nb_articles_par_page');
+
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AppBundle:Article');
-
+        
+        
         $isSeulementMoi = $request->query->has('only-me');
 
         if ($isSeulementMoi) {
-            $articles = $repository->findBy(['author' => $this->getUser()],array("id" => "desc"));
+            $articles = $repository->findAllPagineEtTrie($page, $nbArticlesParPage, $this->getUser());
         } else {
-            $articles = $repository->listeArticlesNonSupprimer();
+            $articles = $repository->findAllPagineEtTrie($page, $nbArticlesParPage);
         }
+
+        $pagination = array(
+            'page' => $page,
+            'nbPages' => ceil(count($articles) / $nbArticlesParPage),
+            'nomRoute' => 'dashboard_all_articles',
+            'paramsRoute' => array()
+        );
+
         return $this->render('back/allArticlesDashboard.html.twig', array(
             'articles' => $articles,
+            'pagination' => $pagination
         ));
     }
 
@@ -264,19 +295,30 @@ class BackController extends Controller
 
 
     /**
-     * @Route("/dashboard/utilisateurs", name="dashboard_utilisateurs")
+     * @Route("/dashboard/utilisateurs{page}", defaults={"page" = "1" } ,requirements={"id" = "\d+"}, name="dashboard_utilisateurs")
      * @Method({"GET","POST"})
      */
-    public function UtilisateursAction()
+    public function UtilisateursAction($page)
     {
+        $nbUtilisateursParPage = $this->container->getParameter('front_nb_utilisateurs_par_page');
+
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('UserBundle:User');
 
-        $utilisateurs = $repository->findBy(array(), array("id" => "desc"));
+        $utilisateurs = $repository->findAllPagineEtTrie($page, $nbUtilisateursParPage);
+
+        $pagination = array(
+            'page' => $page,
+            'nbPages' => ceil(count($utilisateurs) / $nbUtilisateursParPage),
+            'nomRoute' => 'dashboard_utilisateurs',
+            'paramsRoute' => array()
+        );
+
+        /*$utilisateurs = $repository->findBy(array(), array("id" => "desc"));*/
 
         return $this->render('back/utilisateursDashboard.html.twig', array(
             'utilisateurs' => $utilisateurs,
-
+            'pagination' => $pagination
         ));
     }
 

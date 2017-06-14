@@ -84,19 +84,25 @@ class FrontController extends Controller
     */
     public function newsAction($page)
     {
+        $nbNewsParPage = $this->container->getParameter('front_nb_news_par_page');
+
     	// On cherche les 4 premiers articles pour les afficher
     	$em = $this->getDoctrine()->getManager();
-    	$listArticles = $em->getRepository('AppBundle:Article')
-    		->findBy(
-    			array('deleted' => null),
-    			array('date' => 'desc'),
-    			4,
-    			($page - 1) * 4
-    		);
+        $repository = $em->getRepository('AppBundle:Article');
+
+        $listArticles = $repository->findAllPagineEtTrie($page, $nbNewsParPage);
+
+        $pagination = array(
+            'page' => $page,
+            'nbPages' => ceil(count($listArticles) / $nbNewsParPage),
+            'nomRoute' => 'actualites',
+            'paramsRoute' => array()
+        );
+
 
     	return $this->render('front/news.html.twig', array(
     		'listArticles' => $listArticles,
-    		'page' => $page
+            'pagination' => $pagination
     		));
     }
 

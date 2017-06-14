@@ -4,6 +4,7 @@
 
 	<h2>Actualités</h2>
 
+	{% if listArticles is not empty %}
 	<div class="container">
 		<div class="row">
 			{% for article in listArticles %}
@@ -20,13 +21,8 @@
 			{% endfor %}
 		</div><!-- row -->
 
-		<ul class="pager">
-			{% if page > 1 %}
-  				<li><a href="{{ path('actualites', {'page': page-1}) }}">Précédent</a></li>
-  			{% endif %}
-  			<li><a href="{{ path('actualites', {'page': page+1}) }}">Suivant</a></li>
-		</ul>
-
-	</div><!-- container -->
-
+		{% include 'pagination.html.twig' %}
+	{% else %}
+		<p class="aucun">Il n'y a aucun article pour l'instant.</p>
+	{% endif %}
 {% endblock %}

@@ -10,68 +10,70 @@
         <h4>Tous les articles</h4>
     {% endif %}
 
-
-    <div class="col-xs-3 recherche">
-        <div class="input-group input-group-md">
-            <input type="text" class="form-control" placeholder="Recherche" style="border:0;">
+    {% if articles is not empty %}
+        <div class="col-xs-3 recherche">
+            <div class="input-group input-group-md">
+                <input type="text" class="form-control" placeholder="Recherche" style="border:0;">
                 <span class="input-group-addon" style="border:0; background: white;">
                     <span class=" glyphicon glyphicon-search"></span></span>
+            </div>
         </div>
-    </div>
 
 
-    <div class="tableau">
+        <div class="tableau">
 
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Contributeur</th>
-                <th>Date</th>
-                <th>Categorie</th>
-                <th>Article</th>
-                <th class="tableau_action">Action</th>
-            </tr>
-            </thead>
-            <tbody class="fond_tableau">
-            {% for article in articles %}
+            <table class="table">
+                <thead>
                 <tr>
-                    <td>
-                        {{ article.author.username }}
-                    </td>
-
-                    <td>
-                        {{ article.date | date('d-m-Y') }}
-                    </td>
-                    <td>
-
-                    </td>
-                    <td class="content_observation">
-                        <div class="tableau_observation">
-                            <a href="{{ path('article', {'id': article.id}) }}">{{ article.content | truncate(50) |raw }}</a>
-                        </div>
-                    </td>
-
-                    <td class="tableau_action action">
-
-                        <a href="{{ path('article', {'id': article.id}) }}">
-                            <span class=" glyphicon glyphicon-eye-open icone" title="Voir l'article"></span>
-                        </a>
-
-                        <a href="#">
-                            <span class=" glyphicon glyphicon-pencil icone" title="Modifier l'article"></span>
-                        </a>
-                        <a href="#">
-                            <span class=" glyphicon glyphicon-ok icone" title="Valider l'article"></span>
-                        </a>
-                        <a href="{{ path('supprimerArticle', {'id': article.id, 'redirect': 'all_articles'}) }}">
-                            <span class=" glyphicon glyphicon-trash icone" title="Supprimer l'article"></span>
-                        </a>
-                    </td>
-
+                    <th>Contributeur</th>
+                    <th>Date</th>
+                    <th>Categorie</th>
+                    <th>Article</th>
+                    <th class="tableau_action">Action</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody class="fond_tableau">
+                {% for article in articles %}
+                    <tr>
+                        <td>
+                            {{ article.author.username }}
+                        </td>
 
+                        <td>
+                            {{ article.date | date('d-m-Y') }}
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="content_observation">
+                            <div class="tableau_observation">
+                                <a href="{{ path('article', {'id': article.id}) }}">{{ article.content | truncate(50) |raw }}</a>
+                            </div>
+                        </td>
+
+                        <td class="tableau_action action">
+
+                            <a href="{{ path('article', {'id': article.id}) }}">
+                                <span class=" glyphicon glyphicon-eye-open icone" title="Voir l'article"></span>
+                            </a>
+
+                            <a href="#">
+                                <span class=" glyphicon glyphicon-pencil icone" title="Modifier l'article"></span>
+                            </a>
+                            <a href="#">
+                                <span class=" glyphicon glyphicon-ok icone" title="Valider l'article"></span>
+                            </a>
+                            <a href="{{ path('supprimerArticle', {'id': article.id, 'redirect': 'all_articles'}) }}">
+                                <span class=" glyphicon glyphicon-trash icone" title="Supprimer l'article"></span>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% include 'pagination.html.twig' %}
+    {% else %}
+        <p class="aucun">Il n'y a aucun article pour l'instant.</p>
+    {% endif %}
 {% endblock %}
