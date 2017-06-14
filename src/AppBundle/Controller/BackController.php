@@ -250,14 +250,16 @@ class BackController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AppBundle:Article');
-        
+
+        $filtre = $request->query->get('filtre');
+        $ordreDeTri = $request->query->get('ordreDeTri');
         
         $isSeulementMoi = $request->query->has('only-me');
 
         if ($isSeulementMoi) {
-            $articles = $repository->findAllPagineEtTrie($page, $nbArticlesParPage, $this->getUser());
+            $articles = $repository->findAllPagineEtTrie($page, $nbArticlesParPage, $this->getUser(),$filtre, $ordreDeTri);
         } else {
-            $articles = $repository->findAllPagineEtTrie($page, $nbArticlesParPage);
+            $articles = $repository->findAllPagineEtTrie($page, $nbArticlesParPage, null, $filtre, $ordreDeTri);
         }
 
         $pagination = array(

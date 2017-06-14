@@ -1,8 +1,8 @@
 {% extends "back-layout.html.twig" %}
 
+{% set rq = app.request.query %}
+
 {% block content %}
-
-
 
     {% if app.request.query.get('only-me') == 'true' %} {# vérifie si dans l'URL, on trouve "?filtre=xxx" #}
         <h4>Mes les articles</h4>
@@ -25,8 +25,24 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Contributeur</th>
-                    <th>Date</th>
+                    <th>
+                        {% set ordreDeTri = 'DESC' %}
+                        {% if rq.get('filtre') == 'author' and rq.get('ordreDeTri') == 'DESC' %}
+                            {% set ordreDeTri = 'ASC' %}
+                        {% endif %}
+                        <a href="{{ path('dashboard_all_articles', {'filtre': 'author', 'ordreDeTri': ordreDeTri}) }}">
+                            Contributeur
+                        </a>
+                    </th>
+                    <th>
+                        {% set ordreDeTri = 'DESC' %}
+                        {% if rq.get('filtre') == 'date' and rq.get('ordreDeTri') == 'DESC' %}
+                            {% set ordreDeTri = 'ASC' %}
+                        {% endif %}
+                        <a href="{{ path('dashboard_all_articles', {'filtre': 'date', 'ordreDeTri': ordreDeTri}) }}">
+                            Date
+                        </a>
+                    </th>
                     <th>Categorie</th>
                     <th>Article</th>
                     <th class="tableau_action">Action</th>
