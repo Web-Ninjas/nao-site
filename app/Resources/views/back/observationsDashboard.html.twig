@@ -8,9 +8,9 @@
 'Supprimée': '#d30000'
 } %}
 
+{% set rq = app.request.query %}
+
 {% block content %}
-
-
 
     <h4>Mes observations</h4>
 
@@ -29,10 +29,42 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>N°</th>
-                    <th>Oiseau</th>
-                    <th>Date</th>
-                    <th>Statut</th>
+                    <th>
+                        {% set ordreDeTri = 'DESC' %}
+                        {% if rq.get('filtre') == 'id' and rq.get('ordreDeTri') == 'DESC' %}
+                            {% set ordreDeTri = 'ASC' %}
+                        {% endif %}
+                        <a href="{{ path('dashboard_observations', {'filtre': 'id', 'ordreDeTri': ordreDeTri}) }}">
+                            N°
+                        </a>
+                    </th>
+                    <th>
+                        {% set ordreDeTri = 'DESC' %}
+                        {% if rq.get('filtre') == 'oiseau' and rq.get('ordreDeTri') == 'DESC' %}
+                            {% set ordreDeTri = 'ASC' %}
+                        {% endif %}
+                        <a href="{{ path('dashboard_observations', {'filtre': 'oiseau', 'ordreDeTri': ordreDeTri}) }}">
+                            Oiseau
+                        </a>
+                    </th>
+                    <th>
+                        {% set ordreDeTri = 'DESC' %}
+                        {% if rq.get('filtre') == 'date' and rq.get('ordreDeTri') == 'DESC' %}
+                            {% set ordreDeTri = 'ASC' %}
+                        {% endif %}
+                        <a href="{{ path('dashboard_observations', {'filtre': 'date', 'ordreDeTri': ordreDeTri}) }}">
+                            Date
+                        </a>
+                    </th>
+                    <th>
+                        {% set ordreDeTri = 'DESC' %}
+                        {% if rq.get('filtre') == 'status' and rq.get('ordreDeTri') == 'DESC' %}
+                            {% set ordreDeTri = 'ASC' %}
+                        {% endif %}
+                        <a href="{{ path('dashboard_observations', {'filtre': 'status', 'ordreDeTri': ordreDeTri}) }}">
+                            Statut
+                        </a>
+                    </th>
                     <th>Observation</th>
                     <th class="tableau_action">Action</th>
                 </tr>
@@ -40,27 +72,29 @@
                 <tbody class="fond_tableau">
                 {% for observation in observations %}
                     <tr>
-                        <td>
-                            {{ observation.id }}
-                        </td>
+                        <td>{{ observation.id }}</td>
+
                         <td class="taille_td">
                             {% if observation.oiseau.nomVern is not empty %}
                                 {{ observation.oiseau.nomVern }}<br>
                             {% endif %}
                             {{ observation.oiseau.nomValide }}
                         </td>
+
                         <td class="texte">
                             {{ observation.date | date('d-m-Y') }}
                         </td>
+
                         <td>
                             <span style="color: {{ couleurs[observation.status] }}">{{ observation.status }}</span>
                         </td>
+
                         <td class="content_observation">
                             <div class="tableau_observation">
                                 <a href="{{ path('observation', {'id': observation.id}) }}">{{ observation.content | truncate(50) |raw }}</a>
                             </div>
-
                         </td>
+
                         <td class="tableau_action action">
                             {% if  observation.status ==  constant('AppBundle\\Entity\\Observation::VALIDEE') %}
                                 <a href="{{ path('observation', {'id': observation.id}) }}">

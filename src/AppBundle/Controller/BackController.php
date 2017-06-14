@@ -62,19 +62,22 @@ class BackController extends Controller
      * @Route("/dashboard/observations{page}", defaults={"page" = "1" } ,requirements={"id" = "\d+"}, name="dashboard_observations")
      * @Method({"GET","POST"})
      */
-    public function observationsAction($page)
+    public function observationsAction($page, Request $request)
     {
         $nbObservationsParPage = $this->container->getParameter('front_nb_observations_par_page');
         
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AppBundle:Observation');
 
-        $observations = $repository->findAllPagineEtTrie($page, $nbObservationsParPage, $this->getUser());
+        $filtre = $request->query->get('filtre');
+        $ordreDeTri = $request->query->get('ordreDeTri');
+
+        $observations = $repository->findAllPagineEtTrie($page, $nbObservationsParPage, $this->getUser(), $filtre, $ordreDeTri);
         
         $pagination = array(
             'page' => $page,
             'nbPages' => ceil(count($observations) / $nbObservationsParPage),
-            'nomRoute' => 'dashboard_all_observations',
+            'nomRoute' => 'dashboard_observations',
             'paramsRoute' => array()
         );
 
@@ -88,14 +91,17 @@ class BackController extends Controller
      * @Route("/dashboard/all_observations{page}", defaults={"page" = "1" } ,requirements={"id" = "\d+"}, name="dashboard_all_observations")
      * @Method({"GET","POST"})
      */
-    public function allObservationsAction($page)
+    public function allObservationsAction($page, Request $request)
     {
         $nbObservationsParPage = $this->container->getParameter('front_nb_observations_par_page');
         
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AppBundle:Observation');
 
-        $observations = $repository->findAllPagineEtTrie($page, $nbObservationsParPage);
+        $filtre = $request->query->get('filtre');
+        $ordreDeTri = $request->query->get('ordreDeTri');
+
+        $observations = $repository->findAllPagineEtTrie($page, $nbObservationsParPage, null, $filtre, $ordreDeTri);
         
         $pagination = array(
             'page' => $page,
@@ -244,14 +250,16 @@ class BackController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AppBundle:Article');
-        
+
+        $filtre = $request->query->get('filtre');
+        $ordreDeTri = $request->query->get('ordreDeTri');
         
         $isSeulementMoi = $request->query->has('only-me');
 
         if ($isSeulementMoi) {
-            $articles = $repository->findAllPagineEtTrie($page, $nbArticlesParPage, $this->getUser());
+            $articles = $repository->findAllPagineEtTrie($page, $nbArticlesParPage, $this->getUser(),$filtre, $ordreDeTri);
         } else {
-            $articles = $repository->findAllPagineEtTrie($page, $nbArticlesParPage);
+            $articles = $repository->findAllPagineEtTrie($page, $nbArticlesParPage, null, $filtre, $ordreDeTri);
         }
 
         $pagination = array(
@@ -298,14 +306,17 @@ class BackController extends Controller
      * @Route("/dashboard/utilisateurs{page}", defaults={"page" = "1" } ,requirements={"id" = "\d+"}, name="dashboard_utilisateurs")
      * @Method({"GET","POST"})
      */
-    public function UtilisateursAction($page)
+    public function UtilisateursAction($page, Request $request)
     {
         $nbUtilisateursParPage = $this->container->getParameter('front_nb_utilisateurs_par_page');
 
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('UserBundle:User');
 
-        $utilisateurs = $repository->findAllPagineEtTrie($page, $nbUtilisateursParPage);
+        $filtre = $request->query->get('filtre');
+        $ordreDeTri = $request->query->get('ordreDeTri');
+        
+        $utilisateurs = $repository->findAllPagineEtTrie($page, $nbUtilisateursParPage, $filtre, $ordreDeTri);
 
         $pagination = array(
             'page' => $page,
