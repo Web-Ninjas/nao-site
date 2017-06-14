@@ -32,7 +32,7 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
             ->andWhere('a.deleted IS NULL');
 
         if ($user !== null) {
-            $qb->andWhere('o.author = :author');
+            $qb->andWhere('a.author = :author');
             $qb->setParameter('author', $user);
         }
 

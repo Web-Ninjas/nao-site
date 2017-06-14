@@ -1,13 +1,12 @@
 body, html {
-    background-color:#FFFFFF;
+    background-color: #FFFFFF;
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
 }
 
-#map
-{
+#map {
     height: 400px;
     width: 100%;
 }
@@ -16,17 +15,15 @@ body, html {
     padding-top: 30px;
 }
 
-#search
-{
+#search {
     position: relative;
     z-index: 1;
     left: 6px;
     top: -27px;
     color: #7B7B7B;
-    cursor:pointer;
+    cursor: pointer;
     width: 0;
 }
-
 
 p {
     text-align: justify;
@@ -532,6 +529,69 @@ img.instagram:hover, img.instagram:focus {
     height: 113px !important;
     width: inherit;
     margin-top: 20px;
+}
+
+.pagination {
+    float: right;
+    margin-right: 10px;
+}
+
+.glyphicon.glyphicon-backward{
+    color: #5C7EE5;
+    font-size: 30px;
+}
+
+.glyphicon.glyphicon-forward {
+    color: #5C7EE5;
+    font-size: 30px;
+}
+
+ul.pagination li a.fleche_page {
+    background-color: #9DC8C8;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-right: 6px;
+    padding-left: 12px;
+}
+
+ul.pagination li a.fleche_page_return {
+    background-color: #9DC8C8;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-right: 12px;
+    padding-left: 6px;
+}
+
+.pagination li a.dernier-page{
+    border-radius: 13px;
+}
+
+ul.pagination li.active.color_page_active a{
+    background-color: #519D9E;
+}
+
+ul.pagination li.active a {
+    border-radius: 13px;
+    font-weight: bold;
+    background-color: #5C7EE5;
+    color: white;
+    border: none;
+}
+
+ul.pagination li a {
+    border-radius: 13px;
+    font-weight: bold;
+    background-color: #5C7EE5;
+    color: white;
+    border: none;
+    margin-left: 3px;
+}
+
+.aucun{
+    text-align: center;
+    color: #5C7EE5;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 @media (max-width: 768px) {

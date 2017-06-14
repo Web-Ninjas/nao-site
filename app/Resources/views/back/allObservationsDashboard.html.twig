@@ -14,106 +14,116 @@
 
     <h4>Mes observations</h4>
 
-
-    <div class="col-xs-3 recherche">
-        <div class="input-group input-group-md">
-            <input type="text" class="form-control" placeholder="Recherche" style="border:0;">
+    {% if observations is not empty %}
+        <div class="col-xs-3 recherche">
+            <div class="input-group input-group-md">
+                <input type="text" class="form-control" placeholder="Recherche" style="border:0;">
                 <span class="input-group-addon" style="border:0; background: white;">
                     <span class=" glyphicon glyphicon-search"></span></span>
+            </div>
         </div>
-    </div>
 
 
-    <div class="tableau">
+        <div class="tableau">
 
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Utilisateur</th>
-                <th>Statut</th>
-                <th>Observation</th>
-                <th>Date</th>
-                <th>Validateur</th>
-                <th class="tableau_action">Action</th>
-            </tr>
-            </thead>
-            <tbody class="fond_tableau">
-            {% for observation in observations %}
+            <table class="table">
+                <thead>
                 <tr>
-                    <td>
-                        {{ observation.author.username }}
-                    </td>
-                    <td>
-                        <span style="color: {{ couleurs[observation.status] }}">{{ observation.status }}</span>
-                    </td>
-
-                    <td class="content_observation">
-                        <div class="tableau_observation">
-                            <a href="{{ path('observation', {'id': observation.id}) }}">{{ observation.content | truncate(50) |raw }}</a>
-                        </div>
-                    </td>
-
-                    <td>
-                        {{ observation.date | date('d-m-Y') }}
-                    </td>
-                    <td>
-                        {% if observation.validateur is not null %}
-                            {{ observation.validateur.username }}
-                        {% endif %}
-                    </td>
-                    <td class="tableau_action action">
-                        {% if  observation.status ==  constant('AppBundle\\Entity\\Observation::VALIDEE') %}
-                            <a href="{{ path('observation', {'id': observation.id}) }}">
-                                <span class=" glyphicon glyphicon-eye-open icone" title="Voir l'observation"></span>
-                            </a>
-                        {% elseif observation.status ==  constant('AppBundle\\Entity\\Observation::SUPPRIMEE') %}
-                            <a href="{{ path('supprimerObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
-                                <span class=" glyphicon glyphicon-trash icone" title="Supprimer l'observation"></span>
-                            </a>
-                        {% elseif observation.status ==  constant('AppBundle\\Entity\\Observation::SIGNALEE') %}
-
-                            <a href="{{ path('observation', {'id': observation.id}) }}">
-                                <span class=" glyphicon glyphicon-eye-open icone" title="Voir l'observation"></span>
-                            </a>
-                            <a href="#">
-                                <span class=" glyphicon glyphicon-pencil icone" title="Modifier l'observation"></span>
-                            </a>
-                            <a href="{{ path('demandeDeModificationObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
-                                <span class=" glyphicon glyphicon-share-alt icone" title="Observation à modifier"></span>
-                            </a>
-                            <a href="{{ path('validerObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
-                                <span class=" glyphicon glyphicon-ok icone" title="Valider l'observation"></span>
-                            </a>
-                            <a href="{{ path('supprimerObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
-                                <span class=" glyphicon glyphicon-trash icone" title="Supprimer l'observation"></span>
-                            </a>
-
-                        {% else %}
-                            <a href="{{ path('observation', {'id': observation.id}) }}">
-                                <span class=" glyphicon glyphicon-eye-open icone" title="Voir l'observation"></span>
-                            </a>
-                            <a href="#">
-                                <span class=" glyphicon glyphicon-pencil icone" title="Modifier l'observation"></span>
-                            </a>
-                            <a href="{{ path('demandeDeModificationObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
-                                <span class=" glyphicon glyphicon-share-alt icone" title="Observation à modifier"></span>
-                            </a>
-                            <a href="{{ path('validerObservation', {'id': observation.id,'redirect': 'all_observations'}) }}">
-                                <span class=" glyphicon glyphicon-ok icone" title="Valider l'observation"></span>
-                            </a>
-                            <a href="{{ path('signalerObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
-                                <span class=" glyphicon glyphicon-exclamation-sign icone" title="Signaler l'observation"></span>
-                            </a>
-                            <a href="{{ path('supprimerObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
-                                <span class=" glyphicon glyphicon-trash icone" title="Supprimer l'observation"></span>
-                            </a>
-                        {% endif %}
-                    </td>
-
+                    <th>Utilisateur</th>
+                    <th>Statut</th>
+                    <th>Observation</th>
+                    <th>Date</th>
+                    <th>Validateur</th>
+                    <th class="tableau_action">Action</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody class="fond_tableau">
+                {% for observation in observations %}
+                    <tr>
+                        <td>
+                            {{ observation.author.username }}
+                        </td>
+                        <td>
+                            <span style="color: {{ couleurs[observation.status] }}">{{ observation.status }}</span>
+                        </td>
 
+                        <td class="content_observation">
+                            <div class="tableau_observation">
+                                <a href="{{ path('observation', {'id': observation.id}) }}">{{ observation.content | truncate(50) |raw }}</a>
+                            </div>
+                        </td>
+
+                        <td>
+                            {{ observation.date | date('d-m-Y') }}
+                        </td>
+                        <td>
+                            {% if observation.validateur is not null %}
+                                {{ observation.validateur.username }}
+                            {% endif %}
+                        </td>
+                        <td class="tableau_action action">
+                            {% if  observation.status ==  constant('AppBundle\\Entity\\Observation::VALIDEE') %}
+                                <a href="{{ path('observation', {'id': observation.id}) }}">
+                                    <span class=" glyphicon glyphicon-eye-open icone" title="Voir l'observation"></span>
+                                </a>
+                            {% elseif observation.status ==  constant('AppBundle\\Entity\\Observation::SUPPRIMEE') %}
+                                <a href="{{ path('supprimerObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
+                                    <span class=" glyphicon glyphicon-trash icone"
+                                          title="Supprimer l'observation"></span>
+                                </a>
+                            {% elseif observation.status ==  constant('AppBundle\\Entity\\Observation::SIGNALEE') %}
+
+                                <a href="{{ path('observation', {'id': observation.id}) }}">
+                                    <span class=" glyphicon glyphicon-eye-open icone" title="Voir l'observation"></span>
+                                </a>
+                                <a href="#">
+                                    <span class=" glyphicon glyphicon-pencil icone"
+                                          title="Modifier l'observation"></span>
+                                </a>
+                                <a href="{{ path('demandeDeModificationObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
+                                    <span class=" glyphicon glyphicon-share-alt icone"
+                                          title="Observation à modifier"></span>
+                                </a>
+                                <a href="{{ path('validerObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
+                                    <span class=" glyphicon glyphicon-ok icone" title="Valider l'observation"></span>
+                                </a>
+                                <a href="{{ path('supprimerObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
+                                    <span class=" glyphicon glyphicon-trash icone"
+                                          title="Supprimer l'observation"></span>
+                                </a>
+
+                            {% else %}
+                                <a href="{{ path('observation', {'id': observation.id}) }}">
+                                    <span class=" glyphicon glyphicon-eye-open icone" title="Voir l'observation"></span>
+                                </a>
+                                <a href="#">
+                                    <span class=" glyphicon glyphicon-pencil icone"
+                                          title="Modifier l'observation"></span>
+                                </a>
+                                <a href="{{ path('demandeDeModificationObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
+                                    <span class=" glyphicon glyphicon-share-alt icone"
+                                          title="Observation à modifier"></span>
+                                </a>
+                                <a href="{{ path('validerObservation', {'id': observation.id,'redirect': 'all_observations'}) }}">
+                                    <span class=" glyphicon glyphicon-ok icone" title="Valider l'observation"></span>
+                                </a>
+                                <a href="{{ path('signalerObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
+                                    <span class=" glyphicon glyphicon-exclamation-sign icone"
+                                          title="Signaler l'observation"></span>
+                                </a>
+                                <a href="{{ path('supprimerObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
+                                    <span class=" glyphicon glyphicon-trash icone"
+                                          title="Supprimer l'observation"></span>
+                                </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% include 'pagination.html.twig' %}
+    {% else %}
+        <p class="aucun">Il n'y a aucun article pour l'instant.</p>
+    {% endif %}
 {% endblock %}

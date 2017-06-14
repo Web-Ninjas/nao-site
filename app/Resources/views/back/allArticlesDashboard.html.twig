@@ -67,7 +67,6 @@
                                 <span class=" glyphicon glyphicon-trash icone" title="Supprimer l'article"></span>
                             </a>
                         </td>
-
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -75,7 +74,6 @@
         </div>
         {% include 'pagination.html.twig' %}
     {% else %}
-        <p>Il n'y a aucun article pour l'instant.</p>
+        <p class="aucun">Il n'y a aucun article pour l'instant.</p>
     {% endif %}
-
 {% endblock %}
