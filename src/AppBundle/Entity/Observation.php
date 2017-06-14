@@ -72,7 +72,7 @@ class Observation
     /**
      * @var string
      *
-     * @ORM\Column(name="longitude", type="decimal", precision=10, scale=0)
+     * @ORM\Column(name="longitude", type="decimal", precision=25, scale=20)
      * @Assert\NotBlank()
      */
     private $longitude;
@@ -80,7 +80,7 @@ class Observation
     /**
      * @var string
      *
-     * @ORM\Column(name="latitude", type="decimal", precision=10, scale=0)
+     * @ORM\Column(name="latitude", type="decimal", precision=25, scale=20)
      * @Assert\NotBlank()
      */
     private $latitude;
