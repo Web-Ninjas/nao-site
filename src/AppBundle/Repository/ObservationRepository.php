@@ -49,7 +49,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
      *
      * @return Paginator
      */
-    public function findAllPagineEtTrie($page, $nbMaxParPage, User $user = null)
+    public function findAllPagineEtTrie($page, $nbMaxParPage, User $user = null, $filtre = null, $ordreDeTri = 'DESC')
     {
         if (!is_numeric($page)) {
             throw new InvalidArgumentException(
@@ -68,15 +68,34 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
         }
 
         $qb = $this->createQueryBuilder('o')
+            ->select('o, a')
             ->where('CURRENT_DATE() >= o.date')
-            ->orderBy('o.date', 'DESC')
+
+            ->join('o.author', 'a')
+            ->join('o.oiseau', 'oiseau')
+            ->leftJoin('o.validateur', 'v')
             ->andWhere('o.deleted IS NULL');
+
 
         if ($user !== null) {
             $qb->andWhere('o.author = :author');
             $qb->setParameter('author', $user);
         }
 
+        if (isset($filtre)) {
+            $mapping = [
+                'id' => 'o.id',
+                'author' => 'a.username',
+                'status' => 'o.status',
+                'date' => 'o.date',
+                'validateur' => 'v.username',
+                'oiseau' => 'oiseau.nomVern'
+            ];
+
+            $qb->orderBy($mapping[$filtre], $ordreDeTri);
+        } else {
+            $qb->orderBy('o.date', 'DESC');
+        }
 
 
         $query = $qb->getQuery();

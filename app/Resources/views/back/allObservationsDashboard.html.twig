@@ -8,10 +8,9 @@
 'Supprimée': '#d30000'
 } %}
 
+{% set rq = app.request.query %}
+
 {% block content %}
-
-
-
     <h4>Mes observations</h4>
 
     {% if observations is not empty %}
@@ -29,11 +28,43 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Utilisateur</th>
-                    <th>Statut</th>
+                    <th>
+                        {% set ordreDeTri = 'DESC' %}
+                        {% if rq.get('filtre') == 'author' and rq.get('ordreDeTri') == 'DESC' %}
+                            {% set ordreDeTri = 'ASC'%}
+                        {% endif %}
+                        <a href="{{ path('dashboard_all_observations', {'filtre': 'author', 'ordreDeTri': ordreDeTri}) }}">
+                            Utilisateur
+                        </a>
+                    </th>
+                    <th>
+                        {% set ordreDeTri = 'DESC' %}
+                        {% if rq.get('filtre') == 'status' and rq.get('ordreDeTri') == 'DESC' %}
+                            {% set ordreDeTri = 'ASC' %}
+                        {% endif %}
+                        <a href="{{ path('dashboard_all_observations', {'filtre': 'status', 'ordreDeTri': ordreDeTri}) }}">
+                            Statut
+                        </a>
+                    </th>
                     <th>Observation</th>
-                    <th>Date</th>
-                    <th>Validateur</th>
+                    <th>
+                        {% set ordreDeTri = 'DESC' %}
+                        {% if rq.get('filtre') == 'date' and rq.get('ordreDeTri') == 'DESC' %}
+                            {% set ordreDeTri = 'ASC' %}
+                        {% endif %}
+                        <a href="{{ path('dashboard_all_observations', {'filtre': 'date', 'ordreDeTri': ordreDeTri}) }}">
+                            Date
+                        </a>
+                    </th>
+                    <th>
+                        {% set ordreDeTri = 'DESC' %}
+                        {% if rq.get('filtre') == 'validateur' and rq.get('ordreDeTri') == 'DESC' %}
+                            {% set ordreDeTri = 'ASC' %}
+                        {% endif %}
+                        <a href="{{ path('dashboard_all_observations', {'filtre': 'validateur', 'ordreDeTri': ordreDeTri}) }}">
+                            Validateur
+                        </a>
+                    </th>
                     <th class="tableau_action">Action</th>
                 </tr>
                 </thead>
