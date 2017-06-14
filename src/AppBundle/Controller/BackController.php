@@ -62,7 +62,7 @@ class BackController extends Controller
      * @Route("/dashboard/observations", name="dashboard_observations")
      * @Method({"GET","POST"})
      */
-    public function observationsAction(Request $request)
+    public function observationsAction()
     {
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AppBundle:Observation');
@@ -216,14 +216,26 @@ class BackController extends Controller
 
 
     /**
-     * @Route("/dashboard/all_articles", name="dashboard_all_articles")
+     * @Route("/dashboard/all_articles{page}", defaults={"page" = "1" } ,requirements={"id" = "\d+"}, name="dashboard_all_articles")
      * @Method({"GET","POST"})
      */
-    public function allArticlesAction(Request $request)
+    public function allArticlesAction(Request $request, $page)
     {
+        $nbArticlesParPage = $this->container->getParameter('front_nb_articles_par_page');
+
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AppBundle:Article');
 
+        $articles = $em->getRepository('AppBundle:Article')
+            ->findAllPagineEtTrie($page, $nbArticlesParPage);
+
+        $pagination = array(
+            'page' => $page,
+            'nbPages' => ceil(count($articles) / $nbArticlesParPage),
+            'nomRoute' => 'dashboard_all_articles',
+            'paramsRoute' => array()
+        );
+        
         $isSeulementMoi = $request->query->has('only-me');
 
         if ($isSeulementMoi) {
@@ -233,6 +245,7 @@ class BackController extends Controller
         }
         return $this->render('back/allArticlesDashboard.html.twig', array(
             'articles' => $articles,
+            'pagination' => $pagination
         ));
     }
 
