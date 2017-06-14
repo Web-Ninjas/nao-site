@@ -30,12 +30,12 @@ class UserType extends AbstractType
                 ])
             ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,
-                'first_options'  => array('label' => 'Password'),
-                'second_options' => array('label' => 'Repeat Password'),  ))
+                'first_options'  => array('label' => 'Mot de passe :'),
+                'second_options' => array('label' => 'Confirmation du mot de passe :'),  ))
            /* ->add('demandeNaturaliste', CheckboxType::class, [
                 'required' => false
                 ])*/
-            ->add('S\'inscrire', SubmitType::class)
+            ->add('envoyer', SubmitType::class)
             ;
     }
     

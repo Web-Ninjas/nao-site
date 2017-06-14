@@ -2,6 +2,111 @@
 
 {% block body %}
 
-	{{ form(form) }}
+    <h2>Créer un compte</h2>
 
+
+    <div class="formContact row">
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+        {# Les erreurs générales du formulaire. #}
+        {{ form_errors(form) }}
+
+        {# Génération manuelle et éclatée : #}
+        <div class="form-group">
+            {# Génération du label. #}
+            {{ form_label(form.name, "Nom :", {'label_attr': {'class': 'col-xs-5  control-label  label_contact'}}) }}
+
+            {# Affichage des erreurs pour ce champ précis. #}
+            {{ form_errors(form.name) }}
+
+            <div class="col-xs-6">
+                {# Génération de l'input. #}
+                {{ form_widget(form.name, {'attr': {'class': 'form-control formulaire_contact'}}) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {# Génération du label. #}
+            {{ form_label(form.firstName, "Prénom :", {'label_attr': {'class': 'col-xs-5 control-label label_contact'}}) }}
+
+            {# Affichage des erreurs pour ce champ précis. #}
+            {{ form_errors(form.firstName) }}
+
+            <div class="col-xs-6">
+                {# Génération de l'input. #}
+                {{ form_widget(form.firstName, {'attr': {'class': 'form-control formulaire_contact'}}) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {# Génération du label. #}
+            {{ form_label(form.email, "Email :", {'label_attr': {'class': 'col-xs-5 control-label label_contact'}}) }}
+
+            {# Affichage des erreurs pour ce champ précis. #}
+            {{ form_errors(form.email) }}
+
+            <div class="col-xs-6">
+                {# Génération de l'input. #}
+                {{ form_widget(form.email, {'attr': {'class': 'form-control formulaire_contact'}}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {# Génération du label. #}
+            {{ form_label(form.username, "Nom d'utilisateur :", {'label_attr': {'class': 'col-xs-5 control-label label_contact'}}) }}
+
+            {# Affichage des erreurs pour ce champ précis. #}
+            {{ form_errors(form.username) }}
+
+            <div class="col-xs-6">
+                {# Génération de l'input. #}
+                {{ form_widget(form.username, {'attr': {'class': 'form-control formulaire_contact'}}) }}
+            </div>
+        </div>
+        <div class="form-group birthday">
+            {# Génération du label. #}
+            {{ form_label(form.birthDate, "Date de Naissance :", {'label_attr': {'class': 'col-xs-5  control-label label_contact control-label '}}) }}
+
+            {# Affichage des erreurs pour ce champ précis. #}
+            {{ form_errors(form.birthDate) }}
+
+            <div class="col-xs-4">
+                {# Génération de l'input. #}
+                {{ form_widget(form.birthDate, {'attr': {'class': 'form-control blocs'}}) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-xs-5 control-label label_contact control-label required">
+                {{ form_label (form.plainPassword.first) }}
+
+                {# Affichage des erreurs pour ce champ précis. #}
+                {{ form_errors(form.plainPassword.first) }}
+            </div>
+            <div class="col-xs-6 ">
+                {{ form_widget (form.plainPassword.first) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-xs-5 control-label label_contact control-label required">
+                {{ form_label (form.plainPassword.second) }}
+                {# Affichage des erreurs pour ce champ précis. #}
+                {{ form_errors(form.plainPassword.second) }}
+            </div>
+            <div class="col-xs-6">
+                {{ form_widget (form.plainPassword.second) }}
+            </div>
+        </div>
+
+        <div class="col-xs-offset-5">
+            {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
+            {{ form_widget(form.envoyer, {'label': 'Créer un compte','attr': {'class': 'btn envoyer_formulaire' }}) }}
+
+        </div>
+        {{ form_widget(form._token) }}
+        {{ form_rest(form) }}
+
+        {# Fermeture de la balise <form> du formulaire HTML #}
+        {{ form_end(form) }}
+    </div>
 {% endblock %}
