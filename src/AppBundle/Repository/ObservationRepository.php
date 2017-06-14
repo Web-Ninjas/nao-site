@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Repository;
+use UserBundle\Entity\User;
 
 /**
  * ObservationRepository
@@ -18,11 +19,18 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getSingleScalarResult();
     }
     
-    /*public function listeObservations()
+    public function listeObservationsNonSupprimer(User $user = null)
     {
         $qb = $this->createQueryBuilder('o');
-        $qb->orderBy('o.id', 'desc');
+        $qb
+            ->orderBy('o.id', 'desc')
+            ->andWhere('o.deleted IS NULL');
+
+        if ($user !== null) {
+            $qb->andWhere('o.author = :author');
+            $qb->setParameter('author', $user);
+        }
 
         return $qb->getQuery()->getResult();
-    }*/
+    }
 }

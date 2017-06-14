@@ -10,4 +10,11 @@ namespace AppBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function countNbUsers()
+    {
+        $qb = $this->createQueryBuilder('u');
+        $qb->select('COUNT(u.id)');
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
 }
