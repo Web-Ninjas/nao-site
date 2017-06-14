@@ -88,7 +88,7 @@ class FrontController extends Controller
     	$em = $this->getDoctrine()->getManager();
     	$listArticles = $em->getRepository('AppBundle:Article')
     		->findBy(
-    			array(),
+    			array('deleted' => null),
     			array('date' => 'desc'),
     			4,
     			($page - 1) * 4
