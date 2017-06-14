@@ -32,21 +32,25 @@
 				zoom: 7
 			});
 			
-			var largeInfoWindow = google.maps.InfoWindow();
+			var largeInfoWindow = new google.maps.InfoWindow();
 
 			{% for observation in observations %}
-				locations.push( {content: "{{ observation.content|replace({"\n":' ', "\r":' '}) }}", position: {lat: {{ observation.latitude }}, lng: {{ observation.longitude }} } });
+				locations.push( {
+					title: "{% if observation.oiseau.nomVern is not empty %} {{ observation.oiseau.nomVern }} {% else %} {{ observation.oiseau.nomValide }} {% endif %}",
+				 	content: "{{ observation.content|replace({"\n":' ', "\r":' '}) }}",
+				 	position: {lat: {{ observation.latitude }}, lng: {{ observation.longitude }} } 
+				 });
 			{% endfor %}
 
 			for (var i = 0; i < locations.length; i++)
 			{
 				var position = locations[i].position;
-				var content = locations[i].content;
+				var title = locations[i].title;
 
 				var marker = new google.maps.Marker({
 					map: map,
 					position: position,
-					title: content,
+					title: title,
 					animation: google.maps.Animation.DROP,
 					id: i
 				});
@@ -63,10 +67,10 @@
 			if(infoWindow.marker != marker)
 			{
 				infoWindow.marker = marker;
-				infoWindow.setContent('<div> + marker.title + </div>');
+				infoWindow.setContent('<div>' + marker.title + '</div>');
 				infoWindow.open(map, marker);
 				infoWindow.addListener('closeclick', function(){
-					infoWindow.setMarker(null);
+				infoWindow.setMarker(null);
 				});
 			}
 		}
