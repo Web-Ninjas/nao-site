@@ -11,7 +11,7 @@
 
     <h4>Utilisateurs</h4>
 
-
+    {% if utilisateurs is not empty %}
     <div class="col-xs-3 recherche">
         <div class="input-group input-group-md">
             <input type="text" class="form-control" placeholder="Recherche" style="border:0;">
@@ -59,11 +59,11 @@
                     </td>
 
                     <td class="texte">
-                {% if (utilisateur.demandeContributeur != false)  and (utilisateur.roles != ['ROLE_CONTRIBUTEUR'])%}
-                    Contributeur ?
-                {% elseif  (utilisateur.demandeNaturaliste  != false) and  (utilisateur.roles != ['ROLE_NATURALISTE']) and (utilisateur.roles != ['ROLE_CONTRIBUTEUR'])%}
-                    Naturaliste ?
-                {% endif %}
+                        {% if (utilisateur.demandeContributeur != false)  and (utilisateur.roles != ['ROLE_CONTRIBUTEUR']) %}
+                            Contributeur ?
+                        {% elseif  (utilisateur.demandeNaturaliste  != false) and  (utilisateur.roles != ['ROLE_NATURALISTE']) and (utilisateur.roles != ['ROLE_CONTRIBUTEUR']) %}
+                            Naturaliste ?
+                        {% endif %}
                     </td>
 
                     <td class="tableau_action action">
@@ -85,11 +85,13 @@
                             <span class=" glyphicon glyphicon-trash icone" title="Supprimer l'utilisateur"></span>
                         </a>
                     </td>
-
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
-
+    {% include 'pagination.html.twig' %}
+    {% else %}
+        <p class="aucun">Il n'y a aucun utilisateur pour l'instant.</p>
+    {% endif %}
 {% endblock %}

@@ -295,19 +295,30 @@ class BackController extends Controller
 
 
     /**
-     * @Route("/dashboard/utilisateurs", name="dashboard_utilisateurs")
+     * @Route("/dashboard/utilisateurs{page}", defaults={"page" = "1" } ,requirements={"id" = "\d+"}, name="dashboard_utilisateurs")
      * @Method({"GET","POST"})
      */
-    public function UtilisateursAction()
+    public function UtilisateursAction($page)
     {
+        $nbUtilisateursParPage = $this->container->getParameter('front_nb_utilisateurs_par_page');
+
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('UserBundle:User');
 
-        $utilisateurs = $repository->findBy(array(), array("id" => "desc"));
+        $utilisateurs = $repository->findAllPagineEtTrie($page, $nbUtilisateursParPage);
+
+        $pagination = array(
+            'page' => $page,
+            'nbPages' => ceil(count($utilisateurs) / $nbUtilisateursParPage),
+            'nomRoute' => 'dashboard_utilisateurs',
+            'paramsRoute' => array()
+        );
+
+        /*$utilisateurs = $repository->findBy(array(), array("id" => "desc"));*/
 
         return $this->render('back/utilisateursDashboard.html.twig', array(
             'utilisateurs' => $utilisateurs,
-
+            'pagination' => $pagination
         ));
     }
 
