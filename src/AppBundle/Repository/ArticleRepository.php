@@ -50,7 +50,7 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
      *
      * @return Paginator
      */
-    public function findAllPagineEtTrie($page, $nbMaxParPage)
+    public function findAllPagineEtTrie($page, $nbMaxParPage, User $user = null)
     {
         if (!is_numeric($page)) {
             throw new InvalidArgumentException(
@@ -70,7 +70,15 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
 
         $qb = $this->createQueryBuilder('a')
             ->where('CURRENT_DATE() >= a.date')
-            ->orderBy('a.date', 'DESC');
+            ->orderBy('a.date', 'DESC')
+            ->andWhere('a.deleted IS NULL');
+
+        if ($user !== null) {
+            $qb->andWhere('a.author = :author');
+            $qb->setParameter('author', $user);
+        }
+
+
 
         $query = $qb->getQuery();
         
