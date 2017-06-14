@@ -33,7 +33,7 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
      *
      * @return Paginator
      */
-    public function findAllPagineEtTrie($page, $nbMaxParPage)
+    public function findAllPagineEtTrie($page, $nbMaxParPage, $filtre = null, $ordreDeTri = 'DESC')
     {
         if (!is_numeric($page)) {
             throw new InvalidArgumentException(
@@ -52,10 +52,20 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
         }
 
         $qb = $this->createQueryBuilder('u')
+            ->select('u')
             ->where('CURRENT_DATE() >= u.registrationDate')
-            ->orderBy('u.id', 'DESC')
             ->andWhere('u.deleted IS NULL');
 
+        if (isset($filtre)) {
+            $mapping = [
+                'user' => 'u.username',
+                'status' => 'u.roles',
+            ];
+
+            $qb->orderBy($mapping[$filtre], $ordreDeTri);
+        } else {
+            $qb->orderBy('u.id', 'DESC');
+        }
 
         $query = $qb->getQuery();
 
@@ -64,11 +74,11 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
         $query->setFirstResult($premierResultat)->setMaxResults($nbMaxParPage);
         $paginator = new Paginator($query);
 
-        if ( ($paginator->count() <= $premierResultat) && $page != 1) {
+        if (($paginator->count() <= $premierResultat) && $page != 1) {
             throw new NotFoundHttpException('La page demandée n\'existe pas.'); // page 404, sauf pour la première page
         }
 
         return $paginator;
     }
-    
+
 }

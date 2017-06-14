@@ -306,14 +306,17 @@ class BackController extends Controller
      * @Route("/dashboard/utilisateurs{page}", defaults={"page" = "1" } ,requirements={"id" = "\d+"}, name="dashboard_utilisateurs")
      * @Method({"GET","POST"})
      */
-    public function UtilisateursAction($page)
+    public function UtilisateursAction($page, Request $request)
     {
         $nbUtilisateursParPage = $this->container->getParameter('front_nb_utilisateurs_par_page');
 
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('UserBundle:User');
 
-        $utilisateurs = $repository->findAllPagineEtTrie($page, $nbUtilisateursParPage);
+        $filtre = $request->query->get('filtre');
+        $ordreDeTri = $request->query->get('ordreDeTri');
+        
+        $utilisateurs = $repository->findAllPagineEtTrie($page, $nbUtilisateursParPage, $filtre, $ordreDeTri);
 
         $pagination = array(
             'page' => $page,
