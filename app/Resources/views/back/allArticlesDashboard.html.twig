@@ -30,8 +30,16 @@
                         {% if rq.get('filtre') == 'author' and rq.get('ordreDeTri') == 'DESC' %}
                             {% set ordreDeTri = 'ASC' %}
                         {% endif %}
+
                         <a href="{{ path('dashboard_all_articles', {'filtre': 'author', 'ordreDeTri': ordreDeTri}) }}">
                             Contributeur
+                            {% if  app.request.attributes.get('_route') == 'dashboard_all_articles'and app.request.query.get('filtre') == 'author' and app.request.query.get('ordreDeTri') == 'DESC' %}
+                                <span class="glyphicon glyphicon-arrow-down"></span>
+                            {% elseif app.request.attributes.get('_route') == 'dashboard_all_articles'and app.request.query.get('filtre') == 'author' and app.request.query.get('ordreDeTri') == 'ASC' %}
+                                <span class="glyphicon glyphicon-arrow-up"></span>
+                            {% else %}
+                                <span class="glyphicon glyphicon-filter"></span>
+                            {% endif %}
                         </a>
                     </th>
                     <th>
@@ -41,6 +49,13 @@
                         {% endif %}
                         <a href="{{ path('dashboard_all_articles', {'filtre': 'date', 'ordreDeTri': ordreDeTri}) }}">
                             Date
+                            {% if  app.request.attributes.get('_route') == 'dashboard_all_articles'and app.request.query.get('filtre') == 'date' and app.request.query.get('ordreDeTri') == 'DESC' %}
+                                <span class="glyphicon glyphicon-arrow-down"></span>
+                            {% elseif app.request.attributes.get('_route') == 'dashboard_all_articles'and app.request.query.get('filtre') == 'date' and app.request.query.get('ordreDeTri') == 'ASC' %}
+                                <span class="glyphicon glyphicon-arrow-up"></span>
+                            {% else %}
+                                <span class="glyphicon glyphicon-filter"></span>
+                            {% endif %}
                         </a>
                     </th>
                     <th>Categorie</th>
