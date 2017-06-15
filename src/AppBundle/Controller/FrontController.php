@@ -168,10 +168,26 @@ class FrontController extends Controller
     */
     public function map()
     {
-    	$listObservations = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->findAllWithOiseau();
+    	$em = $this->getDoctrine()->getManager();
+    	$listObservations = $em->getRepository('AppBundle:Observation')->findAllWithOiseau();
+
+    	$listOiseaux = $em->getRepository('AppBundle:OiseauTaxref')->findAll();
+    	$listOiseauNames = [];
+
+    	foreach ($listOiseaux as $oiseau) {
+    			if($oiseau->getNomVern() ) 
+    				{
+    					$listOiseauNames[] = $oiseau->getNomVern();
+    				}
+    			else 
+    				{
+    					$listOiseauNames[] = $oiseau->getNomValide();
+    				}
+    	}
 
     	return $this->render('front/map.html.twig', [
-    		'observations' => $listObservations
+    		'observations' => $listObservations,
+    		'listOiseauNames' => $listOiseauNames
     		]);
     }
 }

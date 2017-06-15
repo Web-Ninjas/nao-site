@@ -7,7 +7,7 @@
 	<div class="row">
 		<div class="col-lg-6 col-xs-12">
 
-			<input type="search" class="form-control" style="padding-left: 25px;" placeholder="Entrez le nom de l'oiseau que vous recherchez" width="50">
+			<input type="text" id="recherche" class="form-control" style="padding-left: 25px;" placeholder="Entrez le nom de l'oiseau que vous recherchez" width="50">
 			<i id="search" class="fa fa-search"></i>
 
 			<div id="map"></div>
@@ -20,6 +20,21 @@
 
 {% block javascripts %}
 	{{ parent() }}
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script>
+
+	<script>
+		var sourceList = [];
+		{% for oiseau in listOiseauNames %}
+			sourceList.push( "{{ oiseau }}" );
+		{% endfor %}
+
+		$(function() {
+			$('#recherche').autocomplete({
+				source: sourceList
+			});
+		});
+	</script>
+
 	<script>
 		var map;
 		var locations = [];
