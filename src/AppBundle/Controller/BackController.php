@@ -324,9 +324,9 @@ class BackController extends Controller
             'nomRoute' => 'dashboard_utilisateurs',
             'paramsRoute' => array()
         );
-
-        /*$utilisateurs = $repository->findBy(array(), array("id" => "desc"));*/
-
+        
+var_dump($utilisateurs);
+        die();
         return $this->render('back/utilisateursDashboard.html.twig', array(
             'utilisateurs' => $utilisateurs,
             'pagination' => $pagination
