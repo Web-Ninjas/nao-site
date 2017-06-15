@@ -52,12 +52,14 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
         }
 
         $qb = $this->createQueryBuilder('u')
-            ->select('u')
+            // ->select('u')
             ->addSelect('COUNT (o.id)')
             //->where('CURRENT_DATE() >= u.registrationDate')
             ->andWhere('u.deleted IS NULL')
             ->leftJoin('u.observations', 'o')
+            ->addSelect('o')
             ->leftJoin('u.articles', 'a')
+            ->addSelect('a')
             ->groupBy('u.id');
 
         if (isset($filtre)) {

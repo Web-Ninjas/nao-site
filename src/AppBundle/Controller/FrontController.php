@@ -168,7 +168,7 @@ class FrontController extends Controller
     */
     public function map()
     {
-    	$listObservations = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->findAll();
+    	$listObservations = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->findAllWithOiseau();
 
     	return $this->render('front/map.html.twig', [
     		'observations' => $listObservations
