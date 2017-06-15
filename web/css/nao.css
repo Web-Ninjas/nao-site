@@ -536,7 +536,7 @@ img.instagram:hover, img.instagram:focus {
     margin-right: 10px;
 }
 
-.glyphicon.glyphicon-backward{
+.glyphicon.glyphicon-backward {
     color: #5C7EE5;
     font-size: 30px;
 }
@@ -562,11 +562,11 @@ ul.pagination li a.fleche_page_return {
     padding-left: 6px;
 }
 
-.pagination li a.dernier-page{
+.pagination li a.dernier-page {
     border-radius: 13px;
 }
 
-ul.pagination li.active.color_page_active a{
+ul.pagination li.active.color_page_active a {
     background-color: #519D9E;
 }
 
@@ -587,11 +587,35 @@ ul.pagination li a {
     margin-left: 3px;
 }
 
-.aucun{
+.aucun {
     text-align: center;
     color: #5C7EE5;
     font-size: 20px;
     font-weight: bold;
+}
+
+tr th a {
+    color: white;
+}
+
+tr th a:hover {
+    color: #5C7EE5;
+}
+
+tr th a span.glyphicon.glyphicon-arrow-down {
+    color: white;
+}
+
+tr th a span.glyphicon.glyphicon-arrow-down:hover {
+    color: #5C7EE5;
+}
+
+tr th a span.glyphicon.glyphicon-arrow-up {
+    color: white;
+}
+
+tr th a span.glyphicon.glyphicon-arrow-up:hover {
+    color: #5C7EE5;
 }
 
 @media (max-width: 768px) {

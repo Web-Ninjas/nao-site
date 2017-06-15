@@ -31,10 +31,17 @@
                     <th>
                         {% set ordreDeTri = 'DESC' %}
                         {% if rq.get('filtre') == 'author' and rq.get('ordreDeTri') == 'DESC' %}
-                            {% set ordreDeTri = 'ASC'%}
+                            {% set ordreDeTri = 'ASC' %}
                         {% endif %}
                         <a href="{{ path('dashboard_all_observations', {'filtre': 'author', 'ordreDeTri': ordreDeTri}) }}">
                             Utilisateur
+                            {% if  app.request.attributes.get('_route') == 'dashboard_all_observations'and app.request.query.get('filtre') == 'author' and app.request.query.get('ordreDeTri') == 'DESC' %}
+                                <span class="glyphicon glyphicon-arrow-down"></span>
+                            {% elseif app.request.attributes.get('_route') == 'dashboard_all_observations'and app.request.query.get('filtre') == 'author' and app.request.query.get('ordreDeTri') == 'ASC' %}
+                                <span class="glyphicon glyphicon-arrow-up"></span>
+                            {% else %}
+                                <span class="glyphicon glyphicon-filter"></span>
+                            {% endif %}
                         </a>
                     </th>
                     <th>
@@ -44,6 +51,13 @@
                         {% endif %}
                         <a href="{{ path('dashboard_all_observations', {'filtre': 'status', 'ordreDeTri': ordreDeTri}) }}">
                             Statut
+                            {% if  app.request.attributes.get('_route') == 'dashboard_all_observations'and app.request.query.get('filtre') == 'status' and app.request.query.get('ordreDeTri') == 'DESC' %}
+                                <span class="glyphicon glyphicon-arrow-down"></span>
+                            {% elseif app.request.attributes.get('_route') == 'dashboard_all_observations'and app.request.query.get('filtre') == 'status' and app.request.query.get('ordreDeTri') == 'ASC' %}
+                                <span class="glyphicon glyphicon-arrow-up"></span>
+                            {% else %}
+                                <span class="glyphicon glyphicon-filter"></span>
+                            {% endif %}
                         </a>
                     </th>
                     <th>Observation</th>
@@ -54,6 +68,13 @@
                         {% endif %}
                         <a href="{{ path('dashboard_all_observations', {'filtre': 'date', 'ordreDeTri': ordreDeTri}) }}">
                             Date
+                            {% if  app.request.attributes.get('_route') == 'dashboard_all_observations'and app.request.query.get('filtre') == 'date' and app.request.query.get('ordreDeTri') == 'DESC' %}
+                                <span class="glyphicon glyphicon-arrow-down"></span>
+                            {% elseif app.request.attributes.get('_route') == 'dashboard_all_observations'and app.request.query.get('filtre') == 'date' and app.request.query.get('ordreDeTri') == 'ASC' %}
+                                <span class="glyphicon glyphicon-arrow-up"></span>
+                            {% else %}
+                                <span class="glyphicon glyphicon-filter"></span>
+                            {% endif %}
                         </a>
                     </th>
                     <th>
@@ -63,6 +84,13 @@
                         {% endif %}
                         <a href="{{ path('dashboard_all_observations', {'filtre': 'validateur', 'ordreDeTri': ordreDeTri}) }}">
                             Validateur
+                            {% if  app.request.attributes.get('_route') == 'dashboard_all_observations'and app.request.query.get('filtre') == 'validateur' and app.request.query.get('ordreDeTri') == 'DESC' %}
+                                <span class="glyphicon glyphicon-arrow-down"></span>
+                            {% elseif app.request.attributes.get('_route') == 'dashboard_all_observations'and app.request.query.get('filtre') == 'validateur' and app.request.query.get('ordreDeTri') == 'ASC' %}
+                                <span class="glyphicon glyphicon-arrow-up"></span>
+                            {% else %}
+                                <span class="glyphicon glyphicon-filter"></span>
+                            {% endif %}
                         </a>
                     </th>
                     <th class="tableau_action">Action</th>
