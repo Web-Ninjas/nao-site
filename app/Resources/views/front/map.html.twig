@@ -16,12 +16,24 @@
 
 		<div class="col-lg-6 col-xs-12">
 
-			<p style="text-align: center;">Il y a XXX observations pour cet oiseau</p>
+			<h5 style="text-align: center;" id="nbrObservations">Veuillez rechercher un oiseau pour afficher des données</h5>
 
-			<div>
-				<input type="range">
+			<div style="background-color: #58C9B9; padding: 30px; text-align: center; margin-bottom: 20px; width: 80%; margin-left: auto; margin-right: auto;">
+				<label for="slider" style="color: white;">Depuis : </label>
+				<input id="slider" type="range" min="0" max="6" value="6">
+				<span id="periode" style="display: block; color: white;">(Origine)</span>
 			</div>
 
+			<div style="background-color: #9DC8C8; height: 200px;">
+				<table style="width: 100%;">
+					<thead style="background-color: #519D9E;">
+						<tr>
+							<th style="width: 25%; text-align: center;">Utilisateur</th>
+							<th style="width: 75%; text-align: center;">Observation</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
 
 
 		</div>
@@ -35,6 +47,7 @@
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script>
 
 	<script>
+		{# // Permet autocomplete #}
 		var sourceList = [];
 		{% for oiseau in listOiseauNames %}
 			sourceList.push( "{{ oiseau }}" );
@@ -46,40 +59,74 @@
 			});
 
 			$('#recherche').on('autocompletechange', function(){
-				// On lance une requête ajax pour mettre à jour $listObservations
+				// On lance une requête ajax pour mettre à jour la liste des observations
 				$.ajax({
                     url : "{{ path('map') }}",
                     type : 'POST',
                     data : {oiseauName: this.value},
-                    success: function(){ 
-                    	console.log('success'); 
-                    	updateLocations();
-                    	console.log(locations);
-                    	withDrawMarkers();
-                    	setMarkers(map, locations);
+                    success: function(response){ 
+                    	console.log(response); 
+                    	// updateLocations(response);
+                    	// console.log(locations);
+                    	// withDrawMarkers();
+                    	// setMarkers(map, locations);
+                    	// updateLabel();
                     	},
                     error : function(resultat, satut, erreur){
                         console.log(resultat + erreur);
                     }
                 });
+			});
 
-
+			$('#slider').on('change', function(){
+				var string;
+				switch (this.value)
+				{
+					case '0':
+						var string = "(1 jour)";
+						break;
+					case '1':
+						string = "(1 semaine)";
+						break;
+					case '2':
+						string = "(1 mois)";
+						break;
+					case '3':
+						string = "(3 mois)";
+						break;
+					case '4':
+						string = "(6 mois)";
+						break;
+					case '5':
+						string = "(1 an)";
+						break;
+					case '6':
+						string = "(Origine)";
+				}
+				$('#periode').text(string);
 			});
 		});
 
 		var locations = [];
 
-		{# Code pour passer array twig à javascript #}
-		function updateLocations()
+		{# // Code pour passer array twig à javascript #}
+		function updateLocations(newObservations)
 		{
-			{% for observation in observations %}
+			{# // {% for observation in observations %} #}
+			newObservations.forEach(function(observation){
 				locations.push( {
-					title: "{% if observation.oiseau.nomVern is not empty %} {{ observation.oiseau.nomVern }} {% else %} {{ observation.oiseau.nomValide }} {% endif %}",
-				 	content: "{{ observation.content|replace({"\n":' ', "\r":' '}) }}",
-				 	url: "{{ observation.photo }}",
-				 	position: {lat: {{ observation.latitude }}, lng: {{ observation.longitude }} } 
+					title: observation.nomValide,
+				 	content: observation.content,
+				 	url: observation.photo,
+				 	position: {lat: observation.latitude, lng: observation.longitude } 
 				 });
-			{% endfor %}
+			});
+			{# // {% endfor %} #}
+		}
+
+		function updateLabel()
+		{
+			$('nbrObservations').html('Il y a ' + locations.length + ' observations pour cet oiseau');
 		}
 	</script>
 

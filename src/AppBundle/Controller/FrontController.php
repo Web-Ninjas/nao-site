@@ -11,6 +11,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class FrontController extends Controller
 {
@@ -170,36 +172,34 @@ class FrontController extends Controller
     {
     	$em = $this->getDoctrine()->getManager();
     	$listObservations = array();
-    	// $em->getRepository('AppBundle:Observation')->findAllWithOiseau();
 
-
-    	// List les noms des oiseaux pour l'autocomplete
-    	$listOiseaux = $em->getRepository('AppBundle:OiseauTaxref')->findAll();
-    	$listOiseauNames = [];
-
-    	foreach ($listOiseaux as $oiseau) {
-    			if($oiseau->getNomVern() ) 
-    				{
-    					$listOiseauNames[] = $oiseau->getNomVern();
-    				}
-    			else 
-    				{
-    					$listOiseauNames[] = $oiseau->getNomValide();
-    				}
-    	}
-
+    	// On requête les observations en ajax
     	if ($request->isXmlHttpRequest() ) 
     	{
     		$oiseauName = $request->request->get('oiseauName');
     		$oiseau = $em->getRepository('AppBundle:OiseauTaxref')->findOneBy(array(
     			'nomVern' => $oiseauName
     			));
-    		$listObservations = $em->getRepository('AppBundle:Observation')->findObsvervationForOiseau($oiseau);
+    		// Problème ici, les 2 fonctions ci-dessous retourne toujours un array vide
+    		$listObservations = $em->getRepository('AppBundle:Observation')->findBy(array(
+    			'oiseau' => $oiseau
+    			));
+    		// $listObservations = $em->getRepository('AppBundle:Observation')->findObsvervationForOiseau($oiseau);
 
-    		return $this->render('front/map.html.twig', [
-    		'observations' => $listObservations,
-    		'listOiseauNames' => $listOiseauNames
-    		]);
+    		$count = count($listObservations);
+    		return new Response($count);
+    		// return new JsonResponse($listObservations);
+    	}
+
+    	// Liste les noms des oiseaux pour l'autocomplete
+    	$listOiseaux = $em->getRepository('AppBundle:OiseauTaxref')->findAll();
+    	$listOiseauNames = [];
+
+    	foreach ($listOiseaux as $oiseau) {
+    			if($oiseau->getNomVern() ) 
+    					$listOiseauNames[] = $oiseau->getNomVern();
+    			else 
+    					$listOiseauNames[] = $oiseau->getNomValide();
     	}
 
     	return $this->render('front/map.html.twig', [
