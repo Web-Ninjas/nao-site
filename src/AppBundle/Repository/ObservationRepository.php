@@ -15,6 +15,18 @@ use UserBundle\Entity\User;
  */
 class ObservationRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findObsvervationForOiseau($oiseau)
+    {
+        $qd = $this->createQueryBuilder('o')
+        ->where('o.oiseau = :oiseau')
+        ->setParameter('oiseau', $oiseau)
+        ->leftJoin('o.oiseau', 'bird')
+        ->addSelect('bird');
+
+        return $qd
+            ->getQuery()
+            ->getResult();
+    }
 
     public function findAllWithOiseau()
     {

@@ -166,11 +166,14 @@ class FrontController extends Controller
     /**
     * @Route("/rechercher", name="map")
     */
-    public function map()
+    public function map(Request $request)
     {
     	$em = $this->getDoctrine()->getManager();
-    	$listObservations = $em->getRepository('AppBundle:Observation')->findAllWithOiseau();
+    	$listObservations = array();
+    	// $em->getRepository('AppBundle:Observation')->findAllWithOiseau();
 
+
+    	// List les noms des oiseaux pour l'autocomplete
     	$listOiseaux = $em->getRepository('AppBundle:OiseauTaxref')->findAll();
     	$listOiseauNames = [];
 
@@ -183,6 +186,20 @@ class FrontController extends Controller
     				{
     					$listOiseauNames[] = $oiseau->getNomValide();
     				}
+    	}
+
+    	if ($request->isXmlHttpRequest() ) 
+    	{
+    		$oiseauName = $request->request->get('oiseauName');
+    		$oiseau = $em->getRepository('AppBundle:OiseauTaxref')->findOneBy(array(
+    			'nomVern' => $oiseauName
+    			));
+    		$listObservations = $em->getRepository('AppBundle:Observation')->findObsvervationForOiseau($oiseau);
+
+    		return $this->render('front/map.html.twig', [
+    		'observations' => $listObservations,
+    		'listOiseauNames' => $listOiseauNames
+    		]);
     	}
 
     	return $this->render('front/map.html.twig', [
