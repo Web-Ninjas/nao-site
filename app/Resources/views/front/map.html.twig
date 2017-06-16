@@ -53,6 +53,8 @@
                     data : {oiseauName: this.value},
                     success: function(){ 
                     	console.log('success'); 
+                    	updateLocations();
+                    	console.log(locations);
                     	withDrawMarkers();
                     	setMarkers(map, locations);
                     	},
@@ -66,7 +68,10 @@
 		});
 
 		var locations = [];
+
 		{# Code pour passer array twig à javascript #}
+		function updateLocations()
+		{
 			{% for observation in observations %}
 				locations.push( {
 					title: "{% if observation.oiseau.nomVern is not empty %} {{ observation.oiseau.nomVern }} {% else %} {{ observation.oiseau.nomValide }} {% endif %}",
@@ -75,6 +80,7 @@
 				 	position: {lat: {{ observation.latitude }}, lng: {{ observation.longitude }} } 
 				 });
 			{% endfor %}
+		}
 	</script>
 
 	<script src="{{ asset('js/maps.js') }}"></script>
