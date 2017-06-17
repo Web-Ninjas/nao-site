@@ -40,7 +40,7 @@
                         <li class="active"><a href="{{ path('actualites') }}">Actualités</a></li>
                         <li class=""><a href="{{ path('map') }}">Rechercher</a></li>
                         <li class=""><a href="{{ path('about') }}">Qui sommes nous ?</a></li>
-                        <li class=""><a href="#">Observations</a></li>
+                        <li class=""><a href="{{ path('observer') }}">Observations</a></li>
                     </ul>
                     <div class="langue langue-bis hidden-lg visible-md visible-xs">
                         {% if app.request.locale != 'en' %}
@@ -73,7 +73,7 @@
                         <li class="active"><a href="{{ path('actualites') }}">Actualités</a></li>
                         <li><a href="{{ path('map') }}">Rechercher</a></li>
                         <li><a href="{{ path('about') }}">Qui sommes nous ?</a></li>
-                        <li><a href="#">Observations</a></li>
+                        <li><a href="{{ path('observer') }}">Observations</a></li>
                     </ul>
                     <div class="langue visible-lg visible-md visible-sm hidden-xs" >
                         {% if app.request.locale != 'en' %}

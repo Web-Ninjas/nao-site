@@ -168,7 +168,7 @@ class FrontController extends Controller
     /**
     * @Route("/rechercher", name="map")
     */
-    public function map(Request $request)
+    public function mapAction(Request $request)
     {
     	$em = $this->getDoctrine()->getManager();
     	$listObservations = array();
@@ -206,5 +206,13 @@ class FrontController extends Controller
     		'observations' => $listObservations,
     		'listOiseauNames' => $listOiseauNames
     		]);
+    }
+
+    /**
+    * @Route("/observer", name="observer")
+    */
+    public function observerAction(Request $request)
+    {
+    	return $this->render('front/observer.html.twig');
     }
 }
