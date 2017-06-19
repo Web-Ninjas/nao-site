@@ -1,0 +1,16 @@
+{% extends "layout.html.twig" %}
+
+{% block body %}
+
+    <h2>Rédiger un article</h2>
+
+    {{ form(form) }}
+
+    <p>
+        <a href="{{ path('dashboard_utilisateurs') }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Retour à la page d'accueil
+        </a>
+    </p>
+
+{% endblock %}
