@@ -2,6 +2,10 @@ var map;
 		var locations = [];
 		var markers = [];
 
+		var largeInfoWindow;
+		var defaultIcon;
+		var highLightedIcon;
+
 		function initMap()
 		{
 			/*
@@ -23,9 +27,9 @@ var map;
 				streetViewControl: false
 			});
 			
-			var largeInfoWindow = new google.maps.InfoWindow();
-			var defaultIcon = makeMarkerIcon('9DC8C8');
-			var highLightedIcon = makeMarkerIcon('5C7EE5');
+			largeInfoWindow = new google.maps.InfoWindow();
+			defaultIcon = makeMarkerIcon('9DC8C8');
+			highLightedIcon = makeMarkerIcon('5C7EE5');
 
 			// Créé les markers en fonction de ce qu'il y a dans locations[]
 			setMarkers(map, locations);
