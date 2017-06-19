@@ -75,7 +75,10 @@
                 </tr>
                 </thead>
                 <tbody class="fond_tableau">
-                {% for utilisateur in utilisateurs %}
+                {% for utils in utilisateurs %}
+                    {% set utilisateur = utils[0] %}
+                    {% set nbAuteurs = utils['c_aid'] %}
+                    {% set nbObservations = utils['c_oid'] %}
                     <tr>
                         <td>
                             {{ utilisateur.username }}
@@ -86,15 +89,14 @@
                         </td>
 
                         <td class="texte">
-
-                            {% if    utilisateur.observations| length != 0 %}
-                                {{ utilisateur.observations| length }}
+                            {% if nbObservations != 0 %}
+                                {{ nbObservations }}
                             {% endif %}
                         </td>
 
                         <td class="texte">
-                            {% if utilisateur.articles| length != 00 %}
-                                {{ utilisateur.articles| length }}
+                            {% if nbAuteurs != 0 %}
+                                {{ nbAuteurs }}
                             {% endif %}
                         </td>
 
