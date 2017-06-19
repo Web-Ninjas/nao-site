@@ -77,14 +77,14 @@
 
         <div class="form-group">
             {# Génération du label. #}
-            {{ form_label(form.isNaturaliste, "Je veux $etre naturaliste") }}
+            {{ form_label(form.isNaturaliste, "Je veux $etre naturaliste" , {'label_attr': {'class': 'col-xs-5  control-label label_contact control-label '}} ) }}
 
             {# Affichage des erreurs pour ce champ précis. #}
             {{ form_errors(form.isNaturaliste) }}
 
-            <div class="col-xs-4">
+            <div class="col-xs-offset-5 col-xs-4">
                 {# Génération de l'input. #}
-                {{ form_widget(form.isNaturaliste, {'attr': {'class': 'form-control blocs'}}) }}
+                {{ form_widget(form.isNaturaliste, {'attr': {'class': 'fa fa-dot-circle-o'}}) }}
             </div>
         </div>
 
@@ -108,6 +108,19 @@
             </div>
             <div class="col-xs-6">
                 {{ form_widget (form.plainPassword.second) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {# Génération du label. #}
+            <a href="#" {{ form_label(form.mentions, "J'ai lu et j'accepte les mentions légales" , {'label_attr': {'class': 'col-xs-5  control-label label_contact control-label '}} ) }}></a>
+
+            {# Affichage des erreurs pour ce champ précis. #}
+            {{ form_errors(form.mentions) }}
+
+            <div class="col-xs-offset-5 col-xs-4">
+                {# Génération de l'input. #}
+                {{ form_widget(form.mentions, {'attr': {'class': 'fa fa-dot-circle-o'}}) }}
             </div>
         </div>
 
