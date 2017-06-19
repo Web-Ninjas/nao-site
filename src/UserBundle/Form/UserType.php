@@ -3,6 +3,7 @@
 namespace UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -32,9 +33,9 @@ class UserType extends AbstractType
                 'type' => PasswordType::class,
                 'first_options'  => array('label' => 'Mot de passe :'),
                 'second_options' => array('label' => 'Confirmation du mot de passe :'),  ))
-           /* ->add('demandeNaturaliste', CheckboxType::class, [
-                'required' => false
-                ])*/
+            ->add('isNaturaliste', CheckboxType::class, [
+               'mapped' => false
+           ])
             ->add('envoyer', SubmitType::class)
             ;
     }

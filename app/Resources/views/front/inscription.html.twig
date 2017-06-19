@@ -76,6 +76,19 @@
         </div>
 
         <div class="form-group">
+            {# Génération du label. #}
+            {{ form_label(form.isNaturaliste, "Je veux $etre naturaliste") }}
+
+            {# Affichage des erreurs pour ce champ précis. #}
+            {{ form_errors(form.isNaturaliste) }}
+
+            <div class="col-xs-4">
+                {# Génération de l'input. #}
+                {{ form_widget(form.isNaturaliste, {'attr': {'class': 'form-control blocs'}}) }}
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-xs-5 control-label label_contact control-label required">
                 {{ form_label (form.plainPassword.first) }}
 
