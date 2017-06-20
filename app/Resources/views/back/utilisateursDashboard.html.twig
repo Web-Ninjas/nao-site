@@ -60,15 +60,39 @@
                             {% endif %}
                         </a>
                     </th>
-                    <th>Observation</th>
+
                     <th>
-                        {#{% set ordreDeTri = 'DESC' %}
+                    {% set ordreDeTri = 'DESC' %}
+                    {% if rq.get('filtre') == 'observation' and rq.get('ordreDeTri') == 'DESC' %}
+                        {% set ordreDeTri = 'ASC' %}
+                    {% endif %}
+                    <a href="{{ path('dashboard_utilisateurs', {'filtre': 'observation', 'ordreDeTri': ordreDeTri}) }}">
+                   Observation
+                        {% if  app.request.attributes.get('_route') == 'dashboard_utilisateurs'and app.request.query.get('filtre') == 'observation' and app.request.query.get('ordreDeTri') == 'DESC' %}
+                            <span class="glyphicon glyphicon-arrow-down"></span>
+                        {% elseif app.request.attributes.get('_route') == 'dashboard_utilisateurs'and app.request.query.get('filtre') == 'observation' and app.request.query.get('ordreDeTri') == 'ASC' %}
+                            <span class="glyphicon glyphicon-arrow-up"></span>
+                        {% else %}
+                            <span class="glyphicon glyphicon-filter"></span>
+                        {% endif %}
+                    </a>
+                    </th>
+
+                    <th>
+                        {% set ordreDeTri = 'DESC' %}
                         {% if rq.get('filtre') == 'article' and rq.get('ordreDeTri') == 'DESC' %}
                             {% set ordreDeTri = 'ASC' %}
                         {% endif %}
-                        <a href="{{ path('dashboard_utilisateurs', {'filtre': 'article', 'ordreDeTri': ordreDeTri}) }}">#}
+                        <a href="{{ path('dashboard_utilisateurs', {'filtre': 'article', 'ordreDeTri': ordreDeTri}) }}">
                         Article
-                        {#</a>#}
+                            {% if  app.request.attributes.get('_route') == 'dashboard_utilisateurs'and app.request.query.get('filtre') == 'article' and app.request.query.get('ordreDeTri') == 'DESC' %}
+                                <span class="glyphicon glyphicon-arrow-down"></span>
+                            {% elseif app.request.attributes.get('_route') == 'dashboard_utilisateurs'and app.request.query.get('filtre') == 'article' and app.request.query.get('ordreDeTri') == 'ASC' %}
+                                <span class="glyphicon glyphicon-arrow-up"></span>
+                            {% else %}
+                                <span class="glyphicon glyphicon-filter"></span>
+                            {% endif %}
+                        </a>
                     </th>
                     <th>En attente de promotion</th>
                     <th class="tableau_action">Action</th>
