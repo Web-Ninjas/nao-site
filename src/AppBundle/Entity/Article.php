@@ -217,6 +217,8 @@ class Article
 
     /**
      * @Assert\NotBlank()
+     * @Assert\File(mimeTypes={ "image/jpeg", "image/png", "image/jpg"})
+     * @Assert\Image
      */
     private $file;
 

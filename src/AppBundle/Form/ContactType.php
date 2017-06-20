@@ -30,6 +30,9 @@ class ContactType extends AbstractType
             ->add('email',    EmailType::class, array('constraints' =>(array(new Email())))  )
             ->add('contenu',   TextareaType::class)
             ->add('envoyer',      SubmitType::class)
+            ->add('captchaCode', 'Captcha\Bundle\CaptchaBundle\Form\Type\CaptchaType', array(
+                'captchaConfig' => 'ExampleCaptcha'
+            ));
         ;
     }
 

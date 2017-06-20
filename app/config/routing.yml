@@ -12,3 +12,6 @@ login_check:
 
 logout:
     path: /logout
+
+captcha_routing:
+  resource: "@CaptchaBundle/Resources/config/routing.yml"

@@ -477,7 +477,9 @@ class BackController extends Controller
 
             $this->addFlash('notice', 'L\'article a bien été enregistré !');
 
-            return $this->generateUrl('article', array('id' =>$article->getId()));
+            return $this->redirectToRoute('article', array(
+                'id' =>$article->getId()
+            ));
         }
 
         return $this->render(':back:redigerArticle.html.twig', array(
