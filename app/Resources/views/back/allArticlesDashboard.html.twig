@@ -58,7 +58,6 @@
                             {% endif %}
                         </a>
                     </th>
-                    <th>Categorie</th>
                     <th>Article</th>
                     <th class="tableau_action">Action</th>
                 </tr>
@@ -73,9 +72,7 @@
                         <td>
                             {{ article.date | date('d-m-Y') }}
                         </td>
-                        <td>
-
-                        </td>
+                  
                         <td class="content_observation">
                             <div class="tableau_observation">
                                 <a href="{{ path('article', {'id': article.id}) }}">{{ article.content | truncate(50) |raw }}</a>
