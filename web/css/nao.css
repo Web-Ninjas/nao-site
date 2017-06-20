@@ -250,6 +250,7 @@ li.color {
 
 .birthday {
     margin-top: 35px;
+    margin-bottom: 38px;
 }
 
 #profil_birthDate {
@@ -726,6 +727,70 @@ input[type=range]:focus::-ms-fill-upper {
   background: rgba(3, 3, 3, 0);
 }
 
+.mentionsLegales{
+    margin-top: 40px !important;
+}
+
+.col-xs-offset-5.col-xs-6 label a{
+    color: #5C7EE5;
+}
+
+.col-xs-offset-5.col-xs-6 input.fa.fa-circle-thin {
+    color: #5C7EE5;
+}
+
+div.checkbox label.required{
+    color: #5C7EE5;
+    font-weight: bold;
+}
+
+.modal-content div.container div.row.header{
+    visibility: hidden;
+    height: 10px;
+}
+
+.modal-content div.container div.row.header div.col-lg-2.col-md-3.col-sm-3.col-xs-11.titre{
+    width: 0;
+}
+
+.modal-content div.container div.row.footer{
+    visibility: hidden;
+    height: 0;
+    margin-top: 0;
+}
+
+
+.modal-content div.container div.row h2{
+    background-color: #519D9E;
+    /* padding: 7px; */
+    text-align: center;
+    color: white;
+    /* height: 77px; */
+}
+
+
+.modal-content div.container{
+    width: 600px;}
+
+.modal-content div.container div.row{
+    float: left;
+}
+
+.modal-content div.container div.row.header div.col-lg-10.col-md-9.col-sm-9.col-xs-12{
+    height: 0;
+}
+
+.modal-content div.container div.row.col-lg-10.col-md-9.col-sm-9.col-xs-12{
+    height: 48px;
+}
+
+.modal-content div.container div.col-sm-3{
+    height: 0;
+}
+
+.modal-content div.container div.col-md-3.col-md-offset-6.col-sm-4.col-sm-offset-5{
+    height: 0;
+}
 
 @media (max-width: 768px) {
 
@@ -764,6 +829,8 @@ input[type=range]:focus::-ms-fill-upper {
         margin-left: 40px;
         margin-right: 40px;
     }
+
+
 
     h1 {
         position: absolute;
