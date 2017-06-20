@@ -8,6 +8,10 @@
 	<div class="container pagination_b">
 		<div class="row">
 			{% for article in listArticles %}
+				{% if loop.index0 % 2 == 0 %}
+					</div>
+					<div class="row">
+				{% endif %}
 
 				<article class="col-lg-6 col-xs-12">
 
