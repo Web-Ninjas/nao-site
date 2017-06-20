@@ -82,9 +82,9 @@
             {# Affichage des erreurs pour ce champ précis. #}
             {{ form_errors(form.isNaturaliste) }}
 
-            <div class="col-xs-offset-5 col-xs-4">
+            <div class="col-xs-offset-5 col-xs-4 naturaliste">
                 {# Génération de l'input. #}
-                {{ form_widget(form.isNaturaliste, {'attr': {'class': 'fa fa-dot-circle-o'}}) }}
+                {{ form_widget(form.isNaturaliste, {'attr': {'class': 'fa fa fa-circle-thin'}}) }}
             </div>
         </div>
 
@@ -100,7 +100,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group ">
             <div class="col-xs-5 control-label label_contact control-label required">
                 {{ form_label (form.plainPassword.second) }}
                 {# Affichage des erreurs pour ce champ précis. #}
@@ -111,19 +111,30 @@
             </div>
         </div>
 
-        <div class="form-group">
-            {# Génération du label. #}
-            <a href="#" {{ form_label(form.mentions, "J'ai lu et j'accepte les mentions légales" , {'label_attr': {'class': 'col-xs-5  control-label label_contact control-label '}} ) }}></a>
 
-            {# Affichage des erreurs pour ce champ précis. #}
-            {{ form_errors(form.mentions) }}
-
-            <div class="col-xs-offset-5 col-xs-4">
-                {# Génération de l'input. #}
-                {{ form_widget(form.mentions, {'attr': {'class': 'fa fa-dot-circle-o'}}) }}
+        <div class="form-group mentionsLegales">
+            <div class="col-xs-offset-5 col-xs-6 ">
+                <input type="checkbox" class="fa fa-circle-thin " required>
+                <label>
+                    <a data-toggle="modal" href="{{ path('mentions') }}" data-target="#myModal">J'ai lu et j'accepte les
+                        mentions légales </a>
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    <!-- /.modal -->
+                </label>
             </div>
         </div>
-
         <div class="col-xs-offset-5">
             {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
             {{ form_widget(form.envoyer, {'label': 'Créer un compte','attr': {'class': 'btn envoyer_formulaire' }}) }}

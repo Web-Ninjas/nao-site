@@ -35,11 +35,7 @@ class UserType extends AbstractType
                 'second_options' => array('label' => 'Confirmation du mot de passe :'),))
             ->add('isNaturaliste', CheckboxType::class, [
                 'mapped' => false,
-                'label' => 'Je veux être naturaliste'
-            ])
-            ->add('mentions', CheckboxType::class, [
-                'mapped' => false,
-                'label' => 'J\'ai lu et j\'accepte les mentions légales'
+                'label' => 'Je veux être naturaliste',
             ])
             ->add('envoyer', SubmitType::class);
     }
