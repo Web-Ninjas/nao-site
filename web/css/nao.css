@@ -486,6 +486,11 @@ th {
     font-weight: bold;
 }
 
+.captcha{
+    width: 250px !important;
+    height: 50px !important;
+}
+
 .contact {
     margin-right: 10px;
 }
