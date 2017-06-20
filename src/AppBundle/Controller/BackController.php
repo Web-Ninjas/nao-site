@@ -10,6 +10,7 @@ use AppBundle\Form\ProfilType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\User;
@@ -21,6 +22,7 @@ class BackController extends Controller
     /**
      * @Route("/dashboard/profil", name="dashboard_profil")
      * @Method({"GET","POST"})
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      */
     public function profilAction(Request $request)
     {
@@ -62,6 +64,7 @@ class BackController extends Controller
     /**
      * @Route("/dashboard/observations{page}", defaults={"page" = "1" } ,requirements={"id" = "\d+"}, name="dashboard_observations")
      * @Method({"GET","POST"})
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      */
     public function observationsAction($page, Request $request)
     {
@@ -91,6 +94,7 @@ class BackController extends Controller
     /**
      * @Route("/dashboard/all_observations{page}", defaults={"page" = "1" } ,requirements={"id" = "\d+"}, name="dashboard_all_observations")
      * @Method({"GET","POST"})
+     * @Security("has_role('ROLE_NATURALISTE') ")
      */
     public function allObservationsAction($page, Request $request)
     {
@@ -122,6 +126,7 @@ class BackController extends Controller
      * @Method({"GET","POST"})
      * @param Observation $observation
      * @ParamConverter()
+     * @Security("has_role('ROLE_NATURALISTE') ")
      */
     public function validerObservationAction(Observation $observation, Request $request)
     {
@@ -150,6 +155,7 @@ class BackController extends Controller
      * @Method({"GET","POST"})
      * @param Observation $observation
      * @ParamConverter()
+     * @Security("has_role('ROLE_NATURALISTE') ")
      */
     public function signalerObservationAction(Observation $observation, Request $request)
     {
@@ -210,6 +216,7 @@ class BackController extends Controller
      * @Method({"GET","POST"})
      * @param Observation $observation
      * @ParamConverter()
+     * @Security("has_role('ROLE_NATURALISTE') ")
      */
     public function demandeDeModificationObservationAction(Observation $observation, Request $request)
     {
@@ -281,6 +288,7 @@ class BackController extends Controller
      * @Method({"GET","POST"})
      * @param Article $article
      * @ParamConverter()
+     * @Security("has_role('ROLE_CONTRIBUTEUR') ")
      */
     public function supprimerArticleAction(Article $article, Request $request)
     {
@@ -306,6 +314,7 @@ class BackController extends Controller
     /**
      * @Route("/dashboard/utilisateurs{page}", defaults={"page" = "1" } ,requirements={"id" = "\d+"}, name="dashboard_utilisateurs")
      * @Method({"GET","POST"})
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function UtilisateursAction($page, Request $request)
     {
@@ -336,6 +345,7 @@ class BackController extends Controller
     /**
      * @Route("/dashboard/detailUtilisateur/{id}", requirements={"id" = "\d+"}, name="detailUtilisateur")
      * @param User $user
+     * @Security("has_role('ROLE_ADMIN') ")
      */
     public function voirUtilisateurAction(User $user, Request $request)
     {
@@ -362,6 +372,7 @@ class BackController extends Controller
      * @Method({"GET","POST"})
      * @param User $user
      * @ParamConverter()
+     * @Security("has_role('ROLE_ADMIN') ")
      */
     public function SupprimerUtilisateursAction(User $user, Request $request)
     {
@@ -388,6 +399,7 @@ class BackController extends Controller
      * @Method({"GET","POST"})
      * @param User $user
      * @ParamConverter()
+     * @Security("has_role('ROLE_ADMIN') ")
      */
     public function PromouvoirUtilisateursAction(User $user, Request $request)
     {
@@ -420,6 +432,7 @@ class BackController extends Controller
      * @Method({"GET","POST"})
      * @param User $user
      * @ParamConverter()
+     * @Security("has_role('ROLE_ADMIN') ")
      */
     public function DestituerUtilisateursAction(User $user, Request $request)
     {
@@ -453,6 +466,7 @@ class BackController extends Controller
     /**
      * @Route("/dashboard/rediger/article", name="dashboard_redigerArticle")
      * @Method({"GET","POST"})
+     * @Security("has_role('ROLE_CONTRIBUTEUR') ")
      */
     public function redigerArticleAction(Request $request)
     {
