@@ -45,19 +45,16 @@ class UserController extends Controller
 
     	$form->handleRequest($request);
 
-    	if ($form->isSubmitted() && $form->isValid() )
-    	{
-
+    	if ($form->isSubmitted() && $form->isValid()) {
 			$password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
 			$user->setPassword($password);
 			
-    		/*// Si l'utilisateur a demandé à être naturaliste on modifie la propriété demandeNaturaliste en DateTime
-    		if ($request->getContent('demandeNaturaliste') === '1')
-    		{
+    		// Si l'utilisateur a demandé à être naturaliste on modifie la propriété demandeNaturaliste en DateTime
+    		if ($form->get('isNaturaliste')->getData() == 1) {
     			$user->setDemandeNaturaliste(new \DateTime('now'));
     		} else {
     			$user->setDemandeNaturaliste(null);
-    		}*/
+    		}
 
     		// On enregistre en bdd
     		$em = $this->getDoctrine()->getManager();

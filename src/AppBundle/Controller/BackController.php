@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Article;
 use AppBundle\Entity\Observation;
+use AppBundle\Form\ArticleType;
 use AppBundle\Form\OservationType;
 use AppBundle\Form\ProfilType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -324,9 +325,8 @@ class BackController extends Controller
             'nomRoute' => 'dashboard_utilisateurs',
             'paramsRoute' => array()
         );
-
-        /*$utilisateurs = $repository->findBy(array(), array("id" => "desc"));*/
-
+        
+        //var_dump($utilisateurs); die;
         return $this->render('back/utilisateursDashboard.html.twig', array(
             'utilisateurs' => $utilisateurs,
             'pagination' => $pagination
@@ -447,6 +447,41 @@ class BackController extends Controller
 
         return $this->redirectToRoute('detailUtilisateur', array(
             "id" => $user->getId()));
+
+    }
+
+    /**
+     * @Route("/dashboard/rediger/article", name="dashboard_redigerArticle")
+     * @Method({"GET","POST"})
+     */
+    public function redigerArticleAction(Request $request)
+    {
+        $article = new Article();
+        $article
+            ->setDate(new \Datetime())
+            ->setAuthor($this->getUser());
+
+        $form = $this->get('form.factory')->create(ArticleType::class, $article);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // On enregistre en bdd
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($article);
+            $em->flush();
+
+            $this->addFlash('notice', 'L\'article a bien été enregistré !');
+
+            return $this->redirectToRoute('article', array(
+                'id' =>$article->getId()
+                ));
+        }
+
+        return $this->render(':back:redigerArticle.html.twig', array(
+            'form' => $form->createView(),
+        ));
 
     }
 

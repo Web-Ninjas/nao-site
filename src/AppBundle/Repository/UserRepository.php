@@ -52,14 +52,21 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
         }
 
         $qb = $this->createQueryBuilder('u')
-            ->select('u')
-            ->where('CURRENT_DATE() >= u.registrationDate')
-            ->andWhere('u.deleted IS NULL');
+             ->select('u')
+            ->addSelect('COUNT (a.id) as c_aid')
+            ->addSelect('COUNT(o.id) as c_oid')
+            ->andWhere('u.deleted IS NULL')
+            ->leftJoin('u.observations', 'o')
+            ->leftJoin('u.articles', 'a')
+            ->groupBy('u.id');
+            ;
 
         if (isset($filtre)) {
             $mapping = [
                 'user' => 'u.username',
                 'status' => 'u.roles',
+                'article' => 'c_aid',
+                'observation' => 'c_oid'
             ];
 
             $qb->orderBy($mapping[$filtre], $ordreDeTri);

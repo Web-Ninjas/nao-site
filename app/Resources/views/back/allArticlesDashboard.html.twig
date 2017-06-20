@@ -5,7 +5,7 @@
 {% block content %}
 
     {% if app.request.query.get('only-me') == 'true' %} {# vérifie si dans l'URL, on trouve "?filtre=xxx" #}
-        <h4>Mes les articles</h4>
+        <h4>Mes articles</h4>
     {% else %}
         <h4>Tous les articles</h4>
     {% endif %}

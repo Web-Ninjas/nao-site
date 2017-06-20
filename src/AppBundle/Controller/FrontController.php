@@ -11,6 +11,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class FrontController extends Controller
 {
@@ -166,12 +168,51 @@ class FrontController extends Controller
     /**
     * @Route("/rechercher", name="map")
     */
-    public function map()
+    public function mapAction(Request $request)
     {
-    	$listObservations = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation')->findAll();
+    	$em = $this->getDoctrine()->getManager();
+    	$listObservations = array();
+
+    	// On requête les observations en ajax
+    	if ($request->isXmlHttpRequest() ) 
+    	{
+    		$oiseauName = $request->request->get('oiseauName');
+    		$oiseau = $em->getRepository('AppBundle:OiseauTaxref')->findOneBy(array(
+    			'nomVern' => $oiseauName
+    			));
+    		// Problème ici, les 2 fonctions ci-dessous retourne toujours un array vide
+    		$listObservations = $em->getRepository('AppBundle:Observation')->findBy(array(
+    			'oiseau' => $oiseau
+    			));
+    		// $listObservations = $em->getRepository('AppBundle:Observation')->findObsvervationForOiseau($oiseau);
+
+    		// $count = count($listObservations);
+    		return new JsonResponse($listObservations);
+    		// return new JsonResponse($listObservations);
+    	}
+
+    	// Liste les noms des oiseaux pour l'autocomplete
+    	$listOiseaux = $em->getRepository('AppBundle:OiseauTaxref')->findAll();
+    	$listOiseauNames = [];
+
+    	foreach ($listOiseaux as $oiseau) {
+    			if($oiseau->getNomVern() ) 
+    					$listOiseauNames[] = $oiseau->getNomVern();
+    			else 
+    					$listOiseauNames[] = $oiseau->getNomValide();
+    	}
 
     	return $this->render('front/map.html.twig', [
-    		'observations' => $listObservations
+    		'observations' => $listObservations,
+    		'listOiseauNames' => $listOiseauNames
     		]);
+    }
+
+    /**
+    * @Route("/observer", name="observer")
+    */
+    public function observerAction(Request $request)
+    {
+    	return $this->render('front/observer.html.twig');
     }
 }

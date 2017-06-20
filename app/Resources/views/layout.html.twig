@@ -13,6 +13,7 @@
             <link rel="stylesheet"
                   href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css">
             <link rel="stylesheet" href="{{ asset('font-awesome/css/font-awesome.min.css') }}">
+            <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/themes/smoothness/jquery-ui.css" />
         {% endblock %}
 
     </head>
@@ -39,7 +40,7 @@
                         <li class="active"><a href="{{ path('actualites') }}">Actualités</a></li>
                         <li class=""><a href="{{ path('map') }}">Rechercher</a></li>
                         <li class=""><a href="{{ path('about') }}">Qui sommes nous ?</a></li>
-                        <li class=""><a href="#">Observations</a></li>
+                        <li class=""><a href="{{ path('observer') }}">Observations</a></li>
                     </ul>
                     <div class="langue langue-bis hidden-lg visible-md visible-xs">
                         {% if app.request.locale != 'en' %}
@@ -72,7 +73,7 @@
                         <li class="active"><a href="{{ path('actualites') }}">Actualités</a></li>
                         <li><a href="{{ path('map') }}">Rechercher</a></li>
                         <li><a href="{{ path('about') }}">Qui sommes nous ?</a></li>
-                        <li><a href="#">Observations</a></li>
+                        <li><a href="{{ path('observer') }}">Observations</a></li>
                     </ul>
                     <div class="langue visible-lg visible-md visible-sm hidden-xs" >
                         {% if app.request.locale != 'en' %}
@@ -124,9 +125,17 @@
 
     {% block javascripts %}
         {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script> 
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+        
+        {#
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        #}
+
+        <!-- include summernote css/js-->
+        <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.css" rel="stylesheet">
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.js"></script>
     {% endblock %}
 
 

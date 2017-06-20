@@ -7,74 +7,131 @@
 	<div class="row">
 		<div class="col-lg-6 col-xs-12">
 
-			<input type="search" class="form-control" style="padding-left: 25px;" placeholder="Entrez le nom de l'oiseau que vous recherchez" width="50">
+			<input type="text" id="recherche" class="form-control" style="padding-left: 25px;" placeholder="Entrez le nom de l'oiseau que vous recherchez" width="50">
 			<i id="search" class="fa fa-search"></i>
 
 			<div id="map"></div>
 
+		</div>
+
+		<div class="col-lg-6 col-xs-12">
+
+			<h5 style="text-align: center;" id="nbrObservations">Veuillez rechercher un oiseau pour afficher des données</h5>
+
+			<div style="background-color: #58C9B9; padding: 30px; text-align: center; margin-bottom: 20px; width: 80%; margin-left: auto; margin-right: auto;">
+				<label for="slider" style="color: white;">Depuis : </label>
+				<input id="slider" type="range" min="0" max="6" value="6">
+				<span id="periode" style="display: block; color: white;">(Origine)</span>
+			</div>
+
+			<div style="background-color: #9DC8C8; height: 200px;">
+				<table style="width: 100%;">
+					<thead style="background-color: #519D9E;">
+						<tr>
+							<th style="width: 25%; text-align: center;">Utilisateur</th>
+							<th style="width: 75%; text-align: center;">Observation</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+
 
 		</div>
+
 	</div> <!-- row -->
 
 {% endblock %}
 
 {% block javascripts %}
 	{{ parent() }}
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script>
+
 	<script>
-		var map;
-		var locations = [];
-		var markers = [];
+		{# // Permet autocomplete #}
+		var sourceList = [];
+		{% for oiseau in listOiseauNames %}
+			sourceList.push( "{{ oiseau }}" );
+		{% endfor %}
 
-		function initMap()
-		{
-			map = new google.maps.Map(document.getElementById('map'), {
-				center: {lat: 48.856614, lng: 2.3522219000000177}, {# coordonnées de Paris #}
-				zoom: 7
+		$(function() {
+			$('#recherche').autocomplete({
+				source: sourceList
 			});
-			
-			var largeInfoWindow = new google.maps.InfoWindow();
 
-			{% for observation in observations %}
+			$('#recherche').on('autocompletechange', function(){
+				// On lance une requête ajax pour mettre à jour la liste des observations
+				$.ajax({
+                    url : "{{ path('map') }}",
+                    type : 'POST',
+                    data : {oiseauName: this.value},
+                    success: function(response){ 
+                    	console.log(response[0]);
+                    	// var parsedResult = JSON.parse(response); 
+                    	updateLocations(response);
+                    	withDrawMarkers();
+                    	setMarkers(map, locations);
+                    	updateLabel();
+                    	},
+                    error : function(resultat, satut, erreur){
+                        console.log(resultat + erreur);
+                    }
+                });
+			});
+
+			$('#slider').on('change', function(){
+				var string;
+				switch (this.value)
+				{
+					case '0':
+						var string = "(1 jour)";
+						break;
+					case '1':
+						string = "(1 semaine)";
+						break;
+					case '2':
+						string = "(1 mois)";
+						break;
+					case '3':
+						string = "(3 mois)";
+						break;
+					case '4':
+						string = "(6 mois)";
+						break;
+					case '5':
+						string = "(1 an)";
+						break;
+					case '6':
+						string = "(Origine)";
+				}
+				$('#periode').text(string);
+			});
+		});
+
+		// var locations = [];
+
+		{# // Code pour passer array twig à javascript #}
+		function updateLocations(newObservations)
+		{
+			{# // {% for observation in observations %} #}
+			newObservations.forEach(function(observation){
 				locations.push( {
-					title: "{% if observation.oiseau.nomVern is not empty %} {{ observation.oiseau.nomVern }} {% else %} {{ observation.oiseau.nomValide }} {% endif %}",
-				 	content: "{{ observation.content|replace({"\n":' ', "\r":' '}) }}",
-				 	position: {lat: {{ observation.latitude }}, lng: {{ observation.longitude }} } 
+					title: observation.nomValide,
+				 	content: observation.content,
+				 	url: observation.photo,
+				 	position: {lat: observation.latitude, lng: observation.longitude } 
 				 });
-			{% endfor %}
-
-			for (var i = 0; i < locations.length; i++)
-			{
-				var position = locations[i].position;
-				var title = locations[i].title;
-
-				var marker = new google.maps.Marker({
-					map: map,
-					position: position,
-					title: title,
-					animation: google.maps.Animation.DROP,
-					id: i
-				});
-				markers.push(marker);
-
-				marker.addListener('click', function(){
-					populateInfoWindow(this, largeInfoWindow);
-				});
-			}
+			});
+			{# // {% endfor %} #}
 		}
 
-		function populateInfoWindow(marker, infoWindow)
+		function updateLabel()
 		{
-			if(infoWindow.marker != marker)
-			{
-				infoWindow.marker = marker;
-				infoWindow.setContent('<div>' + marker.title + '</div>');
-				infoWindow.open(map, marker);
-				infoWindow.addListener('closeclick', function(){
-				infoWindow.setMarker(null);
-				});
-			}
+			$('nbrObservations').html('Il y a ' + locations.length + ' observations pour cet oiseau');
 		}
 	</script>
+
+	<script src="{{ asset('js/maps.js') }}"></script>
+	<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 	<script async defer
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZjdDWppQRZkoIfeqHtm644-ncPYj9eXw&v=3&callback=initMap">
 	</script>

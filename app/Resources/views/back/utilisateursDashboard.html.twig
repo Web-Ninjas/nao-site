@@ -61,13 +61,24 @@
                         </a>
                     </th>
                     <th>Observation</th>
-                    <th>Article</th>
+                    <th>
+                        {#{% set ordreDeTri = 'DESC' %}
+                        {% if rq.get('filtre') == 'article' and rq.get('ordreDeTri') == 'DESC' %}
+                            {% set ordreDeTri = 'ASC' %}
+                        {% endif %}
+                        <a href="{{ path('dashboard_utilisateurs', {'filtre': 'article', 'ordreDeTri': ordreDeTri}) }}">#}
+                        Article
+                        {#</a>#}
+                    </th>
                     <th>En attente de promotion</th>
                     <th class="tableau_action">Action</th>
                 </tr>
                 </thead>
                 <tbody class="fond_tableau">
-                {% for utilisateur in utilisateurs %}
+                {% for utils in utilisateurs %}
+                    {% set utilisateur = utils[0] %}
+                    {% set nbAuteurs = utils['c_aid'] %}
+                    {% set nbObservations = utils['c_oid'] %}
                     <tr>
                         <td>
                             {{ utilisateur.username }}
@@ -78,15 +89,14 @@
                         </td>
 
                         <td class="texte">
-
-                            {% if    utilisateur.observations| length != 0 %}
-                                {{ utilisateur.observations| length }}
+                            {% if nbObservations != 0 %}
+                                {{ nbObservations }}
                             {% endif %}
                         </td>
 
                         <td class="texte">
-                            {% if utilisateur.articles| length != 00 %}
-                                {{ utilisateur.articles| length }}
+                            {% if nbAuteurs != 0 %}
+                                {{ nbAuteurs }}
                             {% endif %}
                         </td>
 
@@ -101,19 +111,19 @@
                         <td class="tableau_action action">
 
                             <a href="{{ path('detailUtilisateur',{'id': utilisateur.id}) }}">
-                                <span class=" glyphicon glyphicon-eye-open icone"
-                                      title="Détail de l'utilisateur"></span>
+        <span class=" glyphicon glyphicon-eye-open icone"
+              title="Détail de l'utilisateur"></span>
                             </a>
                             <a href="{{ path('detailUtilisateur',{'id': utilisateur.id}) }}">
                                 <span class=" glyphicon glyphicon-pencil icone" title="Modifier l'utilisateur"></span>
                             </a>
                             <a href="{{ path('promouvoirUtilisateurs',{'id': utilisateur.id, 'redirect': 'utilisateurs'}) }}">
-                                <span class=" glyphicon glyphicon-arrow-up icone"
-                                      title="Promouvoir l'utilisateur"></span>
+        <span class=" glyphicon glyphicon-arrow-up icone"
+              title="Promouvoir l'utilisateur"></span>
                             </a>
                             <a href="{{ path('destituerUtilisateurs',{'id': utilisateur.id, 'redirect': 'utilisateurs'}) }}">
-                            <span class=" glyphicon glyphicon-arrow-down icone"
-                                  title="Rétrograder l'utilisateur"></span>
+    <span class=" glyphicon glyphicon-arrow-down icone"
+          title="Rétrograder l'utilisateur"></span>
                             </a>
                             <a href="{{ path('supprimerUtilisateurs',{'id': utilisateur.id, 'redirect': 'utilisateurs'}) }}">
                                 <span class=" glyphicon glyphicon-trash icone" title="Supprimer l'utilisateur"></span>
