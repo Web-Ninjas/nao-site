@@ -476,11 +476,7 @@ class BackController extends Controller
 
             return $this->redirectToRoute('article', array(
                 'id' =>$article->getId()
-<<<<<<< HEAD
-            ));
-=======
                 ));
->>>>>>> dev
         }
 
         return $this->render(':back:redigerArticle.html.twig', array(

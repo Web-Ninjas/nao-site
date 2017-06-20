@@ -230,16 +230,6 @@ class Article
         return $this->author;
     }
 
-<<<<<<< HEAD
-    /**
-     * @Assert\NotBlank()
-     * @Assert\File(mimeTypes={ "image/jpeg", "image/png", "image/jpg"})
-     * @Assert\Image
-     */
-    private $file;
-
-=======
->>>>>>> dev
     public function getFile()
     {
         return $this->file;
