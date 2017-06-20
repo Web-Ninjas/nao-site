@@ -846,6 +846,13 @@ div.checkbox label.required{
         padding-left: 23px;
         padding-top: 14px;
     }
+
+    .birthday {
+        margin-bottom: 100px;
+    }
+
+    .modal-content div.container {
+        width: 384px;
 }
 
 @media (min-width: 768px) {
