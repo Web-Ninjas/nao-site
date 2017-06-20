@@ -4,7 +4,14 @@
 
     <h2>Rédiger un article</h2>
 
-    {{ form(form) }}
+{{ form_start(form) }}
+	{{ form_errors(form) }}
+
+	{{ form_row(form.title) }}
+    {{ form_row(form.content, {'id' : 'summernote'}) }}
+    {{ form_row(form.enregistrer) }}
+
+{{ form_end(form) }}
 
     <p>
         <a href="{{ path('dashboard_utilisateurs') }}" class="btn btn-default">
@@ -12,5 +19,21 @@
             Retour à la page d'accueil
         </a>
     </p>
+
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+	  		$('#summernote').summernote({
+	  			height: 300,                 // set editor height
+	  			minHeight: null,             // set minimum height of editor
+	  			maxHeight: null,             // set maximum height of editor
+	  			focus: true                  // set focus to editable area after initializing summernote
+			});
+		});
+	</script>
 
 {% endblock %}

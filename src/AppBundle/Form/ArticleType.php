@@ -26,7 +26,13 @@ class ArticleType extends AbstractType
     {
         $builder
             ->add('title',     TextType::class)
-            ->add('content',   TextareaType::class, array('required' => false, 'attr' => (array('class'=> 'ckeditor', 'id'=>'my-textarea-id'))))
+            ->add('content',   TextareaType::class, array(
+                'required' => false, 
+                'attr' => (array(
+                    'class'=> 'ckeditor', 
+                    ))
+                )
+            )
             ->add('enregistrer',      SubmitType::class)
         ;
     }
