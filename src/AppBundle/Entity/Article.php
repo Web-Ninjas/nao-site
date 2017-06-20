@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -25,7 +26,7 @@ class Article
     /**
     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User",inversedBy="articles" )
     * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotBlank()
+    * @Assert\NotBlank()
     */
     private $author;
 
@@ -57,7 +58,6 @@ class Article
      * @var string
      *
      * @ORM\Column(name="photo", type="string", length=255)
-     * @Assert\NotBlank()
      * @Assert\File(mimeTypes={ "image/jpeg", "image/png", "image/jpg"})
      * @Assert\Image
      */
@@ -67,7 +67,6 @@ class Article
      * @var \DateTime
      *
      * @ORM\Column(name="deleted", type="datetime", nullable=true)
-     * @Assert\NotBlank()
      * @Assert\DateTime()
      */
     private $deleted;
@@ -81,6 +80,14 @@ class Article
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @param mixed $author
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
     }
 
     /**
@@ -207,5 +214,51 @@ class Article
     {
         return $this->author;
     }
+
+    /**
+     * @Assert\NotBlank()
+     */
+    private $file;
+
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+    }
+
+    public function upload()
+    {
+        // Si jamais il n'y a pas de fichier (champ facultatif), on ne fait rien
+        if (null === $this->file) {
+            return;
+        }
+
+        // On récupère le nom original du fichier de l'internaute
+        $name = $this->file->getClientOriginalName();
+
+        // On déplace le fichier envoyé dans le répertoire de notre choix
+        $this->file->move($this->getUploadRootDir(), $name);
+
+        // On sauvegarde le nom de fichier dans notre attribut $url
+        $this->photo = $name;
+        
+    }
+
+    public function getUploadDir()
+    {
+        // On retourne le chemin relatif vers l'image pour un navigateur (relatif au répertoire /web donc)
+        return 'uploads/img';
+    }
+
+    protected function getUploadRootDir()
+    {
+        // On retourne le chemin relatif vers l'image pour notre code PHP
+        return __DIR__.'/../../../web/'.$this->getUploadDir();
+    }
+
 }
 

@@ -457,7 +457,9 @@ class BackController extends Controller
     public function redigerArticleAction(Request $request)
     {
         $article = new Article();
-        $article->setDate(new \Datetime());
+        $article
+            ->setDate(new \Datetime())
+            ->setAuthor($this->getUser());
 
         $form = $this->get('form.factory')->create(ArticleType::class, $article);
 
@@ -467,12 +469,15 @@ class BackController extends Controller
 
             // On enregistre en bdd
             $em = $this->getDoctrine()->getManager();
+
+            $article->upload();
+
             $em->persist($article);
             $em->flush();
 
             $this->addFlash('notice', 'L\'article a bien été enregistré !');
 
-            return $this->redirectToRoute('article');
+            return $this->generateUrl('article', array('id' =>$article->getId()));
         }
 
         return $this->render(':back:redigerArticle.html.twig', array(
