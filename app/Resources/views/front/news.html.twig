@@ -1,0 +1,28 @@
+{% extends "layout.html.twig" %}
+
+{% block body %}
+
+	<h2>Actualités</h2>
+
+	{% if listArticles is not empty %}
+	<div class="container pagination_b">
+		<div class="row">
+			{% for article in listArticles %}
+
+				<article class="col-lg-6 col-xs-12">
+
+					<h3>{{ article.title }}</h3>
+					<img src="{{ asset('uploads/img/' ~ article.photo) }}" alt="" width="180" height="200" style="float: left; margin-right: 10px;">
+					<p>{{ article.content|striptags| truncate(300) | raw  }}</p>
+					<p><a href="{{ path('article', {'id': article.id}) }}" style="float: right;">Lire la suite...</a></p>
+
+				</article>
+
+			{% endfor %}
+		</div><!-- row -->
+
+		{% include 'pagination.html.twig' %}
+	{% else %}
+		<p class="aucun">Il n'y a aucun article pour l'instant.</p>
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "layout.html.twig" %}
+
+{% block body %}
+
+    <h2 xmlns="http://www.w3.org/1999/html">Observation</h2>
+
+    <h3 style="margin-bottom: 30px; margin-left: 5px">{% if observation.oiseau.nomVern is not empty %}
+            {{ observation.oiseau.nomVern }} -
+        {% endif %}
+           {{ observation.oiseau.nomValide }} </h3>
+
+    <div class=" col-md-5 col-xs-12">
+        <div style="margin-bottom: 20px;"><strong style="font-weight: bold; font-size: 20px ">Lieu :</strong></div>
+
+        <div style="margin-bottom: 20px;"><strong style="font-weight: bold; font-size: 20px ">Date : </strong> {{ observation.date | date('d-m-Y') }}
+        </div>
+        <div style="margin-bottom: 20px;"><strong style="font-weight: bold; font-size: 20px ">Heure : </strong>{{ observation.date | date('d-m-Y') }}
+        </div>
+
+        <div><strong style="font-weight: bold; font-size: 20px ">Observation :</strong>
+            <div style="border: 1px solid black;border-radius: 12px;padding: 18px; margin-top: 20px; font-size: 20px"> {{ observation.content|raw }}</div>
+        </div>
+    </div>
+
+    <div class="col-md-3  col-xs-12">
+
+        <img style=" width: 236px;" src="{{ asset('images/' ~ observation.photo ~ '.jpg') }} "/>
+        <button  style="width: 235px;height: 50px; margin-bottom: 40px" type="submit" id="profil_enregistrer" name="profil[enregistrer]" class="btn envoyer_formulaire btn">
+            <a style="color: white; font-size: 20px;" href=" {{ observation.oiseau.url }}">Fiche de l'éspèce</a></button>
+        <div><span style="color: #5C7EE5;font-size: 30px;" class="glyphicon glyphicon-triangle-right"></span><strong style="margin-left: 10px; font-weight: bold; font-size: 20px ">Son enregistré </strong></div>
+    </div>
+
+    <div class=" col-md-2 col-xs-12">
+        <strong style="font-weight: bold; font-size: 20px ">Carte</strong>
+
+    </div>
+{% endblock %}

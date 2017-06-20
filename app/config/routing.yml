@@ -1,3 +1,17 @@
+user:
+    resource: "@UserBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+
+login_check:
+    path: /login_check
+
+logout:
+    path: /logout
+
+captcha_routing:
+  resource: "@CaptchaBundle/Resources/config/routing.yml"

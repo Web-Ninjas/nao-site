@@ -1,0 +1,51 @@
+{% extends "layout.html.twig" %}
+
+{% block body %}
+
+    <h2>{{ article.title }}</h2>
+
+    <div class="row miniature article">
+        <div class="col-md-3 col-xs-12 miniature">
+            <img src="{{ asset('uploads/img/' ~ article.photo) }}" alt="" width="277" height="350"
+                 style="float: left; margin-right: 10px; margin-top: 20px;"/>
+            <div class="row">
+                <div class="col-md-12 col-xs-12 ">
+                    <p class="articleB"><strong>Date de création: </strong> {{ article.date|date('d/m/Y') }}</p>
+                    <p class="articleB"><strong>Auteur: </strong> {{ article.author.username }}</p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-6 col-xs-12">
+            <p class="article-content">{{ article.content| raw }}</p>
+        </div>
+
+
+        <div class=" col-md-3 col-xs-12 miniature">
+            {% for article in listArticles %}
+
+                <div class="row miniature">
+                    <div class="col-md-12 col-xs-12">
+                        <h3>{{ article.title }}</h3>
+                    </div>
+                    <div class="row miniature">
+                        <div class="col-md-5 col-xs-12">
+                            <img style="float: left; margin-right: 10px;" src="{{ asset('uploads/img/' ~ article.photo) }}" alt="" width="100" height="125"/>
+                        </div>
+
+                        <div class="col-md-7 col-xs-12">
+                            <p class="content">{{ article.content|striptags | truncate(80)| raw  }}</p>
+                            <p><a href="{{ path('article', {'id': article.id}) }}" style="float: right;">Lire la
+                                    suite...</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+    </div>
+
+
+{% endblock %}
