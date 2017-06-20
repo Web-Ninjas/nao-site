@@ -469,15 +469,14 @@ class BackController extends Controller
 
             // On enregistre en bdd
             $em = $this->getDoctrine()->getManager();
-
-            $article->upload();
-
             $em->persist($article);
             $em->flush();
 
             $this->addFlash('notice', 'L\'article a bien été enregistré !');
 
-            return $this->generateUrl('article', array('id' =>$article->getId()));
+            return $this->redirectToRoute('article', array(
+                'id' =>$article->getId()
+                ));
         }
 
         return $this->render(':back:redigerArticle.html.twig', array(
