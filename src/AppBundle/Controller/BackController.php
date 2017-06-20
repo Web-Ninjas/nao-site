@@ -469,9 +469,6 @@ class BackController extends Controller
 
             // On enregistre en bdd
             $em = $this->getDoctrine()->getManager();
-
-            $article->upload();
-
             $em->persist($article);
             $em->flush();
 
@@ -479,7 +476,11 @@ class BackController extends Controller
 
             return $this->redirectToRoute('article', array(
                 'id' =>$article->getId()
+<<<<<<< HEAD
             ));
+=======
+                ));
+>>>>>>> dev
         }
 
         return $this->render(':back:redigerArticle.html.twig', array(
