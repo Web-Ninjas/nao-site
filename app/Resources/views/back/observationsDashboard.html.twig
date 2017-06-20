@@ -119,7 +119,7 @@
 
                         <td class="content_observation">
                             <div class="tableau_observation">
-                                <a href="{{ path('observation', {'id': observation.id}) }}">{{ observation.content | truncate(50) |raw }}</a>
+                                <a href="{{ path('observation', {'id': observation.id}) }}">{{ observation.content|striptags|  truncate(50) |raw }}</a>
                             </div>
                         </td>
 
