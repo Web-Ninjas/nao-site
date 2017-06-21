@@ -2,6 +2,9 @@
 
 namespace UserBundle\Controller;
 
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use UserBundle\Form\UserType;
@@ -68,5 +71,43 @@ class UserController extends Controller
     		'form' => $form->createView()
     		));
     }
+
+	/**
+	 * @Method({"GET"})
+	 * @Route("/reset", name="reset")
+	 * @Template(":front:reset.html.twig")
+	 */
+	public function reset() {
+		return array();
+	}
+
+	/**
+	 * @Route("/reset")
+	 * @Method({"GET","POST"})
+	 */
+	public function resetAction(Request $request)
+	{
+
+		$params = $request->request->all();
+		if (!array_key_exists("login", $params)) {
+			throw new \Exception("No login given");
+		}
+		$login = &$params["login"];
+		$em = $this->container->get("doctrine.orm.default_entity_manager");
+		$user = $em->getRepository("NamespaceMyBundle:User")->findOneBy(array("login" => $login));
+		
+		if ($user == null) {
+			return $this->redirect($this->generateUrl("login", array()));
+		}
+		
+		$password = "myRandowPassword";
+		$user->setPassword($this->container->get("security.encoder_factory")->getEncoder($user)->encodePassword($password, $user->getSalt()));
+		$em->persist($user);
+		$em->flush();
+		
+		// On envoie le mot de passe par mail
+		
+		return $this->redirect($this->generateUrl("login", array()));
+	}
 
 }
