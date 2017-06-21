@@ -1,0 +1,26 @@
+{% extends "layout.html.twig" %}
+
+{% block body %}
+
+    <div class="erreur">
+        <h5 class="error">Oups! Une erreur s'est produite</h5>
+
+        <p class="oups">
+            <img alt="photo" class="photo" src= {{ asset('images/minik-kuc59f.jpg') }}>
+        </p>
+
+        <h2 class="errorpage">Erreur "{{ status_code }}" </br>
+            Page non trouvé !
+        </h2>
+
+        <p class="size">Désolé, mais nous n'avons pas pu trouver la page que vous cherchez.
+            Elle a peut être disparue dans les airs, a été effacée, modifiée ou remis
+            temporairement en brouillon</p>
+
+        <p class="size">Veuillez vérifier que vous avez bien écrit l'url de la page</p>
+
+        <p class="color">Nous vous prions de bien vouloir nous en excusez !</p>
+
+    </div>
+
+{% endblock %}

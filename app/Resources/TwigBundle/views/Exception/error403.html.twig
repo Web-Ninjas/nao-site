@@ -1,0 +1,20 @@
+{% extends "back-layout.html.twig" %}
+
+{% block content %}
+    <div class="erreur">
+        <h1 class="error">Oups! Une erreur s'est produite</h1>
+
+        <p class="oups">
+            <img alt="photo " class="photo" src= {{ asset('images/Sans titre 1.png') }}>
+        </p>
+
+        <h2 class="errorpage">Erreur "{{ status_code }}" </br></h2>
+
+        <p class="size">Quelque chose est cassé. Veuillez nous envoyer un courriel à nao.site.w@gmail.com
+            et nous faire savoir ce que vous faisiez lorsque cette erreur s'est produite.
+            Nous allons le réparer dès que possible. Désolé pour les inconvénients causés ...</p>
+
+        <p class="color">Nous vous prions de bien vouloir nous en excusez !</p>
+
+    </div>
+{% endblock %}
