@@ -69,11 +69,10 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
         }
 
         $qb = $this->createQueryBuilder('a')
-           // ->select('a, author') Que fait cette ligne ?
-           // ->where('CURRENT_DATE() >= a.date') // pas besoin
+            ->select('a, author') //Que fait cette ligne ?
             ->where('a.deleted IS NULL')
             ->join('a.author', 'author') // Innutile pour la page actualités
-            ->addSelect('author'); //addSelect sinon écrase le select() du queryBuilder
+            ->addSelect('author'); 
 
         if ($user !== null) {
             $qb->andWhere('a.author = :author');

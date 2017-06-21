@@ -93,7 +93,6 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 
         $qb = $this->createQueryBuilder('o')
             ->select('o, a, oiseau')
-            ->where('CURRENT_DATE() >= o.date')
 
             ->join('o.author', 'a')
             ->join('o.oiseau', 'oiseau')
