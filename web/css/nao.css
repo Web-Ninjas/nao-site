@@ -816,6 +816,45 @@ div.checkbox label.required {
     height: 0;
 }
 
+.erreur{
+    margin-top: 35px;
+    padding: 40px;
+    border: solid 1px #036;
+    margin-right: 40px;
+    margin-left: 40px;
+    box-shadow: 10px 10px 15px 0 #86b3da;
+    border-radius: 10px;
+}
+
+.photo{
+    width: 30%;
+}
+
+.oups {
+    text-align: center;
+}
+
+.errorpage{
+    text-align: center;
+    margin-bottom: 31px;
+}
+.size{
+    font-size: 16px;
+}
+
+.color{
+    font-weight: bold;
+    color: #5C7EE5;
+}
+
+
+.error{
+    text-align: center;
+    color: #5C7EE5;
+    border-bottom: 3px solid #ffc600;
+    font-size: 36px;
+}
+
 @media (max-width: 768px) {
 
     ul.list-inline.liens {
