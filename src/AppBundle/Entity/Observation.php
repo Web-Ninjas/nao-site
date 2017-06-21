@@ -30,12 +30,14 @@ class Observation
      */
     private $id;
 
+    /**
+    * @Assert\NotBlank()
+    */
     private $nomOiseau;
 
     /**
     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\OiseauTaxref")
     * @ORM\JoinColumn(nullable=true)
-    * @Assert\NotBlank()
     */
     private $oiseau;
 

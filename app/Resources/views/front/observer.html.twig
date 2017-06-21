@@ -25,11 +25,23 @@
 
 {% block javascripts %}
 	{{ parent() }}
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script>
 	<script src="{{ asset('js/maps.js') }}"></script>
 	<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZjdDWppQRZkoIfeqHtm644-ncPYj9eXw&v=3&callback=initMap"></script>
 	<script>
+		{# // Permet autocomplete #}
+		var sourceList = [];
+		{% for oiseauName in listOiseauNames %}
+			sourceList.push( "{{ oiseauName }}" );
+		{% endfor %}
+
 		$(function(){
+
+			$('#appbundle_observation_nomOiseau').autocomplete({
+				source: sourceList
+			});
+
 			$('#btn-locate').on('click', function(){
 				
 				if (navigator.geolocation) 

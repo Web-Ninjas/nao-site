@@ -197,7 +197,7 @@ class FrontController extends Controller
     	$listOiseauNames = [];
 
     	foreach ($listOiseaux as $oiseau) {
-    			$listOiseauNames[] = $oiseau->getNomVern() .' - ' .$oiseau->getNomValide();
+    			$listOiseauNames[] = $oiseau->getNomVern() .' - ' .$oiseau->getNomComplet();
     	}
 
     	return $this->render('front/map.html.twig', [
@@ -212,19 +212,29 @@ class FrontController extends Controller
     public function observerAction(Request $request)
     {
     	$observation = new Observation();
+    	$observation->setAuthor($this->getUser());
     	$form = $this->createForm(ObservationType::class, $observation);
     	$form->handleRequest($request);
 
+    	// Liste les noms des oiseaux pour l'autocomplete
+    	$em = $this->getDoctrine()->getManager();
+    	$listOiseaux = $em->getRepository('AppBundle:OiseauTaxref')->findAll();
+    	$listOiseauNames = [];
+
+    	foreach ($listOiseaux as $oiseau) {
+    			$listOiseauNames[] = $oiseau->getNomVern() .' - ' .$oiseau->getNomComplet();
+    	}
+
     	if ($form->isSubmitted() & $form->isValid() )
     	{
-    		$observation->setAuthor($this->user());
-    		$nomOiseau = $request->request->get('nomOiseau');
+    		$nomOiseau = $request->get('nomOiseau');
+    		$nomOiseauComplet = substr($nomOiseau, strpos($nomOiseau, "-") + 2); 
+    		var_dump($nomOiseau); die;
     		$oiseau = $em->getRepository('AppBundle:OiseauTaxref')->findOneBy([
-    			'nomValide' => $nomOiseau
+    			'nomComplet' => $nomOiseauComplet
     			]);
     		$observation->setOiseau($oiseau);
 
-    		$em->$this->getDoctrine()->getManager();
     		$em->persist($observation);
     		$em->flush();
 
@@ -233,7 +243,8 @@ class FrontController extends Controller
     	}
 
     	return $this->render('front/observer.html.twig', [
-    		'form' => $form->createView()
+    		'form' => $form->createView(),
+    		'listOiseauNames' => $listOiseauNames
     		]);
     }
 }
