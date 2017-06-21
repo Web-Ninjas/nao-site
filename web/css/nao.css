@@ -824,6 +824,7 @@ div.checkbox label.required {
     margin-left: 40px;
     box-shadow: 10px 10px 15px 0 #86b3da;
     border-radius: 10px;
+    background-color: white;
 }
 
 .photo{
