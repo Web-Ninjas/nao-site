@@ -21,14 +21,14 @@ class ObservationType extends AbstractType
             ->add('nomOiseau', TextType::class)
             ->add('date', DateTimeType::class)
             ->add('photo', FileType::class, [
-                'required' => 'false'
+                'required' => false
                 ])
             ->add('audio', FileType::class, [
-                'required' => 'false'
+                'required' => false
                 ])
             ->add('content')
-            ->add('longitude')
             ->add('latitude')
+            ->add('longitude')
             ->add('Soumettre', SubmitType::class);
     }
     

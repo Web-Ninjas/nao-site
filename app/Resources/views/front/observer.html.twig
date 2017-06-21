@@ -14,7 +14,7 @@
 
 
 		<div class="col-lg-6 col-xs-12">
-			<button>Me localiser</button>
+			<button id="btn-locate">Me localiser</button>
 			<div id="map"></div>
 		</div>
 
@@ -29,6 +29,29 @@
 	<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZjdDWppQRZkoIfeqHtm644-ncPYj9eXw&v=3&callback=initMap"></script>
 	<script>
-		
+		$(function(){
+			$('#btn-locate').on('click', function(){
+				
+				if (navigator.geolocation) 
+				{
+					navigator.geolocation.getCurrentPosition(function(pos) {
+						withDrawMarkers()
+						console.log('lat: ' + pos.coords.latitude + ' long: ' + pos.coords.longitude )
+						var myLat = pos.coords.latitude;
+						var myLong = pos.coords.longitude;
+						$('#appbundle_observation_latitude').val(myLat);
+						$('#appbundle_observation_longitude').val(myLong);
+
+						var marker = new google.maps.Marker({
+							map: map,
+							position: {lat: myLat, lng: myLong},
+							animation: google.maps.Animation.DROP,
+						});
+						markers.push(marker);
+					});
+				}
+			});
+		});
+
 	</script>
 {% endblock %}
