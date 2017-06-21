@@ -227,9 +227,9 @@ class FrontController extends Controller
 
     	if ($form->isSubmitted() & $form->isValid() )
     	{
-    		$nomOiseau = $request->get('nomOiseau');
+    		$nomOiseau = $request->request->get('appbundle_observation')['nomOiseau'];
+    		// var_dump($nomOiseau); die;
     		$nomOiseauComplet = substr($nomOiseau, strpos($nomOiseau, "-") + 2); 
-    		var_dump($nomOiseau); die;
     		$oiseau = $em->getRepository('AppBundle:OiseauTaxref')->findOneBy([
     			'nomComplet' => $nomOiseauComplet
     			]);
@@ -239,7 +239,7 @@ class FrontController extends Controller
     		$em->flush();
 
     		$this->addFlash('notice', 'Merci d\'avoir soumis une observation, celle-ci va être validée par un professionnel avant d\'être publiée');
-    		$this->redirectToRoute('homepage');
+    		return $this->redirectToRoute('homepage');
     	}
 
     	return $this->render('front/observer.html.twig', [
