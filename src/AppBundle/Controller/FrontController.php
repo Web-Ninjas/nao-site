@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use AppBundle\Form\ObservationType;
 
 class FrontController extends Controller
 {
@@ -213,6 +214,29 @@ class FrontController extends Controller
     */
     public function observerAction(Request $request)
     {
-    	return $this->render('front/observer.html.twig');
+    	$observation = new Observation();
+    	$form = $this->createForm(ObservationType::class, $observation);
+    	$form->handleRequest($request);
+
+    	if ($form->isSubmitted() & $form->isValid() )
+    	{
+    		$observation->setAuthor($this->user());
+    		$nomOiseau = $request->request->get('nomOiseau');
+    		$oiseau = $em->getRepository('AppBundle:OiseauTaxref')->findOneBy([
+    			'nomValide' => $nomOiseau
+    			]);
+    		$observation->setOiseau($oiseau);
+
+    		$em->$this->getDoctrine()->getManager();
+    		$em->persist($observation);
+    		$em->flush();
+
+    		$this->addFlash('notice', 'Merci d\'avoir soumis une observation, celle-ci va être validée par un professionnel avant d\'être publiée');
+    		$this->redirectToRoute('homepage');
+    	}
+
+    	return $this->render('front/observer.html.twig', [
+    		'form' => $form->createView()
+    		]);
     }
 }

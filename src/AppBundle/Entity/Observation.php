@@ -30,16 +30,18 @@ class Observation
      */
     private $id;
 
+    private $nomOiseau;
+
     /**
     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\OiseauTaxref")
-    * @ORM\JoinColumn(nullable=false)
+    * @ORM\JoinColumn(nullable=true)
     * @Assert\NotBlank()
     */
     private $oiseau;
 
     /**
     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User",inversedBy="observations")
-    * @ORM\JoinColumn(nullable=false)
+    * @ORM\JoinColumn(nullable=true)
     * @Assert\NotBlank()
     */
     private $author;
@@ -122,13 +124,17 @@ class Observation
      */
     private $deleted;
 
-
-
     /**
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
      * @ORM\JoinColumn(nullable=true)
      */
     private $validateur;
+
+    public function __construct()
+    {
+        $this->date = new \DateTime('now');
+        $this->status = self::A_VALIDER;
+    }
 
     /**
      * @return mixed
@@ -427,6 +433,20 @@ class Observation
     public function getDeleted()
     {
         return $this->deleted;
+    }
+
+    public function getNomOiseau()
+    {
+        if ($this->oiseau === null)
+        {
+            return null;
+        }
+        return $this->oiseau->getNomValide();
+    }
+
+    public function setNomOiseau($nom)
+    {
+        $this->nomOiseau = $nom;
     }
 }
 
