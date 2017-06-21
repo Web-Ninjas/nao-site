@@ -103,8 +103,8 @@
                         <td>{{ observation.id }}</td>
 
                         <td class="taille_td">
-                            {% if observation.oiseau.nomVern is not empty %}
-                                {{ observation.oiseau.nomVern }}<br>
+                            {% if observation.oiseau.nomComplet is not empty %}
+                                {{ observation.oiseau.nomComplet }}<br>
                             {% endif %}
                             {{ observation.oiseau.nomValide }}
                         </td>

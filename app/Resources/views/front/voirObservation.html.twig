@@ -4,8 +4,8 @@
 
     <h2 xmlns="http://www.w3.org/1999/html">Observation</h2>
 
-    <h3 style="margin-bottom: 30px; margin-left: 5px">{% if observation.oiseau.nomVern is not empty %}
-            {{ observation.oiseau.nomVern }} -
+    <h3 style="margin-bottom: 30px; margin-left: 5px">{% if observation.oiseau.nomComplet is not empty %}
+            {{ observation.oiseau.nomComplet }} -
         {% endif %}
            {{ observation.oiseau.nomValide }} </h3>
 
