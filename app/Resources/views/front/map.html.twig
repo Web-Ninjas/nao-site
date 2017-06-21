@@ -49,8 +49,8 @@
 	<script>
 		{# // Permet autocomplete #}
 		var sourceList = [];
-		{% for oiseau in listOiseauNames %}
-			sourceList.push( "{{ oiseau }}" );
+		{% for oiseauName in listOiseauNames %}
+			sourceList.push( "{{ oiseauName }}" );
 		{% endfor %}
 
 		$(function() {

@@ -197,10 +197,7 @@ class FrontController extends Controller
     	$listOiseauNames = [];
 
     	foreach ($listOiseaux as $oiseau) {
-    			if($oiseau->getNomVern() ) 
-    					$listOiseauNames[] = $oiseau->getNomVern();
-    			else 
-    					$listOiseauNames[] = $oiseau->getNomValide();
+    			$listOiseauNames[] = $oiseau->getNomVern() .' - ' .$oiseau->getNomValide();
     	}
 
     	return $this->render('front/map.html.twig', [
