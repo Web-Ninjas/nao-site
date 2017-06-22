@@ -3,44 +3,44 @@
 {% block body %}
 
     <h2>Réinitialisation du mot de passe</h2>
+    <div class="container">
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+        {{ form_errors(form) }}
+        <div class="row row-centered">
 
-    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-    {{ form_errors(form) }}
-    <div class="row">
+            <div class="form-group col-xs-12 col-md-12 col-centered login">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-centered control-label required">
+                    {{ form_label (form.plainPassword.first, "Mot de passe :",{'attr': {'class': 'col-xs-12 col-md-3 col-centered  control-label '}}) }}
 
-        <div class="form-group">
-            <div class="col-xs-5 control-label label_contact control-label required">
-                {{ form_label (form.plainPassword.first) }}
-
-                {# Affichage des erreurs pour ce champ précis. #}
-                {{ form_errors(form.plainPassword.first) }}
+                    {# Affichage des erreurs pour ce champ précis. #}
+                    {{ form_errors(form.plainPassword.first) }}
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-8 col-centered ">
+                    {{ form_widget (form.plainPassword.first, {'attr': {'class': 'form-control formulaire_contact'}})  }}
+                </div>
             </div>
-            <div class="col-xs-6 ">
-                {{ form_widget (form.plainPassword.first) }}
+
+            <div class="form-group col-xs-12 col-md-12 col-centered">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-centered control-label required">
+                    {{ form_label (form.plainPassword.second,"Confirmation du mot de passe :", {'attr': {'class': 'col-xs-12 col-md-3 col-centered  control-label '}}) }}
+                    {# Affichage des erreurs pour ce champ précis. #}
+                    {{ form_errors(form.plainPassword.second) }}
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-8 col-centered">
+                    {{ form_widget (form.plainPassword.second, {'attr': {'class': 'form-control formulaire_contact'}}) }}
+                </div>
             </div>
+            <div class="form-group ">
+                <div class="col-centered">
+                    {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
+                    {{ form_widget(form.envoyer, {'label': 'Envoyer','attr': {'class': 'btn envoyer_formulaire' }}) }}
+
+                </div>
+            </div>
+            {{ form_widget(form._token) }}
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
         </div>
-
-        <div class="form-group ">
-            <div class="col-xs-5 control-label label_contact control-label required">
-                {{ form_label (form.plainPassword.second) }}
-                {# Affichage des erreurs pour ce champ précis. #}
-                {{ form_errors(form.plainPassword.second) }}
-            </div>
-            <div class="col-xs-6">
-                {{ form_widget (form.plainPassword.second) }}
-            </div>
-        </div>
-        <div class="form-group ">
-            <div class="col-xs-offset-6">
-                {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
-                {{ form_widget(form.envoyer, {'label': 'Envoyer','attr': {'class': 'btn envoyer_formulaire' }}) }}
-
-            </div>
-        </div>
-        {{ form_widget(form._token) }}
-        {{ form_rest(form) }}
-        {{ form_end(form) }}
     </div>
-
 
 {% endblock %}
