@@ -42,3 +42,13 @@ services:
        class: Twig_Extensions_Extension_Text
        tags:
            - { name: 'twig.extension' }
+
+    app.manager.mailReinit:
+        class: UserBundle\Manager\MailReinitMdpManager
+        arguments: ["@templating.engine.twig", "%mailer_user%", "@swiftmailer.mailer"]
+        public: true
+
+    app.manager.mailContact:
+        class: AppBundle\Manager\MailContactManager
+        arguments: ["@templating.engine.twig", "%mailer_user%", "@swiftmailer.mailer"]
+        public: true

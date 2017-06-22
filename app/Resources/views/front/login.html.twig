@@ -17,12 +17,13 @@
             <label for="password" class="col-xs-5 control-label label_contact">Mot de passe :</label>
             <input type="password" id="password" name="_password" class="formulaire_contact col-xs-6"/>
         </div>
-
-        <input type="submit" value="Se connecter" class="btn envoyer_formulaire col-xs-offset-5"/>
-    </form>
-    <div class="">
-        <div class="col-lg-offset-4 col-lg-5 ">
-            <a href="{{ path ('reset') }}">Mot de passe oulbié</a>
+        <div class="form-group row ">
+            <div class=" col-xs-offset-5 mdp" >
+                <a href="{{ path ('reset') }}">Mot de passe oublié</a>
+            </div>
         </div>
-    </div>
+        <input type="submit" value="Se connecter" class="btn envoyer_formulaire col-xs-offset-5"/>
+
+    </form>
+
 {% endblock %}

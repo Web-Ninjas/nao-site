@@ -142,6 +142,15 @@ class User implements UserInterface
     private $observations;
 
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="token_password", type="string", length=255, nullable=true)
+     */
+    private $tokenRegenerationMotDePasse;
+
+    
+    
     
     public function __construct()
     {
@@ -462,5 +471,21 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTokenRegenerationMotDePasse()
+    {
+        return $this->tokenRegenerationMotDePasse;
+    }
+
+    /**
+     * @param mixed $tokenRegenerationMotDePasse
+     */
+    public function setTokenRegenerationMotDePasse($tokenRegenerationMotDePasse)
+    {
+        $this->tokenRegenerationMotDePasse = $tokenRegenerationMotDePasse;
     }
 }
