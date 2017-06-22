@@ -36,6 +36,8 @@
 			sourceList.push( "{{ oiseauName }}" );
 		{% endfor %}
 
+		var myLat, myLng;
+
 		$(function(){
 
 			$('#appbundle_observation_nomOiseau').autocomplete({
@@ -47,24 +49,57 @@
 				if (navigator.geolocation) 
 				{
 					navigator.geolocation.getCurrentPosition(function(pos) {
-						withDrawMarkers()
-						console.log('lat: ' + pos.coords.latitude + ' long: ' + pos.coords.longitude )
-						var myLat = pos.coords.latitude;
-						var myLong = pos.coords.longitude;
-						$('#appbundle_observation_latitude').val(myLat);
-						$('#appbundle_observation_longitude').val(myLong);
-
-						var marker = new google.maps.Marker({
-							map: map,
-							icon: defaultIcon,
-							position: {lat: myLat, lng: myLong},
-							animation: google.maps.Animation.DROP,
-						});
-						markers.push(marker);
+						myLat = pos.coords.latitude;
+						myLng = pos.coords.longitude;
+						setMyLocationMarker();
+						updateCoorLabels(myLat, myLng);						
 					});
 				}
 			});
+
+			// Listener pour si l'utilisateur change manuellement lat ou lng
+			$('#appbundle_observation_latitude').on('change', function(){
+				refreshLatLngData();
+				setMyLocationMarker();
+			});
+
+			$('#appbundle_observation_longitude').on('change', function(){
+				refreshLatLngData();
+				setMyLocationMarker();
+			});
 		});
+
+		function refreshLatLngData()
+		{
+			myLat = Number($('#appbundle_observation_latitude').val());
+			myLng = Number($('#appbundle_observation_longitude').val());
+		}
+
+		function setMyLocationMarker()
+		{
+			withDrawMarkers()
+
+			var marker = new google.maps.Marker({
+				map: map,
+				draggable: true,
+				icon: defaultIcon,
+				position: {lat: myLat, lng: myLng},
+				animation: google.maps.Animation.DROP,
+			});
+			markers.push(marker);
+
+			// Listener quand on bouge le marker
+			google.maps.event.addListener(marker, 'dragend', function (event) {
+				updateCoorLabels(event.latLng.lat(), event.latLng.lng());
+				refreshLatLngData();
+        	});
+		}
+
+		function updateCoorLabels(lat, lng)
+		{
+			$('#appbundle_observation_latitude').val(lat);
+			$('#appbundle_observation_longitude').val(lng);
+		}
 
 	</script>
 {% endblock %}

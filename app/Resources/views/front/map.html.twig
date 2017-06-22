@@ -65,12 +65,13 @@
                     type : 'POST',
                     data : {oiseauName: this.value},
                     success: function(response){ 
-                    	console.log(response[0]);
+                    	console.log(response);
                     	// var parsedResult = JSON.parse(response); 
                     	updateLocations(response);
-                    	withDrawMarkers();
-                    	setMarkers(map, locations);
-                    	updateLabel();
+                    	console.log(locations);
+                    	// withDrawMarkers();
+                    	// setMarkers(map, locations);
+                    	// updateLabel();
                     	},
                     error : function(resultat, satut, erreur){
                         console.log(resultat + erreur);
