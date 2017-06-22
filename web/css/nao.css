@@ -194,7 +194,8 @@ h5 {
     margin-top: 105px;
     margin-bottom: 105px;
 }
-.mdp{
+
+.mdp {
     margin-top: 25px;
 }
 
@@ -265,7 +266,7 @@ button#article_enregistrer.btn-default.btn {
 }
 
 .birthday {
-    margin-top: 35px;
+    margin-top: 20px;
     margin-bottom: 38px;
 }
 
@@ -504,8 +505,21 @@ th {
 }
 
 .captcha {
-    width: 250px !important;
     height: 50px !important;
+}
+
+.col-centered {
+    display: inline-block;
+    /*float: none;*/
+    /* reset the text-align */
+    text-align: left;
+    /* inline-block space fix */
+    margin-right: -4px;
+}
+
+
+.row-centered {
+    text-align: center;
 }
 
 .contact {
@@ -558,6 +572,19 @@ img.instagram:hover, img.instagram:focus {
     border-radius: 23px;
     height: 113px !important;
     width: inherit;
+    margin-top: 20px;
+}
+
+.message_contenu {
+    margin-bottom: 0;
+}
+
+.widget {
+    text-align: center;
+    margin-top: 21px;
+}
+
+.code{
     margin-top: 20px;
 }
 
@@ -756,7 +783,7 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 .mentionsLegales {
-    margin-top: 40px !important;
+    margin-top: 22px !important;
 }
 
 .col-xs-offset-5.col-xs-6 label a {
@@ -819,7 +846,7 @@ div.checkbox label.required {
     height: 0;
 }
 
-.erreur{
+.erreur {
     margin-top: 35px;
     padding: 40px;
     border: solid 1px #036;
@@ -830,7 +857,7 @@ div.checkbox label.required {
     background-color: white;
 }
 
-.photo{
+.photo {
     width: 30%;
 }
 
@@ -838,21 +865,21 @@ div.checkbox label.required {
     text-align: center;
 }
 
-.errorpage{
+.errorpage {
     text-align: center;
     margin-bottom: 31px;
 }
-.size{
+
+.size {
     font-size: 16px;
 }
 
-.color{
+.color {
     font-weight: bold;
     color: #5C7EE5;
 }
 
-
-.error{
+.error {
     text-align: center;
     color: #5C7EE5;
     border-bottom: 3px solid #ffc600;
@@ -920,63 +947,98 @@ div.checkbox label.required {
         width: 384px;
     }
 
-    @media (min-width: 768px) {
+}
 
-        ul.nav.navbar-nav.bleu.collapse.navbar-collapse {
-            padding-right: 0;
-        }
+@media (min-width: 768px) {
 
-        ul.nav.navbar-nav.turquoise {
-            float: right;
-        }
+    ul.nav.navbar-nav.bleu.collapse.navbar-collapse {
+        padding-right: 0;
+    }
 
-        .container {
-            padding-right: 30px;
-            padding-left: 30px;
-        }
+    ul.nav.navbar-nav.turquoise {
+        float: right;
+    }
 
-        .img-responsive {
-            max-width: 100%;
-        }
+    .container {
+        padding-right: 30px;
+        padding-left: 30px;
+    }
 
-        ul.list-inline.liens {
-            padding-top: 0;
-        }
+    .img-responsive {
+        max-width: 100%;
+    }
+
+    ul.list-inline.liens {
+        padding-top: 0;
+    }
+
+    label.col-xs-12.col-md-5.control-label.required {
+        text-align: left;
+    }
+
+    label.col-xs-12.col-md-3.code.control-label.control-label.required{
+        text-align: left !important;
+    }
+
+
+}
+
+@media (min-width: 1199px) {
+
+    .menu-general {
+        padding-top: 0;
+    }
+
+    td.content_observation {
+        width: 224px !important;
+    }
+
+}
+
+@media (min-width: 992px) {
+
+    td.content_observation {
+        width: 50px;
+    }
+    label.col-xs-12.col-md-3.code.control-label.control-label.required{
+        text-align: right !important;
+    }
+    label.col-xs-12.col-md-3.col-centered.control-label.control-label.required{
+        text-align: right !important;
+    }
+
+
+}
+
+@media (max-width: 992px) {
+
+    label.col-xs-12.col-md-3.col-centered.control-label.required {
+        text-align: left !important;
 
     }
 
-    @media (min-width: 1199px) {
-
-        .menu-general {
-            padding-top: 0;
-        }
-
-        td.content_observation {
-            width: 224px !important;
-        }
+    label.col-xs-3.col-md-3.code.control-label.control-label.required{
+        text-align: left !important;
     }
 
-    @media (min-width: 992px) {
+}
 
-        td.content_observation {
-            width: 50px;
-        }
+@media (max-width: 960px) {
 
+    .title {
+        font-size: 20px;
+        width: 303px;
     }
 
-    @media (max-width: 960px) {
+}
 
-        .title {
-            font-size: 20px;
-            width: 303px;
-        }
+@media (max-width: 767px) {
+
+    .title {
+        font-size: 30px;
+        width: 303px;
     }
 
-    @media (max-width: 767px) {
 
-        .title {
-            font-size: 30px;
-            width: 303px;
-        }
 
-    }
+}

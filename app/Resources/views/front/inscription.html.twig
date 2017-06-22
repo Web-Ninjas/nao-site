@@ -4,146 +4,149 @@
 
     <h2>Créer un compte</h2>
 
+    <div class="container">
+        <div class="formContact row row-centered">
+            {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
-    <div class="formContact row">
-        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+            {# Les erreurs générales du formulaire. #}
+            {{ form_errors(form) }}
 
-        {# Les erreurs générales du formulaire. #}
-        {{ form_errors(form) }}
-
-        {# Génération manuelle et éclatée : #}
-        <div class="form-group">
-            {# Génération du label. #}
-            {{ form_label(form.name, "Nom :", {'label_attr': {'class': 'col-xs-5  control-label  label_contact'}}) }}
-
-            {# Affichage des erreurs pour ce champ précis. #}
-            {{ form_errors(form.name) }}
-
-            <div class="col-xs-6">
-                {# Génération de l'input. #}
-                {{ form_widget(form.name, {'attr': {'class': 'form-control formulaire_contact'}}) }}
-            </div>
-        </div>
-
-        <div class="form-group">
-            {# Génération du label. #}
-            {{ form_label(form.firstName, "Prénom :", {'label_attr': {'class': 'col-xs-5 control-label label_contact'}}) }}
-
-            {# Affichage des erreurs pour ce champ précis. #}
-            {{ form_errors(form.firstName) }}
-
-            <div class="col-xs-6">
-                {# Génération de l'input. #}
-                {{ form_widget(form.firstName, {'attr': {'class': 'form-control formulaire_contact'}}) }}
-            </div>
-        </div>
-
-        <div class="form-group">
-            {# Génération du label. #}
-            {{ form_label(form.email, "Email :", {'label_attr': {'class': 'col-xs-5 control-label label_contact'}}) }}
-
-            {# Affichage des erreurs pour ce champ précis. #}
-            {{ form_errors(form.email) }}
-
-            <div class="col-xs-6">
-                {# Génération de l'input. #}
-                {{ form_widget(form.email, {'attr': {'class': 'form-control formulaire_contact'}}) }}
-            </div>
-        </div>
-        <div class="form-group">
-            {# Génération du label. #}
-            {{ form_label(form.username, "Nom d'utilisateur :", {'label_attr': {'class': 'col-xs-5 control-label label_contact'}}) }}
-
-            {# Affichage des erreurs pour ce champ précis. #}
-            {{ form_errors(form.username) }}
-
-            <div class="col-xs-6">
-                {# Génération de l'input. #}
-                {{ form_widget(form.username, {'attr': {'class': 'form-control formulaire_contact'}}) }}
-            </div>
-        </div>
-        <div class="form-group birthday">
-            {# Génération du label. #}
-            {{ form_label(form.birthDate, "Date de Naissance :", {'label_attr': {'class': 'col-xs-5  control-label label_contact control-label '}}) }}
-
-            {# Affichage des erreurs pour ce champ précis. #}
-            {{ form_errors(form.birthDate) }}
-
-            <div class="col-xs-4">
-                {# Génération de l'input. #}
-                {{ form_widget(form.birthDate, {'attr': {'class': 'form-control blocs'}}) }}
-            </div>
-        </div>
-
-        <div class="form-group">
-            {# Génération du label. #}
-            {{ form_label(form.isNaturaliste, "Je veux $etre naturaliste" , {'label_attr': {'class': 'col-xs-5  control-label label_contact control-label '}} ) }}
-
-            {# Affichage des erreurs pour ce champ précis. #}
-            {{ form_errors(form.isNaturaliste) }}
-
-            <div class="col-xs-offset-5 col-xs-4 naturaliste">
-                {# Génération de l'input. #}
-                {{ form_widget(form.isNaturaliste, {'attr': {'class': 'fa fa fa-circle-thin'}}) }}
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-xs-5 control-label label_contact control-label required">
-                {{ form_label (form.plainPassword.first) }}
+            {# Génération manuelle et éclatée : #}
+            <div class="form-group col-xs-12 col-md-12 col-centered">
+                {# Génération du label. #}
+                {{ form_label(form.name, "Nom :", {'label_attr': {'class': 'col-xs-12 col-md-3 col-centered  control-label '}}) }}
 
                 {# Affichage des erreurs pour ce champ précis. #}
-                {{ form_errors(form.plainPassword.first) }}
-            </div>
-            <div class="col-xs-6 ">
-                {{ form_widget (form.plainPassword.first) }}
-            </div>
-        </div>
+                {{ form_errors(form.name) }}
 
-        <div class="form-group ">
-            <div class="col-xs-5 control-label label_contact control-label required">
-                {{ form_label (form.plainPassword.second) }}
+                <div class="col-xs-12 col-md-8 col-centered">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.name, {'attr': {'class': 'form-control formulaire_contact'}}) }}
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12 col-md-12 col-centered">
+                {# Génération du label. #}
+                {{ form_label(form.firstName, "Prénom :", {'label_attr': {'class': 'col-xs-12 col-md-3 col-centered control-label '}}) }}
+
                 {# Affichage des erreurs pour ce champ précis. #}
-                {{ form_errors(form.plainPassword.second) }}
+                {{ form_errors(form.firstName) }}
+
+                <div class="col-xs-12 col-md-8 col-centered">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.firstName, {'attr': {'class': 'form-control formulaire_contact'}}) }}
+                </div>
             </div>
-            <div class="col-xs-6">
-                {{ form_widget (form.plainPassword.second) }}
+
+            <div class="form-group col-xs-12 col-md-12 col-centered">
+                {# Génération du label. #}
+                {{ form_label(form.email, "Email :", {'label_attr': {'class': 'col-xs-12 col-md-3 col-centered control-label '}}) }}
+
+                {# Affichage des erreurs pour ce champ précis. #}
+                {{ form_errors(form.email) }}
+
+                <div class="col-xs-12 col-md-8 col-centered">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.email, {'attr': {'class': 'form-control formulaire_contact'}}) }}
+                </div>
             </div>
-        </div>
+            <div class="form-group col-xs-12 col-md-12 col-centered">
+                {# Génération du label. #}
+                {{ form_label(form.username, "Nom d'utilisateur :", {'label_attr': {'class': 'col-xs-12 col-md-3 col-centered control-label '}}) }}
+
+                {# Affichage des erreurs pour ce champ précis. #}
+                {{ form_errors(form.username) }}
+
+                <div class="col-xs-12 col-md-8 col-centered">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.username, {'attr': {'class': 'form-control formulaire_contact'}}) }}
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-md-12 col-centered birthday ">
+                {# Génération du label. #}
+                {{ form_label(form.birthDate, "Date de Naissance :", {'label_attr': {'class': 'col-xs-12 col-md-3 col-centered control-label '}}) }}
+
+                {# Affichage des erreurs pour ce champ précis. #}
+                {{ form_errors(form.birthDate) }}
+
+                <div class=" col-xs-4 col-md-3 col-centered ">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.birthDate, {'attr': {'class': 'form-control blocs'}}) }}
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12 col-md-12 col-centered">
+                {# Génération du label. #}
+                {{ form_label(form.isNaturaliste, "Je veux $etre naturaliste" , {'label_attr': {'class': 'col-xs-12 col-md-3 col-centered control-label  '}} ) }}
+
+                {# Affichage des erreurs pour ce champ précis. #}
+                {{ form_errors(form.isNaturaliste) }}
+
+                <div class="col-xs-12 col-md-offset-3 col-md-8 col-centered  naturaliste">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.isNaturaliste, {'attr': {'class': 'fa fa fa-circle-thin'}}) }}
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12 col-md-12 col-centered">
+                <div class="col-xs-12 col-md-3 col-centered control-label">
+                    {{ form_label (form.plainPassword.first) }}
+
+                    {# Affichage des erreurs pour ce champ précis. #}
+                    {{ form_errors(form.plainPassword.first) }}
+                </div>
+                <div class="col-xs-12 col-md-8 col-centered ">
+                    {{ form_widget (form.plainPassword.first) }}
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12 col-md-12 col-centered">
+                <div class="col-xs-12 col-md-3 col-centered control-label">
+                    {{ form_label (form.plainPassword.second) }}
+                    {# Affichage des erreurs pour ce champ précis. #}
+                    {{ form_errors(form.plainPassword.second) }}
+                </div>
+                <div class="col-xs-12 col-md-8 col-centered">
+                    {{ form_widget (form.plainPassword.second) }}
+                </div>
+            </div>
 
 
-        <div class="form-group mentionsLegales">
-            <div class="col-xs-offset-5 col-xs-6 ">
-                <input type="checkbox" class="fa fa-circle-thin " required>
-                <label>
-                    <a data-toggle="modal" href="{{ path('mentions') }}" data-target="#myModal">J'ai lu et j'accepte les
-                        mentions légales </a>
-                    <!-- Modal -->
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                         aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
+            <div class="form-group col-xs-12  col-centered mentionsLegales">
+                <div class="  col-md-offset-3 col-md-8 ">
+                    <input type="checkbox" class="fa fa-circle-thin " required>
+                    <label>
+                        <a data-toggle="modal" href="{{ path('mentions') }}" data-target="#myModal">J'ai lu et j'accepte
+                            les
+                            mentions légales </a>
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                                <!-- /.modal-content -->
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                            <!-- /.modal-content -->
+                            <!-- /.modal-dialog -->
                         </div>
-                        <!-- /.modal-dialog -->
-                    </div>
-                    <!-- /.modal -->
-                </label>
+                        <!-- /.modal -->
+                    </label>
+                </div>
             </div>
-        </div>
-        <div class="col-xs-offset-5">
-            {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
-            {{ form_widget(form.envoyer, {'label': 'Créer un compte','attr': {'class': 'btn envoyer_formulaire' }}) }}
+            <div class="col-centered">
+                {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
+                {{ form_widget(form.envoyer, {'label': 'Créer un compte','attr': {'class': 'btn envoyer_formulaire' }}) }}
 
-        </div>
-        {{ form_widget(form._token) }}
-        {{ form_rest(form) }}
+            </div>
+            {{ form_widget(form._token) }}
+            {{ form_rest(form) }}
 
-        {# Fermeture de la balise <form> du formulaire HTML #}
-        {{ form_end(form) }}
+            {# Fermeture de la balise <form> du formulaire HTML #}
+            {{ form_end(form) }}
+        </div>
+
     </div>
 {% endblock %}

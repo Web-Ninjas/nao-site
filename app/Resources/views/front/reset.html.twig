@@ -4,32 +4,33 @@
 
     <h2>Demande de réinitialisation du mot de passe</h2>
 
-    <div class="form-group row">
-        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-        {{ form_errors(form) }}
+    <div class="container">
+        <div class="row row-centered">
+            {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+            {{ form_errors(form) }}
 
-        <div class="form-group">
-            {# Génération du label. #}
-            {{ form_label(form.email, "Email :", {'label_attr': {'class': 'col-xs-5  control-label  label_contact'}}) }}
+            <div class="form-group col-xs-12 col-md-12 col-centered login">
+                {# Génération du label. #}
+                {{ form_label(form.email, "Email :", {'label_attr': {'class': 'col-xs-12 col-md-3 col-centered control-label '}}) }}
 
-            {# Affichage des erreurs pour ce champ précis. #}
-            {{ form_errors(form.email) }}
+                {# Affichage des erreurs pour ce champ précis. #}
+                {{ form_errors(form.email) }}
 
-            <div class="col-xs-6">
-                {# Génération de l'input. #}
-                {{ form_widget(form.email, {'attr': {'class': 'form-control formulaire_contact'}}) }}
+                <div class="col-xs-12 col-md-8 col-centered">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.email, {'attr': {'class': 'form-control formulaire_contact'}}) }}
+                </div>
             </div>
-        </div>
 
-        <div class="col-xs-offset-6">
-            {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
-            {{ form_widget(form.envoyer, {'label': 'Envoyer','attr': {'class': 'btn envoyer_formulaire' }}) }}
+            <div class="col-centered">
+                {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
+                {{ form_widget(form.envoyer, {'label': 'Envoyer','attr': {'class': 'btn envoyer_formulaire' }}) }}
 
+            </div>
+            {{ form_widget(form._token) }}
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
         </div>
-        {{ form_widget(form._token) }}
-        {{ form_rest(form) }}
-        {{ form_end(form) }}
     </div>
-
 
 {% endblock %}
