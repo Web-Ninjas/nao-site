@@ -119,7 +119,7 @@ class UserController extends Controller
         $user = $em->getRepository('UserBundle:User')->findOneBy(['tokenRegenerationMotDePasse' => $token]);
 
         if ($user == null) {
-            return $this->createNotFoundException('Token non trouvé : '.$token);
+            throw $this->createNotFoundException('Token non trouvé : '.$token);
         }
 
         // propose le formulaire demandant 2 fois le nouveau mot de passe

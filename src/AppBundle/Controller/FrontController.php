@@ -179,18 +179,20 @@ class FrontController extends Controller
     	if ($request->isXmlHttpRequest() ) 
     	{
     		$oiseauName = $request->request->get('oiseauName');
+    		$nomOiseauComplet = substr($oiseauName, strpos($oiseauName, "-") + 2); 
     		$oiseau = $em->getRepository('AppBundle:OiseauTaxref')->findOneBy(array(
-    			'nomVern' => $oiseauName
+    			'nomComplet' => $nomOiseauComplet
     			));
     		// Problème ici, les 2 fonctions ci-dessous retourne toujours un array vide
     		$listObservations = $em->getRepository('AppBundle:Observation')->findBy(array(
-    			'oiseau' => $oiseau
+    			'oiseau' => 2315
     			));
-    		// $listObservations = $em->getRepository('AppBundle:Observation')->findObsvervationForOiseau($oiseau);
 
-    		// $count = count($listObservations);
-    		return new JsonResponse($listObservations);
-    		// return new JsonResponse($listObservations);
+    		$myArray = [
+    			['hello', 'eng'], ['bonjour', 'fr']
+    		];
+
+    		return new JsonResponse($myArray);
     	}
 
     	// Liste les noms des oiseaux pour l'autocomplete
@@ -229,7 +231,6 @@ class FrontController extends Controller
     	if ($form->isSubmitted() & $form->isValid() )
     	{
     		$nomOiseau = $request->request->get('appbundle_observation')['nomOiseau'];
-    		// var_dump($nomOiseau); die;
     		$nomOiseauComplet = substr($nomOiseau, strpos($nomOiseau, "-") + 2); 
     		$oiseau = $em->getRepository('AppBundle:OiseauTaxref')->findOneBy([
     			'nomComplet' => $nomOiseauComplet
