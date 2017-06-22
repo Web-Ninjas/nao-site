@@ -185,13 +185,14 @@ class FrontController extends Controller
     			));
     		// Problème ici, les 2 fonctions ci-dessous retourne toujours un array vide
     		$listObservations = $em->getRepository('AppBundle:Observation')->findBy(array(
-    			'oiseau' => $oiseau
+    			'oiseau' => 2315
     			));
-    		// $listObservations = $em->getRepository('AppBundle:Observation')->findObsvervationForOiseau($oiseau);
 
-    		// $count = count($listObservations);
-    		return new JsonResponse($listObservations);
-    		// return new JsonResponse($listObservations);
+    		$myArray = [
+    			['hello', 'eng'], ['bonjour', 'fr']
+    		];
+
+    		return new JsonResponse($myArray);
     	}
 
     	// Liste les noms des oiseaux pour l'autocomplete

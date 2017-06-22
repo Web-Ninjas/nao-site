@@ -5,14 +5,7 @@ body, html {
     margin: 0;
     padding: 0;
 }
-/*
-#slider
-{
-    width: 70%; 
-    display: inline; 
-    margin-left: 30px;
-}
-*/
+
 
 #map {
     height: 400px;
@@ -140,7 +133,7 @@ p {
 }
 
 .photo-index {
-    height: 300px
+    height: 300px;
 }
 
 h1 {
@@ -350,10 +343,6 @@ input.recherche {
     padding-left: 10px;
 }
 
-.table {
-
-}
-
 .fond_tableau {
     background-color: #FFFFFF;
 }
@@ -523,6 +512,7 @@ img.instagram:hover, img.instagram:focus {
     background-color: inherit;
     border-bottom: 2px solid #519D9E;
     width: inherit;
+    margin-bottom: 20px;
 }
 
 .label_contact {
@@ -832,6 +822,4 @@ input[type=range]:focus::-ms-fill-upper {
         font-size: 30px;
         width: 303px;
     }
-
-
 }
