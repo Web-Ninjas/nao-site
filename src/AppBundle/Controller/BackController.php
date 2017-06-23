@@ -22,7 +22,7 @@ class BackController extends Controller
     /**
      * @Route("/dashboard/profil", name="dashboard_profil")
      * @Method({"GET","POST"})
-     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     * @Security("has_role('ROLE_PARTICULIER') ")
      */
     public function profilAction(Request $request)
     {
@@ -64,7 +64,7 @@ class BackController extends Controller
     /**
      * @Route("/dashboard/observations{page}", defaults={"page" = "1" } ,requirements={"id" = "\d+"}, name="dashboard_observations")
      * @Method({"GET","POST"})
-     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     * @Security("has_role('ROLE_PARTICULIER') ")
      */
     public function observationsAction($page, Request $request)
     {
@@ -184,6 +184,7 @@ class BackController extends Controller
      * @Method({"GET","POST"})
      * @param Observation $observation
      * @ParamConverter()
+     * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
      */
     public function supprimerObservationAction(Observation $observation, Request $request)
     {
@@ -250,6 +251,7 @@ class BackController extends Controller
     /**
      * @Route("/dashboard/articles{page}", defaults={"page" = "1" } ,requirements={"id" = "\d+"}, name="dashboard_articles")
      * @Method({"GET","POST"})
+     * @Security("has_role('ROLE_CONTRIBUTEUR') ")
      */
     public function articlesAction(Request $request, $page)
     {
@@ -282,6 +284,7 @@ class BackController extends Controller
     /**
      * @Route("/dashboard/all_articles{page}", defaults={"page" = "1" } ,requirements={"id" = "\d+"}, name="dashboard_all_articles")
      * @Method({"GET","POST"})
+     * @Security("has_role('ROLE_ADMIN') ")
      */
     public function allArticlesAction(Request $request, $page)
     {
