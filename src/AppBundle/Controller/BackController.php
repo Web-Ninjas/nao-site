@@ -69,7 +69,7 @@ class BackController extends Controller
     public function observationsAction($page, Request $request)
     {
         $nbObservationsParPage = $this->container->getParameter('front_nb_observations_par_page');
-        
+
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AppBundle:Observation');
 
@@ -77,7 +77,7 @@ class BackController extends Controller
         $ordreDeTri = $request->query->get('ordreDeTri');
 
         $observations = $repository->findAllPagineEtTrie($page, $nbObservationsParPage, $this->getUser(), $filtre, $ordreDeTri);
-        
+
         $pagination = array(
             'page' => $page,
             'nbPages' => ceil(count($observations) / $nbObservationsParPage),
@@ -99,7 +99,7 @@ class BackController extends Controller
     public function allObservationsAction($page, Request $request)
     {
         $nbObservationsParPage = $this->container->getParameter('front_nb_observations_par_page');
-        
+
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AppBundle:Observation');
 
@@ -107,14 +107,14 @@ class BackController extends Controller
         $ordreDeTri = $request->query->get('ordreDeTri');
 
         $observations = $repository->findAllPagineEtTrie($page, $nbObservationsParPage, null, $filtre, $ordreDeTri);
-        
+
         $pagination = array(
             'page' => $page,
             'nbPages' => ceil(count($observations) / $nbObservationsParPage),
             'nomRoute' => 'dashboard_all_observations',
             'paramsRoute' => array()
         );
-        
+
         return $this->render('back/allObservationsDashboard.html.twig', array(
             'observations' => $observations,
             'pagination' => $pagination
@@ -247,6 +247,37 @@ class BackController extends Controller
 
     }
 
+    /**
+     * @Route("/dashboard/articles{page}", defaults={"page" = "1" } ,requirements={"id" = "\d+"}, name="dashboard_articles")
+     * @Method({"GET","POST"})
+     */
+    public function articlesAction(Request $request, $page)
+    {
+        $nbArticlesParPage = $this->container->getParameter('front_nb_articles_par_page');
+
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('AppBundle:Article');
+
+        $filtre = $request->query->get('filtre');
+        $ordreDeTri = $request->query->get('ordreDeTri');
+
+   
+        $articles = $repository->findAllPagineEtTrie($page, $nbArticlesParPage, $this->getUser(), $filtre, $ordreDeTri);
+
+
+        $pagination = array(
+            'page' => $page,
+            'nbPages' => ceil(count($articles) / $nbArticlesParPage),
+            'nomRoute' => 'dashboard_articles',
+            'paramsRoute' => array()
+        );
+
+        return $this->render('back/artilcesDashboard.html.twig', array(
+            'articles' => $articles,
+            'pagination' => $pagination
+        ));
+    }
+
 
     /**
      * @Route("/dashboard/all_articles{page}", defaults={"page" = "1" } ,requirements={"id" = "\d+"}, name="dashboard_all_articles")
@@ -262,13 +293,9 @@ class BackController extends Controller
         $filtre = $request->query->get('filtre');
         $ordreDeTri = $request->query->get('ordreDeTri');
         
-        $isSeulementMoi = $request->query->has('only-me');
 
-        if ($isSeulementMoi) {
-            $articles = $repository->findAllPagineEtTrie($page, $nbArticlesParPage, $this->getUser(),$filtre, $ordreDeTri);
-        } else {
-            $articles = $repository->findAllPagineEtTrie($page, $nbArticlesParPage, null, $filtre, $ordreDeTri);
-        }
+        $articles = $repository->findAllPagineEtTrie($page, $nbArticlesParPage, null, $filtre, $ordreDeTri);
+        
 
         $pagination = array(
             'page' => $page,
@@ -325,7 +352,7 @@ class BackController extends Controller
 
         $filtre = $request->query->get('filtre');
         $ordreDeTri = $request->query->get('ordreDeTri');
-        
+
         $utilisateurs = $repository->findAllPagineEtTrie($page, $nbUtilisateursParPage, $filtre, $ordreDeTri);
 
         $pagination = array(
@@ -334,7 +361,7 @@ class BackController extends Controller
             'nomRoute' => 'dashboard_utilisateurs',
             'paramsRoute' => array()
         );
-        
+
         //var_dump($utilisateurs); die;
         return $this->render('back/utilisateursDashboard.html.twig', array(
             'utilisateurs' => $utilisateurs,
@@ -489,8 +516,8 @@ class BackController extends Controller
             $this->addFlash('notice', 'L\'article a bien été enregistré !');
 
             return $this->redirectToRoute('article', array(
-                'id' =>$article->getId()
-                ));
+                'id' => $article->getId()
+            ));
         }
 
         return $this->render(':back:redigerArticle.html.twig', array(

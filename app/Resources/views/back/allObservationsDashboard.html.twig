@@ -11,83 +11,25 @@
 {% set rq = app.request.query %}
 
 {% block content %}
+
     <h4>Mes observations</h4>
 
     {% if observations is not empty %}
 
         <div class="tableau">
-
             <table class="display nowrap" id="data-table" cellspacing="0" width="100%">
+
                 <thead>
                 <tr>
-                    <th>
-                        {% set ordreDeTri = 'DESC' %}
-                        {% if rq.get('filtre') == 'author' and rq.get('ordreDeTri') == 'DESC' %}
-                            {% set ordreDeTri = 'ASC' %}
-                        {% endif %}
-                        <a href="{{ path('dashboard_all_observations', {'filtre': 'author', 'ordreDeTri': ordreDeTri}) }}">
-                            Utilisateur
-                            {% if  app.request.attributes.get('_route') == 'dashboard_all_observations'and app.request.query.get('filtre') == 'author' and app.request.query.get('ordreDeTri') == 'DESC' %}
-                                <span class="glyphicon glyphicon-arrow-down"></span>
-                            {% elseif app.request.attributes.get('_route') == 'dashboard_all_observations'and app.request.query.get('filtre') == 'author' and app.request.query.get('ordreDeTri') == 'ASC' %}
-                                <span class="glyphicon glyphicon-arrow-up"></span>
-                            {% else %}
-                                <span class="glyphicon glyphicon-filter"></span>
-                            {% endif %}
-                        </a>
-                    </th>
-                    <th>
-                        {% set ordreDeTri = 'DESC' %}
-                        {% if rq.get('filtre') == 'status' and rq.get('ordreDeTri') == 'DESC' %}
-                            {% set ordreDeTri = 'ASC' %}
-                        {% endif %}
-                        <a href="{{ path('dashboard_all_observations', {'filtre': 'status', 'ordreDeTri': ordreDeTri}) }}">
-                            Statut
-                            {% if  app.request.attributes.get('_route') == 'dashboard_all_observations'and app.request.query.get('filtre') == 'status' and app.request.query.get('ordreDeTri') == 'DESC' %}
-                                <span class="glyphicon glyphicon-arrow-down"></span>
-                            {% elseif app.request.attributes.get('_route') == 'dashboard_all_observations'and app.request.query.get('filtre') == 'status' and app.request.query.get('ordreDeTri') == 'ASC' %}
-                                <span class="glyphicon glyphicon-arrow-up"></span>
-                            {% else %}
-                                <span class="glyphicon glyphicon-filter"></span>
-                            {% endif %}
-                        </a>
-                    </th>
+                    <th>Utilisateur</th>
+                    <th>Statut</th>
                     <th>Observation</th>
-                    <th>
-                        {% set ordreDeTri = 'DESC' %}
-                        {% if rq.get('filtre') == 'date' and rq.get('ordreDeTri') == 'DESC' %}
-                            {% set ordreDeTri = 'ASC' %}
-                        {% endif %}
-                        <a href="{{ path('dashboard_all_observations', {'filtre': 'date', 'ordreDeTri': ordreDeTri}) }}">
-                            Date
-                            {% if  app.request.attributes.get('_route') == 'dashboard_all_observations'and app.request.query.get('filtre') == 'date' and app.request.query.get('ordreDeTri') == 'DESC' %}
-                                <span class="glyphicon glyphicon-arrow-down"></span>
-                            {% elseif app.request.attributes.get('_route') == 'dashboard_all_observations'and app.request.query.get('filtre') == 'date' and app.request.query.get('ordreDeTri') == 'ASC' %}
-                                <span class="glyphicon glyphicon-arrow-up"></span>
-                            {% else %}
-                                <span class="glyphicon glyphicon-filter"></span>
-                            {% endif %}
-                        </a>
-                    </th>
-                    <th>
-                        {% set ordreDeTri = 'DESC' %}
-                        {% if rq.get('filtre') == 'validateur' and rq.get('ordreDeTri') == 'DESC' %}
-                            {% set ordreDeTri = 'ASC' %}
-                        {% endif %}
-                        <a href="{{ path('dashboard_all_observations', {'filtre': 'validateur', 'ordreDeTri': ordreDeTri}) }}">
-                            Validateur
-                            {% if  app.request.attributes.get('_route') == 'dashboard_all_observations'and app.request.query.get('filtre') == 'validateur' and app.request.query.get('ordreDeTri') == 'DESC' %}
-                                <span class="glyphicon glyphicon-arrow-down"></span>
-                            {% elseif app.request.attributes.get('_route') == 'dashboard_all_observations'and app.request.query.get('filtre') == 'validateur' and app.request.query.get('ordreDeTri') == 'ASC' %}
-                                <span class="glyphicon glyphicon-arrow-up"></span>
-                            {% else %}
-                                <span class="glyphicon glyphicon-filter"></span>
-                            {% endif %}
-                        </a>
-                    </th>
+                    <th>Date</th>
+                    <th>Validateur</th>
                     <th class="tableau_action">Action</th>
                 </tr>
                 </thead>
+
                 <tbody class="fond_tableau">
                 {% for observation in observations %}
                     <tr>
@@ -196,3 +138,4 @@
         });
     </script>
 {% endblock %}
+

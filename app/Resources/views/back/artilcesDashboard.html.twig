@@ -4,7 +4,7 @@
 
 {% block content %}
 
-    <h4>Tous les articles</h4>
+    <h4>Mes articles</h4>
 
     {% if articles is not empty %}
 
@@ -33,7 +33,7 @@
 
                         <td class="content_observation">
                             <div class="tableau_observation">
-                                <a href="{{ path('article', {'id': article.id}) }}">{{ article.content |striptags| truncate(1) }}</a>
+                                <a href="{{ path('article', {'id': article.id}) }}">{{ article.content |striptags| truncate(50) }}</a>
                             </div>
                         </td>
 
@@ -81,4 +81,3 @@
         });
     </script>
 {% endblock %}
-

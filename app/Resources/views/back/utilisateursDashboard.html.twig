@@ -14,90 +14,23 @@
     <h4>Utilisateurs</h4>
 
     {% if utilisateurs is not empty %}
-        <div class="col-xs-3 recherche">
-            <div class="input-group input-group-md">
-                <input type="text" class="form-control" placeholder="Recherche" style="border:0;">
-                <span class="input-group-addon" style="border:0; background: white;">
-                    <span class=" glyphicon glyphicon-search"></span></span>
-            </div>
-        </div>
-
 
         <div class="tableau">
+            <table class="display nowrap" id="data-table" cellspacing="0" width="100%">
 
-            <table class="table">
                 <thead>
                 <tr>
-                    <th>
-                        {% set ordreDeTri = 'DESC' %}
-                        {% if rq.get('filtre') == 'user' and rq.get('ordreDeTri') == 'DESC' %}
-                            {% set ordreDeTri = 'ASC' %}
-                        {% endif %}
-                        <a href="{{ path('dashboard_utilisateurs', {'filtre': 'user', 'ordreDeTri': ordreDeTri}) }}">
-                            Utilisateur
-                            {% if  app.request.attributes.get('_route') == 'dashboard_utilisateurs'and app.request.query.get('filtre') == 'user' and app.request.query.get('ordreDeTri') == 'DESC' %}
-                                <span class="glyphicon glyphicon-arrow-down"></span>
-                            {% elseif app.request.attributes.get('_route') == 'dashboard_utilisateurs'and app.request.query.get('filtre') == 'user' and app.request.query.get('ordreDeTri') == 'ASC' %}
-                                <span class="glyphicon glyphicon-arrow-up"></span>
-                            {% else %}
-                                <span class="glyphicon glyphicon-filter"></span>
-                            {% endif %}
-                        </a>
-                    </th>
-                    <th>
-                        {% set ordreDeTri = 'DESC' %}
-                        {% if rq.get('filtre') == 'status' and rq.get('ordreDeTri') == 'DESC' %}
-                            {% set ordreDeTri = 'ASC' %}
-                        {% endif %}
-                        <a href="{{ path('dashboard_utilisateurs', {'filtre': 'status', 'ordreDeTri': ordreDeTri}) }}">
-                            Statut
-                            {% if  app.request.attributes.get('_route') == 'dashboard_utilisateurs'and app.request.query.get('filtre') == 'status' and app.request.query.get('ordreDeTri') == 'DESC' %}
-                                <span class="glyphicon glyphicon-arrow-down"></span>
-                            {% elseif app.request.attributes.get('_route') == 'dashboard_utilisateurs'and app.request.query.get('filtre') == 'status' and app.request.query.get('ordreDeTri') == 'ASC' %}
-                                <span class="glyphicon glyphicon-arrow-up"></span>
-                            {% else %}
-                                <span class="glyphicon glyphicon-filter"></span>
-                            {% endif %}
-                        </a>
-                    </th>
+                    <th>Utilisateur</th>
+                    <th>Statut</th>
 
-                    <th>
-                    {% set ordreDeTri = 'DESC' %}
-                    {% if rq.get('filtre') == 'observation' and rq.get('ordreDeTri') == 'DESC' %}
-                        {% set ordreDeTri = 'ASC' %}
-                    {% endif %}
-                    <a href="{{ path('dashboard_utilisateurs', {'filtre': 'observation', 'ordreDeTri': ordreDeTri}) }}">
-                   Observation
-                        {% if  app.request.attributes.get('_route') == 'dashboard_utilisateurs'and app.request.query.get('filtre') == 'observation' and app.request.query.get('ordreDeTri') == 'DESC' %}
-                            <span class="glyphicon glyphicon-arrow-down"></span>
-                        {% elseif app.request.attributes.get('_route') == 'dashboard_utilisateurs'and app.request.query.get('filtre') == 'observation' and app.request.query.get('ordreDeTri') == 'ASC' %}
-                            <span class="glyphicon glyphicon-arrow-up"></span>
-                        {% else %}
-                            <span class="glyphicon glyphicon-filter"></span>
-                        {% endif %}
-                    </a>
-                    </th>
+                    <th>Observation</th>
 
-                    <th>
-                        {% set ordreDeTri = 'DESC' %}
-                        {% if rq.get('filtre') == 'article' and rq.get('ordreDeTri') == 'DESC' %}
-                            {% set ordreDeTri = 'ASC' %}
-                        {% endif %}
-                        <a href="{{ path('dashboard_utilisateurs', {'filtre': 'article', 'ordreDeTri': ordreDeTri}) }}">
-                        Article
-                            {% if  app.request.attributes.get('_route') == 'dashboard_utilisateurs'and app.request.query.get('filtre') == 'article' and app.request.query.get('ordreDeTri') == 'DESC' %}
-                                <span class="glyphicon glyphicon-arrow-down"></span>
-                            {% elseif app.request.attributes.get('_route') == 'dashboard_utilisateurs'and app.request.query.get('filtre') == 'article' and app.request.query.get('ordreDeTri') == 'ASC' %}
-                                <span class="glyphicon glyphicon-arrow-up"></span>
-                            {% else %}
-                                <span class="glyphicon glyphicon-filter"></span>
-                            {% endif %}
-                        </a>
-                    </th>
+                    <th>Article</th>
                     <th>En attente de promotion</th>
                     <th class="tableau_action">Action</th>
                 </tr>
                 </thead>
+
                 <tbody class="fond_tableau">
                 {% for utils in utilisateurs %}
                     {% set utilisateur = utils[0] %}
@@ -158,8 +91,24 @@
                 </tbody>
             </table>
         </div>
-        {% include 'pagination.html.twig' %}
     {% else %}
         <p class="aucun">Il n'y a aucun utilisateur pour l'instant.</p>
     {% endif %}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/rowreorder/1.2.0/js/dataTables.rowReorder.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var table = $('#data-table').DataTable({
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                },
+                responsive: true
+            });
+        });
+    </script>
 {% endblock %}

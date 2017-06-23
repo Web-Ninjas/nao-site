@@ -17,78 +17,19 @@
     {% if observations is not empty %}
 
         <div class="tableau dataTables_wrapper">
-
             <table class="display nowrap" id="data-table" cellspacing="0" width="100%">
+
                 <thead>
                 <tr>
-                    <th>
-                        {% set ordreDeTri = 'DESC' %}
-                        {% if rq.get('filtre') == 'id' and rq.get('ordreDeTri') == 'DESC' %}
-                            {% set ordreDeTri = 'ASC' %}
-                        {% endif %}
-                        <a href="{{ path('dashboard_observations', {'filtre': 'id', 'ordreDeTri': ordreDeTri}) }}">
-                            N°
-                            {% if  app.request.attributes.get('_route') == 'dashboard_observations'and app.request.query.get('filtre') == 'id' and app.request.query.get('ordreDeTri') == 'DESC' %}
-                                <span class="glyphicon glyphicon-arrow-down"></span>
-                            {% elseif app.request.attributes.get('_route') == 'dashboard_observations'and app.request.query.get('filtre') == 'id' and app.request.query.get('ordreDeTri') == 'ASC' %}
-                                <span class="glyphicon glyphicon-arrow-up"></span>
-                            {% else %}
-                                <span class="glyphicon glyphicon-filter"></span>
-                            {% endif %}
-                        </a>
-                    </th>
-                    <th>
-                        {% set ordreDeTri = 'DESC' %}
-                        {% if rq.get('filtre') == 'oiseau' and rq.get('ordreDeTri') == 'DESC' %}
-                            {% set ordreDeTri = 'ASC' %}
-                        {% endif %}
-                        <a href="{{ path('dashboard_observations', {'filtre': 'oiseau', 'ordreDeTri': ordreDeTri}) }}">
-                            Oiseau
-                            {% if  app.request.attributes.get('_route') == 'dashboard_observations'and app.request.query.get('filtre') == 'oiseau' and app.request.query.get('ordreDeTri') == 'DESC' %}
-                                <span class="glyphicon glyphicon-arrow-down"></span>
-                            {% elseif app.request.attributes.get('_route') == 'dashboard_observations'and app.request.query.get('filtre') == 'oiseau' and app.request.query.get('ordreDeTri') == 'ASC' %}
-                                <span class="glyphicon glyphicon-arrow-up"></span>
-                            {% else %}
-                                <span class="glyphicon glyphicon-filter"></span>
-                            {% endif %}
-                        </a>
-                    </th>
-                    <th>
-                        {% set ordreDeTri = 'DESC' %}
-                        {% if rq.get('filtre') == 'date' and rq.get('ordreDeTri') == 'DESC' %}
-                            {% set ordreDeTri = 'ASC' %}
-                        {% endif %}
-                        <a href="{{ path('dashboard_observations', {'filtre': 'date', 'ordreDeTri': ordreDeTri}) }}">
-                            Date
-                            {% if  app.request.attributes.get('_route') == 'dashboard_observations'and app.request.query.get('filtre') == 'date' and app.request.query.get('ordreDeTri') == 'DESC' %}
-                                <span class="glyphicon glyphicon-arrow-down"></span>
-                            {% elseif app.request.attributes.get('_route') == 'dashboard_observations'and app.request.query.get('filtre') == 'date' and app.request.query.get('ordreDeTri') == 'ASC' %}
-                                <span class="glyphicon glyphicon-arrow-up"></span>
-                            {% else %}
-                                <span class="glyphicon glyphicon-filter"></span>
-                            {% endif %}
-                        </a>
-                    </th>
-                    <th>
-                        {% set ordreDeTri = 'DESC' %}
-                        {% if rq.get('filtre') == 'status' and rq.get('ordreDeTri') == 'DESC' %}
-                            {% set ordreDeTri = 'ASC' %}
-                        {% endif %}
-                        <a href="{{ path('dashboard_observations', {'filtre': 'status', 'ordreDeTri': ordreDeTri}) }}">
-                            Statut
-                            {% if  app.request.attributes.get('_route') == 'dashboard_observations'and app.request.query.get('filtre') == 'status' and app.request.query.get('ordreDeTri') == 'DESC' %}
-                                <span class="glyphicon glyphicon-arrow-down"></span>
-                            {% elseif app.request.attributes.get('_route') == 'dashboard_observations'and app.request.query.get('filtre') == 'status' and app.request.query.get('ordreDeTri') == 'ASC' %}
-                                <span class="glyphicon glyphicon-arrow-up"></span>
-                            {% else %}
-                                <span class="glyphicon glyphicon-filter"></span>
-                            {% endif %}
-                        </a>
-                    </th>
+                    <th>N°</th>
+                    <th>Oiseau</th>
+                    <th>Date</th>
+                    <th>Statut</th>
                     <th>Observation</th>
                     <th class="tableau_action">Action</th>
                 </tr>
                 </thead>
+
                 <tbody class="fond_tableau">
                 {% for observation in observations %}
                     <tr>
@@ -144,9 +85,8 @@
                 </tbody>
             </table>
         </div>
-        {% include 'pagination.html.twig' %}
     {% else %}
-        <p>Il n'y a aucun article pour l'instant.</p>
+        <p class="aucun">Il n'y a aucun article pour l'instant.</p>
     {% endif %}
 {% endblock %}
 
@@ -156,8 +96,8 @@
     <script type="text/javascript" src="https://cdn.datatables.net/rowreorder/1.2.0/js/dataTables.rowReorder.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
     <script>
-        $(document).ready(function() {
-            var table = $('#data-table').DataTable( {
+        $(document).ready(function () {
+            var table = $('#data-table').DataTable({
                 rowReorder: {
                     selector: 'td:nth-child(2)'
                 },
