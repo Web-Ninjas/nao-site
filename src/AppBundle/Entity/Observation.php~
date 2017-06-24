@@ -103,7 +103,7 @@ class Observation
     /**
      * @Assert\File(mimeTypes={ "image/jpeg", "image/png", "image/jpg"})
      */
-    private $photoFile;
+    private $photofile;
 
     private $tempPhotoFilename;
 
@@ -552,96 +552,5 @@ class Observation
     {
         return $this->getUploadDir().'/'.$this->getId().'.'.$this->getPhotoExtension();
     }
-
-    /**
-     * Set photoExtension
-     *
-     * @param string $photoExtension
-     *
-     * @return Observation
-     */
-    public function setPhotoExtension($photoExtension)
-    {
-        $this->photoExtension = $photoExtension;
-
-        return $this;
-    }
-
-    /**
-     * Get photoExtension
-     *
-     * @return string
-     */
-    public function getPhotoExtension()
-    {
-        return $this->photoExtension;
-    }
-
-    /**
-     * Set altPhoto
-     *
-     * @param string $altPhoto
-     *
-     * @return Observation
-     */
-    public function setAltPhoto($altPhoto)
-    {
-        $this->altPhoto = $altPhoto;
-
-        return $this;
-    }
-
-    /**
-     * Get altPhoto
-     *
-     * @return string
-     */
-    public function getAltPhoto()
-    {
-        return $this->altPhoto;
-    }
-
-    /**
-     * Set audioExtension
-     *
-     * @param string $audioExtension
-     *
-     * @return Observation
-     */
-    public function setAudioExtension($audioExtension)
-    {
-        $this->audioExtension = $audioExtension;
-
-        return $this;
-    }
-
-    /**
-     * Get audioExtension
-     *
-     * @return string
-     */
-    public function getAudioExtension()
-    {
-        return $this->audioExtension;
-    }
-
-    public function getPhotoFile()
-    {
-        return $this->photoFile;
-    }
-
-    public function setPhotoFile($photoFile)
-    {
-        $this->photoFile = $photoFile;
-    }
-
-    public function getAudioFile()
-    {
-        return $this->audioFile;
-    }
-
-    public function setAudioFile($audioFile)
-    {
-        $this->audioFile = $audioFile;
-    }
 }
+

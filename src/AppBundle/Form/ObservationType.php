@@ -20,10 +20,10 @@ class ObservationType extends AbstractType
         $builder
             ->add('nomOiseau', TextType::class)
             ->add('date', DateTimeType::class)
-            ->add('photo', FileType::class, [
+            ->add('photoFile', FileType::class, [
                 'required' => false
                 ])
-            ->add('audio', FileType::class, [
+            ->add('audioFile', FileType::class, [
                 'required' => false
                 ])
             ->add('content')
