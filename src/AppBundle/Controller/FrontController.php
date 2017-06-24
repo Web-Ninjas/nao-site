@@ -180,19 +180,9 @@ class FrontController extends Controller
     	{
     		$oiseauName = $request->request->get('oiseauName');
     		$nomOiseauComplet = substr($oiseauName, strpos($oiseauName, "-") + 2); 
-    		$oiseau = $em->getRepository('AppBundle:OiseauTaxref')->findOneBy(array(
-    			'nomComplet' => $nomOiseauComplet
-    			));
-    		// Problème ici, les 2 fonctions ci-dessous retourne toujours un array vide
-    		$listObservations = $em->getRepository('AppBundle:Observation')->findBy(array(
-    			'oiseau' => 2315
-    			));
+    		$listObservationsArray = $this->get("app.manager.map")->getPublishedObservationsForOiseauName($nomOiseauComplet);
 
-    		$myArray = [
-    			['hello', 'eng'], ['bonjour', 'fr']
-    		];
-
-    		return new JsonResponse($myArray);
+    		return new JsonResponse($listObservationsArray);
     	}
 
     	// Liste les noms des oiseaux pour l'autocomplete

@@ -52,3 +52,8 @@ services:
         class: AppBundle\Manager\MailContactManager
         arguments: ["@templating.engine.twig", "%mailer_user%", "@swiftmailer.mailer"]
         public: true
+
+    app.manager.map:
+        class: AppBundle\Manager\MapManager
+        arguments: ["@doctrine.orm.entity_manager"]
+        public: true
