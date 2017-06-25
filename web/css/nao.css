@@ -332,6 +332,17 @@ button#article_enregistrer.btn-default.btn {
     margin-top: 26px;
 }
 
+.envoyer{
+    text-align: right;
+}
+
+.about{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 63px;
+    padding-right: 63px;
+}
+
 .blocs:focus {
     background-color: #58C9B9;
     color: white;
@@ -980,6 +991,12 @@ div.checkbox label.required {
         width: 384px;
     }
 
+    .about{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+    }
 }
 
 @media (min-width: 768px) {

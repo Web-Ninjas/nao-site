@@ -2,9 +2,9 @@
 
 {% block content %}
 
-    <h4 class="titre_article">Rédiger une page admin </h4>
+    <h4>Rédiger une page admin </h4>
 
-    <div style="background-color: #9DC8C8;color: white;padding: 23px">
+    <div style="background-color: #9DC8C8;color: white;padding-left: 23px; padding-bottom: 23px; padding-right: 23px">
         {{ form_start(form) }}
         {{ form_errors(form) }}
 
@@ -25,8 +25,8 @@
         {{ form_row(form.content, {'id' : 'summernote'}) }}
 
 
-        <div class="col-lg-offset-11 col-md-offset-10 col-sm-offset-10 col-xs-offset-8">
-            {{ form_row(form.enregistrer) }}
+        <div class="envoyer">
+            {{ form_row(form.enregistrer, {'label': 'Envoyer','attr': {'class': 'btn envoyer_formulaire' }}) }}
         </div>
 
         {{ form_end(form) }}
