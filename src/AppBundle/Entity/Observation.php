@@ -336,54 +336,6 @@ class Observation
     }
 
     /**
-     * Set photo
-     *
-     * @param string $photo
-     *
-     * @return Observation
-     */
-    public function setPhoto($photo)
-    {
-        $this->photo = $photo;
-
-        return $this;
-    }
-
-    /**
-     * Get photo
-     *
-     * @return string
-     */
-    public function getPhoto()
-    {
-        return $this->photo;
-    }
-
-    /**
-     * Set audio
-     *
-     * @param string $audio
-     *
-     * @return Observation
-     */
-    public function setAudio($audio)
-    {
-        $this->audio = $audio;
-
-        return $this;
-    }
-
-    /**
-     * Get audio
-     *
-     * @return string
-     */
-    public function getAudio()
-    {
-        return $this->audio;
-    }
-
-    /**
      * Set status
      *
      * @param integer $status
@@ -551,6 +503,11 @@ class Observation
     public function getPhotoWebPath()
     {
         return $this->getUploadDir().'/'.$this->getId().'.'.$this->getPhotoExtension();
+    }
+
+    public function getAudioWebPath()
+    {
+        return $this->getUploadDir().'/'.$this->getId().'.'.$this->getAudioExtension();
     }
 
     /**
