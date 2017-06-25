@@ -39,13 +39,13 @@ class Observation
 
     /**
     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\OiseauTaxref")
-    * @ORM\JoinColumn(nullable=true)
+    * @ORM\JoinColumn(nullable=false)
     */
     private $oiseau;
 
     /**
     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User",inversedBy="observations")
-    * @ORM\JoinColumn(nullable=true)
+    * @ORM\JoinColumn(nullable=false)
     */
     private $author;
     
