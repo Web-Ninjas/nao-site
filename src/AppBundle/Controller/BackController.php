@@ -158,7 +158,7 @@ class BackController extends Controller
 
         $observations = $repository->listeObservationsNonSupprimer();
 
-        return $this->render('back/observationsDashboard.html.twig', array(
+        return $this->render('back/allObservationsDashboard.html.twig', array(
             'observations' => $observations,
         ));
     }

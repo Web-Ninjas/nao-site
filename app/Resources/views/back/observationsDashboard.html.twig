@@ -36,10 +36,10 @@
                         <td>{{ observation.id }}</td>
 
                         <td class="taille_td">
-                            {% if observation.oiseau.nomComplet is not empty %}
-                                {{ observation.oiseau.nomComplet }}<br>
+                            {% if observation.oiseau.nomVern is not empty %}
+                                {{ observation.oiseau.nomVern }}<br>
                             {% endif %}
-                            {{ observation.oiseau.nomValide }}
+                            {{ observation.oiseau.nomComplet }}
                         </td>
 
                         <td class="texte">
@@ -52,7 +52,7 @@
 
                         <td class="content_observation">
                             <div class="tableau_observation">
-                                <a href="{{ path('observation', {'id': observation.id}) }}">{{ observation.content|striptags|  truncate(50) |raw }}</a>
+                                <a href="{{ path('observation', {'id': observation.id}) }}">{{ observation.content |striptags| truncate(30)}}</a>
                             </div>
                         </td>
 

@@ -41,8 +41,12 @@
                         </td>
 
                         <td class="content_observation">
+                            {% if observation.oiseau.nomVern is not empty %}
+                                {{ observation.oiseau.nomVern}}<br>
+                            {% endif %}
+                            {{ observation.oiseau.nomComplet }}
                             <div class="tableau_observation">
-                                <a href="{{ path('observation', {'id': observation.id}) }}">{{ observation.content |striptags|  truncate(50) |raw }}</a>
+                                <a href="{{ path('observation', {'id': observation.id}) }}">{{ observation.content |striptags| truncate(30)}}</a>
                             </div>
                         </td>
 

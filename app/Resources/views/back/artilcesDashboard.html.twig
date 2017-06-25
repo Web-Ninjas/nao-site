@@ -15,7 +15,7 @@
                 <tr>
                     <th>Contributeur</th>
                     <th>Date</th>
-                    <th>Article</th>
+                    <th>Titre article</th>
                     <th class="tableau_action">Action</th>
                 </tr>
                 </thead>
@@ -32,8 +32,9 @@
                         </td>
 
                         <td class="content_observation">
+                            {{ article.title |striptags| truncate(20)}}
                             <div class="tableau_observation">
-                                <a href="{{ path('article', {'id': article.id}) }}">{{ article.content |striptags| truncate(50) }}</a>
+                                <a href="{{ path('article', {'id': article.id}) }}">{{ article.content |striptags| truncate(30) }}</a>
                             </div>
                         </td>
 
