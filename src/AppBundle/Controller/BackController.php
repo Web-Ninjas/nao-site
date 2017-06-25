@@ -9,13 +9,16 @@ use AppBundle\Form\AdminType;
 use AppBundle\Form\ArticleType;
 use AppBundle\Form\OservationType;
 use AppBundle\Form\ProfilType;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use UserBundle\Entity\User;
+use UserBundle\Form\ModifMdp;
 use UserBundle\UserBundle;
 
 
@@ -61,6 +64,40 @@ class BackController extends Controller
             'form' => $form->createView()
         ));
     }
+
+    /**
+     * @Route("/dashboard/modifMdp", name="dashboard_modifMdp")
+     * @Method({"GET","POST"})
+     * @Security("has_role('ROLE_PARTICULIER') ")
+     */
+    public function modifMdpAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $em)
+    {
+
+        $user = $this->getUser();
+
+
+        $form = $this->get('form.factory')->create(ModifMdp::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+            $user->setPassword($password);
+
+            // On enregistre en bdd
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            $this->addFlash('notice', 'Votre mot de passe a bien été modifié !');
+
+            return $this->redirectToRoute('dashboard_profil');
+        }
+
+
+        return $this->render('front/modifMdp.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
 
     /**
      * @Route("/dashboard/observations{page}", defaults={"page" = "1" } ,requirements={"id" = "\d+"}, name="dashboard_observations")
@@ -250,67 +287,38 @@ class BackController extends Controller
     }
 
     /**
-     * @Route("/dashboard/articles{page}", defaults={"page" = "1" } ,requirements={"id" = "\d+"}, name="dashboard_articles")
+     * @Route("/dashboard/articles", name="dashboard_articles")
      * @Method({"GET","POST"})
      * @Security("has_role('ROLE_CONTRIBUTEUR') ")
      */
-    public function articlesAction(Request $request, $page)
+    public function articlesAction()
     {
-        $nbArticlesParPage = $this->container->getParameter('front_nb_articles_par_page');
 
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AppBundle:Article');
 
-        $filtre = $request->query->get('filtre');
-        $ordreDeTri = $request->query->get('ordreDeTri');
-
-   
-        $articles = $repository->findAllPagineEtTrie($page, $nbArticlesParPage, $this->getUser(), $filtre, $ordreDeTri);
-
-
-        $pagination = array(
-            'page' => $page,
-            'nbPages' => ceil(count($articles) / $nbArticlesParPage),
-            'nomRoute' => 'dashboard_articles',
-            'paramsRoute' => array()
-        );
+        $articles = $repository->listeArticlesNonSupprimer($this->getUser());
 
         return $this->render('back/artilcesDashboard.html.twig', array(
             'articles' => $articles,
-            'pagination' => $pagination
         ));
     }
 
 
     /**
-     * @Route("/dashboard/all_articles{page}", defaults={"page" = "1" } ,requirements={"id" = "\d+"}, name="dashboard_all_articles")
+     * @Route("/dashboard/all_articles", name="dashboard_all_articles")
      * @Method({"GET","POST"})
      * @Security("has_role('ROLE_ADMIN') ")
      */
-    public function allArticlesAction(Request $request, $page)
+    public function allArticlesAction()
     {
-        $nbArticlesParPage = $this->container->getParameter('front_nb_articles_par_page');
-
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AppBundle:Article');
 
-        $filtre = $request->query->get('filtre');
-        $ordreDeTri = $request->query->get('ordreDeTri');
-        
-
-        $articles = $repository->findAllPagineEtTrie($page, $nbArticlesParPage, null, $filtre, $ordreDeTri);
-        
-
-        $pagination = array(
-            'page' => $page,
-            'nbPages' => ceil(count($articles) / $nbArticlesParPage),
-            'nomRoute' => 'dashboard_all_articles',
-            'paramsRoute' => array()
-        );
+        $articles = $repository->listeArticlesNonSupprimer();
 
         return $this->render('back/allArticlesDashboard.html.twig', array(
             'articles' => $articles,
-            'pagination' => $pagination
         ));
     }
 

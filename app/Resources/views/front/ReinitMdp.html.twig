@@ -8,9 +8,9 @@
         {{ form_errors(form) }}
         <div class="row row-centered">
 
-            <div class="form-group col-xs-12 col-md-12 col-centered login">
+            <div class="form-group col-xs-12 col-md-12 col-centered haut">
                 <div class="col-xs-12 col-sm-4 col-md-4 col-centered control-label required">
-                    {{ form_label (form.plainPassword.first, "Mot de passe :",{'attr': {'class': 'col-xs-12 col-md-3 col-centered  control-label '}}) }}
+                    {{ form_label (form.plainPassword.first, "Mot de passe :",{'label_attr': {'class': 'col-xs-12 col-md-3 col-centered  control-label '}}) }}
 
                     {# Affichage des erreurs pour ce champ précis. #}
                     {{ form_errors(form.plainPassword.first) }}
@@ -22,7 +22,7 @@
 
             <div class="form-group col-xs-12 col-md-12 col-centered">
                 <div class="col-xs-12 col-sm-4 col-md-4 col-centered control-label required">
-                    {{ form_label (form.plainPassword.second,"Confirmation du mot de passe :", {'attr': {'class': 'col-xs-12 col-md-3 col-centered  control-label '}}) }}
+                    {{ form_label (form.plainPassword.second,"Confirmation du mot de passe :", {'label_attr': {'class': 'col-xs-12 col-md-3 col-centered  control-label '}}) }}
                     {# Affichage des erreurs pour ce champ précis. #}
                     {{ form_errors(form.plainPassword.second) }}
                 </div>

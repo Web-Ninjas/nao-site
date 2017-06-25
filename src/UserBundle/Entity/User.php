@@ -104,6 +104,9 @@ class User implements UserInterface
      */
     private $password;
 
+    
+    private $ancienMdp;
+
     /**
      * @var \DateTime
      *
