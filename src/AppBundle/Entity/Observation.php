@@ -46,7 +46,6 @@ class Observation
     /**
     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User",inversedBy="observations")
     * @ORM\JoinColumn(nullable=true)
-    * @Assert\NotBlank()
     */
     private $author;
     
@@ -428,16 +427,16 @@ class Observation
       public function preUpload()
       {
         // Si jamais il n'y a pas de fichier (champ facultatif), on ne fait rien
-        if (null === $this->photoFile) {
-          return;
+        if (null !== $this->photoFile) {
+          $this->photoExtension = $this->photoFile->guessExtension();
+          $this->altPhoto = $this->photoFile->getClientOriginalName();
         }
 
-        // Le nom du fichier est son id, on doit juste stocker également son extension
-        // Pour faire propre, on devrait renommer cet attribut en « extension », plutôt que « photoExtension »
-        $this->photoExtension = $this->photoFile->guessExtension();
+        if (null !== $this->audioFile) {
+          $this->audioExtension = $this->audioFile->guessExtension();
+        }
 
-        // Et on génère l'attribut altPhoto de la balise <img>, à la valeur du nom du fichier sur le PC de l'internaute
-        $this->altPhoto = $this->photoFile->getClientOriginalName();
+        return;
       }
 
     /**
@@ -446,24 +445,42 @@ class Observation
      */
     public function upload()
     {
-       // Si jamais il n'y a pas de fichier (champ facultatif), on ne fait rien
-        if (null === $this->photoFile) {
-        return;
-        }
+        // Si jamais il n'y a pas de fichier (champ facultatif), on ne fait rien
+        if (null !== $this->photoFile) 
+        {
+            // Si on avait un ancien fichier, on le supprime
+            if (null !== $this->tempPhotoFilename) 
+            {
+              $oldFile = $this->getUploadRootDir().'/'.$this->id.'.'.$this->tempPhotoFilename;
+                if (file_exists($oldFile)) 
+                    unlink($oldFile);
+            }
 
-        // Si on avait un ancien fichier, on le supprime
-        if (null !== $this->tempPhotoFilename) {
-          $oldFile = $this->getUploadRootDir().'/'.$this->id.'.'.$this->tempFilename;
-          if (file_exists($oldFile)) {
-            unlink($oldFile);
-          }
-        }
+            // On déplace le fichier envoyé dans le répertoire de notre choix
+            $this->photoFile->move(
+            $this->getUploadRootDir(), // Le répertoire de destination
+            $this->id.'.'.$this->photoExtension   // Le nom du fichier à créer, ici « id.extension »
+            ); 
+        } 
 
-        // On déplace le fichier envoyé dans le répertoire de notre choix
-        $this->photoFile->move(
-          $this->getUploadRootDir(), // Le répertoire de destination
-          $this->id.'.'.$this->photoExtension   // Le nom du fichier à créer, ici « id.extension »
-        );        
+        if (null !== $this->audioFile) 
+        {
+            // Si on avait un ancien fichier, on le supprime
+            if (null !== $this->tempAudioFilename) 
+            {
+              $oldFile = $this->getUploadRootDir().'/'.$this->id.'.'.$this->tempAudioFilename;
+                if (file_exists($oldFile)) 
+                    unlink($oldFile);
+            }
+
+            // On déplace le fichier envoyé dans le répertoire de notre choix
+            $this->audioFile->move(
+            $this->getUploadRootDir(), // Le répertoire de destination
+            $this->id.'.'.$this->audioExtension   // Le nom du fichier à créer, ici « id.extension »
+            ); 
+        } 
+
+        return;  
     }
 
     /**
@@ -473,6 +490,7 @@ class Observation
     {
      // On sauvegarde temporairement le nom du fichier, car il dépend de l'id
      $this->tempPhotoFilename = $this->getUploadRootDir().'/'.$this->id.'.'.$this->photoExtension;
+     $this->tempAudioFilename = $this->getUploadRootDir().'/'.$this->id.'.'.$this->audioExtension;
     }
 
     /**
@@ -485,6 +503,12 @@ class Observation
         {
             // On supprime le fichier
             unlink($this->tempPhotoFilename);
+        }
+
+        if (file_exists($this->tempAudioFilename)) 
+        {
+            // On supprime le fichier
+            unlink($this->tempAudioFilename);
         }
     }
 
