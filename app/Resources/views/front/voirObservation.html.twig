@@ -27,7 +27,12 @@
         <img style=" width: 236px;" src="{{ asset(observation.photoWebPath) }}" alt="" width="100" height="125"/>
         <button  style="width: 235px;height: 50px; margin-bottom: 40px" type="submit" id="profil_enregistrer" name="profil[enregistrer]" class="btn envoyer_formulaire btn">
             <a style="color: white; font-size: 20px;" href=" {{ observation.oiseau.url }}">Fiche de l'éspèce</a></button>
-        <div><span style="color: #5C7EE5;font-size: 30px;" class="glyphicon glyphicon-triangle-right"></span><strong style="margin-left: 10px; font-weight: bold; font-size: 20px " ><audio src="observation.getAudioWebPath()">Son enregistré</audio> </strong></div>
+        <div><span style="color: #5C7EE5;font-size: 30px;" class="glyphicon glyphicon-triangle-right"></span>
+            <strong style="margin-left: 10px; font-weight: bold; font-size: 20px " >
+                <audio>
+                    <source src=>Son enregistré
+                </audio>
+            </strong></div>
     </div>
 
     <div class=" col-md-2 col-xs-12">
