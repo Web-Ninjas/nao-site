@@ -19,6 +19,3 @@ parameters:
     secret: ThisTokenIsNotSoSecretChangeIt
 
     front_nb_news_par_page: 4
-    front_nb_utilisateurs_par_page: 5
-    front_nb_observations_par_page: 6
-    front_nb_articles_par_page: 5

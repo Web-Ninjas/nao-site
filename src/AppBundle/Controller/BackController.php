@@ -130,62 +130,36 @@ class BackController extends Controller
 
 
     /**
-     * @Route("/dashboard/observations{page}", defaults={"page" = "1" } ,requirements={"id" = "\d+"}, name="dashboard_observations")
+     * @Route("/dashboard/observations", name="dashboard_observations")
      * @Method({"GET","POST"})
      * @Security("has_role('ROLE_PARTICULIER') ")
      */
-    public function observationsAction($page, Request $request)
+    public function observationsAction()
     {
-        $nbObservationsParPage = $this->container->getParameter('front_nb_observations_par_page');
-
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AppBundle:Observation');
 
-        $filtre = $request->query->get('filtre');
-        $ordreDeTri = $request->query->get('ordreDeTri');
-
-        $observations = $repository->findAllPagineEtTrie($page, $nbObservationsParPage, $this->getUser(), $filtre, $ordreDeTri);
-
-        $pagination = array(
-            'page' => $page,
-            'nbPages' => ceil(count($observations) / $nbObservationsParPage),
-            'nomRoute' => 'dashboard_observations',
-            'paramsRoute' => array()
-        );
+        $observations = $repository->listeObservationsNonSupprimer($this->getUser());
 
         return $this->render('back/observationsDashboard.html.twig', array(
             'observations' => $observations,
-            'pagination' => $pagination
         ));
     }
 
     /**
-     * @Route("/dashboard/all_observations{page}", defaults={"page" = "1" } ,requirements={"id" = "\d+"}, name="dashboard_all_observations")
+     * @Route("/dashboard/all_observations", name="dashboard_all_observations")
      * @Method({"GET","POST"})
      * @Security("has_role('ROLE_NATURALISTE') ")
      */
-    public function allObservationsAction($page, Request $request)
+    public function allObservationsAction()
     {
-        $nbObservationsParPage = $this->container->getParameter('front_nb_observations_par_page');
-
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AppBundle:Observation');
 
-        $filtre = $request->query->get('filtre');
-        $ordreDeTri = $request->query->get('ordreDeTri');
+        $observations = $repository->listeObservationsNonSupprimer();
 
-        $observations = $repository->findAllPagineEtTrie($page, $nbObservationsParPage, null, $filtre, $ordreDeTri);
-
-        $pagination = array(
-            'page' => $page,
-            'nbPages' => ceil(count($observations) / $nbObservationsParPage),
-            'nomRoute' => 'dashboard_all_observations',
-            'paramsRoute' => array()
-        );
-
-        return $this->render('back/allObservationsDashboard.html.twig', array(
+        return $this->render('back/observationsDashboard.html.twig', array(
             'observations' => $observations,
-            'pagination' => $pagination
         ));
     }
 
@@ -385,29 +359,16 @@ class BackController extends Controller
      * @Method({"GET","POST"})
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function UtilisateursAction($page, Request $request)
+    public function UtilisateursAction()
     {
-        $nbUtilisateursParPage = $this->container->getParameter('front_nb_utilisateurs_par_page');
-
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('UserBundle:User');
 
-        $filtre = $request->query->get('filtre');
-        $ordreDeTri = $request->query->get('ordreDeTri');
-
-        $utilisateurs = $repository->findAllPagineEtTrie($page, $nbUtilisateursParPage, $filtre, $ordreDeTri);
-
-        $pagination = array(
-            'page' => $page,
-            'nbPages' => ceil(count($utilisateurs) / $nbUtilisateursParPage),
-            'nomRoute' => 'dashboard_utilisateurs',
-            'paramsRoute' => array()
-        );
+        $utilisateurs = $repository->findAllTrie();
 
         //var_dump($utilisateurs); die;
         return $this->render('back/utilisateursDashboard.html.twig', array(
             'utilisateurs' => $utilisateurs,
-            'pagination' => $pagination
         ));
     }
 
