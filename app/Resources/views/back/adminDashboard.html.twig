@@ -2,29 +2,28 @@
 
 {% block content %}
 
-    <h4 class="titre_article">Rédiger un article</h4>
+    <h4 class="titre_article">Rédiger une page admin </h4>
 
     <div style="background-color: #9DC8C8;color: white;padding: 23px">
         {{ form_start(form) }}
         {{ form_errors(form) }}
 
         <div class="row">
+            <div class="col-sm-12 col-xs-12">
+                {{ form_row(form.nameIdentifier) }}
+            </div>
             <div class="col-sm-6 col-xs-12">
-                {{ form_row(form.title) }}
+                    {{ form_row(form.title) }}
             </div>
             <div class="col-sm-6 col-xs-12 file">
-                {{ form_row (form.file) }}
+                {% if form.vars.value.nameIdentifier == 'accueil' %}
+                    {{ form_row (form.photoBanner) }}
+                {% endif %}
             </div>
         </div>
 
         {{ form_row(form.content, {'id' : 'summernote'}) }}
 
-        <div class="col-lg-5 ">
-            <a href="{{ path('dashboard_utilisateurs') }}" class="btn btn-default btn envoyer_formulaire btn">
-                <i class="glyphicon glyphicon-chevron-left"></i>
-                Retour au tableau de bord
-            </a>
-        </div>
 
         <div class="col-lg-offset-11 col-md-offset-10 col-sm-offset-10 col-xs-offset-8">
             {{ form_row(form.enregistrer) }}
@@ -40,6 +39,13 @@
     {{ parent() }}
 
     <script type="text/javascript">
+        // Redirige vers la bonne page en fonction du choix du sélecteur "Name Identifier"
+        $("#admin_nameIdentifier").change(function(e) {
+            var selected = $( "#admin_nameIdentifier option:selected" );
+            var value = selected.val();
+            window.location.href = "{{ url('dashboard_administration') }}/" + value;
+        });
+
         $(document).ready(function () {
             $('#summernote').summernote({
                 height: 300,                 // set editor height

@@ -27,6 +27,9 @@
             <li class=" {% if app.request.attributes.get('_route') == 'dashboard_redigerArticle' %} color {% endif %}">
                 <a href="{{ path('dashboard_redigerArticle') }}">Rédiger un article</a>
             </li>
+            <li class=" {% if app.request.attributes.get('_route') == 'dashboard_administration' %} color {% endif %}">
+                <a href="{{ path('dashboard_administration') }}">Administration des pages admin</a>
+            </li>
         </ul>
     </div>
 

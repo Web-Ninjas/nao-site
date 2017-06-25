@@ -75,7 +75,7 @@ class FrontController extends Controller
     {
 
         $page = $this->getDoctrine()->getRepository('AppBundle:Page')->findOneBy(
-        	array('nameIdentifier' => 'mentions légales')
+        	array('nameIdentifier' => 'mentions-legales')
         	);
 
         return $this->render('front/mentions.html.twig', array(

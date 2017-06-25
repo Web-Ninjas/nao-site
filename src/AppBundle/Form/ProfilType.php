@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -28,8 +29,35 @@ class ProfilType extends AbstractType
             ->add('username', TextType::class)
             ->add('email',    EmailType::class, array('constraints' =>(array(new Email())))  )
             ->add('birthDate', BirthdayType::class)
-            ->add('enregistrer',      SubmitType::class)
+            ;
+
+
+        if (in_array('ROLE_NATURALISTE', $options['data']->getRoles())) {
+            $builder->add('isContributeur', CheckboxType::class, [
+                'mapped' => false,
+                'label' => 'Je veux être contributeur',
+            ]);
+        }
+
+
+        if (in_array('ROLE_PARTICULIER', $options['data']->getRoles())) {
+            $builder
+                ->add('isNaturaliste', CheckboxType::class, [
+                    'mapped' => false,
+                    'label' => 'Je veux être naturaliste',
+                    'data' => $options['data']->getDemandeNaturaliste() !== null
+                ])
+            ;
+        }
+
+
+        $builder
+            ->add('nomEntreprise', TextType::class)
+            ->add('nSiret', TextType::class)
         ;
+
+
+        $builder->add('enregistrer',      SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -58,7 +58,6 @@
                 {# Génération de l'input. #}
                 {{ form_widget(form.username, {'attr': {'class': 'form-control blocs' }}) }}
             </div>
-
         </div>
 
         <div class="form-group">
@@ -72,6 +71,64 @@
             </div>
         </div>
 
+        {% if 'ROLE_PARTICULIER' in form.vars.value.roles %}
+            <div class="form-group">
+                {# Génération du label. #}
+                {{ form_label(form.isNaturaliste, "Je veux être naturaliste :", {'label_attr': {'class': 'col-lg-4 control-label titre_formulaire'}}) }}
+
+                {# Affichage des erreurs pour ce champ précis. #}
+                {{ form_errors(form.isNaturaliste) }}
+
+                <div class="col-lg-5">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.isNaturaliste, {'attr': {'class': 'form-control blocs' }}) }}
+                </div>
+            </div>
+        {% endif %}
+
+
+        <div class="form-group pasNaturaliste">
+            {# Génération du label. #}
+            {{ form_label(form.nomEntreprise, "Nom de l'entreprise :", {'label_attr': {'class': 'col-lg-4 control-label titre_formulaire'}}) }}
+
+            {# Affichage des erreurs pour ce champ précis. #}
+            {{ form_errors(form.nomEntreprise) }}
+
+            <div class="col-lg-5">
+                {# Génération de l'input. #}
+                {{ form_widget(form.nomEntreprise, {'attr': {'class': 'form-control blocs' }}) }}
+            </div>
+        </div>
+
+        <div class="form-group pasNaturaliste">
+            {# Génération du label. #}
+            {{ form_label(form.nSiret, "N° de siret :", {'label_attr': {'class': 'col-lg-4 control-label titre_formulaire'}}) }}
+
+            {# Affichage des erreurs pour ce champ précis. #}
+            {{ form_errors(form.nSiret) }}
+
+            <div class="col-lg-5">
+                {# Génération de l'input. #}
+                {{ form_widget(form.nSiret, {'attr': {'class': 'form-control blocs' }}) }}
+            </div>
+        </div>
+
+        {% if 'ROLE_NATURALISTE' in form.vars.value.roles %}
+
+            <div class="form-group">
+                {# Génération du label. #}
+                {{ form_label(form.isContributeur, "Je veux être contributeur :", {'label_attr': {'class': 'col-lg-4 control-label titre_formulaire'}}) }}
+
+                {# Affichage des erreurs pour ce champ précis. #}
+                {{ form_errors(form.isContributeur) }}
+
+                <div class="col-lg-5">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.isContributeur, {'attr': {'class': 'form-control blocs' }}) }}
+                </div>
+            </div>
+
+        {% endif %}
         <div class="form-group">
             {# Génération du label. #}
             {{ form_label(form.email, "Email :", {'label_attr': {'class': 'col-lg-4 control-label titre_formulaire'}}) }}
@@ -104,7 +161,8 @@
                    for="profil_username">Date de création de compte :</label>
 
             <div class="col-lg-5">
-                <input disabled="disabled" type="text" name="registrationDate" class="fixe form-control form-control blocs"
+                <input disabled="disabled" type="text" name="registrationDate"
+                       class="fixe form-control form-control blocs"
                        value={{ app.user.registrationDate |date('d/m/Y') }}>
             </div>
         </div>
@@ -124,5 +182,31 @@
         {{ form_widget(form._token) }}
         {{ form_end(form) }}
     </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        var isNaturaliste = false;
+
+        {% if 'ROLE_PARTICULIER' in form.vars.value.roles and form.vars.value.demandeNaturaliste is null %}
+            $(".pasNaturaliste").hide();
+        {% else %}
+            isNaturaliste = true;
+        {% endif %}
+
+        $("#profil_isNaturaliste").click(function(e) {
+
+            if (isNaturaliste == false) {
+                isNaturaliste = true;
+                $(".pasNaturaliste").show();
+            } else {
+                isNaturaliste = false;
+                $(".pasNaturaliste").hide();
+            }
+        });
+
+    </script>
 
 {% endblock %}

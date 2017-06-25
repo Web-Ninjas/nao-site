@@ -77,14 +77,40 @@
 
             <div class="form-group col-xs-12 col-md-12 col-centered">
                 {# Génération du label. #}
-                {{ form_label(form.isNaturaliste, "Je veux $etre naturaliste" , {'label_attr': {'class': 'col-xs-12 col-md-3 col-centered control-label  '}} ) }}
+                {{ form_label(form.isNaturaliste, "Je veux être naturaliste" , {'label_attr': {'class': 'col-xs-12 col-md-3 col-centered control-label  '}} ) }}
 
                 {# Affichage des erreurs pour ce champ précis. #}
                 {{ form_errors(form.isNaturaliste) }}
 
-                <div class="col-xs-12 col-md-offset-3 col-md-8 col-centered  naturaliste">
+                <div class="col-xs-12 col-md-offset-3 col-md-8 col-centered naturaliste">
                     {# Génération de l'input. #}
                     {{ form_widget(form.isNaturaliste, {'attr': {'class': 'fa fa fa-circle-thin'}}) }}
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12 col-md-12 col-centered pasNaturaliste">
+                {# Génération du label. #}
+                {{ form_label(form.nomEntreprise, "Nom de l'entreprise :", {'label_attr': {'class': 'col-xs-12 col-md-3 col-centered control-label '}}) }}
+
+                {# Affichage des erreurs pour ce champ précis. #}
+                {{ form_errors(form.nomEntreprise) }}
+
+                <div class="col-xs-12 col-md-8 col-centered">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.nomEntreprise, {'attr': {'class': 'form-control formulaire_contact'}}) }}
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12 col-md-12 col-centered pasNaturaliste">
+                {# Génération du label. #}
+                {{ form_label(form.nSiret, "N° de siret :", {'label_attr': {'class': 'col-xs-12 col-md-3 col-centered control-label '}}) }}
+
+                {# Affichage des erreurs pour ce champ précis. #}
+                {{ form_errors(form.nSiret) }}
+
+                <div class="col-xs-12 col-md-8 col-centered">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.nSiret, {'attr': {'class': 'form-control formulaire_contact'}}) }}
                 </div>
             </div>
 
@@ -149,4 +175,26 @@
         </div>
 
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(".pasNaturaliste").hide();
+
+        var isNaturaliste = false;
+        $("#userbundle_user_isNaturaliste").click(function(e) {
+
+            if (isNaturaliste == false) {
+                isNaturaliste = true;
+                $(".pasNaturaliste").show();
+            } else {
+                isNaturaliste = false;
+                $(".pasNaturaliste").hide();
+            }
+        });
+
+    </script>
+
 {% endblock %}

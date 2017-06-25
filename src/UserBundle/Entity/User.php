@@ -113,6 +113,50 @@ class User implements UserInterface
     private $demandeNaturaliste;
 
     /**
+     * @var string
+     * @ORM\Column(name="nomEntreprise", type="string", length=255)
+     */
+    private $nomEntreprise;
+
+    /**
+     * @var string
+     * @ORM\Column(name="nSiret", type="string", length=255, unique=true)
+     */
+    private $nSiret;
+
+    /**
+     * @return string
+     */
+    public function getNSiret()
+    {
+        return $this->nSiret;
+    }
+
+    /**
+     * @param string $nSiret
+     */
+    public function setNSiret($nSiret)
+    {
+        $this->nSiret = $nSiret;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNomEntreprise()
+    {
+        return $this->nomEntreprise;
+    }
+
+    /**
+     * @param mixed $nomEntreprise
+     */
+    public function setNomEntreprise($nomEntreprise)
+    {
+        $this->nomEntreprise = $nomEntreprise;
+    }
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="demandeContributeur", type="datetime", nullable=true)

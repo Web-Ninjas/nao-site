@@ -4,6 +4,8 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Article;
 use AppBundle\Entity\Observation;
+use AppBundle\Entity\Page;
+use AppBundle\Form\AdminType;
 use AppBundle\Form\ArticleType;
 use AppBundle\Form\OservationType;
 use AppBundle\Form\ProfilType;
@@ -37,13 +39,12 @@ class BackController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            /*// Si l'utilisateur a demandé à être naturaliste on modifie la propriété demandeNaturaliste en DateTime
-            if ($request->getContent('demandeNaturaliste') === '1')
-            {
+            // Si l'utilisateur a demandé à être naturaliste on modifie la propriété demandeNaturaliste en DateTime
+            if ($form->get('isNaturaliste')->getData() === true) {
                 $user->setDemandeNaturaliste(new \DateTime('now'));
             } else {
                 $user->setDemandeNaturaliste(null);
-            }*/
+            }
 
             // On enregistre en bdd
             $em = $this->getDoctrine()->getManager();
@@ -529,5 +530,43 @@ class BackController extends Controller
 
     }
 
+    /**
+     * @Route("/dashboard/administration/{identifier}", name="dashboard_administration", defaults={"identifier" = "accueil"})
+     * @Method({"GET","POST"})
+     * @Security("has_role('ROLE_ADMIN') ")
+     */
+    public function adminAction(Request $request, $identifier)
+    {
+
+        $page = $this->getDoctrine()->getRepository('AppBundle:Page')->findOneBy(
+            array('nameIdentifier' => $identifier)
+        );
+
+        $page ->setLastUpdate(new \Datetime());
+           
+
+        $form = $this->get('form.factory')->create(AdminType::class, $page);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // On enregistre en bdd
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($page);
+            $em->flush();
+
+            $this->addFlash('notice', 'La page ' .$page->getTitle(). ' a bien été enregistrée !');
+
+           return $this->redirectToRoute('dashboard_administration', [
+               'identifier' => $identifier
+           ]);
+        }
+
+        return $this->render(':back:adminDashboard.html.twig', array(
+            'form' => $form->createView(),
+        ));
+
+    }
 
 }

@@ -37,7 +37,11 @@ class UserType extends AbstractType
                 'mapped' => false,
                 'label' => 'Je veux être naturaliste',
             ])
+            ->add('nomEntreprise', TextType::class)
+            ->add('nSiret', TextType::class)
             ->add('envoyer', SubmitType::class);
+
+        
     }
 
     /**
