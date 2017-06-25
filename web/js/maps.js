@@ -31,8 +31,7 @@ var map;
 			defaultIcon = makeMarkerIcon('9DC8C8');
 			highLightedIcon = makeMarkerIcon('5C7EE5');
 
-			// Créé les markers en fonction de ce qu'il y a dans locations[]
-			// setMarkers(map, locations);
+			setMarkers(map, listObservations);
 
 			// Rajoute un regroupement des markers quand ils sont trop proches
 			var markerCluster = new MarkerClusterer(map, markers,
@@ -52,8 +51,6 @@ var map;
 		{
 			observations.forEach(function(observation, index)
 			{
-				// var position = locations[i].position;
-				// var title = locations[i].title;
 
 				var marker = new google.maps.Marker({
 					map: map,

@@ -173,17 +173,21 @@ class FrontController extends Controller
     public function mapAction(Request $request)
     {
     	$em = $this->getDoctrine()->getManager();
-    	$listObservations = array();
 
     	// On requête les observations en ajax
     	if ($request->isXmlHttpRequest() ) 
     	{
+    		$periode = $request->request->get('periode');
     		$oiseauName = $request->request->get('oiseauName');
     		$nomOiseauComplet = substr($oiseauName, strpos($oiseauName, "-") + 2); 
-    		$listObservationsArray = $this->get("app.manager.map")->getPublishedObservationsForOiseauName($nomOiseauComplet);
+    		$listObservationsArray = $this->get("app.manager.map")->getPublishedObservationsForOiseauNameAndDate($nomOiseauComplet, $periode);
 
     		return new JsonResponse($listObservationsArray);
     	}
+
+    	// On retourne toutes les observations au départ
+    	$listObservations = $em->getRepository('AppBundle:Observation')->findAllPublishedWithOiseauAndAuthor();
+    	$listObservations = $this->get("app.manager.map")->arrayOfObjectsToArrayOfArray($listObservations);
 
     	// Liste les noms des oiseaux pour l'autocomplete
     	$listOiseaux = $em->getRepository('AppBundle:OiseauTaxref')->findAll();
@@ -194,7 +198,7 @@ class FrontController extends Controller
     	}
 
     	return $this->render('front/map.html.twig', [
-    		'observations' => $listObservations,
+    		'observations' => json_encode($listObservations),
     		'listOiseauNames' => $listOiseauNames
     		]);
     }
