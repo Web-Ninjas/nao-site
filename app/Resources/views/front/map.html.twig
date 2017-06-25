@@ -60,7 +60,7 @@
 
 			$('#recherche').on('autocompletechange', function(){
 				// On lance une requête ajax pour mettre à jour la liste des observations
-				console.log($('#recherche').value); console.log(periode);
+				// console.log($('#recherche').val()); console.log(periode);
 				requestObservationsAjax();
 			});
 
@@ -117,7 +117,7 @@
 			$.ajax({
 	            url : "{{ path('map') }}",
 	            type : 'POST',
-	            data : {oiseauName: $('#recherche').value,
+	            data : {oiseauName: $('#recherche').val(),
 	            		periode: periode
 	        			},
 	            success: function(response){ 
