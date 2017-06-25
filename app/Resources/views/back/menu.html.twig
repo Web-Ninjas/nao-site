@@ -1,0 +1,26 @@
+<ul class="menu_dashboard">
+    <li class=" {% if routeActuelle == 'dashboard_profil' %} color {% endif %}">
+        <a href="{{ path('dashboard_profil') }}">Profil</a>
+    </li>
+    <li class=" {% if routeActuelle == 'dashboard_observations' %} color {% endif %}">
+        <a href="{{ path('dashboard_observations') }}">Mes observations </a><span class="nb">{{ mesObsCount }} </span>
+    </li>
+    <li class=" {% if routeActuelle == 'dashboard_all_observations' %} color {% endif %}">
+        <a href="{{ path('dashboard_all_observations') }}">Toutes les observations </a> <span class="nb">{{ allObsCount }}</span>
+    </li>
+    <li class=" {% if routeActuelle == 'dashboard_articles'  %} color {% endif %}">
+        <a href="{{ path('dashboard_articles') }}">Mes articles</a><span class="nb">{{ mesArtCount }}</span>
+    </li>
+    <li class=" {% if routeActuelle == 'dashboard_all_articles'  %} color {% endif %}">
+        <a href="{{ path('dashboard_all_articles') }}">Gestion des articles</a><span class="nb">{{ allArtCount }}</span>
+    </li>
+    <li class=" {% if routeActuelle == 'dashboard_utilisateurs' %} color {% endif %}">
+        <a href="{{ path('dashboard_utilisateurs') }}"> Gestion des utilisateurs</a><span class="nb">{{ allUsersCount  }}</span>
+    </li>
+    <li class=" {% if routeActuelle == 'dashboard_redigerArticle' %} color {% endif %}">
+        <a href="{{ path('dashboard_redigerArticle') }}">Rédiger un article</a>
+    </li>
+    <li class=" {% if routeActuelle == 'dashboard_administration' %} color {% endif %}">
+        <a href="{{ path('dashboard_administration') }}">Administration des pages admin</a>
+    </li>
+</ul>

@@ -15,12 +15,16 @@ use UserBundle\Entity\User;
  */
 class ArticleRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function countNbArticles()
+    public function countNbArticles(User $user = null)
     {
         $qb = $this->createQueryBuilder('a');
         $qb->select('COUNT(a.id)');
-          
 
+        if ($user !== null) {
+            $qb->andWhere('a.author = :author');
+            $qb->setParameter('author', $user);
+        }
+        
         return $qb->getQuery()->getSingleScalarResult();
     }
 

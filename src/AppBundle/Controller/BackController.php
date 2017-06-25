@@ -24,6 +24,36 @@ use UserBundle\UserBundle;
 
 class BackController extends Controller
 {
+
+    /**
+     * @Route("/dashboard/menu", name="dashboard_menu")
+     * @Method({"GET"})
+     * @Security("has_role('ROLE_PARTICULIER') ")
+     */
+    public function menuAction()
+    {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $mesObsCount = $em->getRepository('AppBundle:Observation')->countNbObservations($this->getUser());
+        $allObsCount = $em->getRepository('AppBundle:Observation')->countNbObservations();
+        $mesArtCount = $em->getRepository('AppBundle:Article')->countNbArticles($this->getUser());
+        $allArtCount = $em->getRepository('AppBundle:Article')->countNbArticles();
+        $allUsersCount = $em->getRepository('UserBundle:User')->countNbUsers();
+
+        $masterRequest = $this->get('request_stack')->getMasterRequest();
+
+        return $this->render('back/menu.html.twig', [
+            'routeActuelle' => $masterRequest->attributes->get('_route'),
+            'allObsCount' => $allObsCount,
+            'mesObsCount' => $mesObsCount,
+            'mesArtCount' => $mesArtCount,
+            'allArtCount' => $allArtCount,
+            'allUsersCount' => $allUsersCount
+        ]);
+    }
+
+
     /**
      * @Route("/dashboard/profil", name="dashboard_profil")
      * @Method({"GET","POST"})

@@ -42,11 +42,19 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
             ->getResult();
     }
 
-    public function countNbObservations()
+    public function countNbObservations(User $user = null)
     {
         $qb = $this->createQueryBuilder('o');
-        $qb->select('COUNT(o.id)');
+        $qb
+            ->select('COUNT(o.id)')
+            ->andWhere('o.deleted IS NULL');
+        ;
 
+        if ($user !== null) {
+            $qb->andWhere('o.author = :author');
+            $qb->setParameter('author', $user);
+        }
+        
         return $qb->getQuery()->getSingleScalarResult();
     }
     
