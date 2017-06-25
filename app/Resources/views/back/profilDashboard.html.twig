@@ -190,7 +190,7 @@
     <script type="text/javascript">
         var isNaturaliste = false;
 
-        {% if 'ROLE_PARTICULIER' in form.vars.value.roles and form.vars.value.demandeNaturaliste is null %}
+        {% if ('ROLE_PARTICULIER' in form.vars.value.roles and form.vars.value.demandeNaturaliste is null) or 'ROLE_ADMIN' in form.vars.value.roles  %}
             $(".pasNaturaliste").hide();
         {% else %}
             isNaturaliste = true;
