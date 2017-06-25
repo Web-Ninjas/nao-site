@@ -1,5 +1,5 @@
 var map;
-		var locations = [];
+		// var locations = [];
 		var markers = [];
 
 		var largeInfoWindow;
@@ -32,7 +32,7 @@ var map;
 			highLightedIcon = makeMarkerIcon('5C7EE5');
 
 			// Créé les markers en fonction de ce qu'il y a dans locations[]
-			setMarkers(map, locations);
+			// setMarkers(map, locations);
 
 			// Rajoute un regroupement des markers quand ils sont trop proches
 			var markerCluster = new MarkerClusterer(map, markers,
@@ -48,20 +48,20 @@ var map;
 			
 		}
 
-		function setMarkers(map, locations)
+		function setMarkers(map, observations)
 		{
-			for (var i = 0; i < locations.length; i++)
+			observations.forEach(function(observation, index)
 			{
-				var position = locations[i].position;
-				var title = locations[i].title;
+				// var position = locations[i].position;
+				// var title = locations[i].title;
 
 				var marker = new google.maps.Marker({
 					map: map,
-					position: position,
-					title: title,
+					position: {lat: parseFloat(observation.latitude), lng: parseFloat(observation.longitude) },
+					title: observation.nomOiseau,
 					icon: defaultIcon,
 					animation: google.maps.Animation.DROP,
-					id: i
+					id: index
 				});
 				markers.push(marker);
 
@@ -78,7 +78,7 @@ var map;
 				marker.addListener('mouseout', function(){
 					this.setIcon(defaultIcon);
 				});
-			}
+			});
 		}
 
 		function populateInfoWindow(marker, infoWindow)
@@ -86,10 +86,10 @@ var map;
 			if(infoWindow.marker != marker)
 			{
 				infoWindow.marker = marker;
-				infoWindow.setContent('<div>' + marker.title + '<img alt="" src="' + locations[marker.id].url + '" width="80" height="80">' + '</div>');
+				infoWindow.setContent('<div>' + marker.title + '<img alt="" src="' + listObservations[marker.id].photo + '" width="80" height="80">' + '</div>');
 				infoWindow.open(map, marker);
 				infoWindow.addListener('closeclick', function(){
-				infoWindow.setMarker(null);
+					infoWindow.setMarker(null);
 				});
 			}
 		}

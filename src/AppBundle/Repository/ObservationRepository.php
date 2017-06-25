@@ -15,13 +15,16 @@ use UserBundle\Entity\User;
  */
 class ObservationRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findObsvervationForOiseau($oiseau)
+    public function findPublishedObsvervationForOiseau($oiseau)
     {
         $qd = $this->createQueryBuilder('o')
         ->where('o.oiseau = :oiseau')
+        ->andWhere('o.publish IS NOT NULL')
         ->setParameter('oiseau', $oiseau)
         ->leftJoin('o.oiseau', 'bird')
-        ->addSelect('bird');
+        ->addSelect('bird')
+        ->leftJoin('o.author', 'auth')
+        ->addSelect('auth');
 
         return $qd
             ->getQuery()
