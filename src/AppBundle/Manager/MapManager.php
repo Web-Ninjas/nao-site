@@ -14,7 +14,6 @@ class MapManager
 	public function getPublishedObservationsForOiseauNameAndDate($name, $periode)
 	{
 		$minDate;
-		// var_dump($minDate);
 		if ($periode == '(Origine)') {
 			$minDate = null;
 		} else {
@@ -75,8 +74,8 @@ class MapManager
 				'content' => $observation->getContent(),
 				'longitude' => $observation->getLongitude(),
 				'latitude' => $observation->getLatitude(),
-				'photo' => $observation->getPhotoWebPath(),
-				'audio' => $observation->getAudioWebPath(),
+				'photo' => '/nao-site/web/' .$observation->getPhotoWebPath(),
+				'audio' => '/nao-site/web/' .$observation->getAudioWebPath(),
 
 			];
 		}
