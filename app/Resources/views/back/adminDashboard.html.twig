@@ -13,7 +13,7 @@
                 {{ form_row(form.nameIdentifier) }}
             </div>
             <div class="col-sm-6 col-xs-12">
-                    {{ form_row(form.title) }}
+                {{ form_row(form.title) }}
             </div>
             <div class="col-sm-6 col-xs-12 file">
                 {% if form.vars.value.nameIdentifier == 'accueil' %}
@@ -26,9 +26,9 @@
 
 
         <div class="envoyer">
-            {{ form_row(form.enregistrer )}}
+            {{ form_row(form.enregistrer , {'label': 'Envoyer','attr': {'class': 'btn envoyer_formulaire' }}) }}
         </div>
-
+        {{ form_widget(form._token) }}
         {{ form_end(form) }}
     </div>
 
@@ -40,8 +40,8 @@
 
     <script type="text/javascript">
         // Redirige vers la bonne page en fonction du choix du sélecteur "Name Identifier"
-        $("#admin_nameIdentifier").change(function(e) {
-            var selected = $( "#admin_nameIdentifier option:selected" );
+        $("#admin_nameIdentifier").change(function (e) {
+            var selected = $("#admin_nameIdentifier option:selected");
             var value = selected.val();
             window.location.href = "{{ url('dashboard_administration') }}/" + value;
         });

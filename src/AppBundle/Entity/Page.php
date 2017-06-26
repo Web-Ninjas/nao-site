@@ -46,7 +46,7 @@ class Page
     /**
      * @var string
      *
-     * @ORM\Column(name="content", type="text")
+     * @ORM\Column(name="content", type="text", nullable=true)
      */
     private $content;
 
@@ -71,12 +71,6 @@ class Page
     private $altPhoto;
     
     /**
-     * @Assert\Image(
-     *     minWidth = 1140,
-     *     maxWidth = 1140,
-     *     minHeight = 300,
-     *     maxHeight = 300
-     * )
      * @Assert\File(mimeTypes={ "image/jpeg", "image/png", "image/jpg"})
      */
     private $photoBanner;
@@ -164,18 +158,21 @@ class Page
         return $this->content;
     }
 
-    /**
-     * Set photoBanner
-     *
-     * @param string $photoBanner
-     *
-     * @return Page
-     */
-    public function setPhotoBanner($photoBanner)
+
+
+    public function setPhotoBanner(UploadedFile $photoBanner = null)
     {
         $this->photoBanner = $photoBanner;
 
-        return $this;
+        // On vérifie si on avait déjà un fichier pour cette entité
+        if (null !== $this->photoExtension) {
+            // On sauvegarde l'extension du fichier pour le supprimer plus tard
+            $this->tempFilename = $this->photoExtension;
+
+            // On réinitialise les valeurs des attributs photoExtension et altPhoto
+            $this->photoExtension = null;
+            $this->altPhoto = null;
+        }
     }
 
     /**

@@ -37,7 +37,7 @@ class AdminType extends AbstractType
                 'required'   =>  true ,
             ))
             ->add('content',   TextareaType::class , array(
-                'required'   =>  true ,
+                'required'   =>  false ,
             ))
             ->add('enregistrer',      SubmitType::class);
 
