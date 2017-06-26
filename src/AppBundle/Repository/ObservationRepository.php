@@ -19,7 +19,8 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
     {
         $qd = $this->createQueryBuilder('o');
         if ($oiseau !== null) {
-            $qd->where('o.oiseau = :oiseau');
+            $qd->where('o.oiseau = :oiseau')
+            ->setParameter('oiseau', $oiseau);
         }
         if ($minDate !== null) {
             $qd->andWhere('o.date >= :dateFrom')
@@ -27,7 +28,6 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
         }
 
         $qd->andWhere('o.publish IS NOT NULL')
-        ->setParameter('oiseau', $oiseau)
         ->leftJoin('o.oiseau', 'bird')
         ->addSelect('bird')
         ->leftJoin('o.author', 'auth')
