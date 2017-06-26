@@ -1,6 +1,7 @@
-var map;
+		var map;
 		// var locations = [];
 		var markers = [];
+		var markerCluster;
 
 		var largeInfoWindow;
 		var defaultIcon;
@@ -16,7 +17,7 @@ var map;
 				}
 			];
 			*/
-			console.log('on charge la map');
+			// console.log('on charge la map');
 
 			map = new google.maps.Map(document.getElementById('map'), {
 				center: {lat: 48.856614, lng: 2.3522219000000177}, // coordonnées de Paris
@@ -32,9 +33,10 @@ var map;
 			highLightedIcon = makeMarkerIcon('5C7EE5');
 
 			setMarkers(map, listObservations);
+			// console.log(markers);
 
 			// Rajoute un regroupement des markers quand ils sont trop proches
-			var markerCluster = new MarkerClusterer(map, markers,
+			markerCluster = new MarkerClusterer(map, markers,
             	{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 
 		}
@@ -44,6 +46,7 @@ var map;
 			markers.forEach(function(e){
 				e.setMap(null);
 			});
+			markerCluster.clearMarkers();
 			
 		}
 

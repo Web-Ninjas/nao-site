@@ -14,11 +14,12 @@ class MapManager
 	public function getPublishedObservationsForOiseauNameAndDate($name, $periode)
 	{
 		$minDate;
+		// var_dump($minDate);
 		if ($periode == '(Origine)') {
-			$minDate = 0;
+			$minDate = null;
 		} else {
 			$today = new \DateTime('now'); 
-			$today->format('Y-m-d');
+			$today = $today->format('Y-m-d');
 			switch ($periode) {
 				case "(1 jour)":
 					$minDate = strtotime($today .' -1 day');
@@ -44,6 +45,9 @@ class MapManager
 					$minDate = strtotime($today .' -1 year');
 					break;
 			}
+
+		// Convert minDate to DateTime
+		$minDate = date("Y-m-d H:i:s", $minDate);
 		}
 
 		$oiseau = $this->em->getRepository('AppBundle:OiseauTaxref')->findOneBy(array(

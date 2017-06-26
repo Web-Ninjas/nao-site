@@ -18,10 +18,13 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
     public function findPublishedObsvervationForOiseau($oiseau, $minDate)
     {
         $qd = $this->createQueryBuilder('o')
-        ->where('o.oiseau = :oiseau')
-        ->andWhere('o.date >= :dateFrom')
-        ->setParameter('dateFrom', $minDate)
-        ->andWhere('o.publish IS NOT NULL')
+        ->where('o.oiseau = :oiseau');
+        if ($minDate !== null) {
+            $qd->andWhere('o.date >= :dateFrom')
+            ->setParameter('dateFrom', $minDate);
+        }
+
+        $qd->andWhere('o.publish IS NOT NULL')
         ->setParameter('oiseau', $oiseau)
         ->leftJoin('o.oiseau', 'bird')
         ->addSelect('bird')

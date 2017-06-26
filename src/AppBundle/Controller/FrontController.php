@@ -178,6 +178,7 @@ class FrontController extends Controller
     	if ($request->isXmlHttpRequest() ) 
     	{
     		$periode = $request->request->get('periode');
+    		//var_dump($periode);
     		$oiseauName = $request->request->get('oiseauName');
     		$nomOiseauComplet = substr($oiseauName, strpos($oiseauName, "-") + 2); 
     		$listObservationsArray = $this->get("app.manager.map")->getPublishedObservationsForOiseauNameAndDate($nomOiseauComplet, $periode);

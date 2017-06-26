@@ -60,7 +60,6 @@
 
 			$('#recherche').on('autocompletechange', function(){
 				// On lance une requête ajax pour mettre à jour la liste des observations
-				// console.log($('#recherche').val()); console.log(periode);
 				requestObservationsAjax();
 			});
 
@@ -68,7 +67,7 @@
 				switch (this.value)
 				{
 					case '0':
-						var periode = "(1 jour)";
+						periode = "(1 jour)";
 						break;
 					case '1':
 						periode = "(1 semaine)";
@@ -95,7 +94,7 @@
 		
 		var periode = "(Origine)";
 		var listObservations = {{ observations|raw }};
-		// console.log(listObservations);
+		console.log(listObservations);
 
 		{# // Code pour passer array twig à javascript #}
 		function updateLocations(newObservations)
@@ -123,7 +122,8 @@
 	            success: function(response){ 
 
 	            	console.log(response);
-	            	listObservations = response;
+	            	// listObservations = JSON.parse(response);
+	            	// console.log(listObservations);
 	            	withDrawMarkers();
 	            	setMarkers(map, response);
 	            	// updateLabel();
