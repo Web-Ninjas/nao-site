@@ -222,24 +222,28 @@ class Page
         return $this->photoExtension;
     }
 
-    public function getFile()
+    /**
+     * Set altPhoto
+     *
+     * @param string $altPhoto
+     *
+     * @return Observation
+     */
+    public function setAltPhoto($altPhoto)
     {
-        return $this->file;
+        $this->altPhoto = $altPhoto;
+
+        return $this;
     }
 
-    public function setFile(UploadedFile $file = null)
+    /**
+     * Get altPhoto
+     *
+     * @return string
+     */
+    public function getAltPhoto()
     {
-        $this->file = $file;
-
-        // On vérifie si on avait déjà un fichier pour cette entité
-        if (null !== $this->photoExtension) {
-            // On sauvegarde l'extension du fichier pour le supprimer plus tard
-            $this->tempFilename = $this->photoExtension;
-
-            // On réinitialise les valeurs des attributs photoExtension et altPhoto
-            $this->photoExtension = null;
-            $this->altPhoto = null;
-        }
+        return $this->altPhoto;
     }
 
     /**
