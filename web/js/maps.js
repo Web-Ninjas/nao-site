@@ -1,7 +1,7 @@
 		var map;
 		// var locations = [];
 		var markers = [];
-		var markerCluster;
+		var markerCluster = null;
 
 		var largeInfoWindow;
 		var defaultIcon;
@@ -30,14 +30,10 @@
 			
 			largeInfoWindow = new google.maps.InfoWindow();
 			defaultIcon = makeMarkerIcon('9DC8C8');
-			highLightedIcon = makeMarkerIcon('5C7EE5');
+			highLightedIcon = makeMarkerIcon('5C7EE5');		
 
-			setMarkers(map, listObservations);
-			// console.log(markers);
-
-			// Rajoute un regroupement des markers quand ils sont trop proches
-			markerCluster = new MarkerClusterer(map, markers,
-            	{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+			if (listObservations)
+				setMarkers(map, listObservations);	
 
 		}
 
@@ -46,12 +42,14 @@
 			markers.forEach(function(e){
 				e.setMap(null);
 			});
-			markerCluster.clearMarkers();
-			
+			if (markerCluster)
+				markerCluster.clearMarkers();
 		}
 
 		function setMarkers(map, observations)
 		{
+			markers = [];
+
 			observations.forEach(function(observation, index)
 			{
 
@@ -79,6 +77,10 @@
 					this.setIcon(defaultIcon);
 				});
 			});
+
+			// Rajoute un regroupement des markers quand ils sont trop proches
+			markerCluster = new MarkerClusterer(map, markers,
+            	{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 		}
 
 		function populateInfoWindow(marker, infoWindow)
