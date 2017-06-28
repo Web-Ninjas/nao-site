@@ -130,19 +130,6 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/rowreorder/1.2.0/js/dataTables.rowReorder.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            var table = $('#data-table').DataTable( {
-                rowReorder: {
-                    selector: 'td:nth-child(2)'
-                },
-                language: {
-                    url: "https://cdn.datatables.net/plug-ins/1.10.15/i18n/French.json"
-                },
-                responsive: true
-            });
-        });
-    </script>
+    <script type="text/javascript" src="{{asset('js/table.js')}}"></script>
 {% endblock %}
 
