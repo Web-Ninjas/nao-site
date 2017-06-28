@@ -3,13 +3,13 @@
         <a href="{{ path('dashboard_profil') }}">Profil</a>
     </li>
     <li class=" {% if routeActuelle == 'dashboard_observations' %} color {% endif %}">
-        <a href="{{ path('dashboard_observations') }}">Mes observations </a><span class="nb">{{ mesObsCount }} </span>
+        <a href="{{ path('dashboard_observations') }}">Mes observations</a><span class="nb">{{ mesObsCount }} </span>
     </li>
     <li class=" {% if routeActuelle == 'dashboard_all_observations' %} color {% endif %}">
-        <a href="{{ path('dashboard_all_observations') }}">Toutes les observations </a> <span class="nb">{{ allObsCount }}</span>
+        <a href="{{ path('dashboard_all_observations') }}">Toutes les observations</a> <span class="nb">{{ allObsCount }}</span>
     </li>
     <li class=" {% if routeActuelle == 'dashboard_articles'  %} color {% endif %}">
-        <a href="{{ path('dashboard_articles') }}">Mes articles</a><span class="nb">{{ mesArtCount }}</span>
+        <a href="{{ path('dashboard_articles') }}">Mes articles <span class="nb">{{ mesArtCount }}</span> </a>
     </li>
     <li class=" {% if routeActuelle == 'dashboard_all_articles'  %} color {% endif %}">
         <a href="{{ path('dashboard_all_articles') }}">Gestion des articles</a><span class="nb">{{ allArtCount }}</span>

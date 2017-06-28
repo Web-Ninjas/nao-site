@@ -2,146 +2,157 @@
 
 {% block body %}
 
-	<h2>Rechercher</h2>
+    <h2>Rechercher</h2>
 
-	<div class="row">
-		<div class="col-lg-6 col-xs-12">
+    <div class="row obs">
+        <div class="col-lg-6 col-xs-12">
 
-			<input type="text" id="recherche" class="form-control" style="padding-left: 25px;" placeholder="Entrez le nom de l'oiseau que vous recherchez" width="50">
-			<i id="search" class="fa fa-search"></i>
+            <input type="text" id="recherche" class="form-control" style="padding-left: 25px;"
+                   placeholder="Entrez le nom de l'oiseau que vous recherchez" width="50">
+            <i id="search" class="fa fa-search"></i>
 
-			<div id="map"></div>
+            <div id="map"></div>
 
-		</div>
+        </div>
 
-		<div class="col-lg-6 col-xs-12">
+        <div class="col-lg-6 col-xs-12">
 
-			<h5 style="text-align: center;" id="nbrObservations">Veuillez rechercher un oiseau pour afficher des données</h5>
+            <h5 style="text-align: center; color: black" id="nbrObservations">Veuillez rechercher un oiseau pour afficher des
+                données</h5>
 
-			<div style="background-color: #58C9B9; padding: 30px; text-align: center; margin-bottom: 20px; width: 80%; margin-left: auto; margin-right: auto;">
-				<label for="slider" style="color: white;">Depuis : </label>
-				<input id="slider" type="range" min="0" max="6" value="6">
-				<span id="periode" style="display: block; color: white;">(Origine)</span>
-			</div>
+            <div class="slide" >
+                <label for="slider" style="color: white;">Depuis : </label>
+                <input id="slider" type="range" min="0" max="6" value="6">
+                <span id="periode" style="display: block; color: white;">(Origine)</span>
+            </div>
 
-			<div style="background-color: #9DC8C8; height: 200px;">
-				<table style="width: 100%;">
-					<thead style="background-color: #519D9E;">
-						<tr>
-							<th style="width: 25%; text-align: center;">Utilisateur</th>
-							<th style="width: 75%; text-align: center;">Observation</th>
-						</tr>
-					</thead>
-				</table>
-			</div>
+            <div style="background-color: #9DC8C8; margin-top:40px; min-height: ;">
+                <table class="display nowrap" id="data-table" cellspacing="0" width="100%" style="width: 100%;">
+                    <thead style="background-color: #519D9E;">
+                    <tr>
+                        <th style="width: 30%; text-align: center; height:40px; border-right: solid 2px white;">
+                            Utilisateur
+                        </th>
+                        <th style="width: 70%; text-align: center; height:40px">Observation</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td style="border-right: solid 2px white;padding: 10px;">
+                            bhfdnjtd
+                        </td>
+                        <td style="padding: 10px; border-right: inherit">
+                            bhfdnjtd
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 
 
-		</div>
+        </div>
 
-	</div> <!-- row -->
+    </div> <!-- row -->
 
 {% endblock %}
 
 {% block javascripts %}
-	{{ parent() }}
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script>
+    {{ parent() }}
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script>
 
-	<script>
-		{# // Permet autocomplete #}
-		var sourceList = [];
-		{% for oiseauName in listOiseauNames %}
-			sourceList.push( "{{ oiseauName }}" );
-		{% endfor %}
+    <script>
+        {# // Permet autocomplete #}
+        var sourceList = [];
+        {% for oiseauName in listOiseauNames %}
+        sourceList.push("{{ oiseauName }}");
+        {% endfor %}
 
-		$(function() {
-			$('#recherche').autocomplete({
-				source: sourceList
-			});
+        $(function () {
+            $('#recherche').autocomplete({
+                source: sourceList
+            });
 
-			$('#recherche').on('autocompletechange', function(){
-				// On lance une requête ajax pour mettre à jour la liste des observations
-				requestObservationsAjax();
-			});
+            $('#recherche').on('autocompletechange', function () {
+                // On lance une requête ajax pour mettre à jour la liste des observations
+                requestObservationsAjax();
+            });
 
-			$('#slider').on('change', function(){
-				switch (this.value)
-				{
-					case '0':
-						periode = "(1 jour)";
-						break;
-					case '1':
-						periode = "(1 semaine)";
-						break;
-					case '2':
-						periode = "(1 mois)";
-						break;
-					case '3':
-						periode = "(3 mois)";
-						break;
-					case '4':
-						periode = "(6 mois)";
-						break;
-					case '5':
-						periode = "(1 an)";
-						break;
-					case '6':
-						periode = "(Origine)";
-				}
-				$('#periode').text(periode);
-				requestObservationsAjax();
-			});
-		});
-		
-		var periode = "(Origine)";
-		var listObservations = {{ observations|raw }};
-		console.log(listObservations);
+            $('#slider').on('change', function () {
+                switch (this.value) {
+                    case '0':
+                        periode = "(1 jour)";
+                        break;
+                    case '1':
+                        periode = "(1 semaine)";
+                        break;
+                    case '2':
+                        periode = "(1 mois)";
+                        break;
+                    case '3':
+                        periode = "(3 mois)";
+                        break;
+                    case '4':
+                        periode = "(6 mois)";
+                        break;
+                    case '5':
+                        periode = "(1 an)";
+                        break;
+                    case '6':
+                        periode = "(Origine)";
+                }
+                $('#periode').text(periode);
+                requestObservationsAjax();
+            });
+        });
 
-		{# // Code pour passer array twig à javascript #}
-		function updateLocations(newObservations)
-		{
-			{# // {% for observation in observations %} #}
-			newObservations.forEach(function(observation){
-				locations.push( {
-					title: observation.nomValide,
-				 	content: observation.content,
-				 	url: observation.photo,
-				 	position: {lat: observation.latitude, lng: observation.longitude } 
-				 });
-			});
-			{# // {% endfor %} #}
-		}
+        var periode = "(Origine)";
+        var listObservations = {{ observations|raw }};
+        console.log(listObservations);
 
-		function requestObservationsAjax()
-		{
-			$.ajax({
-	            url : "{{ path('map') }}",
-	            type : 'POST',
-	            data : {oiseauName: $('#recherche').val(),
-	            		periode: periode
-	        			},
-	            success: function(response){ 
+        {# // Code pour passer array twig à javascript #}
+        function updateLocations(newObservations) {
+            {# // {% for observation in observations %} #}
+            newObservations.forEach(function (observation) {
+                locations.push({
+                    title: observation.nomValide,
+                    content: observation.content,
+                    url: observation.photo,
+                    position: {lat: observation.latitude, lng: observation.longitude}
+                });
+            });
+            {# // {% endfor %} #}
+        }
 
-	            	console.log(response);
-	            	// console.log(listObservations);
-	            	withDrawMarkers();
-	            	setMarkers(map, response);
-	            	// updateLabel();
-	            	},
-	            error : function(resultat, satut, erreur){
-	                console.log(resultat + erreur);
-	            }
-            });	
-		}
+        function requestObservationsAjax() {
+            $.ajax({
+                url: "{{ path('map') }}",
+                type: 'POST',
+                data: {
+                    oiseauName: $('#recherche').val(),
+                    periode: periode
+                },
+                success: function (response) {
 
-		function updateLabel()
-		{
-			$('nbrObservations').html('Il y a ' + locations.length + ' observations pour cet oiseau');
-		}
-	</script>
+                    console.log(response);
+                    // console.log(listObservations);
+                    withDrawMarkers();
+                    setMarkers(map, response);
+                    // updateLabel();
+                },
+                error: function (resultat, satut, erreur) {
+                    console.log(resultat + erreur);
+                }
+            });
+        }
 
-	<script src="{{ asset('js/maps.js') }}"></script>
-	<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-	<script async defer
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZjdDWppQRZkoIfeqHtm644-ncPYj9eXw&v=3&callback=initMap">
-	</script>
+        function updateLabel() {
+            $('nbrObservations').html('Il y a ' + locations.length + ' observations pour cet oiseau');
+        }
+    </script>
+
+    <script src="{{ asset('js/maps.js') }}"></script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZjdDWppQRZkoIfeqHtm644-ncPYj9eXw&v=3&callback=initMap">
+    </script>
 {% endblock %}
