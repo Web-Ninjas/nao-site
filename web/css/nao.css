@@ -1255,6 +1255,11 @@ div.formProfil > form > div > div > div > select {
     border-radius: 0;
 }
 
+.compte{
+    background: #58C9B9;
+    border-radius: 9px;
+}
+
 /*table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd:hover{
     background-color: #5C7EE5;
     color: white !important;
@@ -1264,4 +1269,17 @@ table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.even:hover
     color: white !important;
 }*/
 
+/* Pour le respect de la maquette on rend invisible toutes les checkboxes*/
+input[type=checkbox] {
+    /* visibility: hidden; */
+}
+
+.srchTitleFilter {
+    font-size: 14pt;
+    margin-top: 5px;
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: bold;
+    color: black;
+}
 
