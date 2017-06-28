@@ -47,8 +47,8 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
     {
         $qb = $this->createQueryBuilder('u')
             ->select('u')
-            ->addSelect('COUNT (a.id) as c_aid')
-            ->addSelect('COUNT(o.id) as c_oid')
+            ->addSelect('COUNT(DISTINCT a.id) as c_aid')
+            ->addSelect('COUNT(DISTINCT o.id) as c_oid')
             ->andWhere('u.deleted IS NULL')
             ->leftJoin('u.observations', 'o')
             ->leftJoin('u.articles', 'a')

@@ -117,13 +117,13 @@ class User implements UserInterface
 
     /**
      * @var string
-     * @ORM\Column(name="nomEntreprise", type="string", length=255)
+     * @ORM\Column(name="nomEntreprise", type="string", length=255,nullable=true)
      */
     private $nomEntreprise;
 
     /**
      * @var string
-     * @ORM\Column(name="nSiret", type="string", length=255, unique=true)
+     * @ORM\Column(name="nSiret", type="string", length=255, unique=true, nullable=true)
      */
     private $nSiret;
 

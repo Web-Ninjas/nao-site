@@ -32,7 +32,7 @@
     <div class="row header"> <!-- header -->
         <div class="col-lg-2 col-md-3 col-sm-3 col-xs-11 titre">
             <a href={{ path('homepage') }}>
-                <img alt="logo" class="img-responsive logo" src="{{ asset('images/NaoV11b.png') }}">
+                <img alt="logo" class="img-responsive logo" src="{{ asset('images/NaoV11.svg') }}">
             </a>
             <div class="title">Nos amis les oiseaux</div>
 
@@ -98,8 +98,8 @@
         </div>
     </div>
 </div>
-<div class="autre">
-    <div class="row"> <!-- contenu -->
+<div>
+    <div class="row autre"> <!-- contenu -->
         {% if app.session.flashBag.has('notice') %}
             <div class="alert alert-success">
                 {% for msg in app.session.flashBag.get('notice') %}

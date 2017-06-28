@@ -365,7 +365,7 @@ class BackController extends Controller
         $repository = $em->getRepository('UserBundle:User');
 
         $utilisateurs = $repository->findAllTrie();
-
+        
         //var_dump($utilisateurs); die;
         return $this->render('back/utilisateursDashboard.html.twig', array(
             'utilisateurs' => $utilisateurs,

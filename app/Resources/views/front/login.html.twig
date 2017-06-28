@@ -9,11 +9,11 @@
     <div class="container">
         <form action="{{ path('login_check') }}" method="post" class="login">
             <div class="row row-centered">
-                <div class="form-group col-xs-12 col-md-12 col-centered">
+                <div class="form-group col-xs-12 col-md-12 ">
 
-                    <label for="username" class="col-xs-12 col-md-3 col-centered  control-label loginbis ">Nom
+                    <label for="username" class="col-xs-12 col-md-3  control-label loginbis ">Nom
                         d'utilisateur :</label>
-                    <div class="col-xs-12 col-md-8 col-centered">
+                    <div class="col-xs-12 col-md-9 col-centered">
                         <input type="text" id="username" name="_username" value="{{ last_username }}"
                                class="form-control formulaire_contact"/>
                     </div>
@@ -22,18 +22,20 @@
 
                     <label for="password" class="col-xs-12 col-md-3 col-centered control-label loginbis ">Mot de
                         passe :</label>
-                    <div class="col-xs-12 col-md-8 col-centered">
+                    <div class="col-xs-12 col-md-9 col-centered">
                         <input type="password" id="password" name="_password"
                                class="form-control formulaire_contact"/>
                     </div>
                 </div>
-                <div class="form-group  ">
-                    <div class=" col-centered mdp">
-                        <a href="{{ path ('reset') }}">Mot de passe oublié</a>
-                    </div>
-                </div>
+
                 <input type="submit" value="Se connecter" class="btn envoyer_formulaire col-centered"/>
             </div>
+            <div class="form-group  ">
+                <div class=" col-centered password mdp">
+                    <a href="{{ path ('reset') }}">Mot de passe oublié</a>
+                </div>
+            </div>
         </form>
+
     </div>
 {% endblock %}

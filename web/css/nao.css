@@ -176,7 +176,7 @@ h3.block {
     text-align: center;
     color: #5C7EE5;
     font-weight: bold;
-    margin-top: 40px;
+    margin-top: 55px;
 }
 
 h4 {
@@ -1180,10 +1180,6 @@ div.formProfil > form > div > div > div > select {
     border-radius: 6px;
 }
 
-.autre {
-    padding-left: 66px;
-    padding-right: 66px;
-}
 
 #appbundle_observation input[type="text"] {
     border: none;
@@ -1260,18 +1256,11 @@ div.formProfil > form > div > div > div > select {
     border-radius: 9px;
 }
 
-/*table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd:hover{
-    background-color: #5C7EE5;
-    color: white !important;
-}
-table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.even:hover{
-    background-color: #5C7EE5;
-    color: white !important;
-}*/
+
 
 /* Pour le respect de la maquette on rend invisible toutes les checkboxes*/
 input[type=checkbox] {
-    /* visibility: hidden; */
+     /*visibility: hidden;*/
 }
 
 .srchTitleFilter {
@@ -1282,4 +1271,19 @@ input[type=checkbox] {
     font-weight: bold;
     color: black;
 }
+/*
+div.checkbox > input[type=checkbox] {
+    background-image: url("../images/chechboxUnchecked.svg");
+}
+div.checkbox > label {
+    color:white;
+}*/
 
+p.texte{
+    margin-bottom: 50px;
+}
+
+.autre{
+ padding-right: 66px;
+    padding-left: 66px;
+}
