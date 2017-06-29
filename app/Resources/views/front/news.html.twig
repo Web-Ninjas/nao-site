@@ -2,7 +2,7 @@
 
 {% block body %}
 
-	<h2>Actualités</h2>
+	<h2>{% trans %}Actualités{% endtrans %}</h2>
 
 	{% if listArticles is not empty %}
 	<div class=" pagination_b">
@@ -18,7 +18,7 @@
 					<h3>{{ article.title }}</h3>
 					<img src="{{ asset(article.photoWebPath) }}" alt="" width="180" height="200" style="float: left; margin-right: 10px;">
 					<p>{{ article.content|striptags| truncate(300) | raw  }}</p>
-					<p><a href="{{ path('article', {'id': article.id}) }}" style="float: right;">Lire la suite...</a></p>
+					<p><a href="{{ path('article', {'id': article.id}) }}" style="float: right;">{% trans %}Lire la suite...{% endtrans %}</a></p>
 
 				</article>
 
@@ -27,6 +27,6 @@
 
 		{% include 'pagination.html.twig' %}
 	{% else %}
-		<p class="aucun">Il n'y a aucun article pour l'instant.</p>
+		<p class="aucun">{% trans %}Il n'y a aucun article pour l'instant.{% endtrans %}</p>
 	{% endif %}
 {% endblock %}

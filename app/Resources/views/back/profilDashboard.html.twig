@@ -11,7 +11,7 @@
 {% block content %}
 
 
-    <h4>Mes informations Personnelles</h4>
+    <h4>{% trans %}Mes informations Personnelles{% endtrans %}</h4>
 
 
     <div class="formProfil row">
@@ -63,7 +63,7 @@
         <div class="form-group">
 
             <label class="col-lg-4 control-label titre_formulaire control-label required"
-                   for="profil_username">Statut:</label>
+                   for="profil_username">{% trans %}Statut:{% endtrans %}</label>
 
             <div class="col-lg-5">
                 <input disabled="disabled" type="text" name="statut" class="fixe form-control form-control blocs"
@@ -158,7 +158,7 @@
         <div class="form-group">
 
             <label class="col-lg-4 control-label titre_formulaire control-label required"
-                   for="profil_username">Date de création de compte :</label>
+                   for="profil_username">{% trans %}Date de création de compte :{% endtrans %}</label>
 
             <div class="col-lg-5">
                 <input disabled="disabled" type="text" name="registrationDate"
@@ -169,7 +169,7 @@
 
         <div class="form-group">
             <div class="col-lg-offset-4 col-lg-5 password">
-                <a href="{{ path ('dashboard_modifMdp') }}">Modifier mot de passe</a>
+                <a href="{{ path ('dashboard_modifMdp') }}">{% trans %}Modifier mot de passe{% endtrans %}</a>
             </div>
         </div>
 
@@ -201,9 +201,13 @@
             if (isNaturaliste == false) {
                 isNaturaliste = true;
                 $(".pasNaturaliste").show();
+                document.getElementById("userbundle_user_nomEntreprise").required = true;
+                document.getElementById("userbundle_user_nSiret").required = true
             } else {
                 isNaturaliste = false;
                 $(".pasNaturaliste").hide();
+                document.getElementById("userbundle_user_nomEntreprise").required = true;
+                document.getElementById("userbundle_user_nSiret").required = true
             }
         });
 

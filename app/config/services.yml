@@ -62,3 +62,9 @@ services:
       class: UserBundle\Form\ModifMdp
       arguments:
           - "@security.password_encoder"
+
+    app.locale_listener:
+        class: AppBundle\Listener\LocaleListener
+        arguments: ['%kernel.default_locale%']
+        tags:
+            - { name: kernel.event_subscriber }

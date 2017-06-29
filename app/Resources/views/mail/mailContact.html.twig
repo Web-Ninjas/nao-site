@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Nao-site</title>
+    <title>{% trans %}Nao-site{% endtrans %}</title>
 
     {% block stylesheets %}
         {# On charge le CSS de bootstrap depuis le site directement #}
@@ -20,15 +20,15 @@
          style=" width: 262px; height: 193px ;">
 </div>
 
-<h1 style="background-color: #519D9E; color: white; padding: 20px; text-align: center; margin-bottom: 40px; margin-top: 0;">Nos amis les oiseaux</h1>
+<h1 style="background-color: #519D9E; color: white; padding: 20px; text-align: center; margin-bottom: 40px; margin-top: 0;">{% trans %}Nos amis les oiseaux{% endtrans %}</h1>
 
-<h2 style="text-align: center;margin-bottom: 40px">Contact Nao !</h2>
+<h2 style="text-align: center;margin-bottom: 40px">{% trans %}Contact Nao !{% endtrans %}</h2>
 
 
 <div>
-    <p style="font-size: 20px"><strong>De :</strong>{{ contact.nom }} {{ contact.prenom }}</p>
-    <p style="font-size: 20px"><strong>Email :</strong>{{ contact.email }}</p>
-    <p style="font-size: 20px"><strong>Message :</strong> {{ contact.contenu }}</p>
+    <p style="font-size: 20px"><strong>{% trans %}De :{% endtrans %}</strong>{{ contact.nom }} {{ contact.prenom }}</p>
+    <p style="font-size: 20px"><strong>{% trans %}Email :{% endtrans %}</strong>{{ contact.email }}</p>
+    <p style="font-size: 20px"><strong>{% trans %}Message :{% endtrans %}</strong> {{ contact.contenu }}</p>
 </div>
 
 </body>

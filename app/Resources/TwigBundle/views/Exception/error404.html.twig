@@ -3,23 +3,23 @@
 {% block body %}
 
     <div class="erreur">
-        <h5 class="error">Oups! Une erreur s'est produite</h5>
+        <h5 class="error">{% trans %}Oups! Une erreur s'est produite{% endtrans %}</h5>
 
         <p class="oups">
             <img alt="photo" class="photo" src= {{ asset('images/minik-kuc59f.jpg') }}>
         </p>
 
-        <h2 class="errorpage">Erreur "{{ status_code }}" </br>
-            Page non trouvé !
+        <h2 class="errorpage">{% trans %}Erreur "{% endtrans %}{{ status_code }}" </br>
+            {% trans %}Page non trouvé !{% endtrans %}
         </h2>
 
-        <p class="size">Désolé, mais nous n'avons pas pu trouver la page que vous cherchez.
+        <p class="size">{% trans %}Désolé, mais nous n'avons pas pu trouver la page que vous cherchez.
             Elle a peut être disparue dans les airs, a été effacée, modifiée ou remis
-            temporairement en brouillon</p>
+            temporairement en brouillon{% endtrans %}</p>
 
-        <p class="size">Veuillez vérifier que vous avez bien écrit l'url de la page</p>
+        <p class="size">{% trans %}Veuillez vérifier que vous avez bien écrit l'url de la page{% endtrans %}</p>
 
-        <p class="color">Nous vous prions de bien vouloir nous en excusez !</p>
+        <p class="color">{% trans %}Nous vous prions de bien vouloir nous en excusez !{% endtrans %}</p>
 
     </div>
 

@@ -4,7 +4,7 @@
 
 {% block content %}
 
-    <h4>Mes articles</h4>
+    <h4>{% trans %}Mes articles{% endtrans %}</h4>
 
     {% if articles is not empty %}
 
@@ -13,10 +13,10 @@
 
                 <thead>
                 <tr>
-                    <th>Contributeur</th>
-                    <th>Date</th>
-                    <th>Titre article</th>
-                    <th class="tableau_action">Action</th>
+                    <th>{% trans %}Contributeur{% endtrans %}</th>
+                    <th>{% trans %}Date{% endtrans %}</th>
+                    <th>{% trans %}Titre article{% endtrans %}</th>
+                    <th class="tableau_action">{% trans %}Action{% endtrans %}</th>
                 </tr>
                 </thead>
 
@@ -60,7 +60,7 @@
             </table>
         </div>
     {% else %}
-        <p class="aucun">Il n'y a aucun article pour l'instant.</p>
+        <p class="aucun">{% trans %}Il n'y a aucun article pour l'instant.{% endtrans %}</p>
     {% endif %}
 {% endblock %}
 {% block javascripts %}
