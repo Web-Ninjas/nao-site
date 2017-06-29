@@ -21,7 +21,6 @@ use UserBundle\Entity\User;
 use UserBundle\Form\ModifMdp;
 
 
-
 class BackController extends Controller
 {
 
@@ -72,16 +71,27 @@ class BackController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            /*// On vérifie que l'utilisateur dispose bien le bon role
-            if ($this->getUser()->isGranted('ROLE_PARTICULIER')) {
+            $estNaturalite = $this->get('security.authorization_checker')->isGranted('ROLE_NATURALISTE');
+
+            if ($estNaturalite == false) {
                 // Si l'utilisateur a demandé à être naturaliste on modifie la propriété demandeNaturaliste en DateTime
-                if ($form->get('isNaturaliste')->getData() === true) {
+                if ($form->get('isNaturaliste')->getData() == 1) {
                     $user->setDemandeNaturaliste(new \DateTime('now'));
                 } else {
                     $user->setDemandeNaturaliste(null);
                 }
-                // Sinon on déclenche une exception « Accès interdit »
-                throw new AccessDeniedException('Accès limité aux particuliers.');}*/
+            }
+
+            $estContributeur = $this->get('security.authorization_checker')->isGranted('ROLE_CONTRIBUTEUR');
+
+            if ($estContributeur == false) {
+                // Si l'utilisateur a demandé à être contributeur on modifie la propriété demandeContributeur en DateTime
+                if ($form->get('isContributeur')->getData() == 1) {
+                    $user->setDemandeContributeur(new \DateTime('now'));
+                } else {
+                    $user->setDemandeContributeur(null);
+                }
+            }
 
 
             // On enregistre en bdd
@@ -370,7 +380,7 @@ class BackController extends Controller
         $repository = $em->getRepository('UserBundle:User');
 
         $utilisateurs = $repository->findAllTrie();
-        
+
         //var_dump($utilisateurs); die;
         return $this->render('back/utilisateursDashboard.html.twig', array(
             'utilisateurs' => $utilisateurs,
@@ -546,8 +556,8 @@ class BackController extends Controller
             array('nameIdentifier' => $identifier)
         );
 
-        $page ->setLastUpdate(new \Datetime());
-           
+        $page->setLastUpdate(new \Datetime());
+
 
         $form = $this->get('form.factory')->create(AdminType::class, $page);
 
@@ -560,11 +570,11 @@ class BackController extends Controller
             $em->persist($page);
             $em->flush();
 
-            $this->addFlash('notice', 'La page ' .$page->getTitle(). ' a bien été enregistrée !');
+            $this->addFlash('notice', 'La page ' . $page->getTitle() . ' a bien été enregistrée !');
 
-           return $this->redirectToRoute('dashboard_administration', [
-               'identifier' => $identifier
-           ]);
+            return $this->redirectToRoute('dashboard_administration', [
+                'identifier' => $identifier
+            ]);
         }
 
         return $this->render(':back:adminDashboard.html.twig', array(
