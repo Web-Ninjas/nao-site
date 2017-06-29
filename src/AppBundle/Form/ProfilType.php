@@ -35,6 +35,7 @@ class ProfilType extends AbstractType
         if (in_array('ROLE_NATURALISTE', $options['data']->getRoles())) {
             $builder->add('isContributeur', CheckboxType::class, [
                 'mapped' => false,
+                'required'=>false,
                 'label' => 'Je veux être contributeur',
             ]);
         }
@@ -44,6 +45,7 @@ class ProfilType extends AbstractType
             $builder
                 ->add('isNaturaliste', CheckboxType::class, [
                     'mapped' => false,
+                    'required'=>false,
                     'label' => 'Je veux être naturaliste',
                     'data' => $options['data']->getDemandeNaturaliste() !== null
                 ])
@@ -52,8 +54,8 @@ class ProfilType extends AbstractType
 
 
         $builder
-            ->add('nomEntreprise', TextType::class)
-            ->add('nSiret', TextType::class)
+            ->add('nomEntreprise', TextType::class, array('required'=>false,))
+            ->add('nSiret', TextType::class, array('required'=>false,))
         ;
 
 

@@ -7,7 +7,6 @@ use AppBundle\Entity\Observation;
 use AppBundle\Entity\Page;
 use AppBundle\Form\AdminType;
 use AppBundle\Form\ArticleType;
-use AppBundle\Form\OservationType;
 use AppBundle\Form\ProfilType;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -17,9 +16,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use UserBundle\Entity\User;
 use UserBundle\Form\ModifMdp;
-use UserBundle\UserBundle;
+
 
 
 class BackController extends Controller
@@ -72,12 +72,17 @@ class BackController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // Si l'utilisateur a demandé à être naturaliste on modifie la propriété demandeNaturaliste en DateTime
-            if ($form->get('isNaturaliste')->getData() === true) {
-                $user->setDemandeNaturaliste(new \DateTime('now'));
-            } else {
-                $user->setDemandeNaturaliste(null);
-            }
+            /*// On vérifie que l'utilisateur dispose bien le bon role
+            if ($this->getUser()->isGranted('ROLE_PARTICULIER')) {
+                // Si l'utilisateur a demandé à être naturaliste on modifie la propriété demandeNaturaliste en DateTime
+                if ($form->get('isNaturaliste')->getData() === true) {
+                    $user->setDemandeNaturaliste(new \DateTime('now'));
+                } else {
+                    $user->setDemandeNaturaliste(null);
+                }
+                // Sinon on déclenche une exception « Accès interdit »
+                throw new AccessDeniedException('Accès limité aux particuliers.');}*/
+
 
             // On enregistre en bdd
             $em = $this->getDoctrine()->getManager();

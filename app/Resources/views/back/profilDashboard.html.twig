@@ -194,6 +194,8 @@
             $(".pasNaturaliste").hide();
         {% else %}
             isNaturaliste = true;
+        document.getElementById("profil_nomEntreprise").required = true;
+        document.getElementById("profil_nSiret").required = true;
         {% endif %}
 
         $("#profil_isNaturaliste").click(function(e) {
@@ -201,13 +203,14 @@
             if (isNaturaliste == false) {
                 isNaturaliste = true;
                 $(".pasNaturaliste").show();
-                document.getElementById("userbundle_user_nomEntreprise").required = true;
-                document.getElementById("userbundle_user_nSiret").required = true
+                document.getElementById("profil_nomEntreprise").required = true;
+                document.getElementById("profil_nSiret").required = true;
             } else {
                 isNaturaliste = false;
                 $(".pasNaturaliste").hide();
-                document.getElementById("userbundle_user_nomEntreprise").required = true;
-                document.getElementById("userbundle_user_nSiret").required = true
+                document.getElementById("profil_nomEntreprise").required = false;
+                document.getElementById("profil_nSiret").required = false;
+
             }
         });
 
