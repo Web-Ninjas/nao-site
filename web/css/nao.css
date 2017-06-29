@@ -141,13 +141,17 @@ p {
     margin-top: 36px;
 }
 
-.index {
-    margin-right: 0;
-    margin-left: 0;
-}
+    .index {
+    margin-right: 0;.autre{
+    padding-right: 66px;
+    padding-left: 66px;
+    }
 
-.photo-index {
-    height: 300px
+    .autre{
+    padding-right: 66px;
+    padding-left: 66px;
+    }
+    margin-left: 0;
 }
 
 h1 {
@@ -942,6 +946,11 @@ div.checkbox label.required {
 
 @media (max-width: 768px) {
 
+    .autre{
+    padding-right: 20px;
+    padding-left: 20px;
+    }
+
     ul.list-inline.liens {
         padding-top: 15px;
     }
@@ -1010,6 +1019,11 @@ div.checkbox label.required {
 }
 
 @media (min-width: 768px) {
+
+    .autre{
+    padding-right: 66px;
+    padding-left: 66px;
+    }
 
     ul.nav.navbar-nav.bleu.collapse.navbar-collapse {
         padding-right: 0;
@@ -1283,7 +1297,3 @@ p.texte{
     margin-bottom: 50px;
 }
 
-.autre{
- padding-right: 66px;
-    padding-left: 66px;
-}

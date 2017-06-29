@@ -4,14 +4,15 @@
 
     <div class="index-page">
 
-        <div class="row index">
-        <h1>{{ page.title|raw }}</h1>
+        <div class="row">
+            <h1>{{ page.title|raw }}</h1>
 
-        <img class="img-responsive photo-index" src="{{ asset(page.photoWebPath) }}" alt="" style="width:100%;">
+            <img class="img-responsive photo-index" src="{{ asset(page.photoWebPath) }}" alt="" style="width:100%;">
 
         </div>
 
-        <div class="row">
+
+        <div class="row autre">
         <div class="col-md-offset-1 col-md-2 col-xs-12">
             <h3 class="block">{% trans %}Rechercher{% endtrans %}</h3>
             <p class="texte">{% trans %}Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac turpis risus.
