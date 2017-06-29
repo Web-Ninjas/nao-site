@@ -1,5 +1,4 @@
 		var map;
-		// var locations = [];
 		var markers = [];
 		var markerCluster = null;
 
@@ -17,7 +16,6 @@
 				}
 			];
 			*/
-			// console.log('on charge la map');
 
 			map = new google.maps.Map(document.getElementById('map'), {
 				center: {lat: 48.856614, lng: 2.3522219000000177}, // coordonnées de Paris
@@ -33,8 +31,8 @@
 			highLightedIcon = makeMarkerIcon('5C7EE5');		
 
 			if (listObservations)
-				setMarkers(map, listObservations);	
-
+				setMarkers(map, listObservations);
+				updateLabel(listObservations.length);	
 		}
 
 		function withDrawMarkers()
@@ -59,13 +57,14 @@
 					title: observation.nomOiseau,
 					icon: defaultIcon,
 					animation: google.maps.Animation.DROP,
-					id: index
+					id: index // si bug voir avec observation.id
 				});
 				markers.push(marker);
 
 				// Fait apparaître les infos quand on clique sur un markeur
 				marker.addListener('click', function(){
 					populateInfoWindow(this, largeInfoWindow);
+					populateTable(this);
 				});
 
 				// Change le style du markeur quand on passe la souris dessus
@@ -81,6 +80,7 @@
 			// Rajoute un regroupement des markers quand ils sont trop proches
 			markerCluster = new MarkerClusterer(map, markers,
             	{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+
 		}
 
 		function populateInfoWindow(marker, infoWindow)
@@ -88,7 +88,7 @@
 			if(infoWindow.marker != marker)
 			{
 				infoWindow.marker = marker;
-				infoWindow.setContent('<div>' + marker.title + '<img alt="" src="' + listObservations[marker.id].photo + '" width="80" height="80">' + '</div>');
+				infoWindow.setContent('<div>' + marker.title + '<img alt="" src="' + listObservations[marker.id].photoPath + '" width="80" height="80">' + '</div>');
 				infoWindow.open(map, marker);
 				infoWindow.addListener('closeclick', function(){
 					infoWindow.setMarker(null);
