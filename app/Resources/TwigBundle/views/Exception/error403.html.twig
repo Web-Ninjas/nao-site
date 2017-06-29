@@ -2,25 +2,25 @@
 
 {% block content %}
     <div class="erreur" xmlns="http://www.w3.org/1999/html">
-        <h5 class="error">Oups! Une erreur s'est produite</h5>
+        <h5 class="error">{% trans %}Oups! Une erreur s'est produite{% endtrans %}</h5>
 
         <p class="oups">
             <img alt="photo " class="photo" src= {{ asset('images/titre-1.png') }}>
         </p>
 
-        <h2 class="errorpage">Erreur "{{ status_code }}" - Accès refusé/interdit <br>
-             Vous avez trébuché sur notre système de sécurité !!</h2>
+        <h2 class="errorpage">{% trans %}Erreur {% endtrans %}"{{ status_code }}" {% trans %}- Accès refusé/interdit {% endtrans %}<br>
+            {% trans %}Vous avez trébuché sur notre système de sécurité !!{% endtrans %}</h2>
 
         <p class="size">
-            Très probablement, vous avez essayé d'accéder à une fonctionnalité qui est bloquée.
+            {% trans %}Très probablement, vous avez essayé d'accéder à une fonctionnalité qui est bloquée.{% endtrans %}
         </p>
         <p class="size">
-            Si vous pensez que ce message est erroné (c'est-à-dire que vous essayez une fonction
+            {% trans %}Si vous pensez que ce message est erroné (c'est-à-dire que vous essayez une fonction
             qui devrait fonctionner), veuillez nous envoyer un email à nao.site.w@gmail.com
-            pour nous dire ce qui s'est passé, nous le réparerons, puis nous vous enverrons un email.
+            pour nous dire ce qui s'est passé, nous le réparerons, puis nous vous enverrons un email.{% endtrans %}
         </p>
         <p class="size">
-            Désolé pour les inconvénients causés ...
+            {% trans %}Désolé pour les inconvénients causés ...{% endtrans %}
         </p>
 
         <p class="color">Nous vous prions de bien vouloir nous en excusez !</p>

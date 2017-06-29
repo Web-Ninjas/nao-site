@@ -2,7 +2,7 @@
 
 {% block body %}
 
-    <h2>Rechercher</h2>
+    <h2>{% trans %}Rechercher{% endtrans %}</h2>
 
     <div class="row obs">
         <div class="col-lg-6 col-xs-12">
@@ -17,13 +17,13 @@
 
         <div class="col-lg-6 col-xs-12">
 
-            <h5 class="srchTitleFilter"  id="nbrObservations">Veuillez rechercher un oiseau pour afficher des
-                données</h5>
+            <h5 class="srchTitleFilter"  id="nbrObservations">
+                {% trans %}Veuillez rechercher un oiseau pour afficher des données{% endtrans %}</h5>
 
             <div class="slide " >
-                <label for="slider" style="color: white;">Depuis : </label>
+                <label for="slider" style="color: white;">{% trans %}Depuis : {% endtrans %}</label>
                 <input id="slider" type="range" min="0" max="6" value="6">
-                <span id="periode" style="display: block; color: white;">(Origine)</span>
+                <span id="periode" style="display: block; color: white;">{% trans %}(Origine){% endtrans %}</span>
             </div>
 
             <div style="background-color: #9DC8C8; margin-top:40px; min-height: ;">
@@ -31,9 +31,9 @@
                     <thead style="background-color: #519D9E;">
                     <tr>
                         <th style="width: 30%; text-align: center; height:40px; border-right: solid 2px white;">
-                            Utilisateur
+                            {% trans %}Utilisateur{% endtrans %}
                         </th>
-                        <th style="width: 70%; text-align: center; height:40px">Observation</th>
+                        <th style="width: 70%; text-align: center; height:40px">{% trans %}Observation{% endtrans %}</th>
                     </tr>
                     </thead>
                     <tbody>

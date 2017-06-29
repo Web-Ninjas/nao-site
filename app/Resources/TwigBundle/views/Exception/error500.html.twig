@@ -3,19 +3,19 @@
 {% block body %}
 
     <div class="erreur">
-        <h5 class="error">Oups! Une erreur s'est produite</h5>
+        <h5 class="error">{% trans %}Oups! Une erreur s'est produite{% endtrans %}</h5>
 
         <p class="oups">
             <img alt="photo" class="photo" src= {{ asset('images/minik-kuc59f.jpg') }}>
         </p>
 
-        <h2 class="errorpage">Erreur "{{ status_code }}" </br></h2>
+        <h2 class="errorpage">{% trans %}Erreur "{% endtrans %}{{ status_code }}" </br></h2>
 
-        <p class="size">Quelque chose est cassé. Veuillez nous envoyer un courriel à nao.site.w@gmail.com
+        <p class="size">{% trans %}Quelque chose est cassé. Veuillez nous envoyer un courriel à nao.site.w@gmail.com
             et nous faire savoir ce que vous faisiez lorsque cette erreur s'est produite.
-            Nous allons le réparer dès que possible. Désolé pour les inconvénients causés ...</p>
+            Nous allons le réparer dès que possible. Désolé pour les inconvénients causés ...{% endtrans %}</p>
 
-        <p class="color">Nous vous prions de bien vouloir nous en excusez !</p>
+        <p class="color">{% trans %}Nous vous prions de bien vouloir nous en excusez !{% endtrans %}</p>
 
     </div>
 

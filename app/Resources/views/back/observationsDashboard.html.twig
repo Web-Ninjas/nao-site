@@ -12,7 +12,7 @@
 
 {% block content %}
 
-    <h4>Mes observations</h4>
+    <h4>{% trans %}Mes observations{% endtrans %}</h4>
 
     {% if observations is not empty %}
 
@@ -21,12 +21,12 @@
 
                 <thead>
                 <tr>
-                    <th>N°</th>
-                    <th>Oiseau</th>
-                    <th>Date</th>
-                    <th>Statut</th>
-                    <th>Observation</th>
-                    <th class="tableau_action">Action</th>
+                    <th>{% trans %}N°{% endtrans %}</th>
+                    <th>{% trans %}Oiseau{% endtrans %}</th>
+                    <th>{% trans %}Date{% endtrans %}</th>
+                    <th>{% trans %}Statut{% endtrans %}</th>
+                    <th>{% trans %}Observation{% endtrans %}</th>
+                    <th class="tableau_action">{% trans %}Action{% endtrans %}</th>
                 </tr>
                 </thead>
 
@@ -86,7 +86,7 @@
             </table>
         </div>
     {% else %}
-        <p class="aucun">Il n'y a aucun article pour l'instant.</p>
+        <p class="aucun">{% trans %}Il n'y a aucun article pour l'instant.{% endtrans %}</p>
     {% endif %}
 {% endblock %}
 

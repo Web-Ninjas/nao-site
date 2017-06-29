@@ -11,7 +11,7 @@
 
 {% block content %}
 
-    <h4>Utilisateurs</h4>
+    <h4>{% trans %}Utilisateurs{% endtrans %}</h4>
 
     {% if utilisateurs is not empty %}
 
@@ -20,14 +20,14 @@
 
                 <thead>
                 <tr>
-                    <th>Utilisateur</th>
-                    <th>Statut</th>
+                    <th>{% trans %}Utilisateur{% endtrans %}</th>
+                    <th>{% trans %}Statut{% endtrans %}</th>
 
-                    <th>Observation</th>
+                    <th>{% trans %}Observation{% endtrans %}</th>
 
-                    <th>Article</th>
-                    <th>En attente de promotion</th>
-                    <th class="tableau_action">Action</th>
+                    <th>{% trans %}Article{% endtrans %}</th>
+                    <th>{% trans %}En attente de promotion{% endtrans %}</th>
+                    <th class="tableau_action">{% trans %}Action{% endtrans %}</th>
                 </tr>
                 </thead>
 
@@ -59,9 +59,9 @@
 
                         <td class="texte">
                             {% if (utilisateur.demandeContributeur != false)  and (utilisateur.roles != ['ROLE_CONTRIBUTEUR']) %}
-                                Contributeur ?
+                                {% trans %}Contributeur ?{% endtrans %}
                             {% elseif  (utilisateur.demandeNaturaliste  != false) and  (utilisateur.roles != ['ROLE_NATURALISTE']) and (utilisateur.roles != ['ROLE_CONTRIBUTEUR']) %}
-                                Naturaliste ?
+                                {% trans %} Naturaliste ?{% endtrans %}
                             {% endif %}
                         </td>
 
@@ -92,7 +92,7 @@
             </table>
         </div>
     {% else %}
-        <p class="aucun">Il n'y a aucun utilisateur pour l'instant.</p>
+        <p class="aucun">{% trans %}Il n'y a aucun utilisateur pour l'instant.{% endtrans %}</p>
     {% endif %}
 {% endblock %}
 {% block javascripts %}
