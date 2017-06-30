@@ -1216,7 +1216,6 @@ div.formProfil > form > div > div > div > select {
     box-shadow: none;
     border-bottom: 3px solid #58c9b9;
     border-radius: 0;
-    margin-left: 10px;
 }
 
 #appbundle_observation_Soumettre {
@@ -1234,12 +1233,6 @@ div.formProfil > form > div > div > div > select {
     padding-top: 10px;
 }
 
-.obs {
-    padding-left: 66px;
-    padding-right: 66px;
-    padding-bottom: 20px;
-    padding-top: 30px;
-}
 
 .formulaire_observation {
     border: none;
@@ -1248,6 +1241,10 @@ div.formProfil > form > div > div > div > select {
     background-color: inherit;
     border-bottom: 2px solid #519D9E;
     /* width: inherit; */
+}
+
+#appbundle_observation_Soumettre{
+    margin-bottom: 20px;
 }
 
 .slide{

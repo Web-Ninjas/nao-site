@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -21,12 +22,16 @@ class ObservationType extends AbstractType
             ->add('nomOiseau', TextType::class)
             ->add('date', DateTimeType::class)
             ->add('photoFile', FileType::class, [
-                'required' => false
+                'required' => false,
+                'label'=> 'Photo',
                 ])
             ->add('audioFile', FileType::class, [
-                'required' => false
+                'required' => false,
+                 'label'=> 'Audio',
                 ])
-            ->add('content')
+            ->add('content',TextareaType::class,[
+                'label'=> 'Remarque',
+                ])
             ->add('latitude')
             ->add('longitude')
             ->add('Soumettre', SubmitType::class);
