@@ -139,7 +139,7 @@
         function updateLabel(nbr) {
             if (nbr > 1) {
                 $('#nbrObservations').html(observationBeginningString + nbr + observationEndingPluralString);
-            } else if (nbr == 0) {
+            } else if (nbr == 1) {
                 $('#nbrObservations').html(observationBeginningString + nbr + observationEndingSingularString);
             }
         }
@@ -147,8 +147,9 @@
         // fonction appelé après le clique sur un markeur
         function populateTable(marker)
         {
-            $('#utilTable').html(listObservations[marker.id].author);
-            $('#obsTable').html(listObservations[marker.id].content);
+            var observation = listObservations[marker.id];
+            $('#utilTable').html(observation.author);
+            $('#obsTable').html('<a href="/nao-site/web/app_dev.php/observation/' + observation.id + '">' + listObservations[marker.id].content + '</a>');
         }
     </script>
 

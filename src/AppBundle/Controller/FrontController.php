@@ -47,14 +47,6 @@ class FrontController extends Controller
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /*$message = \Swift_Message::newInstance()
-                    ->setContentType('text/html')//Message en HTML
-                    ->setSubject("NAO - Contact de :" . $contact->getNom() ." ".$contact->getPrenom())//Email devient le sujet de mon objet contact
-                    ->setFrom($contact->getEmail())// Email de l'expéditeur est le destinataire du mail
-                    ->setTo($this->getParameter('mailer_user'))// destinataire du mail
-                    ->setBody("Message : " .$contact->getContenu()); // contenu du mail
-
-                $this->get('mailer')->send($message);//Envoi mail*/
 
             $mailer->envoyerMailContact($contact);
                 $this->addFlash('notice', 'Votre message a bien été envoyé !');
@@ -208,6 +200,13 @@ class FrontController extends Controller
     */
     public function observerAction(Request $request)
     {
+        // rediriger le user
+        $isUserAllowed = $this->get('security.authorization_checker')->isGranted('ROLE_NATURALISTE');
+        if (!$isUserAllowed) {
+            $this->addFlash('notice', 'Veuillez vous inscrire ou vous connecter pour soumettre une observation');
+            return $this->redirectToRoute('login');
+        }
+
     	$observation = new Observation();
     	$observation->setAuthor($this->getUser());
     	$form = $this->createForm(ObservationType::class, $observation);
