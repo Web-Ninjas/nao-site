@@ -68,14 +68,15 @@ class MapManager
 		foreach ($list as $observation) 
 		{
 			$listObservationsArray[] = [
+				'id' => $observation->getId(),
 				'nomOiseau' => is_null($observation->getOiseau()->getNomVern() ) ? $observation->getOiseau()->getNomComplet() : $observation->getOiseau()->getNomVern(),
 				'author' => $observation->getAuthor()->getUsername(),
 				'date' => $observation->getDate(),
 				'content' => $observation->getContent(),
 				'longitude' => $observation->getLongitude(),
 				'latitude' => $observation->getLatitude(),
-				'photo' => '/nao-site/web/' .$observation->getPhotoWebPath(),
-				'audio' => '/nao-site/web/' .$observation->getAudioWebPath(),
+				'photoPath' => '/nao-site/web/' .$observation->getPhotoWebPath(),
+				'audioPath' => '/nao-site/web/' .$observation->getAudioWebPath(),
 
 			];
 		}
