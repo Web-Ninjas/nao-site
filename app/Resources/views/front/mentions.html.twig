@@ -1,8 +1,9 @@
 {% extends "layout.html.twig" %}
 
 {% block body %}
-<div class="container">
+
             <h2>{{ page.title }}</h2>
+    <div class="container">
     <div class="mentions"> {{ page.content|raw }}</div>
 </div>
 {% endblock %}

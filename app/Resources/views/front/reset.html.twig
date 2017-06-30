@@ -5,11 +5,11 @@
     <h2>{% trans %}Demande de réinitialisation du mot de passe{% endtrans %}</h2>
 
     <div class="container">
-        <div class="row row-centered">
+        <div class="row row-centered login">
             {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
             {{ form_errors(form) }}
 
-            <div class="form-group col-xs-12 col-md-12 col-centered login">
+            <div class="form-group col-xs-12 col-md-12 col-centered ">
                 {# Génération du label. #}
                 {{ form_label(form.email, "Email :", {'label_attr': {'class': 'col-xs-12 col-md-3 col-centered control-label '}}) }}
 

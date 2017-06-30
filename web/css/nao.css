@@ -1,7 +1,3 @@
-html {
-    background-color: #519D9E;
-}
-
 body {
     background-color: #FFFFFF;
     height: 100%;
@@ -664,13 +660,6 @@ img.instagram:hover, img.instagram:focus {
     background-color: white;
 }
 
-.pagination_b {
-    padding-left: 66px;
-    padding-right: 66px;
-    padding-bottom: 66px;
-    padding-top: 30px;
-}
-
 ul.pagination li a.fleche_page {
     background-color: #9DC8C8;
     padding-top: 2px;
@@ -983,8 +972,8 @@ div.checkbox label.required {
     }
 
     .mentions {
-        margin-left: 40px;
-        margin-right: 40px;
+        margin-left: 0;
+        margin-right: 0;
     }
 
     h1 {
@@ -1015,6 +1004,14 @@ div.checkbox label.required {
         padding-bottom: 20px;
         padding-left: 15px;
         padding-right: 15px;
+    }
+
+    p.texte{
+        margin-bottom: 0!important;
+    }
+
+    h3.block {
+        margin-top: 23px;
     }
 }
 
@@ -1292,4 +1289,21 @@ div.checkbox > label {
 
 p.texte{
     margin-bottom: 50px;
+}
+
+
+.bts-mdp:hover {
+    transition: 0.5s;
+    box-shadow: 3px 3px #d64143;
+    color: white;
+    border: none;
+    border-radius: 0;
+}
+
+.bts:hover {
+    transition: 0.5s;
+    box-shadow: 3px 3px hsla(225, 72%, 52%, 1);
+    color: white;
+    border: none;
+    border-radius: 0;
 }
