@@ -129,17 +129,7 @@ class FrontController extends Controller
      */
     public function voirObservationAction(Observation $observation)
     {
-        // On cherche les 3 premiers observations pour les afficher
-        $em = $this->getDoctrine()->getManager();
-        $listObservations = $em->getRepository('AppBundle:Observation')
-            ->findBy(
-                array(),
-                array('date' => 'desc'),
-                3
-            );
-
         return $this->render('front/voirObservation.html.twig', array(
-            'listObservations' => $listObservations,
             'observation'=>$observation,
         ));
     }
