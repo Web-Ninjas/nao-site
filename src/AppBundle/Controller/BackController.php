@@ -75,21 +75,25 @@ class BackController extends Controller
 
             if ($estNaturalite == false) {
                 // Si l'utilisateur a demandé à être naturaliste on modifie la propriété demandeNaturaliste en DateTime
-                if ($form->get('isNaturaliste')->getData() == 1) {
-                    $user->setDemandeNaturaliste(new \DateTime('now'));
-                } else {
-                    $user->setDemandeNaturaliste(null);
+                if ($form->has('isNaturaliste')) {
+                    if ($form->get('isNaturaliste')->getData() == 1) {
+                        $user->setDemandeNaturaliste(new \DateTime('now'));
+                    } else {
+                        $user->setDemandeNaturaliste(null);
+                    }
                 }
             }
 
             $estContributeur = $this->get('security.authorization_checker')->isGranted('ROLE_CONTRIBUTEUR');
 
             if ($estContributeur == false) {
-                // Si l'utilisateur a demandé à être contributeur on modifie la propriété demandeContributeur en DateTime
-                if ($form->get('isContributeur')->getData() == 1) {
-                    $user->setDemandeContributeur(new \DateTime('now'));
-                } else {
-                    $user->setDemandeContributeur(null);
+                // Si l'utilisateur a demandé à être naturaliste on modifie la propriété demandeNaturaliste en DateTime
+                if ($form->has('isContributeur')) {
+                    if ($form->get('isContributeur')->getData() == 1) {
+                        $user->setDemandeContributeur(new \DateTime('now'));
+                    } else {
+                        $user->setDemandeContributeur(null);
+                    }
                 }
             }
 
@@ -486,9 +490,10 @@ class BackController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         if (in_array('ROLE_NATURALISTE', $user->getRoles())) {
-            $user
-                ->setDemandeNaturaliste(NULL)
-                ->setRoles(['ROLE_PARTICULIER']);
+            $user->setDemandeNaturaliste(NULL);
+            $user->setNomEntreprise(NULL);
+            $user->setNSiret(NULL);
+            $user->setRoles(['ROLE_PARTICULIER']);
         } elseif (in_array('ROLE_CONTRIBUTEUR', $user->getRoles())) {
             $user
                 ->setDemandeContributeur(NULL)

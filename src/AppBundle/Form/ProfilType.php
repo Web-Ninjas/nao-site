@@ -32,7 +32,7 @@ class ProfilType extends AbstractType
             ;
 
 
-        if (in_array('ROLE_NATURALISTE', $options['data']->getRoles())) {
+        if (in_array('ROLE_NATURALISTE', $options['data']->getRoles())&& $options['data']->getDemandeContributeur() == null) {
             $builder->add('isContributeur', CheckboxType::class, [
                 'mapped' => false,
                 'required'=>false,
@@ -41,16 +41,16 @@ class ProfilType extends AbstractType
         }
 
 
-        if (in_array('ROLE_PARTICULIER', $options['data']->getRoles())) {
-            $builder
-                ->add('isNaturaliste', CheckboxType::class, [
-                    'mapped' => false,
-                    'required'=>false,
-                    'label' => 'Je veux être naturaliste',
-                    'data' => $options['data']->getDemandeNaturaliste() !== null
-                ])
-            ;
-        }
+        if (in_array('ROLE_PARTICULIER', $options['data']->getRoles())&& $options['data']->getDemandeNaturaliste() == null) {
+        $builder
+            ->add('isNaturaliste', CheckboxType::class, [
+                'mapped' => false,
+                'required'=>false,
+                'label' => 'Je veux être naturaliste',
+                'data' => $options['data']->getDemandeNaturaliste() !== null
+            ])
+        ;
+    }
 
 
         $builder

@@ -71,10 +71,10 @@
             </div>
         </div>
 
-        {% if 'ROLE_PARTICULIER' in form.vars.value.roles %}
+        {% if 'ROLE_PARTICULIER' in form.vars.value.roles and form.vars.value.demandeNaturaliste is null%}
             <div class="form-group">
                 {# Génération du label. #}
-                {{ form_label(form.isNaturaliste, "Je veux être naturaliste :", {'label_attr': {'class': 'col-lg-4 control-label titre_formulaire'}}) }}
+                {{ form_label(form.isNaturaliste, "Je veux être naturaliste :", {'label_attr': {'class': ' col-lg-4 control-label titre_formulaire'}}) }}
 
                 {# Affichage des erreurs pour ce champ précis. #}
                 {{ form_errors(form.isNaturaliste) }}
@@ -113,7 +113,7 @@
             </div>
         </div>
 
-        {% if 'ROLE_NATURALISTE' in form.vars.value.roles %}
+        {% if 'ROLE_NATURALISTE' in form.vars.value.roles and form.vars.value.demandeContributeur is null%}
 
             <div class="form-group">
                 {# Génération du label. #}
