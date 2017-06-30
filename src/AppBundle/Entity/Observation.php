@@ -97,7 +97,7 @@ class Observation
      * @Assert\File(mimeTypes={ "image/jpeg", "image/png", "image/jpg"})
      * @Assert\Image
      */
-    private $photoExtension;
+    private $photoExtension = null;
 
     /**
      * @Assert\File(mimeTypes={ "image/jpeg", "image/png", "image/jpg"})
@@ -116,7 +116,7 @@ class Observation
      *
      * @ORM\Column(name="audio", type="string", length=255, nullable=true)
      */
-    private $audioExtension;
+    private $audioExtension = null;
 
     private $audioFile;
 
@@ -526,12 +526,17 @@ class Observation
 
     public function getPhotoWebPath()
     {
-        return $this->getUploadDir().'/'.$this->getId().'.'.$this->getPhotoExtension();
+        if ($this->getPhotoExtension()) {
+            return $this->getUploadDir().'/'.$this->getId().'.'.$this->getPhotoExtension();
+        }
     }
 
     public function getAudioWebPath()
     {
-        return $this->getUploadDir().'/'.$this->getId().'.'.$this->getAudioExtension();
+        if ($this->getAudioExtension()) {
+            return $this->getUploadDir().'/'.$this->getId().'.'.$this->getAudioExtension();
+        }
+        return null;
     }
 
     /**
