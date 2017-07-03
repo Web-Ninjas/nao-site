@@ -368,7 +368,7 @@ class BackController extends Controller
         }
 
         return $this->redirectToRoute('article', array(
-            "id" => $observation->getId()));
+            "id" => $article->getId()));
 
     }
 
