@@ -118,14 +118,17 @@
 
         <div class="form-group col-xs-12">
             <div class="col-lg-offset-4 col-lg-12 col-sm-offset-4">
-            <a href="{{ path('destituerUtilisateurs',{'id': form.vars.data.id}) }}">
-                <button type="button" class="btn envoyer_formulaire col-lg-2" style="margin-right: 20px; background-color: red" >{% trans %}Destituer{% endtrans %}</button>
-            </a>
+                <a href="{{ path('destituerUtilisateurs',{'id': form.vars.data.id}) }}">
+                    <button type="button" class="btn envoyer_formulaire col-lg-2"
+                            style="margin-right: 20px; background-color: red">{% trans %}
+                        Destituer{% endtrans %}</button>
+                </a>
 
-            <a href="{{ path('promouvoirUtilisateurs',{'id': form.vars.data.id}) }}">
-                <button type="button" class="btn envoyer_formulaire  col-lg-2" style="background-color: #519D9E">{% trans %}Promouvoir{% endtrans %}</button>
-            </a>
-</div>
+                <a href="{{ path('promouvoirUtilisateurs',{'id': form.vars.data.id}) }}">
+                    <button type="button" class="btn envoyer_formulaire  col-lg-2"
+                            style="background-color: #519D9E">{% trans %}Promouvoir{% endtrans %}</button>
+                </a>
+            </div>
         </div>
 
 
