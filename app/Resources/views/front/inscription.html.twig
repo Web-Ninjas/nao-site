@@ -75,16 +75,16 @@
                 </div>
             </div>
 
-            <div class="form-group col-xs-12 col-md-12 col-centered">
+            <div class=" roundedOne form-group col-xs-12 col-md-12 col-centered">
                 {# Génération du label. #}
-                {{ form_label(form.isNaturaliste, "Je veux être naturaliste" , {'label_attr': {'class': 'col-xs-12 col-md-3 col-centered control-label  '}} ) }}
+                {{ form_label(form.isNaturaliste, "ghreh Je veux être naturaliste" , {'label_attr': {'class': 'col-xs-12 col-md-3 col-centered control-label', 'for':'roundedOne'  }} ) }}
 
                 {# Affichage des erreurs pour ce champ précis. #}
                 {{ form_errors(form.isNaturaliste) }}
 
                 <div class="col-xs-12 col-md-offset-3 col-md-8 col-centered naturaliste">
                     {# Génération de l'input. #}
-                    {{ form_widget(form.isNaturaliste, {'attr': {'class': 'fa fa fa-circle-thin'}}) }}
+                    {{ form_widget(form.isNaturaliste, {'attr': {'value':'None', 'id':'roundedOne', 'name':'check'}}) }}
                 </div>
             </div>
 
@@ -140,8 +140,9 @@
 
             <div class="form-group col-xs-12  col-centered mentionsLegales">
                 <div class="  col-md-offset-3 col-md-8 ">
-                    <input type="checkbox" class="fa fa-circle-thin " required>
-                    <label>
+                    <div class="roundedOne">
+                        <input type="checkbox" value="None" id="roundedOne" name="check" required/>
+                    <label for="roundedOne">
                         <a style="color: #5C7EE5;" data-toggle="modal" href="" data-target="#myModal">
                             {% trans %}J'ai lu et j'accepte la charte éthique{% endtrans %} </a>
                         <!-- Modal -->

@@ -1326,3 +1326,51 @@ p.texte{
 
     }
 }
+
+/* ROUNDED ONE */
+input[type="checkbox"]{
+    visibility:hidden;
+}
+
+.roundedOne {
+    width: 28px;
+    height: 28px;
+    border-radius: 50px;
+    position: relative;
+}
+
+.roundedOne label {
+    cursor: pointer;
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border-radius: 95px;
+    left: 4px;
+    top: 4px;
+    background-color: transparent;
+    box-shadow: 0px 0px 0 5px #5c7ee5;
+}
+
+.roundedOne label:after {
+    opacity: 0;
+    content: '';
+    position: absolute;
+    width: 21px;
+    height: 21px;
+    border-radius: 50px;
+    top: 2px;
+    left: 2px;
+    background-color: #5c7ee5;
+}
+
+.roundedOne label:hover::after {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+    filter: alpha(opacity=30);
+    opacity: 0.3;
+}
+
+.roundedOne input[type=checkbox]:checked + label:after {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    filter: alpha(opacity=100);
+    opacity: 1;
+}
