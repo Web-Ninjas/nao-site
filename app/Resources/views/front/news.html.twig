@@ -2,10 +2,17 @@
 
 {% block body %}
 
-    <h2>{% trans %}Actualités{% endtrans %}</h2>
+    <h2>{% trans %}Actualités{% endtrans %}
+        {% if is_granted('ROLE_CONTRIBUTEUR') %}
+            <a href="{{ path('dashboard_redigerArticle') }}">
+                <span class="glyphicon glyphicon-plus plus"
+                      title="Ajouter un article"></span>
+            </a>
+        {% endif %}
+    </h2>
 
     {% if listArticles is not empty %}
-        <div >
+        <div>
             <div class="row">
                 {% for article in listArticles %}
                 {% if loop.index0 % 2 == 0 %}

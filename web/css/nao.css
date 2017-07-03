@@ -657,23 +657,21 @@ img.instagram:hover, img.instagram:focus {
 }
 
 .pagination_b ul.pagination li a.fleche_page {
-    background-color: white;
+    background-color: white !important;
 }
 
 ul.pagination li a.fleche_page {
-    background-color: #9DC8C8;
+    background-color: white;
     padding-top: 2px;
     padding-bottom: 2px;
     padding-right: 6px;
     padding-left: 12px;
 }
 
-.pagination_b ul.pagination li a.fleche_page_return {
-    background-color: white;
-}
+
 
 ul.pagination li a.fleche_page_return {
-    background-color: #9DC8C8;
+    background-color: white;
     padding-top: 2px;
     padding-bottom: 2px;
     padding-right: 12px;
@@ -1367,6 +1365,16 @@ input[type="checkbox"]{
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
     filter: alpha(opacity=30);
     opacity: 0.3;
+}
+
+.plus{
+    float: right;
+    font-size: 30px ;
+    color: white;
+}
+
+.plus:hover{
+    color: #5c7ee5;
 }
 
 .roundedOne input[type=checkbox]:checked + label:after {
