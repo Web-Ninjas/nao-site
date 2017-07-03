@@ -191,12 +191,13 @@ class FrontController extends Controller
     public function observerAction(Request $request)
     {
         // rediriger le user
-        $isUserAllowed = $this->get('security.authorization_checker')->isGranted('ROLE_NATURALISTE');
+        $isUserAllowed = $this->get('security.authorization_checker')->isGranted('ROLE_PARTICULIER');
         if (!$isUserAllowed) {
             $this->addFlash('notice', 'Veuillez vous inscrire ou vous connecter pour soumettre une observation');
             return $this->redirectToRoute('login');
         }
 
+        // Créé le formulaire avec l'utilisateur comme auteur
     	$observation = new Observation();
     	$observation->setAuthor($this->getUser());
     	$form = $this->createForm(ObservationType::class, $observation);
@@ -206,13 +207,14 @@ class FrontController extends Controller
     	$em = $this->getDoctrine()->getManager();
     	$listOiseaux = $em->getRepository('AppBundle:OiseauTaxref')->findAll();
     	$listOiseauNames = [];
-
+        // Met en forme les noms pour l'autocomplete
     	foreach ($listOiseaux as $oiseau) {
     			$listOiseauNames[] = $oiseau->getNomVern() .' - ' .$oiseau->getNomComplet();
     	}
 
     	if ($form->isSubmitted() & $form->isValid() )
     	{
+            // On récupère l'oiseau en bdd d'après son nom formatté dans la barre de recherche autocomplete
     		$nomOiseau = $request->request->get('appbundle_observation')['nomOiseau'];
     		$nomOiseauComplet = substr($nomOiseau, strpos($nomOiseau, "-") + 2); 
     		$oiseau = $em->getRepository('AppBundle:OiseauTaxref')->findOneBy([
@@ -220,11 +222,22 @@ class FrontController extends Controller
     			]);
     		$observation->setOiseau($oiseau);
 
+            // Si l'utilisateur est au moins naturaliste, son observation est validée tout de suite
+            $isNaturaliste = $this->get('security.authorization_checker')->isGranted('ROLE_NATURALISTE');
+            if ($isNaturaliste) {
+                $observation->setStatus(Observation::VALIDEE);
+                $observation->setPublish(new \DateTime('now'));
+
+                $this->addFlash('notice', 'Merci d\'avoir soumis une observation, celle-ci vient d\'être publiée');
+            }
+
     		$em->persist($observation);
     		$em->flush();
 
-    		$this->addFlash('notice', 'Merci d\'avoir soumis une observation, celle-ci va être validée par un professionnel avant d\'être publiée');
-    		return $this->redirectToRoute('homepage');
+            if (!$isNaturaliste)
+    		  $this->addFlash('notice', 'Merci d\'avoir soumis une observation, celle-ci va être validée par un professionnel avant d\'être publiée');
+    		
+            return $this->redirectToRoute('homepage');
     	}
 
     	return $this->render('front/observer.html.twig', [
