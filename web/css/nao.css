@@ -1013,6 +1013,14 @@ div.checkbox label.required {
     h3.block {
         margin-top: 23px;
     }
+
+    .date{
+        height: 133px;
+    }
+    #profil_birthDate_year.form-control{
+        box-shadow: none;
+    }
+
 }
 
 @media (min-width: 768px) {
@@ -1078,7 +1086,6 @@ div.checkbox label.required {
     label.col-xs-12.col-md-3.col-centered.control-label.control-label.required {
         text-align: right !important;
     }
-
 }
 
 @media (max-width: 992px) {
@@ -1306,4 +1313,16 @@ p.texte{
     color: white;
     border: none;
     border-radius: 0;
+}
+
+.formProfil{
+    padding-left: 15px;
+}
+
+
+@media (min-width: 768px){
+    .col-lg-4.col-xs-12.control-label.titre_formulaire.gauche.control-label.required{
+        text-align: right;
+
+    }
 }
