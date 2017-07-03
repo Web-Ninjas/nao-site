@@ -21,6 +21,23 @@
 
         <div class="col-md-6 col-xs-12">
             <p class="article-content">{{ article.content| raw }}</p>
+            {% if is_granted('ROLE_CONTRIBUTEUR') %}
+                <div class="form-group col-xs-12">
+                    <div class="col-lg-offset-4 col-lg-12 col-sm-offset-4">
+                        <a href="">
+                            <button type="button" class="btn envoyer_formulaire col-lg-2"
+                                    style="margin-right: 20px; background-color: red">{% trans %}
+                                Modifier{% endtrans %}</button>
+                        </a>
+
+                        <a href="{{ path('supprimerArticle', {'id': article.id, 'redirect': 'actualites'}) }}">
+                            <button type="button" class="btn envoyer_formulaire  col-lg-2"
+                                    style="background-color: #519D9E">{% trans %}
+                                Supprimer{% endtrans %}</button>
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
         </div>
 
 
@@ -39,23 +56,6 @@
 
                         <div class="col-md-7 col-xs-12">
                             <p class="content">{{ article.content|striptags | truncate(80)| raw }}</p>
-                            {% if is_granted('ROLE_CONTRIBUTEUR') %}
-                                <div class="form-group col-xs-12">
-                                    <div class="col-lg-offset-4 col-lg-12 col-sm-offset-4">
-                                        <a href="{{ path() }}">
-                                            <button type="button" class="btn envoyer_formulaire col-lg-2"
-                                                    style="margin-right: 20px; background-color: red">{% trans %}
-                                                Modifier{% endtrans %}</button>
-                                        </a>
-
-                                        <a href="{{ path() }}">
-                                            <button type="button" class="btn envoyer_formulaire  col-lg-2"
-                                                    style="background-color: #519D9E">{% trans %}
-                                                Supprimer{% endtrans %}</button>
-                                        </a>
-                                    </div>
-                                </div>
-                            {% endif %}
                             <p><a href="{{ path('article', {'id': article.id}) }}" style="float: right;">
                                     {% trans %} Lire la suite...{% endtrans %}</a>
                             </p>
