@@ -82,9 +82,11 @@
     <span class=" glyphicon glyphicon-arrow-down icone"
           title="Rétrograder l'utilisateur"></span>
                             </a>
-                            <a href="{{ path('supprimerUtilisateurs',{'id': utilisateur.id, 'redirect': 'utilisateurs'}) }}">
-                                <span class=" glyphicon glyphicon-trash icone" title="Supprimer l'utilisateur"></span>
-                            </a>
+                            {% if utilisateur.username != app.user.username %}
+                                <a href="{{ path('supprimerUtilisateurs',{'id': utilisateur.id, 'redirect': 'utilisateurs'}) }}">
+                                    <span class=" glyphicon glyphicon-trash icone" title="Supprimer l'utilisateur"></span>
+                                </a>
+                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}
