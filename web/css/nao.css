@@ -1391,3 +1391,11 @@ table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd:hover{
 table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.even:hover{
     background-color: rgba(92, 126, 229, 0.15)!important;
 }
+
+tbody tr.odd>.sorting_1:hover{
+    background-color: rgba(92, 126, 229, 0.15)!important;
+}
+
+tbody tr.even>.sorting_1:hover{
+    background-color: rgba(92, 126, 229, 0.15)!important;
+}
