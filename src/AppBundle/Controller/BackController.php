@@ -651,7 +651,7 @@ class BackController extends Controller
                 'nomComplet' => $nomOiseauComplet
             ]);
             $observation->setOiseau($oiseau);
-
+            $observation->getOiseau($oiseau);
             // Si l'utilisateur est au moins naturaliste, son observation est validée tout de suite
             $isNaturaliste = $this->get('security.authorization_checker')->isGranted('ROLE_NATURALISTE');
             if ($isNaturaliste) {
