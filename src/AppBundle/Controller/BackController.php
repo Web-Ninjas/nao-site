@@ -630,6 +630,10 @@ class BackController extends Controller
      */
     public function editObservationAction(Observation $observation, Request $request)
     {
+        /*
+        $listObservations[] = $observation;
+        $listObservations = $this->get("app.manager.map")->arrayOfObjectsToArrayOfArray($listObservations);
+        */
 
         $form = $this->get('form.factory')->create(ObservationType::class, $observation);
         $form->handleRequest($request);
@@ -675,7 +679,8 @@ class BackController extends Controller
 
         return $this->render(':back:editObservation.html.twig', array(
             'form' => $form->createView(),
-            'listOiseauNames' => $listOiseauNames
+            'listOiseauNames' => $listOiseauNames,
+            'observation' => $observation
         ));
     }
 }

@@ -32,7 +32,8 @@
 
 			if (listObservations)
 				setMarkers(map, listObservations);
-				updateLabel(listObservations.length);	
+				if ($('#nbrObservations').length)
+					updateLabel(listObservations.length);	
 		}
 
 		function withDrawMarkers()
@@ -95,7 +96,8 @@
 				);
 				infoWindow.open(map, marker);
 				infoWindow.addListener('closeclick', function(){
-					infoWindow.setMarker(null);
+					infoWindow.close();
+					infoWindow.marker = null;
 				});
 			}
 		}

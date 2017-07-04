@@ -130,7 +130,7 @@ class FrontController extends Controller
     public function voirObservationAction(Observation $observation)
     {
         return $this->render('front/voirObservation.html.twig', array(
-            'observation'=>$observation,
+            'observation' => $observation,
         ));
     }
 
