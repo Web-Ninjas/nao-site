@@ -7,6 +7,7 @@ use AppBundle\Entity\Observation;
 use AppBundle\Entity\Page;
 use AppBundle\Form\AdminType;
 use AppBundle\Form\ArticleType;
+use AppBundle\Form\ObservationType;
 use AppBundle\Form\ProfilType;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -620,5 +621,60 @@ class BackController extends Controller
             'form' => $form->createView(),
         ));
     }
+    
+    /**
+     * @Route("/dashboard/editObservation/{observation}", name="dashboard_editObservation")
+     * @Method({"GET","POST"})
+     * @Security("has_role('ROLE_PARTICULIER') ")
+     */
+    public function editObservationAction(Observation $observation, Request $request)
+    {
 
+        $form = $this->get('form.factory')->create(ObservationType::class, $observation);
+        $form->handleRequest($request);
+
+        // Liste les noms des oiseaux pour l'autocomplete
+        $em = $this->getDoctrine()->getManager();
+        $listOiseaux = $em->getRepository('AppBundle:OiseauTaxref')->findAll();
+        $listOiseauNames = [];
+        // Met en forme les noms pour l'autocomplete
+        foreach ($listOiseaux as $oiseau) {
+            $listOiseauNames[] = $oiseau->getNomVern() .' - ' .$oiseau->getNomComplet();
+        }
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // On récupère l'oiseau en bdd d'après son nom formatté dans la barre de recherche autocomplete
+            $nomOiseau = $request->request->get('appbundle_observation')['nomOiseau'];
+            $nomOiseauComplet = substr($nomOiseau, strpos($nomOiseau, "-") + 2);
+            $oiseau = $em->getRepository('AppBundle:OiseauTaxref')->findOneBy([
+                'nomComplet' => $nomOiseauComplet
+            ]);
+            $observation->setOiseau($oiseau);
+
+            // Si l'utilisateur est au moins naturaliste, son observation est validée tout de suite
+            $isNaturaliste = $this->get('security.authorization_checker')->isGranted('ROLE_NATURALISTE');
+            if ($isNaturaliste) {
+                $observation->setStatus(Observation::VALIDEE);
+                $observation->setPublish(new \DateTime('now'));
+
+                $this->addFlash('notice', 'Merci d\'avoir soumis une observation, celle-ci vient d\'être publiée');
+            }
+            
+            // On enregistre en bdd
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            $this->addFlash('notice', 'L\'observation a bien été modifiée !');
+
+            return $this->redirectToRoute('observation', array(
+                'id' => $observation->getId()
+            ));
+        }
+
+        return $this->render(':back:editObservation.html.twig', array(
+            'form' => $form->createView(),
+            'listOiseauNames' => $listOiseauNames
+        ));
+    }
 }

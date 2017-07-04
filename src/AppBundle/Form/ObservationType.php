@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,8 +20,10 @@ class ObservationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nomOiseau', TextType::class)
-            ->add('date', DateTimeType::class)
+            ->add('nomOiseau', TextType::class, array(
+                'required' => false))
+            ->add('date', DateTimeType::class, array(
+                'required' => false))
             ->add('photoFile', FileType::class, [
                 'required' => false,
                 'label'=> 'Photo',
@@ -31,9 +34,12 @@ class ObservationType extends AbstractType
                 ])
             ->add('content',TextareaType::class,[
                 'label'=> 'Remarque',
+                'required' => false
                 ])
-            ->add('latitude')
-            ->add('longitude')
+            ->add('latitude', NumberType::class, array(
+                'required' => false))
+            ->add('longitude', NumberType::class, array(
+                'required' => false))
             ->add('Soumettre', SubmitType::class);
     }
     

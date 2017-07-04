@@ -33,7 +33,7 @@ class Observation
     private $id;
 
     /**
-    * @Assert\NotBlank()
+    * @Assert\NotBlank(groups={"ajout"})
     */
     private $nomOiseau;
 
@@ -54,8 +54,8 @@ class Observation
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="datetime")
-     * @Assert\NotBlank()
-     * @Assert\DateTime()
+     * @Assert\NotBlank(groups={"ajout"})
+     * @Assert\DateTime(groups={"ajout"})
      */
     private $date;
 
@@ -63,7 +63,7 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="content", type="text")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"ajout"})
      */
     private $content;
 
@@ -78,7 +78,7 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="longitude", type="decimal", precision=25, scale=20)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"ajout"})
      */
     private $longitude;
 
@@ -86,7 +86,7 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="latitude", type="decimal", precision=25, scale=20)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"ajout"})
      */
     private $latitude;
 
@@ -94,13 +94,13 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="photo", type="string", length=255, nullable=true)
-     * @Assert\File(mimeTypes={ "image/jpeg", "image/png", "image/jpg"})
-     * @Assert\Image
+     * @Assert\File(mimeTypes={ "image/jpeg", "image/png", "image/jpg"}, groups={"ajout"})
+     * @Assert\Image(groups={"ajout"})
      */
     private $photoExtension = null;
 
     /**
-     * @Assert\File(mimeTypes={ "image/jpeg", "image/png", "image/jpg"})
+     * @Assert\File(mimeTypes={ "image/jpeg", "image/png", "image/jpg"}, groups={"ajout"})
      */
     private $photoFile;
 

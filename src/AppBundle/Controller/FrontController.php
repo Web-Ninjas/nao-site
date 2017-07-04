@@ -200,7 +200,10 @@ class FrontController extends Controller
         // Créé le formulaire avec l'utilisateur comme auteur
     	$observation = new Observation();
     	$observation->setAuthor($this->getUser());
-    	$form = $this->createForm(ObservationType::class, $observation);
+    	$form = $this->createForm(ObservationType::class, $observation
+            , array(
+                'validation_groups' => array('default', 'ajout')
+            ));
     	$form->handleRequest($request);
 
     	// Liste les noms des oiseaux pour l'autocomplete
