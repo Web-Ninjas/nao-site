@@ -367,6 +367,10 @@ class BackController extends Controller
             return $this->redirectToRoute('dashboard_all_articles');
         }
 
+        if ($redirect === 'actualites'){
+            return $this->redirectToRoute('actualites');
+        }
+
         return $this->redirectToRoute('article', array(
             "id" => $article->getId()));
 
