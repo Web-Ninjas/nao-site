@@ -1384,22 +1384,6 @@ input[type="checkbox"]{
 }
 
 
-table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd:hover{
-    background-color: rgba(92, 126, 229, 0.15)!important;
-}
-
-table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.even:hover{
-    background-color: rgba(92, 126, 229, 0.15)!important;
-}
-
-tbody tr.odd>.sorting_1:hover{
-    background-color: rgba(92, 126, 229, 0.15)!important;
-}
-
-tbody tr.even>.sorting_1:hover{
-    background-color: rgba(92, 126, 229, 0.15)!important;
-}
-
 .table-hover thead tr:hover th, .table-hover tbody tr:hover td {
     background-color: rgba(92, 126, 229, 0.15) !important;
 }
