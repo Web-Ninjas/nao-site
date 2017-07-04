@@ -23,7 +23,7 @@
                     <a style="float: right"  href="{{ path('supprimerObservation', {'id': observation.id, 'redirect': ''}) }}">
                         <span class=" glyphicon glyphicon-trash icone" title="Supprimer l'article"></span>
                     </a>
-                    {% elseif is_granted('ROLE_PARTICULIER') and observation.status == constant('AppBundle\\Entity\\Observation::A_VALIDER')  %}
+                        {#{% elseif is_granted('ROLE_PARTICULIER') and observation.status == constant('AppBundle\\Entity\\Observation::A_VALIDER')  %}#}
                     <a style="float: right" href="{{ path('dashboard_editObservation', {observation: observation.id}) }}">
                         <span class=" glyphicon glyphicon-pencil icone" title="Modifier l'article"></span>
                     </a>

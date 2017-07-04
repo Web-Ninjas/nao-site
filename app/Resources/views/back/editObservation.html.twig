@@ -39,8 +39,28 @@
         {% for oiseauName in listOiseauNames %}
         sourceList.push( "{{ oiseauName }}" );
         {% endfor %}
+        function initMap()
+        {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: {{ observation.latitude }}, lng: {{ observation.longitude }} },
+                zoom: 7,
+                mapTypeControle: false,
+                maxZoom: 12,
+                streetViewControl: false
+            });
 
+            var icon = makeMarkerIcon('9DC8C8');
+
+            var marker = new google.maps.Marker({
+                map: map,
+                icon: icon,
+                position: {lat: {{ observation.latitude }}, lng: {{ observation.longitude }} },
+                title: '{{ observation.nomOiseau }}',
+                animation: google.maps.Animation.DROP
+            });
+        }
         var myLat, myLng;
+
 
         $(function(){
 

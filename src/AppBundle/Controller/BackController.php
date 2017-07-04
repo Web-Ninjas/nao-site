@@ -651,7 +651,7 @@ class BackController extends Controller
             $oiseau = $em->getRepository('AppBundle:OiseauTaxref')->findOneBy([
                 'nomComplet' => $nomOiseauComplet
             ]);
-            $observation->setOiseau($oiseau);
+            //$observation->setOiseau($oiseau);
             $observation->getOiseau($oiseau);
             // Si l'utilisateur est au moins naturaliste, son observation est validée tout de suite
             $isNaturaliste = $this->get('security.authorization_checker')->isGranted('ROLE_NATURALISTE');
@@ -675,7 +675,8 @@ class BackController extends Controller
 
         return $this->render(':back:editObservation.html.twig', array(
             'form' => $form->createView(),
-            'listOiseauNames' => $listOiseauNames
+            'listOiseauNames' => $listOiseauNames,
+            'observation'=>$observation,
         ));
     }
 }
