@@ -13,8 +13,12 @@
                 {{ form_row(form.title) }}
             </div>
 
-            <div class="col-sm-6 col-xs-12 file">
+            <div class="col-sm-3 col-xs-12 file">
                 {{ form_row (form.file) }}
+            </div>
+            <div class="col-sm-3 col-xs-12 file">
+            <img src="{{ asset(form.vars.value.photoWebPath) }}" alt="" width="150" height="150"
+                 style="float: right; margin-left: 10px; margin-top: 20px;"/>
             </div>
         </div><!-- row -->
 

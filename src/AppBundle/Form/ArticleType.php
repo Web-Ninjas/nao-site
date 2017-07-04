@@ -29,7 +29,8 @@ class ArticleType extends AbstractType
             ->add('title',     TextType::class, array(
                 'label' => 'Titre de l\'article :' ))
             ->add('file',      FileType::class , array(
-                'label' => 'Photo de l\'article :' ))
+                'label' => 'Photo de l\'article :',
+                'required' => false))
             ->add('content',   TextareaType::class, array(
                 'required' => false,
                     'label' => 'Votre article :')

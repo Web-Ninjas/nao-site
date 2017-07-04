@@ -529,7 +529,9 @@ class BackController extends Controller
             ->setDate(new \Datetime())
             ->setAuthor($this->getUser());
 
-        $form = $this->get('form.factory')->create(ArticleType::class, $article);
+        $form = $this->get('form.factory')->create(ArticleType::class, $article, array(
+            'validation_groups' => array('default', 'ajout')
+        ));
 
         $form->handleRequest($request);
 
@@ -594,11 +596,10 @@ class BackController extends Controller
     /**
      * @Route("/dashboard/editArticle/{article}", name="dashboard_editArticle")
      * @Method({"GET","POST"})
-     * @Security("has_role('ROLE_ADMIN') ")
+     * @Security("has_role('ROLE_CONTRIBUTEUR') ")
     */
     public function editArticleAction(Article $article, Request $request)
     {
-        $article->setFile($article->getPhotoWebPath());
 
         $form = $this->get('form.factory')->create(ArticleType::class, $article);
         $form->handleRequest($request);

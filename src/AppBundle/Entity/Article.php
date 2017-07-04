@@ -56,8 +56,8 @@ class Article
     private $content;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\File(mimeTypes={ "image/jpeg", "image/png", "image/jpg"})
+     * @Assert\NotBlank(groups={"ajout"})
+     * @Assert\File(mimeTypes={ "image/jpeg", "image/png", "image/jpg"}, groups={"ajout"})
      */
     private $file;
 
@@ -68,8 +68,8 @@ class Article
      * @var string
      *
      * @ORM\Column(name="photoExtension", type="string", length=255)
-     * @Assert\File(mimeTypes={ "image/jpeg", "image/png", "image/jpg"})
-     * @Assert\Image
+     * @Assert\File(mimeTypes={ "image/jpeg", "image/png", "image/jpg"}, groups={"ajout"})
+     * @Assert\Image(groups={"ajout"})
      */
     private $photoExtension;
 
