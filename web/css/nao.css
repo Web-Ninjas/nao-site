@@ -1384,6 +1384,11 @@ input[type="checkbox"]{
 }
 
 
-.table-hover thead tr:hover th, .table-hover tbody tr:hover td {
-    background-color: rgba(92, 126, 229, 0.15) !important;
+.table-hover tbody tr:hover td {
+    background-color: #5c7ee5!important;
+    color: white!important;
+}
+
+.icone{
+    color: white;
 }
