@@ -1398,3 +1398,7 @@ input[type="checkbox"] {
     border-radius: 5px;
     background-position: right;
 }
+
+button, input, select, textarea{
+    border-radius: 5px;
+}
