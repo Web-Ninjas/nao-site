@@ -37,16 +37,17 @@
                             {{ observation.author.username }}
                         </td>
                         <td>
-                            <span class="observation_status" style="color: {{ couleurs[observation.status] }}">{{ observation.status }}</span>
+                            <span class="observation_status"
+                                  style="color: {{ couleurs[observation.status] }}">{{ observation.status }}</span>
                         </td>
 
                         <td class="content_observation">
                             {% if observation.oiseau.nomVern is not empty %}
-                                {{ observation.oiseau.nomVern}}<br>
+                                {{ observation.oiseau.nomVern }}<br>
                             {% endif %}
                             {{ observation.oiseau.nomComplet }}
                             <div class="tableau_observation">
-                                <a href="{{ path('observation', {'id': observation.id}) }}">{{ observation.content |striptags| truncate(30)}}</a>
+                                <a href="{{ path('observation', {'id': observation.id}) }}">{{ observation.content |striptags| truncate(30) }}</a>
                             </div>
                         </td>
 
@@ -63,6 +64,12 @@
                                 <a href="{{ path('observation', {'id': observation.id}) }}">
                                     <span class=" glyphicon glyphicon-eye-open icone" title="Voir l'observation"></span>
                                 </a>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <a href="{{ path('supprimerObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
+                                    <span class=" glyphicon glyphicon-trash icone"
+                                          title="Supprimer l'observation"></span>
+                                    </a>
+                                {% endif %}
                             {% elseif observation.status ==  constant('AppBundle\\Entity\\Observation::SUPPRIMEE') %}
                                 <a href="{{ path('supprimerObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
                                     <span class=" glyphicon glyphicon-trash icone"
@@ -129,8 +136,10 @@
     {{ parent() }}
     <script type="text/javascript">{% include 'back/locale.html.twig' %}</script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/rowreorder/1.2.0/js/dataTables.rowReorder.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
-    <script type="text/javascript" src="{{asset('js/table.js')}}"></script>
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/rowreorder/1.2.0/js/dataTables.rowReorder.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="{{ asset('js/table.js') }}"></script>
 {% endblock %}
 

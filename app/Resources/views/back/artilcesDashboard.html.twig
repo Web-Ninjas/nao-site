@@ -47,9 +47,7 @@
                             <a href="{{ path('dashboard_editArticle', {article: article.id}) }}">
                                 <span class=" glyphicon glyphicon-pencil icone" title="Modifier l'article"></span>
                             </a>
-                            <a href="#">
-                                <span class=" glyphicon glyphicon-ok icone" title="Valider l'article"></span>
-                            </a>
+
                             <a href="{{ path('supprimerArticle', {'id': article.id, 'redirect': 'all_articles'}) }}">
                                 <span class=" glyphicon glyphicon-trash icone" title="Supprimer l'article"></span>
                             </a>
