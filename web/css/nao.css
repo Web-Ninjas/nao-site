@@ -1395,10 +1395,6 @@ input[type="checkbox"] {
 #data-table_filter.dataTables_filter input{
     background:url(http://www.larevuedekenza.fr/wp-content/themes/quarter/images/sidebar/loupe.png) no-repeat 0 0 ;
     background-color: white;
-    border-radius: 5px;
     background-position: right;
 }
 
-button, input, select, textarea{
-    border-radius: 5px;
-}
