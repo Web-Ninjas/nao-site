@@ -73,7 +73,7 @@
                                 <a href="{{ path('observation', {'id': observation.id}) }}">
                                     <span class=" glyphicon glyphicon-eye-open icone" title="Voir l'observation"></span>
                                 </a>
-                                <a href="#">
+                                <a href="{{ path('dashboard_editObservation', {observation: observation.id}) }}">
                                     <span class=" glyphicon glyphicon-pencil icone"
                                           title="Modifier l'observation"></span>
                                 </a>
@@ -93,7 +93,7 @@
                                 <a href="{{ path('observation', {'id': observation.id}) }}">
                                     <span class=" glyphicon glyphicon-eye-open icone" title="Voir l'observation"></span>
                                 </a>
-                                <a href="#">
+                                <a href="{{ path('dashboard_editObservation', {observation: observation.id}) }}">
                                     <span class=" glyphicon glyphicon-pencil icone"
                                           title="Modifier l'observation"></span>
                                 </a>
