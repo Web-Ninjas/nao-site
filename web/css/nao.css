@@ -1388,7 +1388,7 @@ input[type="checkbox"]{
     color: white!important;
 }
 
-.icone{
+.fond_tableau .ligne_tbl:hover .icone{
     color: white;
 }
 
