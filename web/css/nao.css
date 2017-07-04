@@ -1382,3 +1382,12 @@ input[type="checkbox"]{
     filter: alpha(opacity=100);
     opacity: 1;
 }
+
+
+table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd:hover{
+    background-color: rgba(92, 126, 229, 0.15)!important;
+}
+
+table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.even:hover{
+    background-color: rgba(92, 126, 229, 0.15)!important;
+}
