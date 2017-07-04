@@ -16,8 +16,8 @@
             <div class="col-sm-3 col-xs-12 file">
                 {{ form_row (form.file) }}
             </div>
-            <div class="col-sm-3 col-xs-12 file">
-            <img src="{{ asset(form.vars.value.photoWebPath) }}" alt="" width="150" height="150"
+            <div id="image" class="col-sm-3 col-xs-12 file">
+            <img src="{{ asset(form.vars.value.photoWebPath) }}" alt="{{ article.getAltPhoto }}" width="150" height="150"
                  style="float: right; margin-left: 10px; margin-top: 20px;"/>
             </div>
         </div><!-- row -->
@@ -26,7 +26,7 @@
 
 
         <div class="envoyer">
-            {{ form_row(form.enregistrer, {'label': 'Enregister','attr': {'class': 'btn envoyer_formulaire' }}) }}
+            {{ form_row(form.enregistrer, {'label': 'Enregistrer'|trans,'attr': {'class': 'btn envoyer_formulaire' }}) }}
         </div>
 
         {{ form_end(form) }}
@@ -46,6 +46,12 @@
                 maxHeight: null,             // set maximum height of editor
                 focus: true                  // set focus to editable area after initializing summernote
             });
+            /* Code pour changer l'image une fois une nouvelle sélectionnée, ne marche pas encore. Restriction par le navigatuer pour avoir le chemin
+            $('#article_file').on('change', function(e) {
+                console.log('changed to: ' + this.value );
+                $('#image').html('<img src=this.value width="150" height="150" style="float: right; margin-left: 10px; margin-top: 20px;"/>');
+            });
+            */
         });
     </script>
 
