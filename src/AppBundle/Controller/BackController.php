@@ -619,6 +619,7 @@ class BackController extends Controller
 
         return $this->render(':back:editArticle.html.twig', array(
             'form' => $form->createView(),
+            'article' => $article
         ));
     }
     

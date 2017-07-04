@@ -334,5 +334,10 @@ class Article
         return $this->getUploadDir().'/'.$this->getId().'.'.$this->getPhotoExtension();
     }
 
+    public function getAltPhoto()
+    {
+        return $this->altPhoto;
+    }
+
 }
 
