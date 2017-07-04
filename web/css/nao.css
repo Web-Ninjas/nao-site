@@ -137,18 +137,20 @@ p {
     margin-top: 36px;
 }
 
-    .index {
-    margin-right: 0;.autre{
-    padding-right: 66px;
-    padding-left: 66px;
-    }
-
-    .autre{
-    padding-right: 66px;
-    padding-left: 66px;
-    }
-    margin-left: 0;
+.index {
+    margin-right: 0;
 }
+
+.autre {
+    padding-right: 66px;
+    padding-left: 66px;
+}
+
+.autre {
+    padding-right: 66px;
+    padding-left: 66px;
+}
+
 
 h1 {
     position: absolute;
@@ -668,8 +670,6 @@ ul.pagination li a.fleche_page {
     padding-left: 12px;
 }
 
-
-
 ul.pagination li a.fleche_page_return {
     background-color: white;
     padding-top: 2px;
@@ -933,9 +933,9 @@ div.checkbox label.required {
 
 @media (max-width: 768px) {
 
-    .autre{
-    padding-right: 20px;
-    padding-left: 20px;
+    .autre {
+        padding-right: 20px;
+        padding-left: 20px;
     }
 
     ul.list-inline.liens {
@@ -1004,18 +1004,19 @@ div.checkbox label.required {
         padding-right: 15px;
     }
 
-    p.texte{
-        margin-bottom: 0!important;
+    p.texte {
+        margin-bottom: 0 !important;
     }
 
     h3.block {
         margin-top: 23px;
     }
 
-    .date{
+    .date {
         height: 133px;
     }
-    #profil_birthDate_year.form-control{
+
+    #profil_birthDate_year.form-control {
         box-shadow: none;
     }
 
@@ -1023,9 +1024,9 @@ div.checkbox label.required {
 
 @media (min-width: 768px) {
 
-    .autre{
-    padding-right: 66px;
-    padding-left: 66px;
+    .autre {
+        padding-right: 66px;
+        padding-left: 66px;
     }
 
     ul.nav.navbar-nav.bleu.collapse.navbar-collapse {
@@ -1196,7 +1197,6 @@ div.formProfil > form > div > div > div > select {
     border-radius: 6px;
 }
 
-
 #appbundle_observation input[type="text"] {
     border: none;
     border-bottom: 3px solid #58c9b9;
@@ -1235,7 +1235,6 @@ div.formProfil > form > div > div > div > select {
     padding-top: 10px;
 }
 
-
 .formulaire_observation {
     border: none;
     border-radius: inherit;
@@ -1245,11 +1244,11 @@ div.formProfil > form > div > div > div > select {
     /* width: inherit; */
 }
 
-#appbundle_observation_Soumettre{
+#appbundle_observation_Soumettre {
     margin-bottom: 20px;
 }
 
-.slide{
+.slide {
     background-color: #58C9B9;
     padding: 30px;
     text-align: center;
@@ -1264,16 +1263,14 @@ div.formProfil > form > div > div > div > select {
     border-radius: 0;
 }
 
-.compte{
+.compte {
     background: #58C9B9;
     border-radius: 9px;
 }
 
-
-
 /* Pour le respect de la maquette on rend invisible toutes les checkboxes*/
 input[type=checkbox] {
-     /*visibility: hidden;*/
+    /*visibility: hidden;*/
 }
 
 .srchTitleFilter {
@@ -1284,6 +1281,7 @@ input[type=checkbox] {
     font-weight: bold;
     color: black;
 }
+
 /*
 div.checkbox > input[type=checkbox] {
     background-image: url("../images/chechboxUnchecked.svg");
@@ -1292,10 +1290,9 @@ div.checkbox > label {
     color:white;
 }*/
 
-p.texte{
+p.texte {
     margin-bottom: 50px;
 }
-
 
 .bts-mdp:hover {
     transition: 0.5s;
@@ -1313,21 +1310,20 @@ p.texte{
     border-radius: 0;
 }
 
-.formProfil{
+.formProfil {
     padding-left: 15px;
 }
 
-
-@media (min-width: 768px){
-    .col-lg-4.col-xs-12.control-label.titre_formulaire.gauche.control-label.required{
+@media (min-width: 768px) {
+    .col-lg-4.col-xs-12.control-label.titre_formulaire.gauche.control-label.required {
         text-align: right;
 
     }
 }
 
 /* ROUNDED ONE */
-input[type="checkbox"]{
-    visibility:hidden;
+input[type="checkbox"] {
+    visibility: hidden;
 }
 
 .roundedOne {
@@ -1367,13 +1363,13 @@ input[type="checkbox"]{
     opacity: 0.3;
 }
 
-.plus{
+.plus {
     float: right;
-    font-size: 30px ;
+    font-size: 30px;
     color: white;
 }
 
-.plus:hover{
+.plus:hover {
     color: #5c7ee5;
 }
 
@@ -1384,14 +1380,14 @@ input[type="checkbox"]{
 }
 
 .table-hover tbody tr:hover td {
-    background-color: #5c7ee5!important;
-    color: white!important;
+    background-color: #5c7ee5 !important;
+    color: white !important;
 }
 
-.fond_tableau .ligne_tbl:hover .icone{
+.fond_tableau .ligne_tbl:hover .icone {
     color: white;
 }
 
 .fond_tableau .ligne_tbl:hover .observation_status {
-    color:white !important;
+    color: white !important;
 }

@@ -5,10 +5,15 @@
     <div class="index-page">
 
         <div class="row">
-            <h1>{{ page.title|raw }}</h1>
+            <h1>{{ page.title|raw }}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('dashboard_administration') }}">
+                <span class="glyphicon glyphicon-plus plus"
+                      title="Modifier la bannière"></span>
+                    </a>
+                {% endif %}</h1>
 
-            <img class="img-responsive photo-index" src="{{ asset(page.photoWebPath) }}" alt="" style="width:100%;">
-
+            <img class="{#img-responsive#} photo-index" src="{{ asset(page.photoWebPath) }}" alt="" style=" height: 300px">
         </div>
 
 

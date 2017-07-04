@@ -2,7 +2,14 @@
 
 {% block body %}
 
-            <h2>{{ page.title }}</h2>
+            <h2>{{ page.title }}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('dashboard_administration') }}">
+                <span class="glyphicon glyphicon-plus plus"
+                      title="Modifier la page 'Mentions légales'"></span>
+                    </a>
+                {% endif %}
+            </h2>
     <div class="container">
     <div class="mentions"> {{ page.content|raw }}</div>
 </div>
