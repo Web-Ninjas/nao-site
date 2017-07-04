@@ -1399,3 +1399,7 @@ tbody tr.odd>.sorting_1:hover{
 tbody tr.even>.sorting_1:hover{
     background-color: rgba(92, 126, 229, 0.15)!important;
 }
+
+.table-hover thead tr:hover th, .table-hover tbody tr:hover td {
+    background-color: rgba(92, 126, 229, 0.15) !important;
+}
