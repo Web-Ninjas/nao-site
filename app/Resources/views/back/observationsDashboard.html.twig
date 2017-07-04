@@ -32,7 +32,7 @@
 
                 <tbody class="fond_tableau">
                 {% for observation in observations %}
-                    <tr>
+                    <tr class="ligne_tbl">
                         <td>{{ observation.id }}</td>
 
                         <td class="taille_td">
@@ -47,7 +47,7 @@
                         </td>
 
                         <td>
-                            <span style="color: {{ couleurs[observation.status] }}">{{ observation.status }}</span>
+                            <span class="observation_status" style="color: {{ couleurs[observation.status] }}">{{ observation.status }}</span>
                         </td>
 
                         <td class="content_observation">

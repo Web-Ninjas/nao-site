@@ -32,12 +32,12 @@
 
                 <tbody class="fond_tableau">
                 {% for observation in observations %}
-                    <tr>
+                    <tr class="ligne_tbl">
                         <td>
                             {{ observation.author.username }}
                         </td>
                         <td>
-                            <span style="color: {{ couleurs[observation.status] }}">{{ observation.status }}</span>
+                            <span class="observation_status" style="color: {{ couleurs[observation.status] }}">{{ observation.status }}</span>
                         </td>
 
                         <td class="content_observation">

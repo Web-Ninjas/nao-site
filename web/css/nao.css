@@ -1391,3 +1391,7 @@ input[type="checkbox"]{
 .icone{
     color: white;
 }
+
+.fond_tableau .ligne_tbl:hover .observation_status {
+    color:white !important;
+}
