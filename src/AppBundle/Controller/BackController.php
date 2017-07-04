@@ -589,7 +589,35 @@ class BackController extends Controller
         return $this->render(':back:adminDashboard.html.twig', array(
             'form' => $form->createView(),
         ));
+    }
 
+    /**
+     * @Route("/dashboard/editArticle/{article}", name="dashboard_editArticle")
+     * @Method({"GET","POST"})
+     * @Security("has_role('ROLE_ADMIN') ")
+    */
+    public function editArticleAction(Article $article, Request $request)
+    {
+        $article->setFile($article->getPhotoWebPath());
+
+        $form = $this->get('form.factory')->create(ArticleType::class, $article);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // On enregistre en bdd
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            $this->addFlash('notice', 'L\'article a bien été modifié !');
+
+            return $this->redirectToRoute('article', array(
+                'id' => $article->getId()
+            ));
+        }
+
+        return $this->render(':back:editArticle.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 
 }

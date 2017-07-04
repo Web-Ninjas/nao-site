@@ -88,7 +88,11 @@
 			if(infoWindow.marker != marker)
 			{
 				infoWindow.marker = marker;
-				infoWindow.setContent('<div>' + marker.title + ' <img alt="" src="' + listObservations[marker.id].photoPath + '" width="80" height="80">' + '</div>');
+				infoWindow.setContent(
+					'<div>' + marker.title +
+					 ' <img alt="" src="' + listObservations[marker.id].photoPath + 
+					 '" width="80" height="80">' + '</div>'
+				);
 				infoWindow.open(map, marker);
 				infoWindow.addListener('closeclick', function(){
 					infoWindow.setMarker(null);

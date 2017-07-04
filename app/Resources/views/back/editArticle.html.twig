@@ -1,0 +1,48 @@
+{% extends "back-layout.html.twig" %}
+
+{% block content %}
+
+    <h4>{% trans %}Éditer un article{% endtrans %}</h4>
+
+    <div style="background-color: #9DC8C8;color: white;padding-left: 23px; padding-bottom: 23px; padding-right: 23px">
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        <div class="row">
+            <div class="col-sm-6 col-xs-12">
+                {{ form_row(form.title) }}
+            </div>
+
+            <div class="col-sm-6 col-xs-12 file">
+                {{ form_row (form.file) }}
+            </div>
+        </div><!-- row -->
+
+        {{ form_row(form.content, {'id' : 'summernote'}) }}
+
+
+        <div class="envoyer">
+            {{ form_row(form.enregistrer, {'label': 'Enregister','attr': {'class': 'btn envoyer_formulaire' }}) }}
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#summernote').summernote({
+                height: 300,                 // set editor height
+                minHeight: null,             // set minimum height of editor
+                maxHeight: null,             // set maximum height of editor
+                focus: true                  // set focus to editable area after initializing summernote
+            });
+        });
+    </script>
+
+{% endblock %}
