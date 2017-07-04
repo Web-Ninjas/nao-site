@@ -651,12 +651,15 @@ class BackController extends Controller
 
             // On récupère l'oiseau en bdd d'après son nom formatté dans la barre de recherche autocomplete
             $nomOiseau = $request->request->get('appbundle_observation')['nomOiseau'];
-            $nomOiseauComplet = substr($nomOiseau, strpos($nomOiseau, "-") + 2);
+            if (strpos($nomOiseau, '-') !== false){
+                $nomOiseau = substr($nomOiseau, strpos($nomOiseau, "-") + 2);
+            }
+           
             $oiseau = $em->getRepository('AppBundle:OiseauTaxref')->findOneBy([
-                'nomComplet' => $nomOiseauComplet
+                'nomComplet' => $nomOiseau
             ]);
             $observation->setOiseau($oiseau);
-            $observation->getOiseau($oiseau);
+         
             // Si l'utilisateur est au moins naturaliste, son observation est validée tout de suite
             $isNaturaliste = $this->get('security.authorization_checker')->isGranted('ROLE_NATURALISTE');
             if ($isNaturaliste) {

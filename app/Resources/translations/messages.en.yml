@@ -86,7 +86,7 @@ Bonjour: Hello
 ' Captcha code :': ' Captcha code :'
 'saisir le code': 'Enter code'
 Envoyer: 'To send'
-'Nom oiseau': 'Name bird'
+'Nom oiseau': "Bird's name"
 'Photo file': 'Photo file'
 'Audio file': 'Audio file'
 Content: Content
@@ -121,3 +121,6 @@ Title: Title
 'Confirmation du mot de passe :': 'Password Confirmation'
 Enregistrer: Validate
 'Éditer un article': 'Edit an article'
+'Modifier une observation': 'Edit an observation'
+Photo: Photo
+Audio: Audio
