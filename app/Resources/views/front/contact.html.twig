@@ -17,26 +17,28 @@
             {# Génération du label. #}
             {{ form_label(form.nom, "Nom :", {'label_attr': {'class': 'col-xs-12 col-md-3 col-centered  control-label  '}}) }}
 
-            {# Affichage des erreurs pour ce champ précis. #}
-            {{ form_errors(form.nom) }}
-
             <div class="col-xs-12 col-md-8 col-centered">
                 {# Génération de l'input. #}
                 {{ form_widget(form.nom, {'attr': {'class': 'form-control formulaire_contact'}}) }}
             </div>
         </div>
 
+        <div class=" col-xs-12">
+        {# Affichage des erreurs pour ce champ précis. #}
+        {{ form_errors(form.nom) }}
+        </div>
         <div class="form-group col-xs-12 col-md-12 col-centered">
             {# Génération du label. #}
             {{ form_label(form.prenom, "Prénom :", {'label_attr': {'class': 'col-xs-12 col-md-3 col-centered control-label '}}) }}
-
-            {# Affichage des erreurs pour ce champ précis. #}
-            {{ form_errors(form.prenom) }}
 
             <div class="col-xs-12 col-md-8 col-centered">
                 {# Génération de l'input. #}
                 {{ form_widget(form.prenom, {'attr': {'class': 'form-control formulaire_contact'}}) }}
             </div>
+        </div>
+        <div class=" col-xs-12">
+            {# Affichage des erreurs pour ce champ précis. #}
+            {{ form_errors(form.prenom) }}
         </div>
 
         <div class="form-group col-xs-12 col-md-12 col-centered">
@@ -53,18 +55,23 @@
                 {{ form_errors(form.email) }}
             </div>
         </div>
+        <div class=" col-xs-12">
+            {# Affichage des erreurs pour ce champ précis. #}
+            {{ form_errors(form.email) }}
+        </div>
 
         <div class="form-group message_contenu col-xs-12 col-md-12 col-centered">
             {# Génération du label. #}
             {{ form_label(form.contenu, "Votre message :", {'label_attr': {'class': 'col-xs-12 col-md-3 col-centered  control-label '}}) }}
 
-            {# Affichage des erreurs pour ce champ précis. #}
-            {{ form_errors(form.contenu) }}
-
             <div class="col-xs-12 col-md-8 col-centered">
                 {# Génération de l'input. #}
                 {{ form_widget(form.contenu, {'attr': {'class': 'form-control message_contact'}}) }}
             </div>
+        </div>
+        <div class=" col-xs-12">
+            {# Affichage des erreurs pour ce champ précis. #}
+            {{ form_errors(form.contenu) }}
         </div>
 
         <div class="form-group col-xs-12 col-md-12 col-centered">
