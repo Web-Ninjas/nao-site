@@ -546,7 +546,7 @@ class BackController extends Controller
             $this->addFlash('notice', 'L\'article a bien été enregistré !');
 
             return $this->redirectToRoute('article', array(
-                'id' => $article->getId()
+                'slug' => $article->getSlug()
             ));
         }
 

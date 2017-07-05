@@ -103,7 +103,7 @@ class FrontController extends Controller
     }
 
     /**
-     * @Route("/article/{id}", requirements={"id" = "\d+"}, name="article")
+     * @Route("/article/{slug}", name="article")
      * @param Article $article
      */
     public function voirNewsAction(Article $article)

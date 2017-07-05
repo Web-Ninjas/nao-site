@@ -57,7 +57,7 @@
 
                         <div class="col-md-7 col-xs-12">
                             <p class="content">{{ article.content|striptags | truncate(80)| raw }}</p>
-                            <p><a href="{{ path('article', {'id': article.id}) }}" style="float: right;">
+                            <p><a href="{{ path('article', {'slug': article.slug}) }}" style="float: right;">
                                     {% trans %} Lire la suite...{% endtrans %}</a>
                             </p>
                         </div>

@@ -26,7 +26,7 @@
                     <img src="{{ asset(article.photoWebPath) }}" alt="" width="180" height="200"
                          style="float: left; margin-right: 10px;">
                     <p>{{ article.content|striptags| truncate(300) | raw }}</p>
-                    <p><a href="{{ path('article', {'id': article.id}) }}" style="float: right;">{% trans %}Lire la
+                    <p><a href="{{ path('article', {'slug': article.slug}) }}" style="float: right;">{% trans %}Lire la
                             suite...{% endtrans %}</a></p>
 
                 </article>

@@ -34,21 +34,21 @@
                         <td class="content_observation">
                             {{ article.title |striptags| truncate(20)}}
                             <div class="tableau_observation">
-                                <a href="{{ path('article', {'id': article.id}) }}">{{ article.content |striptags| truncate(30) }}</a>
+                                <a href="{{ path('article', {'slug': article.slug}) }}">{{ article.content |striptags| truncate(30) }}</a>
                             </div>
                         </td>
 
                         <td class="tableau_action action">
 
-                            <a href="{{ path('article', {'id': article.id}) }}">
+                            <a href="{{ path('article', {'slug': article.slug}) }}">
                                 <span class=" glyphicon glyphicon-eye-open icone" title="Voir l'article"></span>
                             </a>
 
-                            <a href="{{ path('dashboard_editArticle', {article: article.id}) }}">
+                            <a href="{{ path('dashboard_editArticle', {article: article.slug}) }}">
                                 <span class=" glyphicon glyphicon-pencil icone" title="Modifier l'article"></span>
                             </a>
 
-                            <a href="{{ path('supprimerArticle', {'id': article.id, 'redirect': 'all_articles'}) }}">
+                            <a href="{{ path('supprimerArticle', {'slug': article.slug, 'redirect': 'all_articles'}) }}">
                                 <span class=" glyphicon glyphicon-trash icone" title="Supprimer l'article"></span>
                             </a>
                         </td>
