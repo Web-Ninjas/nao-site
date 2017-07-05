@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Form\ObservationType;
+use Symfony\Component\HttpKernel\Exception\HttpNotFoundException;
 
 class FrontController extends Controller
 {
@@ -108,6 +109,12 @@ class FrontController extends Controller
      */
     public function voirNewsAction(Article $article)
     {
+        // Si l'article a été supprimé on affiche une page erreur 404
+        if ($article->getDeleted() !== null)
+        {
+            throw new NotFoundHttpException("Page not found");
+        }
+
         // On cherche les 3 premiers articles pour les afficher
         $em = $this->getDoctrine()->getManager();
         $listArticles = $em->getRepository('AppBundle:Article')
