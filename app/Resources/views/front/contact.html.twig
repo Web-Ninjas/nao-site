@@ -43,12 +43,13 @@
 
         <div class="form-group col-xs-12 col-md-12 col-centered">
             {# Génération du label. #}
-            {{ form_label(form.email, "Email :", {'label_attr': {'class': 'col-xs-12 col-md-3 col-centered control-label '}}) }}
+            {{ form_label(form.email, "Email :", {'label_attr': {'class': 'col-xs-12 col-md-3 col-centered control-label '}}) }}            
 
             <div class="col-xs-12 col-md-8 col-centered">
                 {# Génération de l'input. #}
                 {{ form_widget(form.email, {'attr': {'class': 'form-control formulaire_contact'}}) }}
             </div>
+
         </div>
         <div class=" col-xs-12">
             {# Affichage des erreurs pour ce champ précis. #}
