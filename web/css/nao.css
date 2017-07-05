@@ -978,10 +978,11 @@ div.checkbox label.required {
         position: absolute;
         font-weight: bold;
         text-transform: uppercase;
-        top: 94px;
-        right: 0;
+        top: 0px;
+        left: 220px;
         width: 324px;
-        font-size: 29px;
+        font-size: 9px;
+        z-index: 100;
     }
 
     h1 p {
