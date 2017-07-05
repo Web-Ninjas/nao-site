@@ -347,7 +347,7 @@ class BackController extends Controller
     }
 
     /**
-     * @Route("/dashboard/article/{id}/supprimer", requirements={"id" = "\d+"}, name="supprimerArticle")
+     * @Route("/dashboard/article/{slug}/supprimer", name="supprimerArticle")
      * @Method({"GET","POST"})
      * @param Article $article
      * @ParamConverter()
@@ -373,7 +373,7 @@ class BackController extends Controller
         }
 
         return $this->redirectToRoute('article', array(
-            "id" => $article->getId()));
+            "slug" => $article->getSlug()));
 
     }
 

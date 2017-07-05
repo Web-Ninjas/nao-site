@@ -31,7 +31,7 @@
                             </button>
                         </a>
 
-                        <a href="{{ path('supprimerArticle', {'id': article.id, 'redirect': 'actualites'}) }}">
+                        <a href="{{ path('supprimerArticle', {'slug': article.slug, 'redirect': 'actualites'}) }}">
                             <button type="button" class="btn envoyer_formulaire  col-lg-2"
                                     style="background-color: #519D9E">{% trans %}
                                 Supprimer{% endtrans %}</button>
