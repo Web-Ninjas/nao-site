@@ -1322,9 +1322,12 @@ p.texte {
     }
 }
 
-/* ROUNDED ONE */
-input[type="checkbox"] {
-    visibility: visible;
+input[type="checkbox"]:checked {
+    
+}
+
+input[type="checkbox"]:not(:checked) {
+
 }
 
 .roundedOne {
