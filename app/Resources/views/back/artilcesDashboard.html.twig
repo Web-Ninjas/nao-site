@@ -23,7 +23,7 @@
 
                 <tbody class="fond_tableau">
                 {% for article in articles %}
-                    <tr>
+                    <tr class="ligne_tbl">
                         <td>
                             {{ article.author.username }}
                         </td>
@@ -51,6 +51,7 @@
                                 <span class=" glyphicon glyphicon-eye-open icone" title="Voir l'article"></span>
                             </a>
 
+                            {% if article.published == null %}
                             <a href="{{ path('dashboard_editArticle', {article: article.slug}) }}">
                                 <span class=" glyphicon glyphicon-pencil icone" title="Modifier l'article"></span>
                             </a>
@@ -58,6 +59,7 @@
                             <a href="{{ path('supprimerArticle', {'slug': article.slug, 'redirect': 'all_articles'}) }}">
                                 <span class=" glyphicon glyphicon-trash icone" title="Supprimer l'article"></span>
                             </a>
+                            {% endif %}
 
                             {% if is_granted('ROLE_ADMIN') and article.published == null %}
                                 <a href={{ path('dashboard_publier-article', {'slug': article.slug, 'redirect': 'all_articles'}) }}>
