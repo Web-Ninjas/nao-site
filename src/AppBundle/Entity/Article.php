@@ -45,6 +45,13 @@ class Article
     private $date;
 
     /**
+    * @var \DateTime
+    *
+    * @ORM\Column(name="published", type="datetime", nullable=true)
+    */
+    private $published = null;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
@@ -364,6 +371,16 @@ class Article
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    public function getPublished()
+    {
+        return $this->published;
+    }
+
+    public function setPublished($date)
+    {
+        $this->published = $date;
     }
 
 }

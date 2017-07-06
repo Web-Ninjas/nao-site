@@ -18,6 +18,7 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
     public function countNbArticles(User $user = null)
     {
         $qb = $this->createQueryBuilder('a');
+        $qb->where('a.deleted IS NULL');
         $qb->select('COUNT(a.id)');
 
         if ($user !== null) {
@@ -75,6 +76,7 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
         $qb = $this->createQueryBuilder('a')
             ->select('a, author') //Que fait cette ligne ?
             ->where('a.deleted IS NULL')
+            ->andWhere('a.published IS NOT NULL')
             ->join('a.author', 'author') // Innutile pour la page actualités
             ->addSelect('author'); 
 
