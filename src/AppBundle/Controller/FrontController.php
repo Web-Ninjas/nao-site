@@ -110,7 +110,7 @@ class FrontController extends Controller
     public function voirNewsAction(Article $article)
     {
         // Si l'article a été supprimé on affiche une page erreur 404
-        if ($article->getDeleted() !== null)
+        if ($article->getDeleted() !== null | $article->getPublished() == null)
         {
             throw new NotFoundHttpException("Page not found");
         }
