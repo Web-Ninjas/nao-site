@@ -157,9 +157,10 @@ h1 {
     font-weight: bold;
     text-transform: uppercase;
     top: 94px;
-    right: 78px;
-    width: 444px;
+    right: 139px;
+    width: 576px;
     color: white;
+    font-size: 50px;
 }
 
 h1 p {
@@ -931,6 +932,32 @@ div.checkbox label.required {
     font-size: 36px;
 }
 
+@media (max-width: 1590px) {
+
+    h1 {
+        position: absolute;
+        font-weight: bold;
+        text-transform: uppercase;
+        top: 94px;
+        right: 78px;
+        width: 444px;
+        color: white;
+        font-size: 36px;
+    }}
+
+@media (max-width: 1239px) {
+
+    h1 {
+        position: absolute;
+        font-weight: bold;
+        text-transform: uppercase;
+        top: 50px;
+        right: -102px;
+        width: 444px;
+        color: white;
+        font-size: 29px;
+    }}
+
 @media (max-width: 768px) {
 
     .autre {
@@ -1400,5 +1427,10 @@ input[type="checkbox"]:not(:checked) {
     background:url(https://cdn1.iconfinder.com/data/icons/text-file-manipulation-icons/128/Find-16.png) no-repeat 0 0 ;
     background-color: white;
     background-position: right;
+}
+
+.naturaliste div.checkbox>label{
+    color: white;
+    font-weight: bold;
 }
 

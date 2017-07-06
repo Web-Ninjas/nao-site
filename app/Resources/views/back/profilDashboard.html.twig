@@ -72,16 +72,16 @@
         </div>
 
         {% if 'ROLE_PARTICULIER' in form.vars.value.roles and form.vars.value.demandeNaturaliste is null%}
-            <div class="roundedOne form-group col-xs-12">
+            <div class=" form-group col-xs-12">
                 {# Génération du label. #}
-                {{ form_label(form.isNaturaliste, "Je veux être naturaliste :", {'label_attr': {'class': ' col-lg-4 col-sm-4 col-xs-12 control-label titre_formulaire gauche', 'for':'roundedOne' }}) }}
+                {{ form_label(form.isNaturaliste, "Je veux être naturaliste :", {'label_attr': {'class': ' col-lg-4 col-sm-4 col-xs-12 control-label titre_formulaire gauche', 'for':'checkIsNaturaliste'  }}) }}
 
                 {# Affichage des erreurs pour ce champ précis. #}
                 {{ form_errors(form.isNaturaliste) }}
 
-                <div class="col-lg-5 col-sm-5 col-xs-12">
+                <div class="col-xs-12 col-sm-offset-4 col-md-offset-4 col-md-8 col-centered naturaliste">
                     {# Génération de l'input. #}
-                    {{ form_widget(form.isNaturaliste, {'attr': {'value':'None', 'id':'roundedOne', 'name':'check','class': 'form-control blocs' }}) }}
+                    {{ form_widget(form.isNaturaliste, {'attr': {'value':'None', 'id':'checkIsNaturaliste', 'name':'check','class': ' ' }}) }}
                 </div>
             </div>
         {% endif %}
@@ -115,16 +115,16 @@
 
         {% if 'ROLE_NATURALISTE' in form.vars.value.roles and form.vars.value.demandeContributeur is null%}
 
-            <div class="roundedOne form-group col-xs-12">
+            <div class=" form-group col-xs-12">
                 {# Génération du label. #}
-                {{ form_label(form.isContributeur, "Je veux être contributeur :", {'label_attr': {'class': 'col-lg-4 col-sm-4 col-xs-12 control-label titre_formulaire gauche', 'for':'roundedOne' }}) }}
+                {{ form_label(form.isContributeur, "Je veux être contributeur :", {'label_attr': {'class': 'col-lg-4 col-sm-4 col-xs-12 control-label titre_formulaire gauche', 'for':'checkIsNaturaliste' }}) }}
 
                 {# Affichage des erreurs pour ce champ précis. #}
                 {{ form_errors(form.isContributeur) }}
 
-                <div class="col-lg-5 col-sm-5 col-xs-12">
+                <div class="col-xs-12 col-sm-offset-4 col-md-offset-4 col-md-8 col-centered naturaliste">
                     {# Génération de l'input. #}
-                    {{ form_widget(form.isContributeur, {'attr': {'value':'None', 'id':'roundedOne', 'name':'check','class': 'form-control blocs' }}) }}
+                    {{ form_widget(form.isContributeur, {'attr': {'value':'None', 'id':'checkIsNaturaliste', 'name':'check','class': ' ' }}) }}
                 </div>
             </div>
 
