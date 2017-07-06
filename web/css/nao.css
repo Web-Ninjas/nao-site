@@ -1143,8 +1143,6 @@ div.formProfil > form > div > div > input {
 .commentForNoValidation.form-control{
 border-radius: 0;
 box-shadow: none;
-    margin-left: 10px;
-    margin-right: 10px;
 }
 
 div.formProfil > form > div > div > input:focus {
@@ -1165,6 +1163,24 @@ div.formProfil > form > div > div > div > select {
     border-bottom: 4px solid #519d9e;
     border-radius: 0;
     margin-right: 10px;
+}
+
+#appbundle_observation_envoyer:hover{
+    transition: 0.5s;
+    box-shadow: 3px 3px hsla(225, 72%, 52%, 1);
+    color: white;
+    border: none;
+    border-radius: 0;
+}
+
+#appbundle_observation_envoyer {
+    padding: 5px 10px;
+    transition: 0.5s;
+    background-color: #5c7ee5;
+    color: white;
+    border: none;
+    border-radius: 0;
+    margin-top: 20px;
 }
 
 .envoyer_formulaire:hover {
