@@ -39,14 +39,14 @@
         </div>
 
         <div class="col-md-3  col-xs-12" style=" text-align: center;">
-
+            {% if observation.photoWebPath %}
             <img class="img-responsive photo-obs" style=" width: 236px; margin-top: 20px;" src="{{ asset(observation.photoWebPath) }}" alt="" width="100%"
                  height="125"/>
             <button style="width: 235px;height: 50px; margin-bottom: 40px" type="submit" id="profil_enregistrer"
                     name="profil[enregistrer]" class="btn envoyer_formulaire btn">
                 <a style="color: white; font-size: 20px;" href=" {{ observation.oiseau.url }}">{% trans %}Fiche de
                     l'éspèce{% endtrans %}</a></button>
-
+            {% endif %}
             {% if observation.audioWebPath %}
                 <div>
                     <strong style="margin-left: 10px; font-weight: bold; font-size: 20px ">
