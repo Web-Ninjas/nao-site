@@ -1,0 +1,28 @@
+<!-- Modal -->
+<div class="modal fade" id="laModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">x</button>
+                <h2>Commentaire de non validation</h2>
+
+                <div class="modal-body">
+                    {{ form_start(form) }}
+                    {{ form_errors(form) }}
+
+                    {{ form_label(form.commentForNoValidation, "Commentaire de non validation :") }}
+                    {# Affichage des erreurs pour ce champ précis. #}
+                    {{ form_errors(form.commentForNoValidation) }}
+
+                    <div class="">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.commentForNoValidation, {'attr': {'class': 'blocs commentForNoValidation'}}) }}
+                    </div>
+                    {{ form_row(form.envoyer, { 'label': 'Envoyer', 'href': "{{ path('demandeDeModificationObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}" }) }}
+                    {{ form_end(form) }}
+
+                </div><!-- /.modal-body -->
+            </div><!-- /.modal-header -->
+        </div><!-- /.modal-content --> 
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

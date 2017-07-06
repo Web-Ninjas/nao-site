@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use AppBundle\Form\ObservationType;
 use Symfony\Component\HttpKernel\Exception\HttpNotFoundException;
+use AppBundle\Form\DemandeModifObservationType;
 
 class FrontController extends Controller
 {
@@ -132,10 +133,25 @@ class FrontController extends Controller
      * @Route("/observation/{id}", requirements={"id" = "\d+"}, name="observation")
      * @param Observation $observation
      */
-    public function voirObservationAction(Observation $observation)
+    public function voirObservationAction(Observation $observation, Request $request)
     {
+        $form = $this->get('form.factory')->create(DemandeModifObservationType::class, $observation);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $observation->setStatus(Observation::A_MODIFIER);
+            $observation->setValidateur($this->getUser());
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            return $this->redirectToRoute('dashboard_all_observations');
+            // ICI ENVOYER UN EMAIL
+        }
+
         return $this->render('front/voirObservation.html.twig', array(
             'observation' => $observation,
+            'form' => $form->createView()
         ));
     }
 

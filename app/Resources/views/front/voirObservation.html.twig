@@ -31,6 +31,10 @@
                            href="{{ path('dashboard_editObservation', {observation: observation.id}) }}">
                             <span class=" glyphicon glyphicon-pencil icone" title="Modifier l'article"></span>
                         </a>
+                        <a style="float: right" data-toggle="modal" href="#laModal">
+                            <span class=" glyphicon glyphicon-share-alt icone" title="Modifier l'article"></span>
+                        </a>
+                        {% include 'back/modal.html.twig' %}
 
                     {% endif %}
                 </strong>
