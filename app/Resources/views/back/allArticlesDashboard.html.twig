@@ -15,6 +15,7 @@
                 <tr>
                     <th>{% trans %}Contributeur{% endtrans %}</th>
                     <th>{% trans %}Date{% endtrans %}</th>
+                    <th>{% trans %}Publié le{% endtrans %}</th>
                     <th>{% trans %}Titre article{% endtrans %}</th>
                     <th class="tableau_action">{% trans %}Action{% endtrans %}</th>
                 </tr>
@@ -30,7 +31,13 @@
                         <td>
                             {{ article.date | date('d-m-Y') }}
                         </td>
-
+                        <td>
+                            {% if article.published is not null %}
+                                {{ article.published| date('d-m-Y')  }}
+                            {% else  %}
+                            {% trans %}Non publié{% endtrans %}
+                            {% endif %}
+                        </td>
                         <td class="content_observation">
 
                             {{ article.title |striptags| truncate(20)}}
