@@ -143,7 +143,7 @@ class BackController extends Controller
         }
 
 
-        return $this->render('front/modifMdp.html.twig', array(
+        return $this->render(':back:modifMdp.html.twig', array(
             'form' => $form->createView()
         ));
     }

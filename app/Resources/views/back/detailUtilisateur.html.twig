@@ -111,12 +111,6 @@
         </div>
 
         <div class="form-group col-xs-12">
-            <div class="col-lg-offset-4 col-lg-5 password col-sm-offset-4">
-                <a href="#">{% trans %}Modifier mot de passe{% endtrans %}</a>
-            </div>
-        </div>
-
-        <div class="form-group col-xs-12">
             <div class="col-lg-offset-4 col-lg-12 col-sm-offset-4">
                 {%  if (user.username != app.user.username)%}
                 <a href="{{ path('destituerUtilisateurs',{'id': form.vars.data.id}) }}">
