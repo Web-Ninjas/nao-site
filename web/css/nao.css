@@ -1134,6 +1134,18 @@ div.formProfil > form > div > div > input {
     border-radius: 0;
     box-shadow: none;
 }
+.commentForNoValidation:focus{
+    transition: 0.5s;
+    border-bottom: 4px solid #519d9e;
+    background-color: white;
+    color: black;
+}
+.commentForNoValidation.form-control{
+border-radius: 0;
+box-shadow: none;
+    margin-left: 10px;
+    margin-right: 10px;
+}
 
 div.formProfil > form > div > div > input:focus {
     transition: 0.5s;

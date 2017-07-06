@@ -64,7 +64,7 @@
                                 <a href="{{ path('observation', {'id': observation.id}) }}">
                                     <span class=" glyphicon glyphicon-eye-open icone" title="Voir l'observation"></span>
                                 </a>
-                                {% if is_granted('ROLE_ADMIN')%}
+                                {% if is_granted('ROLE_ADMIN') %}
                                     <a href="{{ path('supprimerObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
                                     <span class=" glyphicon glyphicon-trash icone"
                                           title="Supprimer l'observation"></span>
@@ -86,10 +86,33 @@
                                           title="Modifier l'observation"></span>
                                     </a>
                                 {% endif %}
-                                <a href="{{ path('demandeDeModificationObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
-                                    <span class=" glyphicon glyphicon-share-alt icone"
-                                          title="Observation à modifier"></span>
+
+                                <a data-toggle="modal" data-target="#laModal"
+                                   href="{{ path('demandeDeModificationObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
+                                <span class=" glyphicon glyphicon-share-alt icone"
+                                      title="Observation à modifier"></span>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="laModal" tabindex="-1" role="dialog"
+                                         aria-labelledby="myModalLabel"
+                                         aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <h2>Commentaire de non validation</h2>
+
+                                                grg
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default"
+                                                        data-dismiss="modal">{% trans %}Fermer{% endtrans %}</button>
+                                            </div>
+                                            <!-- /.modal-content -->
+                                        </div>
+                                        <!-- /.modal-dialog -->
+                                    </div>
+                                    <!-- /.modal -->
                                 </a>
+
+
                                 <a href="{{ path('validerObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
                                     <span class=" glyphicon glyphicon-ok icone" title="Valider l'observation"></span>
                                 </a>
@@ -109,9 +132,43 @@
                                           title="Modifier l'observation"></span>
                                     </a>
                                 {% endif %}
-                                <a href="{{ path('demandeDeModificationObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
-                                    <span class=" glyphicon glyphicon-share-alt icone"
-                                          title="Observation à modifier"></span>
+
+                                <a data-toggle="modal" data-target="#laModal"
+                                   href="#">
+                                <span class=" glyphicon glyphicon-share-alt icone"
+                                      title="Observation à modifier"></span>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="laModal" tabindex="-1" role="dialog"
+                                         aria-labelledby="myModalLabel"
+                                         aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <h2>Commentaire de non validation</h2>
+                                                aaagrg
+                                                {{ form_start(form) }}
+                                                {{ form_errors(form) }}
+
+                                                {{ form_label(form.commentForNoValidation, "Commentaire de non validation :") }}
+                                                {# Affichage des erreurs pour ce champ précis. #}
+                                                {{ form_errors(form.commentForNoValidation) }}
+
+                                                <div class="">
+                                                {# Génération de l'input. #}
+                                                {{ form_widget(form.commentForNoValidation, {'attr': {'class': 'blocs commentForNoValidation'}}) }}
+                                                </div>
+                                                {{ form_row(form.envoyer, { 'label': 'Envoyer', 'href': "{{ path('demandeDeModificationObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}" }) }}
+                                                {{ form_end(form) }}
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default"
+                                                        data-dismiss="modal">{% trans %}Fermer{% endtrans %}</button>
+                                            </div>
+                                            <!-- /.modal-content -->
+                                        </div>
+                                        <!-- /.modal-dialog -->
+                                    </div>
+                                    <!-- /.modal -->
                                 </a>
 
                                 <a href="{{ path('validerObservation', {'id': observation.id,'redirect': 'all_observations'}) }}">

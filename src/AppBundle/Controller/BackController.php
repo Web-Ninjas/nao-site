@@ -7,6 +7,7 @@ use AppBundle\Entity\Observation;
 use AppBundle\Entity\Page;
 use AppBundle\Form\AdminType;
 use AppBundle\Form\ArticleType;
+use AppBundle\Form\DemandeModifObservationType;
 use AppBundle\Form\ObservationType;
 use AppBundle\Form\ProfilType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,7 +18,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use UserBundle\Entity\User;
 use UserBundle\Form\ModifMdp;
 
@@ -171,8 +171,11 @@ class BackController extends Controller
      * @Method({"GET","POST"})
      * @Security("has_role('ROLE_NATURALISTE') ")
      */
-    public function allObservationsAction()
+    public function allObservationsAction(Request $request)
     {
+        $form = $this->get('form.factory')->create(DemandeModifObservationType::class);
+        $form->handleRequest($request);
+
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AppBundle:Observation');
 
@@ -180,6 +183,7 @@ class BackController extends Controller
 
         return $this->render('back/allObservationsDashboard.html.twig', array(
             'observations' => $observations,
+            'form' => $form->createView()
         ));
     }
 
@@ -285,12 +289,16 @@ class BackController extends Controller
     {
         $redirect = $request->query->get('redirect');
 
-        $em = $this->getDoctrine()->getManager();
-        $observation
-            ->setStatus(Observation::A_MODIFIER)
-            ->setValidateur($this->getUser());
-        $em->flush();
 
+        $form = $this->get('form.factory')->create(DemandeModifObservationType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $observation
+                ->setStatus(Observation::A_MODIFIER)
+                ->setValidateur($this->getUser());
+            $em->flush();
 
         /*Swift_Message::newInstance*/
 
@@ -303,10 +311,12 @@ class BackController extends Controller
 
         if ($redirect === 'observations') {
             return $this->redirectToRoute('dashboard_observations');
-        }
+        }}
 
         return $this->redirectToRoute('observation', array(
-            "id" => $observation->getId()));
+            "id" => $observation->getId(),
+            'form' => $form->createView()
+            ));
 
     }
 
