@@ -1345,7 +1345,7 @@ p.texte {
 
 @media (min-width: 768px) {
     .col-lg-4.col-xs-12.control-label.titre_formulaire.gauche.control-label.required {
-        text-align: right;
+        text-align: left;
 
     }
 }
