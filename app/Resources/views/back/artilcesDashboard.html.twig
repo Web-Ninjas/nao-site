@@ -51,6 +51,16 @@
                             <a href="{{ path('supprimerArticle', {'slug': article.slug, 'redirect': 'all_articles'}) }}">
                                 <span class=" glyphicon glyphicon-trash icone" title="Supprimer l'article"></span>
                             </a>
+
+                            {% if is_granted('ROLE_ADMIN') and article.published == null %}
+                                <a href={{ path('dashboard_publier-article', {'slug': article.slug, 'redirect': 'all_articles'}) }}>
+                                    <span class=" glyphicon glyphicon-ok" title="Valider l'article"></span>
+                                </a>
+                            {% elseif  is_granted('ROLE_ADMIN') and article.published != null%}
+                                <a href={{ path('dashboard_depublier-article', {'slug': article.slug, 'redirect': 'all_articles'}) }}>
+                                    <span class=" glyphicon glyphicon-remove" title="Dépublier l'article"></span>
+                                </a>
+                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}

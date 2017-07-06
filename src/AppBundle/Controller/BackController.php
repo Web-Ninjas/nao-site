@@ -543,11 +543,9 @@ class BackController extends Controller
             $em->persist($article);
             $em->flush();
 
-            $this->addFlash('notice', 'L\'article a bien été enregistré !');
+            $this->addFlash('notice', "L'article a bien été enregistré, celle-ci va être validé par l'admin avant d'être publié!");
 
-            return $this->redirectToRoute('article', array(
-                'slug' => $article->getSlug()
-            ));
+            return $this->redirectToRoute('dashboard_articles');
         }
 
         return $this->render(':back:redigerArticle.html.twig', array(

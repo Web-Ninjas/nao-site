@@ -68,23 +68,27 @@
                         <td class="tableau_action action">
 
                             <a href="{{ path('detailUtilisateur',{'id': utilisateur.id}) }}">
-        <span class=" glyphicon glyphicon-eye-open icone"
-              title="Détail de l'utilisateur"></span>
+                                <span class=" glyphicon glyphicon-eye-open icone"
+                                      title="Détail de l'utilisateur"></span>
                             </a>
                             <a href="{{ path('detailUtilisateur',{'id': utilisateur.id}) }}">
                                 <span class=" glyphicon glyphicon-pencil icone" title="Modifier l'utilisateur"></span>
                             </a>
-                            <a href="{{ path('promouvoirUtilisateurs',{'id': utilisateur.id, 'redirect': 'utilisateurs'}) }}">
-        <span class=" glyphicon glyphicon-arrow-up icone"
-              title="Promouvoir l'utilisateur"></span>
-                            </a>
+                            {% if (utilisateur.demandeNaturaliste  != false) or  (utilisateur.demandeContributeur != false)%}
+                                <a href="{{ path('promouvoirUtilisateurs',{'id': utilisateur.id, 'redirect': 'utilisateurs'}) }}">
+                                    <span class=" glyphicon glyphicon-arrow-up icone"
+                                          title="Promouvoir l'utilisateur"></span>
+                                </a>
+                            {% endif %}
                             <a href="{{ path('destituerUtilisateurs',{'id': utilisateur.id, 'redirect': 'utilisateurs'}) }}">
-    <span class=" glyphicon glyphicon-arrow-down icone"
-          title="Rétrograder l'utilisateur"></span>
+                                <span class=" glyphicon glyphicon-arrow-down icone"
+                                      title="Rétrograder l'utilisateur"></span>
                             </a>
+
                             {% if utilisateur.username != app.user.username %}
                                 <a href="{{ path('supprimerUtilisateurs',{'id': utilisateur.id, 'redirect': 'utilisateurs'}) }}">
-                                    <span class=" glyphicon glyphicon-trash icone" title="Supprimer l'utilisateur"></span>
+                                    <span class=" glyphicon glyphicon-trash icone"
+                                          title="Supprimer l'utilisateur"></span>
                                 </a>
                             {% endif %}
                         </td>
@@ -101,7 +105,9 @@
     {{ parent() }}
     <script type="text/javascript">{% include 'back/locale.html.twig' %}</script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/rowreorder/1.2.0/js/dataTables.rowReorder.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
-    <script type="text/javascript" src="{{asset('js/table.js')}}"></script>
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/rowreorder/1.2.0/js/dataTables.rowReorder.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="{{ asset('js/table.js') }}"></script>
 {% endblock %}
