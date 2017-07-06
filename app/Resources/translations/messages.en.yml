@@ -127,26 +127,26 @@ Audio: Audio
 'Non publié': 'Not published'
 'Informations Utilisateur': 'User info'
 '- Actualités': '- News'
-"Date de\n                            création:": "__Date de\n                            création:"
-Modifier: __Modifier
-Supprimer: __Supprimer
-"Date\n                    :": "__Date\n                    :"
-"Heure\n                    :": "__Heure\n                    :"
-"Fiche de\n                    l'éspèce": "__Fiche de\n                    l'éspèce"
-'- Qui sommes nous ?': '__- Qui sommes nous ?'
-'- Contact': '__- Contact'
-'- Accueil': '__- Accueil'
-'- Inscription': '__- Inscription'
-'- Login': '__- Login'
-'- Rechercher une observation': '__- Rechercher une observation'
-'- Mentions légales': '__- Mentions légales'
-'- Modifier mot de passe': '__- Modifier mot de passe'
-'- Soumettre une observation': '__- Soumettre une observation'
-'- Réinitialiser le mot de passe': '__- Réinitialiser le mot de passe'
-'- Demande de réinitialisation de mot de passe': '__- Demande de réinitialisation de mot de passe'
-'- Voir observation': '__- Voir observation'
-'Enfin une occasion de voir vos oiseaux préférés près de chez vous.': '__Enfin une occasion de voir vos oiseaux préférés près de chez vous.'
-'Regarder les photos et partager les votre avec la communauté.': '__Regarder les photos et partager les votre avec la communauté.'
-'Prennez le temps de lire du contenu sur votre passion!': '__Prennez le temps de lire du contenu sur votre passion!'
-'Attention une de vos observations n''à pas été validée !': '__Attention une de vos observations n''à pas été validée !'
-'Commentaire de non validation :': '__Commentaire de non validation :'
+"Date de\n                            création:": "Creation date\n"
+Modifier: Modify
+Supprimer: Delete
+"Date\n                    :": "Date\n                    :"
+"Heure\n                    :": "Hour\n                    :"
+"Fiche de\n                    l'éspèce": "Record\n                    specie"
+'- Qui sommes nous ?': 'The association?'
+'- Contact': '- Contact'
+'- Accueil': '- Home'
+'- Inscription': '- Subscription'
+'- Login': '- Login'
+'- Rechercher une observation': '- Search an observation'
+'- Mentions légales': '- Legal terms'
+'- Modifier mot de passe': '- Modify password'
+'- Soumettre une observation': '- Send an observation'
+'- Réinitialiser le mot de passe': '- Reinit password'
+'- Demande de réinitialisation de mot de passe': '- Request for password reset'
+'- Voir observation': '- See observation'
+'Enfin une occasion de voir vos oiseaux préférés près de chez vous.': 'Finally an opportunity to see your favorite birds near you.'
+'Regarder les photos et partager les votre avec la communauté.': 'Watch the photos and share with the community.'
+'Prennez le temps de lire du contenu sur votre passion!': 'Take time to read content about your passion!'
+'Attention une de vos observations n''à pas été validée !': 'Attention one of your observations has not been validated!'
+'Commentaire de non validation :': 'Comment: '
