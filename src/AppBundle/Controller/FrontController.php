@@ -226,7 +226,7 @@ class FrontController extends Controller
     	{
             // On récupère l'oiseau en bdd d'après son nom formatté dans la barre de recherche autocomplete
     		$nomOiseau = $request->request->get('appbundle_observation')['nomOiseau'];
-    		$nomOiseauComplet = substr($nomOiseau, strpos($nomOiseau, "-") + 2); 
+    		$nomOiseauComplet = substr($nomOiseau, strpos($nomOiseau, " - ") + 3); 
     		$oiseau = $em->getRepository('AppBundle:OiseauTaxref')->findOneBy([
     			'nomComplet' => $nomOiseauComplet
     			]);
