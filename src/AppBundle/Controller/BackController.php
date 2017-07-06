@@ -686,4 +686,38 @@ class BackController extends Controller
             'observation' => $observation
         ));
     }
+
+    /**
+     * @Route("/dashboard/article/{slug}/publier", name="dashboard_publier-article")
+     * @Method({"GET","POST"})
+     * @Security("has_role('ROLE_ADMIN') ")
+     */
+    public function publierActicleAction(Article $article)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $article->setPublished(new \Datetime());
+        $em->flush();
+
+        $this->addFlash('notice', "L'acticle a bien été publié !");
+
+        return $this->redirectToRoute('dashboard_all_articles', array(
+            "slug" => $article->getSlug()));
+    }
+
+    /**
+     * @Route("/dashboard/article/{slug}/depublier", name="dashboard_depublier-article")
+     * @Method({"GET","POST"})
+     * @Security("has_role('ROLE_ADMIN') ")
+     */
+    public function depublierActicleAction(Article $article)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $article->setPublished(null);
+        $em->flush();
+
+        $this->addFlash('notice', "L'acticle a bien été dépublié !");
+
+        return $this->redirectToRoute('dashboard_all_articles', array(
+        "slug" => $article->getSlug()));
+}
 }
