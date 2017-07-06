@@ -67,6 +67,13 @@ class MapManager
 
 		foreach ($list as $observation) 
 		{
+			// Si il y aune photo on note le chemin sinon on le met à null
+			if ($observation->getPhotoExtension() != null) {
+				$photoPath = '/nao-site/web/' .$observation->getPhotoWebPath();
+			} else {
+				$photoPath = null;
+			}
+
 			$listObservationsArray[] = [
 				'id' => $observation->getId(),
 				'nomOiseau' => is_null($observation->getOiseau()->getNomVern() ) ? $observation->getOiseau()->getNomComplet() : $observation->getOiseau()->getNomVern(),
@@ -75,7 +82,7 @@ class MapManager
 				'content' => $observation->getContent(),
 				'longitude' => $observation->getLongitude(),
 				'latitude' => $observation->getLatitude(),
-				'photoPath' => '/nao-site/web/' .$observation->getPhotoWebPath(),
+				'photoPath' => $photoPath,
 				'audioPath' => '/nao-site/web/' .$observation->getAudioWebPath(),
 
 			];

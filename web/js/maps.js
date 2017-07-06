@@ -86,13 +86,18 @@
 
 		function populateInfoWindow(marker, infoWindow)
 		{
+			console.log('source de l\'image : ' + listObservations[marker.id].photoPath);
+			if (listObservations[marker.id].photoPath === null) {
+				var imgString = '';
+			} else {
+				var imgString = ' <img alt="" src="' + listObservations[marker.id].photoPath + '" width="80" height="80">';
+			}
+
 			if(infoWindow.marker != marker)
 			{
 				infoWindow.marker = marker;
 				infoWindow.setContent(
-					'<div>' + marker.title +
-					 ' <img alt="" src="' + listObservations[marker.id].photoPath + 
-					 '" width="80" height="80">' + '</div>'
+					'<div>' + marker.title + imgString + '</div>'
 				);
 				infoWindow.open(map, marker);
 				infoWindow.addListener('closeclick', function(){
