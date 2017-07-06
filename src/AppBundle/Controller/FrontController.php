@@ -111,7 +111,7 @@ class FrontController extends Controller
         // Si l'article a été supprimé on affiche une page erreur 404
         if ($article->getDeleted() !== null | $article->getPublished() == null)
         {
-            throw new NotFoundHttpException("Page not found");
+            throw new HttpNotFoundException("Page not found");
         }
 
         // On cherche les 3 premiers articles pour les afficher
