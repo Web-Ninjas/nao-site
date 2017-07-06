@@ -32,7 +32,7 @@ Article: News
 'Contributeur ?': 'Contributor ?'
 'Naturaliste ?': 'Naturaliste ?'
 'Il n''y a aucun utilisateur pour l''instant.': 'There''s no users for the moment.'
-'Tableau de bord': 'Dashboard'
+'Tableau de bord': Dashboard
 Contact: Contact
 Rechercher: Search
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac turpis risus.\n                Mauris tincidunt molestie ligula vitae": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac turpis risus.\n                Mauris tincidunt molestie ligula vitae"
@@ -41,7 +41,7 @@ Actualité: News
 'Créer un compte': 'Create an account'
 'J''ai lu et j''accepte les mentions légales': 'I read and accept the legal terms'
 Fermer: Close
-'Se connecter': 'Login'
+'Se connecter': Login
 'Nom d''utilisateur :': 'User name :'
 'Mot de passe :': 'Password :'
 'Mot de passe oublié': 'Forgotten password'
@@ -69,14 +69,14 @@ Carte: Map
 Observations: Watching
 Déconnexion: Disconnect
 'Mentions Légales': 'Legal terms'
-Nao-site: 'Nao-site'
+Nao-site: Nao-site
 'Contact Nao !': 'Contact Nao !'
 'De :': 'From :'
 'Email :': 'Mail address :'
 'Message :': 'Message :'
 'Demande de réinitialisation de mot de passe !': 'Ask for a password reset !'
 Bonjour: Hello
-'Pour réinitialiser votre mot de passe, merci de vous rendre sur :':  ' To reset you password, thank to go on :'
+'Pour réinitialiser votre mot de passe, merci de vous rendre sur :': ' To reset you password, thank to go on :'
 'Cordialement,': 'Kinds Regards'
 'L''équipe, Nos amis les oiseaux': 'All the Team NAO'
 'Nom :': Name
@@ -86,7 +86,7 @@ Bonjour: Hello
 ' Captcha code :': ' Captcha code :'
 'saisir le code': 'Enter code'
 Envoyer: 'To send'
-'Nom oiseau': "Bird's name"
+'Nom oiseau': 'Bird''s name'
 'Photo file': 'Photo file'
 'Audio file': 'Audio file'
 Content: Content
@@ -109,20 +109,39 @@ about: about
 Title: Title
 'Photo banner': 'Picture banner'
 'J''ai lu et j''accepte la charte éthique': 'I have read and accept the ethical charter'
-'S''inscrire': 'Register'
+'S''inscrire': Register
 '''Veuillez rechercher un oiseau pour afficher des données''': '''Please search a bird to fin the data'''
 '''Il y a ''': '''There is '''
 ''' observations pour cette recherche''': ''' Watching for this search'''
 ''' observation pour cette recherche''': '''  Watching for this search'''
 "Lire la\n                            suite...": 'Read the next...'
 'Bonjour,': 'Hello,'
-'Remarque': Note
+Remarque: Note
 'Je veux être naturaliste': 'I want to be naturalist'
 'Confirmation du mot de passe :': 'Password Confirmation'
-Enregistrer: Validate
 'Éditer un article': 'Edit an article'
 'Modifier une observation': 'Edit an observation'
 Photo: Photo
 Audio: Audio
 'Publié le': 'Published on'
 'Non publié': 'Not published'
+'Informations Utilisateur': 'User info'
+'- Actualités': '__- Actualités'
+"Date de\n                            création:": "__Date de\n                            création:"
+Modifier: __Modifier
+Supprimer: __Supprimer
+"Date\n                    :": "__Date\n                    :"
+"Heure\n                    :": "__Heure\n                    :"
+"Fiche de\n                    l'éspèce": "__Fiche de\n                    l'éspèce"
+'- Qui sommes nous ?': '__- Qui sommes nous ?'
+'- Contact': '__- Contact'
+'- Accueil': '__- Accueil'
+'- Inscription': '__- Inscription'
+'- Login': '__- Login'
+'- Rechercher une observation': '__- Rechercher une observation'
+'- Mentions légales': '__- Mentions légales'
+'- Modifier mot de passe': '__- Modifier mot de passe'
+'- Soumettre une observation': '__- Soumettre une observation'
+'- Réinitialiser le mot de passe': '__- Réinitialiser le mot de passe'
+'- Demande de réinitialisation de mot de passe': '__- Demande de réinitialisation de mot de passe'
+'- Voir observation': '__- Voir observation'

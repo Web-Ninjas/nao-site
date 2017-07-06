@@ -417,6 +417,7 @@ class BackController extends Controller
 
         return $this->render('back/detailUtilisateur.html.twig', array(
             'form' => $form->createView(),
+            'user' => $user
         ));
 
     }
@@ -463,8 +464,11 @@ class BackController extends Controller
 
         if (in_array('ROLE_PARTICULIER', $user->getRoles())) {
             $user->setRoles(['ROLE_NATURALISTE']);
+            $user->setDemandeNaturaliste(NULL);
+
         } elseif (in_array('ROLE_NATURALISTE', $user->getRoles())) {
             $user->setRoles(['ROLE_CONTRIBUTEUR']);
+            $user->setDemandeContributeur(NULL);
         }
 
         $em->flush();
@@ -500,9 +504,8 @@ class BackController extends Controller
             $user->setNSiret(NULL);
             $user->setRoles(['ROLE_PARTICULIER']);
         } elseif (in_array('ROLE_CONTRIBUTEUR', $user->getRoles())) {
-            $user
-                ->setDemandeContributeur(NULL)
-                ->setRoles(['ROLE_NATURALISTE']);
+             $user->setDemandeContributeur(NULL);
+             $user->setRoles(['ROLE_NATURALISTE']);
         }
 
         $em->flush();

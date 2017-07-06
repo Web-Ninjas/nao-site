@@ -1,5 +1,5 @@
 {% extends "layout.html.twig" %}
-
+{% block title %}{{ parent() }}{% trans %} - Login{% endtrans %}{% endblock %}
 {% block body %}
 
     <h2>{% trans %}Se connecter{% endtrans %}</h2>

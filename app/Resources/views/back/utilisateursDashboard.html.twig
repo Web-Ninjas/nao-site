@@ -80,11 +80,12 @@
                                           title="Promouvoir l'utilisateur"></span>
                                 </a>
                             {% endif %}
+                            {%  if (utilisateur.username != app.user.username)%}
                             <a href="{{ path('destituerUtilisateurs',{'id': utilisateur.id, 'redirect': 'utilisateurs'}) }}">
                                 <span class=" glyphicon glyphicon-arrow-down icone"
                                       title="Rétrograder l'utilisateur"></span>
                             </a>
-
+                            {% endif %}
                             {% if utilisateur.username != app.user.username %}
                                 <a href="{{ path('supprimerUtilisateurs',{'id': utilisateur.id, 'redirect': 'utilisateurs'}) }}">
                                     <span class=" glyphicon glyphicon-trash icone"

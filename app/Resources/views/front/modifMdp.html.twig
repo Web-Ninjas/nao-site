@@ -1,5 +1,5 @@
 {% extends "back-layout.html.twig" %}
-
+{% block title %}{{ parent() }}{% trans %} - Modifier mot de passe{% endtrans %}{% endblock %}
 {% block content %}
 
     <h4>{% trans %}Modification du mot de passe{% endtrans %}</h4>

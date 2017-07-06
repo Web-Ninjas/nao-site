@@ -10,7 +10,7 @@
 {% block content %}
 
 
-    <h4 xmlns="http://www.w3.org/1999/html">{% trans %}Mes informations Personnelles{% endtrans %}</h4>
+    <h4 xmlns="http://www.w3.org/1999/html">{% trans %}Informations Utilisateur{% endtrans %}</h4>
 
 
 
@@ -106,7 +106,7 @@
             <div class="col-lg-5 col-sm-5 col-xs-12">
                 <input disabled="disabled" type="text" name="registrationDate"
                        class="fixe form-control form-control blocs"
-                       value={{ app.user.registrationDate |date('d/m/Y') }}>
+                       value={{ user.registrationDate |date('d/m/Y') }}>
             </div>
         </div>
 
@@ -118,16 +118,19 @@
 
         <div class="form-group col-xs-12">
             <div class="col-lg-offset-4 col-lg-12 col-sm-offset-4">
+                {%  if (user.username != app.user.username)%}
                 <a href="{{ path('destituerUtilisateurs',{'id': form.vars.data.id}) }}">
                     <button type="button" class="btn envoyer_formulaire col-lg-2"
                             style="margin-right: 20px; background-color: red">{% trans %}
                         Destituer{% endtrans %}</button>
                 </a>
-
+                {% endif %}
+                {% if (user.demandeNaturaliste  != false) or  (user.demandeContributeur != false)%}
                 <a href="{{ path('promouvoirUtilisateurs',{'id': form.vars.data.id}) }}">
                     <button type="button" class="btn envoyer_formulaire  col-lg-2"
                             style="background-color: #519D9E">{% trans %}Promouvoir{% endtrans %}</button>
                 </a>
+                {% endif %}
             </div>
         </div>
 
