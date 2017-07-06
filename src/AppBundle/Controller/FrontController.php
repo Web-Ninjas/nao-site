@@ -135,6 +135,7 @@ class FrontController extends Controller
      */
     public function voirObservationAction(Observation $observation, Request $request)
     {
+        $mailer = $this->get("app.manager.mailContact");
         $form = $this->get('form.factory')->create(DemandeModifObservationType::class, $observation);
         $form->handleRequest($request);
 
@@ -145,8 +146,10 @@ class FrontController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
+            $mailer->envoyerMailCommentaireNonValidation($observation);
+            $this->addFlash('notice', 'Votre message a bien été envoyé !');
+
             return $this->redirectToRoute('dashboard_all_observations');
-            // ICI ENVOYER UN EMAIL
         }
 
         return $this->render('front/voirObservation.html.twig', array(

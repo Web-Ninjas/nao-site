@@ -279,48 +279,6 @@ class BackController extends Controller
     }
 
     /**
-     * @Route("/dashboard/observations/{id}/demandeDeModification", requirements={"id" = "\d+"}, name="demandeDeModificationObservation")
-     * @Method({"GET","POST"})
-     * @param Observation $observation
-     * @ParamConverter()
-     * @Security("has_role('ROLE_NATURALISTE') ")
-     */
-    public function demandeDeModificationObservationAction(Observation $observation, Request $request)
-    {
-        $redirect = $request->query->get('redirect');
-
-
-        $form = $this->get('form.factory')->create(DemandeModifObservationType::class);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $observation
-                ->setStatus(Observation::A_MODIFIER)
-                ->setValidateur($this->getUser());
-            $em->flush();
-
-        /*Swift_Message::newInstance*/
-
-
-        $this->addFlash('notice', "La demande de modification de l'observation a bien été envoyée !");
-
-        if ($redirect === 'all_observations') {
-            return $this->redirectToRoute('dashboard_all_observations');
-        }
-
-        if ($redirect === 'observations') {
-            return $this->redirectToRoute('dashboard_observations');
-        }}
-
-        return $this->redirectToRoute('observation', array(
-            "id" => $observation->getId(),
-            'form' => $form->createView()
-            ));
-
-    }
-
-    /**
      * @Route("/dashboard/articles", name="dashboard_articles")
      * @Method({"GET","POST"})
      * @Security("has_role('ROLE_CONTRIBUTEUR') ")
@@ -670,7 +628,8 @@ class BackController extends Controller
                 'nomComplet' => $nomOiseau
             ]);
             $observation->setOiseau($oiseau);
-         
+
+
             // Si l'utilisateur est au moins naturaliste, son observation est validée tout de suite
             $isNaturaliste = $this->get('security.authorization_checker')->isGranted('ROLE_NATURALISTE');
             if ($isNaturaliste) {
@@ -678,6 +637,8 @@ class BackController extends Controller
                 $observation->setPublish(new \DateTime('now'));
 
                 $this->addFlash('notice', 'Merci d\'avoir soumis une observation, celle-ci vient d\'être publiée');
+            } else {
+                $observation->setStatus(Observation::A_VALIDER);
             }
             
             // On enregistre en bdd

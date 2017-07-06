@@ -87,29 +87,9 @@
                                     </a>
                                 {% endif %}
 
-                                <a data-toggle="modal" data-target="#laModal"
-                                   href="{{ path('demandeDeModificationObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
+                                <a href="{{ path('observation', {'id': observation.id}) }}">
                                 <span class=" glyphicon glyphicon-share-alt icone"
                                       title="Observation à modifier"></span>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="laModal" tabindex="-1" role="dialog"
-                                         aria-labelledby="myModalLabel"
-                                         aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <h2>Commentaire de non validation</h2>
-
-                                                grg
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default"
-                                                        data-dismiss="modal">{% trans %}Fermer{% endtrans %}</button>
-                                            </div>
-                                            <!-- /.modal-content -->
-                                        </div>
-                                        <!-- /.modal-dialog -->
-                                    </div>
-                                    <!-- /.modal -->
                                 </a>
 
 
@@ -133,13 +113,11 @@
                                     </a>
                                 {% endif %}
 
-                                <a data-toggle="modal" {#data-target="#laModal"#}
-                                   href="#laModal">
+                                <a href="{{ path('observation', {'id': observation.id}) }}">
                                 <span class=" glyphicon glyphicon-share-alt icone"
                                       title="Observation à modifier"></span>
                                 </a>
-                                {# ici inclure le fichier modal .html.twig #}
-                                {% include 'back/modal.html.twig' %}
+
 
                                 <a href="{{ path('validerObservation', {'id': observation.id,'redirect': 'all_observations'}) }}">
                                     <span class=" glyphicon glyphicon-ok icone" title="Valider l'observation"></span>

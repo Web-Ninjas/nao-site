@@ -22,17 +22,17 @@
 
             <div><strong style="font-weight: bold; font-size: 20px ">{% trans %}Observation :{% endtrans %}
 
-                    {% if is_granted('ROLE_PARTICULIER') and observation.status == constant('AppBundle\\Entity\\Observation::A_VALIDER') %}
+                    {% if is_granted('ROLE_PARTICULIER') and observation.status == constant('AppBundle\\Entity\\Observation::A_VALIDER') or observation.status == constant('AppBundle\\Entity\\Observation::A_MODIFIER') or observation.status == constant('AppBundle\\Entity\\Observation::SIGNALER')%}
                         <a style="float: right"
                            href="{{ path('supprimerObservation', {'id': observation.id, 'redirect': ''}) }}">
-                            <span class=" glyphicon glyphicon-trash icone" title="Supprimer l'article"></span>
+                            <span class=" glyphicon glyphicon-trash icone" title="Supprimer l'observation"></span>
                         </a>
                         <a style="float: right"
                            href="{{ path('dashboard_editObservation', {observation: observation.id}) }}">
-                            <span class=" glyphicon glyphicon-pencil icone" title="Modifier l'article"></span>
+                            <span class=" glyphicon glyphicon-pencil icone" title="Modifier l'observation"></span>
                         </a>
                         <a style="float: right" data-toggle="modal" href="#laModal">
-                            <span class=" glyphicon glyphicon-share-alt icone" title="Modifier l'article"></span>
+                            <span class=" glyphicon glyphicon-share-alt icone" title="Demande de modification de l'observation"></span>
                         </a>
                         {% include 'back/modal.html.twig' %}
 
