@@ -48,7 +48,7 @@
                  height="125"/>
             <button style="width: 235px;height: 50px; margin-bottom: 40px" type="submit" id="profil_enregistrer"
                     name="profil[enregistrer]" class="btn envoyer_formulaire btn">
-                <a style="color: white; font-size: 20px;" href=" {{ observation.oiseau.url }}">{% trans %}Fiche de
+                <a style="color: white; font-size: 20px;" target="_blank" href=" {{ observation.oiseau.url }}">{% trans %}Fiche de
                     l'éspèce{% endtrans %}</a></button>
             {% endif %}
             {% if observation.audioWebPath %}
