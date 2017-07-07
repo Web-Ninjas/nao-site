@@ -22,7 +22,7 @@
 
             <div><strong style="font-weight: bold; font-size: 20px ">{% trans %}Observation :{% endtrans %}
 
-                    {% if is_granted('ROLE_PARTICULIER') and observation.status == constant('AppBundle\\Entity\\Observation::A_VALIDER') or observation.status == constant('AppBundle\\Entity\\Observation::A_MODIFIER') or observation.status == constant('AppBundle\\Entity\\Observation::SIGNALER')%}
+                    {% if is_granted('ROLE_PARTICULIER') and observation.status == constant('AppBundle\\Entity\\Observation::A_VALIDER') or observation.status == constant('AppBundle\\Entity\\Observation::A_MODIFIER') or observation.status == constant('AppBundle\\Entity\\Observation::SIGNALEE')%}
                         <a style="float: right"
                            href="{{ path('supprimerObservation', {'id': observation.id, 'redirect': ''}) }}">
                             <span class=" glyphicon glyphicon-trash icone" title="Supprimer l'observation"></span>
