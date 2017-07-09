@@ -1,0 +1,152 @@
+'Rédiger une page admin': 'Writte an admin page'
+'Tous les articles': 'All the news'
+Contributeur: Contributor
+Date: Date
+'Titre article': 'News title'
+Action: Action
+'Il n''y a aucun article pour l''instant.': 'There''s no news for the moment.'
+'Mes observations': 'My watching'
+Utilisateur: User
+Statut: Statut
+Observation: Watching
+Validateur: Validator
+'Mes articles': 'My news'
+'Mes informations Personnelles': 'My personal information'
+'Retour à la gestion des utilisateurs': 'Return to the users management'
+'Statut:': 'Statut:'
+'Date de création de compte :': 'Date of account creation'
+'Modifier mot de passe': 'Change your password'
+Destituer: Destitute
+Promouvoir: Upgrade
+Profil: Profil
+'Toutes les observations': 'All the watching'
+'Rédiger un article': 'Writte a news'
+'Gestion des articles': 'News manager'
+'Gestion des utilisateurs': 'Users manager'
+'Administration des pages admin': 'Admin pages manager'
+N°: N°
+Oiseau: Bird
+Utilisateurs: Users
+Article: News
+'En attente de promotion': 'In waiting of upgrades'
+'Contributeur ?': 'Contributor ?'
+'Naturaliste ?': 'Naturaliste ?'
+'Il n''y a aucun utilisateur pour l''instant.': 'There''s no users for the moment.'
+'Tableau de bord': Dashboard
+Contact: Contact
+Rechercher: Search
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac turpis risus.\n                Mauris tincidunt molestie ligula vitae": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac turpis risus.\n                Mauris tincidunt molestie ligula vitae"
+Observer: Watch
+Actualité: News
+'Créer un compte': 'Create an account'
+'J''ai lu et j''accepte les mentions légales': 'I read and accept the legal terms'
+Fermer: Close
+'Se connecter': Login
+'Nom d''utilisateur :': 'User name :'
+'Mot de passe :': 'Password :'
+'Mot de passe oublié': 'Forgotten password'
+'Veuillez rechercher un oiseau pour afficher des données': 'Please search a bird to fin the data'
+'Depuis :': 'Since:'
+(Origine): (Origin)
+'Modification du mot de passe': 'Change your password'
+Actualités: News
+'Lire la suite...': 'Read the next...'
+'Soumettre une observation': 'Make a watch'
+'Emplacement :': 'Place :'
+'Me localiser': 'My Position'
+'Réinitialisation du mot de passe': 'Reset the password'
+'Demande de réinitialisation du mot de passe': 'Ask for the password reset'
+'Date de création:': 'Creation date:'
+'Auteur:': 'Autor:'
+'Lieu :': 'City :'
+'Date :': 'Date :'
+'Heure :': 'Hour :'
+'Observation :': 'Watching :'
+'Fiche de l''éspèce': 'Species profil'
+Carte: Map
+'Nos amis les oiseaux': 'Our friends the birds'
+'Qui sommes nous ?': 'The association ?'
+Observations: Watching
+Déconnexion: Disconnect
+'Mentions Légales': 'Legal terms'
+Nao-site: Nao-site
+'Contact Nao !': 'Contact Nao !'
+'De :': 'From :'
+'Email :': 'Mail address :'
+'Message :': 'Message :'
+'Demande de réinitialisation de mot de passe !': 'Ask for a password reset !'
+Bonjour: Hello
+'Pour réinitialiser votre mot de passe, merci de vous rendre sur :': ' To reset you password, thank to go on :'
+'Cordialement,': 'Kinds Regards'
+'L''équipe, Nos amis les oiseaux': 'All the Team NAO'
+'Nom :': Name
+'Prénom :': 'First name'
+'Votre message :': 'Your message'
+'Captcha code :': 'Captcha code :'
+' Captcha code :': ' Captcha code :'
+'saisir le code': 'Enter code'
+Envoyer: 'To send'
+'Nom oiseau': 'Bird''s name'
+'Photo file': 'Photo file'
+'Audio file': 'Audio file'
+Content: Content
+Latitude: Latitude
+Longitude: Longitude
+Soumettre: Submit
+'Pseudo :': Pseudo
+'Nom de l''entreprise :': 'Company Name :'
+'N° de siret :': 'Siret number:'
+'Date de Naissance :': 'Birth date :'
+Enregistrer: Validate
+'Titre de l''article :': 'News title:'
+'Photo de l''article :': 'News picture'
+'Votre article :': 'Your news'
+'Enregister:': Validate
+'Name identifier': 'Name identifier'
+accueil: Home
+'mentions légales': 'Legal terms'
+about: about
+Title: Title
+'Photo banner': 'Picture banner'
+'J''ai lu et j''accepte la charte éthique': 'I have read and accept the ethical charter'
+'S''inscrire': Register
+'''Veuillez rechercher un oiseau pour afficher des données''': '''Please search a bird to fin the data'''
+'''Il y a ''': '''There is '''
+''' observations pour cette recherche''': ''' Watching for this search'''
+''' observation pour cette recherche''': '''  Watching for this search'''
+"Lire la\n                            suite...": 'Read the next...'
+'Bonjour,': 'Hello,'
+Remarque: Note
+'Je veux être naturaliste': 'I want to be naturalist'
+'Confirmation du mot de passe :': 'Password Confirmation'
+'Éditer un article': 'Edit an article'
+'Modifier une observation': 'Edit an observation'
+Photo: Photo
+Audio: Audio
+'Publié le': 'Published on'
+'Non publié': 'Not published'
+'Informations Utilisateur': 'User info'
+'- Actualités': '- News'
+"Date de\n                            création:": "Creation date\n"
+Modifier: Modify
+Supprimer: Delete
+"Date\n                    :": "Date\n                    :"
+"Heure\n                    :": "Hour\n                    :"
+"Fiche de\n                    l'éspèce": "Record\n                    specie"
+'- Qui sommes nous ?': 'The association?'
+'- Contact': '- Contact'
+'- Accueil': '- Home'
+'- Inscription': '- Subscription'
+'- Login': '- Login'
+'- Rechercher une observation': '- Search an observation'
+'- Mentions légales': '- Legal terms'
+'- Modifier mot de passe': '- Modify password'
+'- Soumettre une observation': '- Send an observation'
+'- Réinitialiser le mot de passe': '- Reinit password'
+'- Demande de réinitialisation de mot de passe': '- Request for password reset'
+'- Voir observation': '- See observation'
+'Enfin une occasion de voir vos oiseaux préférés près de chez vous.': 'Finally an opportunity to see your favorite birds near you.'
+'Regarder les photos et partager les votre avec la communauté.': 'Watch the photos and share with the community.'
+'Prennez le temps de lire du contenu sur votre passion!': 'Take time to read content about your passion!'
+'Attention une de vos observations n''à pas été validée !': 'Attention one of your observations has not been validated!'
+'Commentaire de non validation :': 'Comment: '

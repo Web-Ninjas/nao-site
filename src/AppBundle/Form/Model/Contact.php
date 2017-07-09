@@ -94,7 +94,7 @@ class Contact
 
     /**
      * @CaptchaAssert\ValidCaptcha(
-     *      message = "CAPTCHA validation failed, try again."
+     *      message = "La validation du CAPTCHA a échoué, veuillez réessayer"
      * )
      */
     protected $captchaCode;

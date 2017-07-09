@@ -1,138 +1,165 @@
 {% extends "layout.html.twig" %}
-
+{% block title %}{{ parent() }}{% trans %} - Rechercher une observation{% endtrans %}{% endblock %}
 {% block body %}
 
-	<h2>Rechercher</h2>
+    <h2>{% trans %}Rechercher{% endtrans %}</h2>
 
-	<div class="row">
-		<div class="col-lg-6 col-xs-12">
+    <div class="row">
+        <div class="col-lg-6 col-xs-12">
 
-			<input type="text" id="recherche" class="form-control" style="padding-left: 25px;" placeholder="Entrez le nom de l'oiseau que vous recherchez" width="50">
-			<i id="search" class="fa fa-search"></i>
+            <input type="text" id="recherche" class="form-control" style="padding-left: 25px;"
+                   placeholder="Entrez le nom de l'oiseau que vous recherchez" width="50">
+            <i id="search" class="fa fa-search"></i>
 
-			<div id="map"></div>
+            <div id="map"></div>
 
-		</div>
+        </div>
 
-		<div class="col-lg-6 col-xs-12">
+        <div class="col-lg-6 col-xs-12">
 
-			<h5 style="text-align: center;" id="nbrObservations">Veuillez rechercher un oiseau pour afficher des données</h5>
+            <h5 class="srchTitleFilter"  id="nbrObservations">
+                {% trans %}Veuillez rechercher un oiseau pour afficher des données{% endtrans %}</h5>
 
-			<div style="background-color: #58C9B9; padding: 30px; text-align: center; margin-bottom: 20px; width: 80%; margin-left: auto; margin-right: auto;">
-				<label for="slider" style="color: white;">Depuis : </label>
-				<input id="slider" type="range" min="0" max="6" value="6">
-				<span id="periode" style="display: block; color: white;">(Origine)</span>
-			</div>
+            <div class="slide " >
+                <label for="slider" style="color: white;">{% trans %}Depuis : {% endtrans %}</label>
+                <input id="slider" type="range" min="0" max="6" value="6">
+                <span id="periode" style="display: block; color: white;">{% trans %}(Origine){% endtrans %}</span>
+            </div>
 
-			<div style="background-color: #9DC8C8; height: 200px;">
-				<table style="width: 100%;">
-					<thead style="background-color: #519D9E;">
-						<tr>
-							<th style="width: 25%; text-align: center;">Utilisateur</th>
-							<th style="width: 75%; text-align: center;">Observation</th>
-						</tr>
-					</thead>
-				</table>
-			</div>
+            <div style="background-color: #9DC8C8; margin-top:40px; min-height: ;">
+                <table class="display nowrap" id="data-table" cellspacing="0" width="100%" style="width: 100%;">
+                    <thead style="background-color: #519D9E;">
+                    <tr>
+                        <th style="width: 30%; text-align: center; height:40px; border-right: solid 2px white;">
+                            {% trans %}Utilisateur{% endtrans %}
+                        </th>
+                        <th style="width: 70%; text-align: center; height:40px">{% trans %}Observation{% endtrans %}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td id="utilTable" style="border-right: solid 2px white;padding: 10px;">
+                            <!-- sera rempli après le clique sur un marqueur de la carte -->
+                        </td>
+                        <td id="obsTable" style="padding: 10px; border-right: inherit">
+                            <!-- sera rempli après le clique sur un marqueur de la carte -->
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 
 
-		</div>
+        </div>
 
-	</div> <!-- row -->
+    </div> <!-- row -->
 
 {% endblock %}
 
 {% block javascripts %}
-	{{ parent() }}
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script>
+    {{ parent() }}
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script>
 
-	<script>
-		{# // Permet autocomplete #}
-		var sourceList = [];
-		{% for oiseau in listOiseauNames %}
-			sourceList.push( "{{ oiseau }}" );
-		{% endfor %}
+    <script>
+        var noObservationString = {% trans %}'Veuillez rechercher un oiseau pour afficher des données'{% endtrans %};
+        var observationBeginningString = {% trans %}'Il y a '{% endtrans %};
+        var observationEndingPluralString = {% trans %}' observations pour cette recherche'{% endtrans %};
+        var observationEndingSingularString = {% trans %}' observation pour cette recherche'{% endtrans %};
 
-		$(function() {
-			$('#recherche').autocomplete({
-				source: sourceList
-			});
+        {# // Permet autocomplete #}
+        var sourceList = [];
+        {% for oiseauName in listOiseauNames %}
+        sourceList.push("{{ oiseauName }}");
+        {% endfor %}
 
-			$('#recherche').on('autocompletechange', function(){
-				// On lance une requête ajax pour mettre à jour la liste des observations
-				$.ajax({
-                    url : "{{ path('map') }}",
-                    type : 'POST',
-                    data : {oiseauName: this.value},
-                    success: function(response){ 
-                    	console.log(response[0]);
-                    	// var parsedResult = JSON.parse(response); 
-                    	updateLocations(response);
-                    	withDrawMarkers();
-                    	setMarkers(map, locations);
-                    	updateLabel();
-                    	},
-                    error : function(resultat, satut, erreur){
-                        console.log(resultat + erreur);
-                    }
-                });
-			});
+        $(function () {
+            $('#recherche').autocomplete({
+                source: sourceList
+            });
 
-			$('#slider').on('change', function(){
-				var string;
-				switch (this.value)
-				{
-					case '0':
-						var string = "(1 jour)";
-						break;
-					case '1':
-						string = "(1 semaine)";
-						break;
-					case '2':
-						string = "(1 mois)";
-						break;
-					case '3':
-						string = "(3 mois)";
-						break;
-					case '4':
-						string = "(6 mois)";
-						break;
-					case '5':
-						string = "(1 an)";
-						break;
-					case '6':
-						string = "(Origine)";
-				}
-				$('#periode').text(string);
-			});
-		});
+            $('#recherche').on('autocompletechange', function () {
+                // On lance une requête ajax pour mettre à jour la liste des observations
+                requestObservationsAjax();
+            });
 
-		// var locations = [];
+            $('#slider').on('change', function () {
+                switch (this.value) {
+                    case '0':
+                        periode = "(1 jour)";
+                        break;
+                    case '1':
+                        periode = "(1 semaine)";
+                        break;
+                    case '2':
+                        periode = "(1 mois)";
+                        break;
+                    case '3':
+                        periode = "(3 mois)";
+                        break;
+                    case '4':
+                        periode = "(6 mois)";
+                        break;
+                    case '5':
+                        periode = "(1 an)";
+                        break;
+                    case '6':
+                        periode = "(Origine)";
+                }
+                $('#periode').text(periode);
+                requestObservationsAjax();
+            });
+        });
 
-		{# // Code pour passer array twig à javascript #}
-		function updateLocations(newObservations)
-		{
-			{# // {% for observation in observations %} #}
-			newObservations.forEach(function(observation){
-				locations.push( {
-					title: observation.nomValide,
-				 	content: observation.content,
-				 	url: observation.photo,
-				 	position: {lat: observation.latitude, lng: observation.longitude } 
-				 });
-			});
-			{# // {% endfor %} #}
-		}
+        var periode = "(Origine)";
+        // récupéré depuis le controller
+        var listObservations = {{ observations|raw }};
 
-		function updateLabel()
-		{
-			$('nbrObservations').html('Il y a ' + locations.length + ' observations pour cet oiseau');
-		}
-	</script>
+        function requestObservationsAjax() {
+            $.ajax({
+                url: "{{ path('map') }}",
+                type: 'POST',
+                data: {
+                    oiseauName: $('#recherche').val(),
+                    periode: periode
+                },
+                success: function (response) {
 
-	<script src="{{ asset('js/maps.js') }}"></script>
-	<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-	<script async defer
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZjdDWppQRZkoIfeqHtm644-ncPYj9eXw&v=3&callback=initMap">
-	</script>
+                    // console.log(response.length);
+                    withDrawMarkers();
+                    setMarkers(map, response);
+                    listObservations = response;
+                    updateLabel(response.length);
+                },
+                error: function (resultat, satut, erreur) {
+                    console.log(resultat + erreur);
+                }
+            });
+        }
+
+        function updateLabel(nbr) {
+            if (nbr > 1) {
+                $('#nbrObservations').html(observationBeginningString + nbr + observationEndingPluralString);
+            } else if (nbr == 1) {
+                $('#nbrObservations').html(observationBeginningString + nbr + observationEndingSingularString);
+            }
+        }
+
+        // fonction appelé après le clique sur un markeur
+        function populateTable(marker)
+        {
+            var observation = listObservations[marker.id];
+            $('#utilTable').html(observation.author);
+            $('#obsTable').html(
+                listObservations[marker.id].content.substring(0, 50) +
+                '<a href="/nao-site/web/app_dev.php/observation/' + observation.id + '">' + '<button id="btn-locate" style="float: right;">Voir</button>' + '</a>'
+            );
+        }
+    </script>
+
+    <script src="{{ asset('js/maps.js') }}"></script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZjdDWppQRZkoIfeqHtm644-ncPYj9eXw&v=3&callback=initMap">
+    </script>
+  
 {% endblock %}

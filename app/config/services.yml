@@ -42,3 +42,29 @@ services:
        class: Twig_Extensions_Extension_Text
        tags:
            - { name: 'twig.extension' }
+
+    app.manager.mailReinit:
+        class: UserBundle\Manager\MailReinitMdpManager
+        arguments: ["@templating.engine.twig", "%mailer_user%", "@swiftmailer.mailer"]
+        public: true
+
+    app.manager.mailContact:
+        class: AppBundle\Manager\MailContactManager
+        arguments: ["@templating.engine.twig", "%mailer_user%", "@swiftmailer.mailer"]
+        public: true
+
+    app.manager.map:
+        class: AppBundle\Manager\MapManager
+        arguments: ["@doctrine.orm.entity_manager"]
+        public: true
+
+    app.form.ModifMdp:
+      class: UserBundle\Form\ModifMdp
+      arguments:
+          - "@security.password_encoder"
+
+    app.locale_listener:
+        class: AppBundle\Listener\LocaleListener
+        arguments: ['%kernel.default_locale%']
+        tags:
+            - { name: kernel.event_subscriber }

@@ -5,10 +5,8 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -28,8 +26,37 @@ class ProfilType extends AbstractType
             ->add('username', TextType::class)
             ->add('email',    EmailType::class, array('constraints' =>(array(new Email())))  )
             ->add('birthDate', BirthdayType::class)
-            ->add('enregistrer',      SubmitType::class)
+            ;
+
+
+        if (in_array('ROLE_NATURALISTE', $options['data']->getRoles())&& $options['data']->getDemandeContributeur() == null) {
+            $builder->add('isContributeur', CheckboxType::class, [
+                'mapped' => false,
+                'required'=>false,
+                'label' => 'Je veux être contributeur',
+            ]);
+        }
+
+
+        if (in_array('ROLE_PARTICULIER', $options['data']->getRoles())&& $options['data']->getDemandeNaturaliste() == null) {
+        $builder
+            ->add('isNaturaliste', CheckboxType::class, [
+                'mapped' => false,
+                'required'=>false,
+                'label' => 'Je veux être naturaliste',
+                'data' => $options['data']->getDemandeNaturaliste() !== null
+            ])
         ;
+    }
+
+
+        $builder
+            ->add('nomEntreprise', TextType::class, array('required'=>false,))
+            ->add('nSiret', TextType::class, array('required'=>false,))
+        ;
+
+
+        $builder->add('enregistrer',      SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

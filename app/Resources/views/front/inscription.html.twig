@@ -1,138 +1,213 @@
 {% extends "layout.html.twig" %}
-
+{% block title %}{{ parent() }}{% trans %} - Inscription{% endtrans %}{% endblock %}
 {% block body %}
 
-    <h2>Créer un compte</h2>
+    <h2>{% trans %}Créer un compte{% endtrans %}</h2>
 
+    <div class="container">
+        <div class="formContact row row-centered">
+            {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
-    <div class="formContact row">
-        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+            {# Les erreurs générales du formulaire. #}
+            {{ form_errors(form) }}
 
-        {# Les erreurs générales du formulaire. #}
-        {{ form_errors(form) }}
-
-        {# Génération manuelle et éclatée : #}
-        <div class="form-group">
-            {# Génération du label. #}
-            {{ form_label(form.name, "Nom :", {'label_attr': {'class': 'col-xs-5  control-label  label_contact'}}) }}
-
-            {# Affichage des erreurs pour ce champ précis. #}
-            {{ form_errors(form.name) }}
-
-            <div class="col-xs-6">
-                {# Génération de l'input. #}
-                {{ form_widget(form.name, {'attr': {'class': 'form-control formulaire_contact'}}) }}
-            </div>
-        </div>
-
-        <div class="form-group">
-            {# Génération du label. #}
-            {{ form_label(form.firstName, "Prénom :", {'label_attr': {'class': 'col-xs-5 control-label label_contact'}}) }}
-
-            {# Affichage des erreurs pour ce champ précis. #}
-            {{ form_errors(form.firstName) }}
-
-            <div class="col-xs-6">
-                {# Génération de l'input. #}
-                {{ form_widget(form.firstName, {'attr': {'class': 'form-control formulaire_contact'}}) }}
-            </div>
-        </div>
-
-        <div class="form-group">
-            {# Génération du label. #}
-            {{ form_label(form.email, "Email :", {'label_attr': {'class': 'col-xs-5 control-label label_contact'}}) }}
-
-            {# Affichage des erreurs pour ce champ précis. #}
-            {{ form_errors(form.email) }}
-
-            <div class="col-xs-6">
-                {# Génération de l'input. #}
-                {{ form_widget(form.email, {'attr': {'class': 'form-control formulaire_contact'}}) }}
-            </div>
-        </div>
-        <div class="form-group">
-            {# Génération du label. #}
-            {{ form_label(form.username, "Nom d'utilisateur :", {'label_attr': {'class': 'col-xs-5 control-label label_contact'}}) }}
-
-            {# Affichage des erreurs pour ce champ précis. #}
-            {{ form_errors(form.username) }}
-
-            <div class="col-xs-6">
-                {# Génération de l'input. #}
-                {{ form_widget(form.username, {'attr': {'class': 'form-control formulaire_contact'}}) }}
-            </div>
-        </div>
-        <div class="form-group birthday">
-            {# Génération du label. #}
-            {{ form_label(form.birthDate, "Date de Naissance :", {'label_attr': {'class': 'col-xs-5  control-label label_contact control-label '}}) }}
-
-            {# Affichage des erreurs pour ce champ précis. #}
-            {{ form_errors(form.birthDate) }}
-
-            <div class="col-xs-4">
-                {# Génération de l'input. #}
-                {{ form_widget(form.birthDate, {'attr': {'class': 'form-control blocs'}}) }}
-            </div>
-        </div>
-
-        <div class="form-group">
-            {# Génération du label. #}
-            {{ form_label(form.isNaturaliste, "Je veux $etre naturaliste" , {'label_attr': {'class': 'col-xs-5  control-label label_contact control-label '}} ) }}
-
-            {# Affichage des erreurs pour ce champ précis. #}
-            {{ form_errors(form.isNaturaliste) }}
-
-            <div class="col-xs-offset-5 col-xs-4">
-                {# Génération de l'input. #}
-                {{ form_widget(form.isNaturaliste, {'attr': {'class': 'fa fa-dot-circle-o'}}) }}
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-xs-5 control-label label_contact control-label required">
-                {{ form_label (form.plainPassword.first) }}
+            {# Génération manuelle et éclatée : #}
+            <div class="form-group col-xs-12 col-md-12 col-centered">
+                {# Génération du label. #}
+                {{ form_label(form.name, "Nom :", {'label_attr': {'class': 'col-xs-12 col-md-3 col-centered  control-label '}}) }}
 
                 {# Affichage des erreurs pour ce champ précis. #}
-                {{ form_errors(form.plainPassword.first) }}
-            </div>
-            <div class="col-xs-6 ">
-                {{ form_widget (form.plainPassword.first) }}
-            </div>
-        </div>
+                {{ form_errors(form.name) }}
 
-        <div class="form-group">
-            <div class="col-xs-5 control-label label_contact control-label required">
-                {{ form_label (form.plainPassword.second) }}
+                <div class="col-xs-12 col-md-8 col-centered">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.name, {'attr': {'class': 'form-control formulaire_contact'}}) }}
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12 col-md-12 col-centered">
+                {# Génération du label. #}
+                {{ form_label(form.firstName, "Prénom :", {'label_attr': {'class': 'col-xs-12 col-md-3 col-centered control-label '}}) }}
+
                 {# Affichage des erreurs pour ce champ précis. #}
-                {{ form_errors(form.plainPassword.second) }}
+                {{ form_errors(form.firstName) }}
+
+                <div class="col-xs-12 col-md-8 col-centered">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.firstName, {'attr': {'class': 'form-control formulaire_contact'}}) }}
+                </div>
             </div>
-            <div class="col-xs-6">
-                {{ form_widget (form.plainPassword.second) }}
+
+            <div class="form-group col-xs-12 col-md-12 col-centered">
+                {# Génération du label. #}
+                {{ form_label(form.email, "Email :", {'label_attr': {'class': 'col-xs-12 col-md-3 col-centered control-label '}}) }}
+
+                {# Affichage des erreurs pour ce champ précis. #}
+                {{ form_errors(form.email) }}
+
+                <div class="col-xs-12 col-md-8 col-centered">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.email, {'attr': {'class': 'form-control formulaire_contact'}}) }}
+                </div>
             </div>
+            <div class="form-group col-xs-12 col-md-12 col-centered">
+                {# Génération du label. #}
+                {{ form_label(form.username, "Nom d'utilisateur :", {'label_attr': {'class': 'col-xs-12 col-md-3 col-centered control-label '}}) }}
+
+                {# Affichage des erreurs pour ce champ précis. #}
+                {{ form_errors(form.username) }}
+
+                <div class="col-xs-12 col-md-8 col-centered">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.username, {'attr': {'class': 'form-control formulaire_contact'}}) }}
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-md-12 col-centered birthday ">
+                {# Génération du label. #}
+                {{ form_label(form.birthDate, "Date de Naissance :", {'label_attr': {'class': 'col-xs-12 col-md-3 col-centered control-label '}}) }}
+
+                {# Affichage des erreurs pour ce champ précis. #}
+                {{ form_errors(form.birthDate) }}
+
+                <div class=" col-xs-4 col-md-3 col-centered ">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.birthDate, {'attr': {'class': 'form-control blocs'}}) }}
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12 col-md-12 col-centered">
+                {# Génération du label. #}
+                {{ form_label(form.isNaturaliste, {'label_attr': {'class': 'col-xs-12 col-md-3 col-centered control-label', 'for':'checkIsNaturaliste'  }} ) }}
+
+                {# Affichage des erreurs pour ce champ précis. #}
+                {{ form_errors(form.isNaturaliste) }}
+
+                <div class="col-xs-12 col-md-offset-3 col-md-8 col-centered naturalistebis">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.isNaturaliste, {'attr': {'value':'None', 'id':'checkIsNaturaliste', 'name':'check'}}) }}
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12 col-md-12 col-centered pasNaturaliste">
+                {# Génération du label. #}
+                {{ form_label(form.nomEntreprise, "Nom de l'entreprise :", {'label_attr': {'class': 'col-xs-12 col-md-3 col-centered control-label '}}) }}
+
+                {# Affichage des erreurs pour ce champ précis. #}
+                {{ form_errors(form.nomEntreprise) }}
+
+                <div class="col-xs-12 col-md-8 col-centered">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.nomEntreprise, {'attr': {'class': 'form-control formulaire_contact'}}) }}
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12 col-md-12 col-centered pasNaturaliste">
+                {# Génération du label. #}
+                {{ form_label(form.nSiret, "N° de siret :", {'label_attr': {'class': 'col-xs-12 col-md-3 col-centered control-label '}}) }}
+
+                {# Affichage des erreurs pour ce champ précis. #}
+                {{ form_errors(form.nSiret) }}
+
+                <div class="col-xs-12 col-md-8 col-centered">
+                    {# Génération de l'input. #}
+                    {{ form_widget(form.nSiret, {'attr': {'class': 'form-control formulaire_contact'}}) }}
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12 col-md-12 col-centered">
+                <div class="col-xs-12 col-md-3 col-centered control-label">
+                    {{ form_label (form.plainPassword.first) }}
+
+                    {# Affichage des erreurs pour ce champ précis. #}
+                    {{ form_errors(form.plainPassword.first) }}
+                </div>
+                <div class="col-xs-12 col-md-8 col-centered ">
+                    {{ form_widget (form.plainPassword.first) }}
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12 col-md-12 col-centered">
+                <div class="col-xs-12 col-md-3 col-centered control-label">
+                    {{ form_label (form.plainPassword.second) }}
+                    {# Affichage des erreurs pour ce champ précis. #}
+                    {{ form_errors(form.plainPassword.second) }}
+                </div>
+                <div class="col-xs-12 col-md-8 col-centered">
+                    {{ form_widget (form.plainPassword.second) }}
+                </div>
+            </div>
+
+
+            <div class="form-group col-xs-12  col-centered mentionsLegales">
+                <div class="  col-md-offset-3 col-md-8 ">
+                    <div>
+                        <input type="checkbox" value="None" id="roundedOne" name="check" required/>
+                    <label for="charte">
+                        <a style="color: #5C7EE5;" data-toggle="modal" href="" data-target="#myModal">
+                            {% trans %}J'ai lu et j'accepte la charte éthique{% endtrans %} </a>
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <h2>Charte éthique</h2>
+                                    <p style="padding: 25px;">Nao est une application qui a pour vocation de dresser une étude sur la vie ornithologique par le biais de statistiques et de renseignements. En aucun qu’un cas elle n’est là pour aider à braconner nos amis les oiseaux. Le braconnage est interdit par le décret sur l’éthique des animaux de Juin 1963, par conséquent toute tentative de braconnage décelée sera passible de 16 ans de prison et 12 350€ d’amende. Si nous avons la possibilité de surprendre quelqu’un en train de braconner, nous nous réservons le droit d’abattre cette personne sur le champ.
+                                        En ayant lu et signé cette charte sur l’éthique, vous vous engager à n’utiliser l’application que pour y consulter et y ajouter des informations.
+                                    </p>
+
+                                    <p style="padding: 25px;"> Nao is an application for a study on the birds life by statistics and information. It's not an application to help the killing of the species. The poaching is completly forbiden by the animal's law of june 1963. Then, every person who will be seen doing this illegal activity will be liable of 16 years of prison and 10 839,595£ to pay. If we have the possibility to catch someone who's doing it, we will shoot this inhuman.
+                                        After, the reading and the signature of those terms, on the ethics you engage yourself to never use this application to consult and check information for an illegal activity.
+                                    </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}Fermer{% endtrans %}</button>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                        <!-- /.modal -->
+                    </label>
+                </div>
+            </div>
+            <div style="text-align: center;">
+                {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
+                {{ form_widget(form.envoyer, {'label': 'Créer un compte','attr': {'class': 'btn envoyer_formulaire' }}) }}
+
+            </div>
+            {{ form_widget(form._token) }}
+            {{ form_rest(form) }}
+
+            {# Fermeture de la balise <form> du formulaire HTML #}
+            {{ form_end(form) }}
         </div>
 
-        <div class="form-group">
-            {# Génération du label. #}
-            <a href="#" {{ form_label(form.mentions, "J'ai lu et j'accepte les mentions légales" , {'label_attr': {'class': 'col-xs-5  control-label label_contact control-label '}} ) }}></a>
-
-            {# Affichage des erreurs pour ce champ précis. #}
-            {{ form_errors(form.mentions) }}
-
-            <div class="col-xs-offset-5 col-xs-4">
-                {# Génération de l'input. #}
-                {{ form_widget(form.mentions, {'attr': {'class': 'fa fa-dot-circle-o'}}) }}
-            </div>
-        </div>
-
-        <div class="col-xs-offset-5">
-            {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
-            {{ form_widget(form.envoyer, {'label': 'Créer un compte','attr': {'class': 'btn envoyer_formulaire' }}) }}
-
-        </div>
-        {{ form_widget(form._token) }}
-        {{ form_rest(form) }}
-
-        {# Fermeture de la balise <form> du formulaire HTML #}
-        {{ form_end(form) }}
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(".pasNaturaliste").hide();
+
+
+        var isNaturaliste = false;
+        $("#userbundle_user_isNaturaliste").click(function(e) {
+
+            if (isNaturaliste == false) {
+                isNaturaliste = true;
+                $(".pasNaturaliste").show();
+                document.getElementById("userbundle_user_nomEntreprise").required = true;
+                document.getElementById("userbundle_user_nSiret").required = true
+            } else {
+                isNaturaliste = false;
+                $(".pasNaturaliste").hide();
+                document.getElementById("userbundle_user_nomEntreprise").required = false;
+                document.getElementById("userbundle_user_nSiret").required = false
+            }
+        });
+
+    </script>
+
 {% endblock %}

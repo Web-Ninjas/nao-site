@@ -1,28 +1,41 @@
 {% extends "layout.html.twig" %}
-
+{% block title %}{{ parent() }}{% trans %} - Actualités{% endtrans %}{% endblock %}
 {% block body %}
 
-	<h2>Actualités</h2>
+    <h2>{% trans %}Actualités{% endtrans %}
+        {% if is_granted('ROLE_CONTRIBUTEUR') %}
+            <a href="{{ path('dashboard_redigerArticle') }}">
+                <span class="glyphicon glyphicon-plus plus"
+                      title="Ajouter un article"></span>
+            </a>
+        {% endif %}
+    </h2>
 
-	{% if listArticles is not empty %}
-	<div class="container pagination_b">
-		<div class="row">
-			{% for article in listArticles %}
+    {% if listArticles is not empty %}
+        <div>
+            <div class="row">
+                {% for article in listArticles %}
+                {% if loop.index0 % 2 == 0 %}
+            </div>
+            <div class="row">
+                {% endif %}
 
-				<article class="col-lg-6 col-xs-12">
+                <article class="col-lg-6 col-xs-12">
 
-					<h3>{{ article.title }}</h3>
-					<img src="{{ asset(article.photoWebPath) }}" alt="" width="180" height="200" style="float: left; margin-right: 10px;">
-					<p>{{ article.content|striptags| truncate(300) | raw  }}</p>
-					<p><a href="{{ path('article', {'id': article.id}) }}" style="float: right;">Lire la suite...</a></p>
+                    <h3>{{ article.title }}</h3>
+                    <img src="{{ asset(article.photoWebPath) }}" alt="" width="180" height="200"
+                         style="float: left; margin-right: 10px;">
+                    <p>{{ article.content|striptags| truncate(300) | raw }}</p>
+                    <p><a href="{{ path('article', {'slug': article.slug}) }}" style="float: right;">{% trans %}Lire la
+                            suite...{% endtrans %}</a></p>
 
-				</article>
+                </article>
 
-			{% endfor %}
-		</div><!-- row -->
-
-		{% include 'pagination.html.twig' %}
-	{% else %}
-		<p class="aucun">Il n'y a aucun article pour l'instant.</p>
-	{% endif %}
+                {% endfor %}
+            </div><!-- row -->
+        </div>
+        {% include 'pagination.html.twig' %}
+    {% else %}
+        <p class="aucun">{% trans %}Il n'y a aucun article pour l'instant.{% endtrans %}</p>
+    {% endif %}
 {% endblock %}

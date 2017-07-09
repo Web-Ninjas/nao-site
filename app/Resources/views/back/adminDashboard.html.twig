@@ -1,0 +1,59 @@
+{% extends "back-layout.html.twig" %}
+
+{% block content %}
+
+    <h4>{% trans %}Rédiger une page admin{% endtrans %} </h4>
+
+    <div style="background-color: #9DC8C8;color: white;padding-left: 23px; padding-bottom: 23px; padding-right: 23px">
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        <div class="row">
+            <div class="col-sm-12 col-xs-12">
+                {{ form_row(form.nameIdentifier) }}
+            </div>
+            <div class="col-sm-6 col-xs-12">
+                {{ form_row(form.title) }}
+            </div>
+            <div class="col-sm-6 col-xs-12 file">
+                {% if form.vars.value.nameIdentifier == 'accueil' %}
+                    {{ form_row (form.photoBanner) }}
+                {% endif %}
+            </div>
+        </div>
+
+        {{ form_row(form.content, {'id' : 'summernote'}) }}
+
+
+        <div class="envoyer">
+            {{ form_row(form.enregistrer , {'label': 'Envoyer','attr': {'class': 'btn envoyer_formulaire' }}) }}
+        </div>
+        {{ form_widget(form._token) }}
+        {{ form_end(form) }}
+    </div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        // Redirige vers la bonne page en fonction du choix du sélecteur "Name Identifier"
+        $("#admin_nameIdentifier").change(function (e) {
+            var selected = $("#admin_nameIdentifier option:selected");
+            var value = selected.val();
+            window.location.href = "{{ url('dashboard_administration') }}/" + value;
+        });
+
+        $(document).ready(function () {
+            $('#summernote').summernote({
+                height: 300,                 // set editor height
+                minHeight: null,             // set minimum height of editor
+                maxHeight: null,             // set maximum height of editor
+                focus: true                  // set focus to editable area after initializing summernote
+            });
+        });
+    </script>
+
+{% endblock %}

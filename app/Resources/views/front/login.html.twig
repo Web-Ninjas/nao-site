@@ -1,24 +1,41 @@
 {% extends "layout.html.twig" %}
-
+{% block title %}{{ parent() }}{% trans %} - Login{% endtrans %}{% endblock %}
 {% block body %}
 
-    <h2>Se connecter</h2>
+    <h2>{% trans %}Se connecter{% endtrans %}</h2>
     {% if error %}
         <div class="alert alert-danger"> {{ error.message }} </div>
     {% endif %}
+    <div class="container">
+        <form action="{{ path('login_check') }}" method="post" class="login">
+            <div class="row row-centered">
+                <div class="form-group col-xs-12 col-md-12 ">
 
-    <form action="{{ path('login_check') }}" method="post" class="login">
-        <div class="form-group row">
-            <label for="username" class="col-xs-5 control-label label_contact">Nom d'utilisateur :</label>
-            <input type="text" id="username" name="_username" value="{{ last_username }}"
-                   class="formulaire_contact col-xs-6"/>
-        </div>
-        <div class="form-group row">
-            <label for="password" class="col-xs-5 control-label label_contact">Mot de passe :</label>
-            <input type="password" id="password" name="_password" class="formulaire_contact col-xs-6"/>
-        </div>
+                    <label for="username" class="col-xs-12 col-md-3  control-label loginbis ">
+                        {% trans %}Nom d'utilisateur :{% endtrans %}</label>
+                    <div class="col-xs-12 col-md-9 col-centered">
+                        <input type="text" id="username" name="_username" value="{{ last_username }}"
+                               class="form-control formulaire_contact"/>
+                    </div>
+                </div>
+                <div class="form-group  col-xs-12 col-md-12 col-centered">
 
-        <input type="submit" value="Se connecter" class="btn envoyer_formulaire col-xs-offset-5"/>
-    </form>
+                    <label for="password" class="col-xs-12 col-md-3 col-centered control-label loginbis ">
+                        {% trans %}Mot de passe :{% endtrans %}</label>
+                    <div class="col-xs-12 col-md-9 col-centered">
+                        <input type="password" id="password" name="_password"
+                               class="form-control formulaire_contact"/>
+                    </div>
+                </div>
 
+                <input type="submit" value="Se connecter" class="btn envoyer_formulaire col-centered"/>
+            </div>
+            <div class="form-group" style="text-align: center;">
+                <div class=" col-centered password mdp">
+                    <a class="bts-mdp" style="background-color: #ff4d4f" href="{{ path ('reset') }}">{% trans %}Mot de passe oublié{% endtrans %}</a> <span style="margin-left: 5px;"><a  class="bts"  href="{{ path ('inscription') }}">{% trans %}S'inscrire{% endtrans %}</span></a>
+                </div>
+            </div>
+        </form>
+
+    </div>
 {% endblock %}

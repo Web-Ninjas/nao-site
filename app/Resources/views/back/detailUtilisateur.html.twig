@@ -10,11 +10,8 @@
 {% block content %}
 
 
-    <h4 xmlns="http://www.w3.org/1999/html">Mes informations Personnelles</h4>
+    <h4 xmlns="http://www.w3.org/1999/html">{% trans %}Informations Utilisateur{% endtrans %}</h4>
 
-    <div class="col-xs-3 recherche menu_dashboard">
-        <a style="color: white" href="{{ path('dashboard_utilisateurs') }}">Retour à la gestion des utilisateurs</a>
-    </div>
 
 
     <div class="formProfil row">
@@ -24,115 +21,115 @@
         {{ form_errors(form) }}
 
         {# Génération manuelle et éclatée : #}
-        <div class="form-group">
+        <div class="form-group col-xs-12">
             {# Génération du label. #}
-            {{ form_label(form.name, "Nom :", {'label_attr': {'class': 'col-lg-4 control-label titre_formulaire '}}) }}
+            {{ form_label(form.name, "Nom :", {'label_attr': {'class': 'col-lg-4 col-sm-4 col-xs-12 control-label titre_formulaire gauche '}}) }}
 
             {# Affichage des erreurs pour ce champ précis. #}
             {{ form_errors(form.name) }}
 
-            <div class="col-lg-5">
+            <div class="col-lg-5 col-sm-5 col-xs-12">
                 {# Génération de l'input. #}
                 {{ form_widget(form.name, {'attr': {'class': 'form-control blocs'}}) }}
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-xs-12">
             {# Génération du label. #}
-            {{ form_label(form.firstName, "Prénom :", {'label_attr': {'class': 'col-lg-4 control-label titre_formulaire'}}) }}
+            {{ form_label(form.firstName, "Prénom :", {'label_attr': {'class': 'col-lg-4 col-sm-4 col-xs-12 control-label titre_formulaire gauche '}}) }}
 
             {# Affichage des erreurs pour ce champ précis. #}
             {{ form_errors(form.firstName) }}
 
-            <div class="col-lg-5">
+            <div class="col-lg-5 col-sm-5 col-xs-12">
                 {# Génération de l'input. #}
                 {{ form_widget(form.firstName, {'attr': {'class': 'form-control blocs'}}) }}
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-xs-12">
             {# Génération du label. #}
-            {{ form_label(form.username, "Pseudo :", {'label_attr': {'class': 'col-lg-4 control-label titre_formulaire'}}) }}
+            {{ form_label(form.username, "Pseudo :", {'label_attr': {'class': 'col-lg-4 col-sm-4 col-xs-12 control-label titre_formulaire gauche '}}) }}
 
             {# Affichage des erreurs pour ce champ précis. #}
             {{ form_errors(form.username) }}
 
-            <div class="col-lg-5">
+            <div class="col-lg-5 col-sm-5 col-xs-12">
                 {# Génération de l'input. #}
                 {{ form_widget(form.username, {'attr': {'class': 'form-control blocs' }}) }}
             </div>
 
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-xs-12">
 
-            <label class="col-lg-4 control-label titre_formulaire control-label required"
-                   for="profil_username">Statut:</label>
+            <label class="col-lg-4 col-sm-4 col-xs-12  control-label titre_formulaire control-label required gauche"
+                   for="profil_username">{% trans %}Statut:{% endtrans %}</label>
 
-            <div class="col-lg-5">
+            <div class="col-lg-5 col-sm-5 col-xs-12">
                 <input disabled="disabled" type="text" name="statut" class="fixe form-control form-control blocs"
                        value={{ profils[form.vars.data.roles[0]] }}>
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-xs-12">
             {# Génération du label. #}
-            {{ form_label(form.email, "Email :", {'label_attr': {'class': 'col-lg-4 control-label titre_formulaire'}}) }}
+            {{ form_label(form.email, "Email :", {'label_attr': {'class': 'col-lg-4 col-sm-4 col-xs-12 control-label titre_formulaire gauche '}}) }}
 
             {# Affichage des erreurs pour ce champ précis. #}
             {{ form_errors(form.email) }}
 
-            <div class="col-lg-5">
+            <div class="col-lg-5 col-sm-5 col-xs-12">
                 {# Génération de l'input. #}
                 {{ form_widget(form.email, {'attr': {'class': 'form-control blocs'}}) }}
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-xs-12 date">
             {# Génération du label. #}
-            {{ form_label(form.birthDate, "Date de Naissance :", {'label_attr': {'class': 'col-lg-4 control-label titre_formulaire'}}) }}
+            {{ form_label(form.birthDate, "Date de Naissance :", {'label_attr': {'class': 'col-lg-4 col-sm-4 col-xs-12 control-label titre_formulaire gauche '}}) }}
 
             {# Affichage des erreurs pour ce champ précis. #}
             {{ form_errors(form.birthDate) }}
 
-            <div class="col-lg-5">
+            <div class="col-lg-5 col-sm-8 col-xs-5">
                 {# Génération de l'input. #}
                 {{ form_widget(form.birthDate, {'attr': {'class': 'form-control blocs'}}) }}
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-xs-12">
 
-            <label class="col-lg-4 control-label titre_formulaire control-label required"
-                   for="profil_username">Date de création de compte :</label>
+            <label class="col-lg-4 col-sm-4 col-xs-12 control-label titre_formulaire control-label required gauche"
+                   for="profil_username">{% trans %}Date de création de compte :{% endtrans %}</label>
 
-            <div class="col-lg-5">
+            <div class="col-lg-5 col-sm-5 col-xs-12">
                 <input disabled="disabled" type="text" name="registrationDate"
                        class="fixe form-control form-control blocs"
-                       value={{ app.user.registrationDate |date('d/m/Y') }}>
+                       value={{ user.registrationDate |date('d/m/Y') }}>
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-lg-offset-4 col-lg-5 password">
-                <a href="#">Modifier mot de passe</a>
+        <div class="form-group col-xs-12">
+            <div class="col-lg-offset-4 col-lg-12 col-sm-offset-4">
+                {%  if (user.username != app.user.username)%}
+                <a href="{{ path('destituerUtilisateurs',{'id': form.vars.data.id}) }}">
+                    <button type="button" class="btn envoyer_formulaire col-lg-2"
+                            style="margin-right: 20px; background-color: red">{% trans %}
+                        Destituer{% endtrans %}</button>
+                </a>
+                {% endif %}
+                {% if (user.demandeNaturaliste  != false) or  (user.demandeContributeur != false)%}
+                <a href="{{ path('promouvoirUtilisateurs',{'id': form.vars.data.id}) }}">
+                    <button type="button" class="btn envoyer_formulaire  col-lg-2"
+                            style="background-color: #519D9E">{% trans %}Promouvoir{% endtrans %}</button>
+                </a>
+                {% endif %}
             </div>
         </div>
 
-        <div>
 
-            <a href="{{ path('destituerUtilisateurs',{'id': form.vars.data.id}) }}">
-                <button type="button" class="btn envoyer_formulaire col-lg-offset-5 col-lg-2" style="margin-right: 20px; background-color: red" >Destituer</button>
-            </a>
-
-            <a href="{{ path('promouvoirUtilisateurs',{'id': form.vars.data.id}) }}">
-                <button type="button" class="btn envoyer_formulaire  col-lg-2" style="background-color: #519D9E">Promouvoir</button>
-            </a>
-
-        </div>
-
-
-        <div class="col-lg-2">
+        <div class="col-lg-offset-10 col-xs-offset-8 col-lg-2">
             {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
             {{ form_widget(form.enregistrer, {'attr': {'class': 'btn envoyer_formulaire'}}) }}
 

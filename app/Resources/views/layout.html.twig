@@ -1,143 +1,151 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{% block title %}Nao-site{% endblock %}</title>
+    <title>{% block title %}{% trans %}Nao-site{% endtrans %}{% endblock %}</title>
 
-        {% block stylesheets %}
-            {# On charge le CSS de bootstrap depuis le site directement #}
-            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-            <link rel="stylesheet" href="{{ asset('css/nao.css') }}">
-            <link rel="stylesheet"
-                  href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css">
-            <link rel="stylesheet" href="{{ asset('font-awesome/css/font-awesome.min.css') }}">
-            <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/themes/smoothness/jquery-ui.css" />
-        {% endblock %}
-
-    </head>
-
-    <body>
-
-    <div class="container">
-
-        <div class="row header"> <!-- header -->
-            <div class="col-lg-2 col-md-3 col-sm-3 col-xs-11 titre">
-                <a href={{ path('homepage') }}>
-                    <img alt="logo" class="img-responsive logo" src="{{ asset('images/NaoV11b.png') }}">
-                </a>
-                <div class="title">Nos amis les oiseaux</div>
-
-                <div class="navbar-header hidden-md visible-md visible-xs" >
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
-                    <ul id="navbar" class="nav navbar-nav bleu collapse navbar-collapse hamburger bleu">
-                        <li class="active"><a href="{{ path('actualites') }}">Actualités</a></li>
-                        <li class=""><a href="{{ path('map') }}">Rechercher</a></li>
-                        <li class=""><a href="{{ path('about') }}">Qui sommes nous ?</a></li>
-                        <li class=""><a href="{{ path('observer') }}">Observations</a></li>
-                    </ul>
-                    <div class="langue langue-bis hidden-lg visible-md visible-xs">
-                        {% if app.request.locale != 'en' %}
-                            <a href="?_locale=en">
-                                <img class="drapeau" alt="Flag" src="{{ asset('images/gb.png') }}">
-                            </a>
-                        {% elseif app.request.locale != 'fr' %}
-                            <a href="?_locale=fr">
-                                <img class="drapeau" alt="Drapeau" src="{{ asset('images/fr.png') }}">
-                            </a>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12" style="padding-right:0;">
-                <div class="menu-general">
-                    <ul class="nav navbar-nav turquoise">
-                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                            <li><a href="{{ path('dashboard_profil') }}">Tableau de bord</a></li>
-                            <li><a href="{{ path('logout') }}">Déconnexion</a></li>
-                        {% else %}
-                            <li><a href="{{ path('login') }}">Se connecter</a></li>
-                            <li><a href="{{ path('inscription') }}">Créer un compte</a></li>
-                        {% endif %}
-                    </ul>
-
-                    <ul class="nav navbar-nav bleu collapse navbar-collapse">
-                        <li class="active"><a href="{{ path('actualites') }}">Actualités</a></li>
-                        <li><a href="{{ path('map') }}">Rechercher</a></li>
-                        <li><a href="{{ path('about') }}">Qui sommes nous ?</a></li>
-                        <li><a href="{{ path('observer') }}">Observations</a></li>
-                    </ul>
-                    <div class="langue visible-lg visible-md visible-sm hidden-xs" >
-                        {% if app.request.locale != 'en' %}
-                            <a href="?_locale=en">
-                                <img class="drapeau" alt="Flag" src="{{ asset('images/gb.png') }}">
-                            </a>
-                        {% elseif app.request.locale != 'fr' %}
-                            <a href="?_locale=fr">
-                                <img class="drapeau" alt="Drapeau" src="{{ asset('images/fr.png') }}">
-                            </a>
-                        {% endif %}
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="row"> <!-- contenu -->
-            {% if app.session.flashBag.has('notice') %}
-                <div class="alert alert-success">
-                    {% for msg in app.session.flashBag.get('notice') %}
-                        {{ msg }}
-                    {% endfor %}
-                </div>
-            {% endif %}
-            {% block body %}
-            {% endblock %}
-        </div>
-
-        <div class="row footer"> <!-- footer -->
-            <div class="col-sm-3">
-                <a href="#"><img title="Facebook" class="reseau" src="{{ asset('images/FB.png') }}"></a>
-
-                <a href="#"><img title="Twitter" class="reseau" src="{{ asset('images/Twitter.png') }}"></a>
-
-                <a href="#"><img title="Instagram" class="instagram" src="{{ asset('images/Insta.png') }}"></a>
-            </div>
-
-            <div class="col-md-3 col-md-offset-6 col-sm-4 col-sm-offset-5">
-                <ul class="list-inline liens">
-                    <li class="contact"><a href="{{ path('contact') }}">Contact</a></li>
-                    <li><a href="{{ path('mentions') }}">Mentions Légales</a></li>
-                </ul>
-            </div>
-        </div>
-
-    </div><!-- /.container -->
-
-
-    {% block javascripts %}
-        {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script> 
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
-        
-        {#
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        #}
-
-        <!-- include summernote css/js-->
-        <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.css" rel="stylesheet">
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.js"></script>
+    {% block stylesheets %}
+        {# On charge le CSS de bootstrap depuis le site directement #}
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ asset('css/nao.css') }}">
+        <link rel="stylesheet"
+              href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css">
+        <link rel="stylesheet" href="{{ asset('font-awesome/css/font-awesome.min.css') }}">
+        <link rel="stylesheet" type="text/css"
+              href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/themes/smoothness/jquery-ui.css"/>
+        <link rel="stylesheet" type="text/css" href="Https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"/>
+        <link rel="stylesheet" type="text/css"
+              href="Https://cdn.datatables.net/rowreorder/1.2.0/css/rowReorder.dataTables.min.css"/>
+        <link rel="stylesheet" type="text/css"
+              href="Https://cdn.datatables.net/responsive/2.1.1/css/responsive.dataTables.min.css"/>
+        <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
     {% endblock %}
 
+</head>
 
-    </body>
+<body>
+
+<div class="container">
+
+    <div class="row header"> <!-- header -->
+        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-11 titre">
+            <a href={{ path('homepage') }}>
+                <img alt="logo NAO" class="img-responsive logo" src="{{ asset('images/NaoV11.svg') }}">
+            </a>
+            <div class="title">{% trans %}Nos amis les oiseaux{% endtrans %}</div>
+
+            <div class="navbar-header hidden-md visible-md visible-xs">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <ul id="navbar" class="nav navbar-nav bleu collapse navbar-collapse hamburger bleu">
+                    <li class="active"><a href="{{ path('actualites') }}">{% trans %}Actualités{% endtrans %}</a></li>
+                    <li class=""><a href="{{ path('map') }}">{% trans %}Rechercher{% endtrans %}</a></li>
+                    <li class=""><a href="{{ path('about') }}">{% trans %}Qui sommes nous ?{% endtrans %}</a></li>
+                    <li class=""><a href="{{ path('observer') }}">{% trans %}Observations{% endtrans %}</a></li>
+                </ul>
+                <div class="langue langue-bis hidden-lg visible-md visible-xs">
+                    {% if app.request.locale != 'en' %}
+                        <a href="?_locale=en">
+                            <img class="drapeau" alt="Flag" src="{{ asset('images/gb.png') }}">
+                        </a>
+                    {% elseif app.request.locale != 'fr' %}
+                        <a href="?_locale=fr">
+                            <img class="drapeau" alt="Drapeau" src="{{ asset('images/fr.png') }}">
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-10 col-md-9 col-sm-9 col-xs-12" style="padding-right:0; margin-top: 46px;">
+            <div class="menu-general">
+                <ul class="nav navbar-nav turquoise">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <li><a href="{{ path('dashboard_profil') }}">{% trans %}Tableau de bord{% endtrans %}</a></li>
+                        <li><a href="{{ path('logout') }}">{% trans %}Déconnexion{% endtrans %}</a></li>
+                    {% else %}
+                        <li><a href="{{ path('login') }}">{% trans %}Se connecter{% endtrans %}</a></li>
+                        <li><a class="compte" href="{{ path('inscription') }}">{% trans %}Créer un compte{% endtrans %}</a></li>
+                    {% endif %}
+                </ul>
+
+                <ul class="nav navbar-nav bleu collapse navbar-collapse">
+                    <li class="active"><a href="{{ path('actualites') }}">{% trans %}Actualités{% endtrans %}</a></li>
+                    <li><a href="{{ path('map') }}">{% trans %}Rechercher{% endtrans %}</a></li>
+                    <li><a href="{{ path('about') }}">{% trans %}Qui sommes nous ?{% endtrans %}</a></li>
+                    <li><a href="{{ path('observer') }}">{% trans %}Observations{% endtrans %}</a></li>
+                </ul>
+                <div class="langue visible-lg visible-md visible-sm hidden-xs">
+                    {% if app.request.locale != 'en' %}
+                        <a href="?_locale=en">
+                            <img class="drapeau" alt="Flag" src="{{ asset('images/gb.png') }}">
+                        </a>
+                    {% elseif app.request.locale != 'fr' %}
+                        <a href="?_locale=fr">
+                            <img class="drapeau" alt="Drapeau" src="{{ asset('images/fr.png') }}">
+                        </a>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <div class="row autre"> <!-- contenu -->
+        {% if app.session.flashBag.has('notice') %}
+            <div class="alert alert-success">
+                {% for msg in app.session.flashBag.get('notice') %}
+                    {{ msg }}
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% block body %}
+        {% endblock %}
+    </div>
+
+    <div class="row footer"> <!-- footer -->
+        <div class="col-sm-3 share_lnks">
+            <a href="#"><span title="Facebook" class="fa fa-facebook"></span></a>
+
+            <a href="#"><span title="Twitter" class="fa fa-twitter"></span></a>
+
+            <a href="#"><span title="Instagram" class="fa fa-instagram"></span></a>
+        </div>
+
+        <div class="col-md-3 col-md-offset-6 col-sm-4 col-sm-offset-5">
+            <ul class="list-inline liens ">
+                <li class="contact "><a href="{{ path('contact') }}">{% trans %}Contact{% endtrans %}</a></li>
+                <li class="contact "><a href="{{ path('mentions') }}">{% trans %}Mentions Légales{% endtrans %}</a></li>
+            </ul>
+        </div>
+    </div>
+
+</div><!-- /.container -->
+
+
+{% block javascripts %}
+    {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+
+    {#
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    #}
+
+    <!-- include summernote css/js-->
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.js"></script>
+{% endblock %}
+
+
+</body>
 </html>

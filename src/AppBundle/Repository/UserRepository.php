@@ -22,6 +22,16 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getSingleScalarResult();
     }
 
+    public function listeUsersNonSupprimer()
+    {
+        $qb = $this->createQueryBuilder('u');
+        $qb
+            ->orderBy('u.id', 'desc')
+            ->andWhere('u.deleted IS NULL');
+
+        return $qb->getQuery()->getResult();
+    }
+
     /**
      * Récupère une liste d'articles triés et paginés.
      *
@@ -33,59 +43,21 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
      *
      * @return Paginator
      */
-    public function findAllPagineEtTrie($page, $nbMaxParPage, $filtre = null, $ordreDeTri = 'DESC')
+    public function findAllTrie()
     {
-        if (!is_numeric($page)) {
-            throw new InvalidArgumentException(
-                'La valeur de l\'argument $page est incorrecte (valeur : ' . $page . ').'
-            );
-        }
-
-        if ($page < 1) {
-            throw new NotFoundHttpException('La page demandée n\'existe pas');
-        }
-
-        if (!is_numeric($nbMaxParPage)) {
-            throw new InvalidArgumentException(
-                'La valeur de l\'argument $nbMaxParPage est incorrecte (valeur : ' . $nbMaxParPage . ').'
-            );
-        }
-
         $qb = $this->createQueryBuilder('u')
-             ->select('u')
-            ->addSelect('COUNT (a.id) as c_aid')
-            ->addSelect('COUNT(o.id) as c_oid')
+            ->select('u')
+            ->addSelect('COUNT(DISTINCT a.id) as c_aid')
+            ->addSelect('COUNT(DISTINCT o.id) as c_oid')
             ->andWhere('u.deleted IS NULL')
             ->leftJoin('u.observations', 'o')
             ->leftJoin('u.articles', 'a')
             ->groupBy('u.id');
             ;
 
-        if (isset($filtre)) {
-            $mapping = [
-                'user' => 'u.username',
-                'status' => 'u.roles',
-                'article' => 'c_aid',
-                'observation' => 'c_oid'
-            ];
-
-            $qb->orderBy($mapping[$filtre], $ordreDeTri);
-        } else {
-            $qb->orderBy('u.id', 'DESC');
-        }
-
         $query = $qb->getQuery();
-
-
-        $premierResultat = ($page - 1) * $nbMaxParPage;
-        $query->setFirstResult($premierResultat)->setMaxResults($nbMaxParPage);
-        $paginator = new Paginator($query);
-
-        if (($paginator->count() <= $premierResultat) && $page != 1) {
-            throw new NotFoundHttpException('La page demandée n\'existe pas.'); // page 404, sauf pour la première page
-        }
-
-        return $paginator;
+        return $query->getResult();
     }
 
 }
+

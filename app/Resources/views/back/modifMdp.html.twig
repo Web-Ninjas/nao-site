@@ -1,0 +1,57 @@
+{% extends "back-layout.html.twig" %}
+{% block title %}{{ parent() }}{% trans %} - Modifier mot de passe{% endtrans %}{% endblock %}
+{% block content %}
+
+    <h4>{% trans %}Modification du mot de passe{% endtrans %}</h4>
+
+    <div class="formProfil row" style="padding: 50px;">
+
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+        {{ form_errors(form) }}
+
+        <div class="form-group col-xs-12">
+
+            {{ form_label (form.ancienMdp, "Ancien mot de passe :",{'label_attr': {'class': 'col-lg-4 col-sm-4 col-xs-12 control-label titre_formulaire gauche'}}) }}
+
+            {# Affichage des erreurs pour ce champ précis. #}
+            {{ form_errors(form.ancienMdp) }}
+
+            <div class="col-lg-5 col-sm-5 col-xs-12">
+                {{ form_widget (form.ancienMdp, {'attr': {'class': ' col-lg-6 blocs'}}) }}
+            </div>
+        </div>
+
+        <div class="form-group col-xs-12">
+
+            {{ form_label (form.plainPassword.first, "Nouveau mot de passe :",{'label_attr': {'class': 'col-lg-4 col-sm-4 col-xs-12 control-label titre_formulaire gauche'}}) }}
+
+            {# Affichage des erreurs pour ce champ précis. #}
+            {{ form_errors(form.plainPassword.first) }}
+
+            <div class="col-lg-5 col-sm-5 col-xs-12">
+                {{ form_widget (form.plainPassword.first, {'attr': {'class': ' col-lg-6 blocs '}}) }}
+            </div>
+        </div>
+
+        <div class="form-group col-xs-12">
+            {{ form_label (form.plainPassword.second,"Confirmation du nouveau mdp :", {'label_attr': {'class': 'col-lg-4 col-sm-4 col-xs-12 control-label titre_formulaire gauche   '}}) }}
+            {# Affichage des erreurs pour ce champ précis. #}
+            {{ form_errors(form.plainPassword.second) }}
+
+            <div class="col-lg-5 col-sm-5 col-xs-12">
+                {{ form_widget (form.plainPassword.second, {'attr': {'class':  'col-lg-6 blocs  '}}) }}
+
+            </div>
+        </div>
+        <div class="col-lg-offset-10 col-xs-offset-8">
+            {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
+            {{ form_widget(form.envoyer, {'label': 'Envoyer','attr': {'class': 'btn envoyer_formulaire' }}) }}
+        </div>
+
+        {{ form_widget(form._token) }}
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+
+    </div>
+
+{% endblock %}

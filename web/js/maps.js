@@ -1,6 +1,6 @@
-var map;
-		var locations = [];
+		var map;
 		var markers = [];
+		var markerCluster = null;
 
 		var largeInfoWindow;
 		var defaultIcon;
@@ -16,28 +16,24 @@ var map;
 				}
 			];
 			*/
-			console.log('on charge la map');
 
 			map = new google.maps.Map(document.getElementById('map'), {
 				center: {lat: 48.856614, lng: 2.3522219000000177}, // coordonnées de Paris
 				zoom: 7,
 				// styles: styles,
 				mapTypeControle: false,
-				maxZoom: 11,
+				maxZoom: 12,
 				streetViewControl: false
 			});
 			
 			largeInfoWindow = new google.maps.InfoWindow();
 			defaultIcon = makeMarkerIcon('9DC8C8');
-			highLightedIcon = makeMarkerIcon('5C7EE5');
+			highLightedIcon = makeMarkerIcon('5C7EE5');		
 
-			// Créé les markers en fonction de ce qu'il y a dans locations[]
-			setMarkers(map, locations);
-
-			// Rajoute un regroupement des markers quand ils sont trop proches
-			var markerCluster = new MarkerClusterer(map, markers,
-            	{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-
+			if (listObservations)
+				setMarkers(map, listObservations);
+				if ($('#nbrObservations').length)
+					updateLabel(listObservations.length);	
 		}
 
 		function withDrawMarkers()
@@ -45,29 +41,31 @@ var map;
 			markers.forEach(function(e){
 				e.setMap(null);
 			});
-			
+			if (markerCluster)
+				markerCluster.clearMarkers();
 		}
 
-		function setMarkers(map, locations)
+		function setMarkers(map, observations)
 		{
-			for (var i = 0; i < locations.length; i++)
+			markers = [];
+
+			observations.forEach(function(observation, index)
 			{
-				var position = locations[i].position;
-				var title = locations[i].title;
 
 				var marker = new google.maps.Marker({
 					map: map,
-					position: position,
-					title: title,
+					position: {lat: parseFloat(observation.latitude), lng: parseFloat(observation.longitude) },
+					title: observation.nomOiseau,
 					icon: defaultIcon,
 					animation: google.maps.Animation.DROP,
-					id: i
+					id: index // si bug voir avec observation.id
 				});
 				markers.push(marker);
 
 				// Fait apparaître les infos quand on clique sur un markeur
 				marker.addListener('click', function(){
 					populateInfoWindow(this, largeInfoWindow);
+					populateTable(this);
 				});
 
 				// Change le style du markeur quand on passe la souris dessus
@@ -78,18 +76,33 @@ var map;
 				marker.addListener('mouseout', function(){
 					this.setIcon(defaultIcon);
 				});
-			}
+			});
+
+			// Rajoute un regroupement des markers quand ils sont trop proches
+			markerCluster = new MarkerClusterer(map, markers,
+            	{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+
 		}
 
 		function populateInfoWindow(marker, infoWindow)
 		{
+			console.log('source de l\'image : ' + listObservations[marker.id].photoPath);
+			if (listObservations[marker.id].photoPath === null) {
+				var imgString = '';
+			} else {
+				var imgString = ' <img alt="" src="' + listObservations[marker.id].photoPath + '" width="80" height="80">';
+			}
+
 			if(infoWindow.marker != marker)
 			{
 				infoWindow.marker = marker;
-				infoWindow.setContent('<div>' + marker.title + '<img alt="" src="' + locations[marker.id].url + '" width="80" height="80">' + '</div>');
+				infoWindow.setContent(
+					'<div>' + marker.title + imgString + '</div>'
+				);
 				infoWindow.open(map, marker);
 				infoWindow.addListener('closeclick', function(){
-				infoWindow.setMarker(null);
+					infoWindow.close();
+					infoWindow.marker = null;
 				});
 			}
 		}

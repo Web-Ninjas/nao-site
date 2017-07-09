@@ -79,7 +79,7 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255)
+     * @ORM\Column(name="email", type="string", length=255, unique=true)
      * @Assert\NotBlank()
      * @Assert\Email()
      */
@@ -104,6 +104,9 @@ class User implements UserInterface
      */
     private $password;
 
+    
+    private $ancienMdp;
+
     /**
      * @var \DateTime
      *
@@ -111,6 +114,50 @@ class User implements UserInterface
      * @Assert\DateTime()
      */
     private $demandeNaturaliste;
+
+    /**
+     * @var string
+     * @ORM\Column(name="nomEntreprise", type="string", length=255,nullable=true)
+     */
+    private $nomEntreprise;
+
+    /**
+     * @var string
+     * @ORM\Column(name="nSiret", type="string", length=255, unique=true, nullable=true)
+     */
+    private $nSiret;
+
+    /**
+     * @return string
+     */
+    public function getNSiret()
+    {
+        return $this->nSiret;
+    }
+
+    /**
+     * @param string $nSiret
+     */
+    public function setNSiret($nSiret)
+    {
+        $this->nSiret = $nSiret;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNomEntreprise()
+    {
+        return $this->nomEntreprise;
+    }
+
+    /**
+     * @param mixed $nomEntreprise
+     */
+    public function setNomEntreprise($nomEntreprise)
+    {
+        $this->nomEntreprise = $nomEntreprise;
+    }
 
     /**
      * @var \DateTime
@@ -142,6 +189,15 @@ class User implements UserInterface
     private $observations;
 
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="token_password", type="string", length=255, nullable=true)
+     */
+    private $tokenRegenerationMotDePasse;
+
+    
+    
     
     public function __construct()
     {
@@ -462,5 +518,21 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTokenRegenerationMotDePasse()
+    {
+        return $this->tokenRegenerationMotDePasse;
+    }
+
+    /**
+     * @param mixed $tokenRegenerationMotDePasse
+     */
+    public function setTokenRegenerationMotDePasse($tokenRegenerationMotDePasse)
+    {
+        $this->tokenRegenerationMotDePasse = $tokenRegenerationMotDePasse;
     }
 }

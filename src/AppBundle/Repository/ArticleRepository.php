@@ -15,11 +15,16 @@ use UserBundle\Entity\User;
  */
 class ArticleRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function countNbArticles()
+    public function countNbArticles(User $user = null)
     {
         $qb = $this->createQueryBuilder('a');
+        $qb->where('a.deleted IS NULL');
         $qb->select('COUNT(a.id)');
-          
+
+        if ($user !== null) {
+            $qb->andWhere('a.author = :author');
+            $qb->setParameter('author', $user);
+        }
 
         return $qb->getQuery()->getSingleScalarResult();
     }
@@ -69,11 +74,11 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
         }
 
         $qb = $this->createQueryBuilder('a')
-           // ->select('a, author') Que fait cette ligne ?
-           // ->where('CURRENT_DATE() >= a.date') // pas besoin
+            ->select('a, author')//Que fait cette ligne ?
             ->where('a.deleted IS NULL')
-            ->join('a.author', 'author') // Innutile pour la page actualités
-            ->addSelect('author'); //addSelect sinon écrase le select() du queryBuilder
+            ->andWhere('a.published IS NOT NULL')
+            ->join('a.author', 'author')// Innutile pour la page actualités
+            ->addSelect('author');
 
         if ($user !== null) {
             $qb->andWhere('a.author = :author');
@@ -92,16 +97,17 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
         }
 
         $query = $qb->getQuery();
-        
+
 
         $premierResultat = ($page - 1) * $nbMaxParPage;
         $query->setFirstResult($premierResultat)->setMaxResults($nbMaxParPage);
         $paginator = new Paginator($query);
 
-        if ( ($paginator->count() <= $premierResultat) && $page != 1) {
+        if (($paginator->count() <= $premierResultat) && $page != 1) {
             throw new NotFoundHttpException('La page demandée n\'existe pas.'); // page 404, sauf pour la première page
         }
 
         return $paginator;
     }
+    
 }

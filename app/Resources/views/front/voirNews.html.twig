@@ -1,5 +1,5 @@
 {% extends "layout.html.twig" %}
-
+{% block title %}{{ parent() }} - {{ article.title }} {% endblock %}
 {% block body %}
 
     <h2>{{ article.title }}</h2>
@@ -10,8 +10,10 @@
                  style="float: left; margin-right: 10px; margin-top: 20px;"/>
             <div class="row">
                 <div class="col-md-12 col-xs-12 ">
-                    <p class="articleB"><strong>Date de création: </strong> {{ article.date|date('d/m/Y') }}</p>
-                    <p class="articleB"><strong>Auteur: </strong> {{ article.author.username }}</p>
+                    <p class="articleB"><strong>{% trans %}Date de
+                            création: {% endtrans %}</strong> {{ article.date|date('d/m/Y') }}</p>
+                    <p class="articleB"><strong>{% trans %}Auteur: {% endtrans %}</strong> {{ article.author.username }}
+                    </p>
                 </div>
             </div>
         </div>
@@ -19,6 +21,24 @@
 
         <div class="col-md-6 col-xs-12">
             <p class="article-content">{{ article.content| raw }}</p>
+            {% if is_granted('ROLE_CONTRIBUTEUR') %}
+                <div class="form-group col-xs-12">
+                    <div class="col-lg-offset-4 col-lg-12 col-sm-offset-4">
+                        <a href="{{ path('dashboard_editArticle', {article: article.id}) }}">
+                            <button type="button" class="btn envoyer_formulaire col-lg-2"
+                                    style="margin-right: 20px; background-color: red">
+                                    {% trans %}Modifier{% endtrans %}
+                            </button>
+                        </a>
+
+                        <a href="{{ path('supprimerArticle', {'slug': article.slug, 'redirect': 'actualites'}) }}">
+                            <button type="button" class="btn envoyer_formulaire  col-lg-2"
+                                    style="background-color: #519D9E">{% trans %}
+                                Supprimer{% endtrans %}</button>
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
         </div>
 
 
@@ -31,13 +51,14 @@
                     </div>
                     <div class="row miniature">
                         <div class="col-md-5 col-xs-12">
-                            <img style="float: left; margin-right: 10px;" src="{{ asset(article.photoWebPath) }}" alt="" width="100" height="125"/>
+                            <img style="float: left; margin-right: 10px;" src="{{ asset(article.photoWebPath) }}" alt=""
+                                 width="100" height="125"/>
                         </div>
 
                         <div class="col-md-7 col-xs-12">
-                            <p class="content">{{ article.content|striptags | truncate(80)| raw  }}</p>
-                            <p><a href="{{ path('article', {'id': article.id}) }}" style="float: right;">Lire la
-                                    suite...</a>
+                            <p class="content">{{ article.content|striptags | truncate(80)| raw }}</p>
+                            <p><a href="{{ path('article', {'slug': article.slug}) }}" style="float: right;">
+                                    {% trans %} Lire la suite...{% endtrans %}</a>
                             </p>
                         </div>
                     </div>

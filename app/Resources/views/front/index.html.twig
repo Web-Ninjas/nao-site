@@ -1,31 +1,36 @@
 {% extends "layout.html.twig" %}
 
+{% block title %}{{ parent() }}{% trans %} - Accueil{% endtrans %}{% endblock %}
 {% block body %}
 
     <div class="index-page">
 
-        <div class="row index">
-        <h1>{{ page.title|raw }}</h1>
-
-        <img class="img-responsive photo-index" src="{{ page.photoBanner }}" alt="" style="width:100%;">
-
-        </div>
-
         <div class="row">
+            <h1>{{ page.title|raw }}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('dashboard_administration') }}">
+                <span class="glyphicon glyphicon-plus plus"
+                      title="Modifier la bannière"></span>
+                    </a>
+                {% endif %}
+            </h1>
+
+            <img class="img-responsive photo-index" src="{{ asset(page.photoWebPath) }}" alt="{{ page.altPhoto }}" width="100%" >
+        </div>
+
+
+        <div class="row autre">
         <div class="col-md-offset-1 col-md-2 col-xs-12">
-            <h3 class="block">Rechercher</h3>
-            <p class="texte">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac turpis risus.
-                Mauris tincidunt molestie ligula vitae </p>
+            <a href="{{ path('map') }}"><h3 class="block">{% trans %}Rechercher{% endtrans %}</h3></a>
+            <p class="texte">{% trans %}Enfin une occasion de voir vos oiseaux préférés près de chez vous. {% endtrans %}</p>
         </div>
         <div class="col-md-2 col-md-offset-2 col-xs-12">
-            <h3 class="block">Observer</h3>
-            <p class="texte">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac turpis risus.
-                Mauris tincidunt molestie ligula vitae </p>
+            <a href="{{ path('observer') }}"> <h3 class="block">{% trans %}Observer{% endtrans %}</h3></a>
+            <p class="texte">{% trans %}Regarder les photos et partager les votre avec la communauté. {% endtrans %}</p>
         </div>
         <div class="col-md-2 col-md-offset-2 col-xs-12">
-            <h3 class="block">Actualité</h3>
-            <p class="texte">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac turpis risus.
-                Mauris tincidunt molestie ligula vitae </p>
+            <a href="{{ path('actualites') }}"><h3 class="block">{% trans %}Actualité{% endtrans %}</h3></a>
+            <p class="texte">{% trans %}Prennez le temps de lire du contenu sur votre passion! {% endtrans %}</p>
         </div>
         </div>
     </div>

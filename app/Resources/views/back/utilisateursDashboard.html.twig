@@ -11,75 +11,32 @@
 
 {% block content %}
 
-    <h4>Utilisateurs</h4>
+    <h4>{% trans %}Utilisateurs{% endtrans %}</h4>
 
     {% if utilisateurs is not empty %}
-        <div class="col-xs-3 recherche">
-            <div class="input-group input-group-md">
-                <input type="text" class="form-control" placeholder="Recherche" style="border:0;">
-                <span class="input-group-addon" style="border:0; background: white;">
-                    <span class=" glyphicon glyphicon-search"></span></span>
-            </div>
-        </div>
 
+        <div class="tableau table-hover">
+            <table class="display nowrap" id="data-table" cellspacing="0" width="100%">
 
-        <div class="tableau">
-
-            <table class="table">
                 <thead>
                 <tr>
-                    <th>
-                        {% set ordreDeTri = 'DESC' %}
-                        {% if rq.get('filtre') == 'user' and rq.get('ordreDeTri') == 'DESC' %}
-                            {% set ordreDeTri = 'ASC' %}
-                        {% endif %}
-                        <a href="{{ path('dashboard_utilisateurs', {'filtre': 'user', 'ordreDeTri': ordreDeTri}) }}">
-                            Utilisateur
-                            {% if  app.request.attributes.get('_route') == 'dashboard_utilisateurs'and app.request.query.get('filtre') == 'user' and app.request.query.get('ordreDeTri') == 'DESC' %}
-                                <span class="glyphicon glyphicon-arrow-down"></span>
-                            {% elseif app.request.attributes.get('_route') == 'dashboard_utilisateurs'and app.request.query.get('filtre') == 'user' and app.request.query.get('ordreDeTri') == 'ASC' %}
-                                <span class="glyphicon glyphicon-arrow-up"></span>
-                            {% else %}
-                                <span class="glyphicon glyphicon-filter"></span>
-                            {% endif %}
-                        </a>
-                    </th>
-                    <th>
-                        {% set ordreDeTri = 'DESC' %}
-                        {% if rq.get('filtre') == 'status' and rq.get('ordreDeTri') == 'DESC' %}
-                            {% set ordreDeTri = 'ASC' %}
-                        {% endif %}
-                        <a href="{{ path('dashboard_utilisateurs', {'filtre': 'status', 'ordreDeTri': ordreDeTri}) }}">
-                            Statut
-                            {% if  app.request.attributes.get('_route') == 'dashboard_utilisateurs'and app.request.query.get('filtre') == 'status' and app.request.query.get('ordreDeTri') == 'DESC' %}
-                                <span class="glyphicon glyphicon-arrow-down"></span>
-                            {% elseif app.request.attributes.get('_route') == 'dashboard_utilisateurs'and app.request.query.get('filtre') == 'status' and app.request.query.get('ordreDeTri') == 'ASC' %}
-                                <span class="glyphicon glyphicon-arrow-up"></span>
-                            {% else %}
-                                <span class="glyphicon glyphicon-filter"></span>
-                            {% endif %}
-                        </a>
-                    </th>
-                    <th>Observation</th>
-                    <th>
-                        {#{% set ordreDeTri = 'DESC' %}
-                        {% if rq.get('filtre') == 'article' and rq.get('ordreDeTri') == 'DESC' %}
-                            {% set ordreDeTri = 'ASC' %}
-                        {% endif %}
-                        <a href="{{ path('dashboard_utilisateurs', {'filtre': 'article', 'ordreDeTri': ordreDeTri}) }}">#}
-                        Article
-                        {#</a>#}
-                    </th>
-                    <th>En attente de promotion</th>
-                    <th class="tableau_action">Action</th>
+                    <th>{% trans %}Utilisateur{% endtrans %}</th>
+                    <th>{% trans %}Statut{% endtrans %}</th>
+
+                    <th>{% trans %}Observation{% endtrans %}</th>
+
+                    <th>{% trans %}Article{% endtrans %}</th>
+                    <th>{% trans %}En attente de promotion{% endtrans %}</th>
+                    <th class="tableau_action">{% trans %}Action{% endtrans %}</th>
                 </tr>
                 </thead>
+
                 <tbody class="fond_tableau">
                 {% for utils in utilisateurs %}
                     {% set utilisateur = utils[0] %}
                     {% set nbAuteurs = utils['c_aid'] %}
                     {% set nbObservations = utils['c_oid'] %}
-                    <tr>
+                    <tr class="ligne_tbl">
                         <td>
                             {{ utilisateur.username }}
                         </td>
@@ -102,40 +59,56 @@
 
                         <td class="texte">
                             {% if (utilisateur.demandeContributeur != false)  and (utilisateur.roles != ['ROLE_CONTRIBUTEUR']) %}
-                                Contributeur ?
+                                {% trans %}Contributeur ?{% endtrans %}
                             {% elseif  (utilisateur.demandeNaturaliste  != false) and  (utilisateur.roles != ['ROLE_NATURALISTE']) and (utilisateur.roles != ['ROLE_CONTRIBUTEUR']) %}
-                                Naturaliste ?
+                                {% trans %} Naturaliste ?{% endtrans %}
                             {% endif %}
                         </td>
 
                         <td class="tableau_action action">
 
                             <a href="{{ path('detailUtilisateur',{'id': utilisateur.id}) }}">
-        <span class=" glyphicon glyphicon-eye-open icone"
-              title="Détail de l'utilisateur"></span>
+                                <span class=" glyphicon glyphicon-eye-open icone"
+                                      title="Détail de l'utilisateur"></span>
                             </a>
                             <a href="{{ path('detailUtilisateur',{'id': utilisateur.id}) }}">
                                 <span class=" glyphicon glyphicon-pencil icone" title="Modifier l'utilisateur"></span>
                             </a>
-                            <a href="{{ path('promouvoirUtilisateurs',{'id': utilisateur.id, 'redirect': 'utilisateurs'}) }}">
-        <span class=" glyphicon glyphicon-arrow-up icone"
-              title="Promouvoir l'utilisateur"></span>
-                            </a>
+                            {% if (utilisateur.demandeNaturaliste  != false) or  (utilisateur.demandeContributeur != false)%}
+                                <a href="{{ path('promouvoirUtilisateurs',{'id': utilisateur.id, 'redirect': 'utilisateurs'}) }}">
+                                    <span class=" glyphicon glyphicon-arrow-up icone"
+                                          title="Promouvoir l'utilisateur"></span>
+                                </a>
+                            {% endif %}
+                            {%  if (utilisateur.username != app.user.username)%}
                             <a href="{{ path('destituerUtilisateurs',{'id': utilisateur.id, 'redirect': 'utilisateurs'}) }}">
-    <span class=" glyphicon glyphicon-arrow-down icone"
-          title="Rétrograder l'utilisateur"></span>
+                                <span class=" glyphicon glyphicon-arrow-down icone"
+                                      title="Rétrograder l'utilisateur"></span>
                             </a>
-                            <a href="{{ path('supprimerUtilisateurs',{'id': utilisateur.id, 'redirect': 'utilisateurs'}) }}">
-                                <span class=" glyphicon glyphicon-trash icone" title="Supprimer l'utilisateur"></span>
-                            </a>
+                            {% endif %}
+                            {% if utilisateur.username != app.user.username %}
+                                <a href="{{ path('supprimerUtilisateurs',{'id': utilisateur.id, 'redirect': 'utilisateurs'}) }}">
+                                    <span class=" glyphicon glyphicon-trash icone"
+                                          title="Supprimer l'utilisateur"></span>
+                                </a>
+                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
         </div>
-        {% include 'pagination.html.twig' %}
     {% else %}
-        <p class="aucun">Il n'y a aucun utilisateur pour l'instant.</p>
+        <p class="aucun">{% trans %}Il n'y a aucun utilisateur pour l'instant.{% endtrans %}</p>
     {% endif %}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">{% include 'back/locale.html.twig' %}</script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/rowreorder/1.2.0/js/dataTables.rowReorder.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="{{ asset('js/table.js') }}"></script>
 {% endblock %}

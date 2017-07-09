@@ -15,38 +15,58 @@ use UserBundle\Entity\User;
  */
 class ObservationRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findObsvervationForOiseau($oiseau)
+    public function findPublishedObsvervationForOiseau($oiseau, $minDate)
     {
-        $qd = $this->createQueryBuilder('o')
-        ->where('o.oiseau = :oiseau')
-        ->setParameter('oiseau', $oiseau)
-        ->leftJoin('o.oiseau', 'bird')
-        ->addSelect('bird');
+        $qd = $this->createQueryBuilder('o');
+        if ($oiseau !== null) {
+            $qd->where('o.oiseau = :oiseau')
+                ->setParameter('oiseau', $oiseau);
+        }
+        if ($minDate !== null) {
+            $qd->andWhere('o.date >= :dateFrom')
+                ->setParameter('dateFrom', $minDate);
+        }
+
+        $qd->andWhere('o.publish IS NOT NULL')
+            ->leftJoin('o.oiseau', 'bird')
+            ->addSelect('bird')
+            ->leftJoin('o.author', 'auth')
+            ->addSelect('auth');
 
         return $qd
             ->getQuery()
             ->getResult();
     }
 
-    public function findAllWithOiseau()
+    public function findAllPublishedWithOiseauAndAuthor()
     {
         $qd = $this->createQueryBuilder('o')
-        ->leftJoin('o.oiseau', 'bird')
-        ->addSelect('bird');
+            ->where('o.publish IS NOT NULL')
+            ->leftJoin('o.oiseau', 'bird')
+            ->addSelect('bird')
+            ->leftJoin('o.author', 'auth')
+            ->addSelect('auth');
 
         return $qd
             ->getQuery()
             ->getResult();
     }
 
-    public function countNbObservations()
+    public function countNbObservations(User $user = null)
     {
         $qb = $this->createQueryBuilder('o');
-        $qb->select('COUNT(o.id)');
+        $qb
+            ->select('COUNT(o.id)')
+            ->andWhere('o.deleted IS NULL');;
+
+        if ($user !== null) {
+            $qb->andWhere('o.author = :author');
+            $qb->setParameter('author', $user);
+        }
 
         return $qb->getQuery()->getSingleScalarResult();
     }
-    
+
     public function listeObservationsNonSupprimer(User $user = null)
     {
         $qb = $this->createQueryBuilder('o');
@@ -62,77 +82,4 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    /**
-     * Récupère une liste d'observations triés et paginés.
-     *
-     * @param int $page Le numéro de la page
-     * @param int $nbMaxParPage Nombre maximum d'observation par page
-     *
-     * @throws InvalidArgumentException
-     * @throws NotFoundHttpException
-     *
-     * @return Paginator
-     */
-    public function findAllPagineEtTrie($page, $nbMaxParPage, User $user = null, $filtre = null, $ordreDeTri = 'DESC')
-    {
-        if (!is_numeric($page)) {
-            throw new InvalidArgumentException(
-                'La valeur de l\'argument $page est incorrecte (valeur : ' . $page . ').'
-            );
-        }
-
-        if ($page < 1) {
-            throw new NotFoundHttpException('La page demandée n\'existe pas');
-        }
-
-        if (!is_numeric($nbMaxParPage)) {
-            throw new InvalidArgumentException(
-                'La valeur de l\'argument $nbMaxParPage est incorrecte (valeur : ' . $nbMaxParPage . ').'
-            );
-        }
-
-        $qb = $this->createQueryBuilder('o')
-            ->select('o, a, oiseau')
-            ->where('CURRENT_DATE() >= o.date')
-
-            ->join('o.author', 'a')
-            ->join('o.oiseau', 'oiseau')
-            ->leftJoin('o.validateur', 'v')
-            ->andWhere('o.deleted IS NULL');
-
-
-        if ($user !== null) {
-            $qb->andWhere('o.author = :author');
-            $qb->setParameter('author', $user);
-        }
-
-        if (isset($filtre)) {
-            $mapping = [
-                'id' => 'o.id',
-                'author' => 'a.username',
-                'status' => 'o.status',
-                'date' => 'o.date',
-                'validateur' => 'v.username',
-                'oiseau' => 'oiseau.nomVern'
-            ];
-
-            $qb->orderBy($mapping[$filtre], $ordreDeTri);
-        } else {
-            $qb->orderBy('o.date', 'DESC');
-        }
-
-
-        $query = $qb->getQuery();
-
-
-        $premierResultat = ($page - 1) * $nbMaxParPage;
-        $query->setFirstResult($premierResultat)->setMaxResults($nbMaxParPage);
-        $paginator = new Paginator($query);
-
-        if ( ($paginator->count() <= $premierResultat) && $page != 1) {
-            throw new NotFoundHttpException('La page demandée n\'existe pas.'); // page 404, sauf pour la première page
-        }
-
-        return $paginator;
-    }
 }

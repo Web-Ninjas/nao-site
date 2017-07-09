@@ -4,67 +4,26 @@
 
 {% block content %}
 
-    {% if app.request.query.get('only-me') == 'true' %} {# vérifie si dans l'URL, on trouve "?filtre=xxx" #}
-        <h4>Mes articles</h4>
-    {% else %}
-        <h4>Tous les articles</h4>
-    {% endif %}
+    <h4>{% trans %}Tous les articles{% endtrans %}</h4>
 
     {% if articles is not empty %}
-        <div class="col-xs-3 recherche">
-            <div class="input-group input-group-md">
-                <input type="text" class="form-control" placeholder="Recherche" style="border:0;">
-                <span class="input-group-addon" style="border:0; background: white;">
-                    <span class=" glyphicon glyphicon-search"></span></span>
-            </div>
-        </div>
 
+        <div class="tableau table-hover">
+            <table class="display nowrap" id="data-table" cellspacing="0" width="100%">
 
-        <div class="tableau">
-
-            <table class="table">
                 <thead>
                 <tr>
-                    <th>
-                        {% set ordreDeTri = 'DESC' %}
-                        {% if rq.get('filtre') == 'author' and rq.get('ordreDeTri') == 'DESC' %}
-                            {% set ordreDeTri = 'ASC' %}
-                        {% endif %}
-
-                        <a href="{{ path('dashboard_all_articles', {'filtre': 'author', 'ordreDeTri': ordreDeTri}) }}">
-                            Contributeur
-                            {% if  app.request.attributes.get('_route') == 'dashboard_all_articles'and app.request.query.get('filtre') == 'author' and app.request.query.get('ordreDeTri') == 'DESC' %}
-                                <span class="glyphicon glyphicon-arrow-down"></span>
-                            {% elseif app.request.attributes.get('_route') == 'dashboard_all_articles'and app.request.query.get('filtre') == 'author' and app.request.query.get('ordreDeTri') == 'ASC' %}
-                                <span class="glyphicon glyphicon-arrow-up"></span>
-                            {% else %}
-                                <span class="glyphicon glyphicon-filter"></span>
-                            {% endif %}
-                        </a>
-                    </th>
-                    <th>
-                        {% set ordreDeTri = 'DESC' %}
-                        {% if rq.get('filtre') == 'date' and rq.get('ordreDeTri') == 'DESC' %}
-                            {% set ordreDeTri = 'ASC' %}
-                        {% endif %}
-                        <a href="{{ path('dashboard_all_articles', {'filtre': 'date', 'ordreDeTri': ordreDeTri}) }}">
-                            Date
-                            {% if  app.request.attributes.get('_route') == 'dashboard_all_articles'and app.request.query.get('filtre') == 'date' and app.request.query.get('ordreDeTri') == 'DESC' %}
-                                <span class="glyphicon glyphicon-arrow-down"></span>
-                            {% elseif app.request.attributes.get('_route') == 'dashboard_all_articles'and app.request.query.get('filtre') == 'date' and app.request.query.get('ordreDeTri') == 'ASC' %}
-                                <span class="glyphicon glyphicon-arrow-up"></span>
-                            {% else %}
-                                <span class="glyphicon glyphicon-filter"></span>
-                            {% endif %}
-                        </a>
-                    </th>
-                    <th>Article</th>
-                    <th class="tableau_action">Action</th>
+                    <th>{% trans %}Contributeur{% endtrans %}</th>
+                    <th>{% trans %}Date{% endtrans %}</th>
+                    <th>{% trans %}Publié le{% endtrans %}</th>
+                    <th>{% trans %}Titre article{% endtrans %}</th>
+                    <th class="tableau_action">{% trans %}Action{% endtrans %}</th>
                 </tr>
                 </thead>
+
                 <tbody class="fond_tableau">
                 {% for article in articles %}
-                    <tr>
+                    <tr class="ligne_tbl">
                         <td>
                             {{ article.author.username }}
                         </td>
@@ -72,36 +31,64 @@
                         <td>
                             {{ article.date | date('d-m-Y') }}
                         </td>
-                  
+                        <td>
+                            {% if article.published is not null %}
+                                {{ article.published| date('d-m-Y')  }}
+                            {% else  %}
+                            {% trans %}Non publié{% endtrans %}
+                            {% endif %}
+                        </td>
                         <td class="content_observation">
+
+                            {{ article.title |striptags| truncate(20)}}
+
                             <div class="tableau_observation">
-                                <a href="{{ path('article', {'id': article.id}) }}">{{ article.content | truncate(50) |raw }}</a>
+                                <a href="{{ path('article', {'slug': article.slug}) }}">{{ article.content |striptags| truncate(30) }}</a>
                             </div>
                         </td>
 
                         <td class="tableau_action action">
 
-                            <a href="{{ path('article', {'id': article.id}) }}">
+                            <a href="{{ path('article', {'slug': article.slug}) }}">
                                 <span class=" glyphicon glyphicon-eye-open icone" title="Voir l'article"></span>
                             </a>
-
-                            <a href="#">
+                            {% if article.published == null %}
+                            <a href="{{ path('dashboard_editArticle', {article: article.slug}) }}">
                                 <span class=" glyphicon glyphicon-pencil icone" title="Modifier l'article"></span>
                             </a>
-                            <a href="#">
-                                <span class=" glyphicon glyphicon-ok icone" title="Valider l'article"></span>
-                            </a>
-                            <a href="{{ path('supprimerArticle', {'id': article.id, 'redirect': 'all_articles'}) }}">
+
+
+                            <a href="{{ path('supprimerArticle', {'slug': article.slug, 'redirect': 'all_articles'}) }}">
                                 <span class=" glyphicon glyphicon-trash icone" title="Supprimer l'article"></span>
                             </a>
+                            {% endif %}
+                            {% if is_granted('ROLE_ADMIN') and article.published == null %}
+                                <a href={{ path('dashboard_publier-article', {'slug': article.slug, 'redirect': 'all_articles'}) }}>
+                                    <span class=" glyphicon glyphicon-ok" title="Valider l'article"></span>
+                                </a>
+                                {% elseif  is_granted('ROLE_ADMIN') and article.published != null%}
+                                    <a href={{ path('dashboard_depublier-article', {'slug': article.slug, 'redirect': 'all_articles'}) }}>
+                                        <span class=" glyphicon glyphicon-remove" title="Dépublier l'article"></span>
+                                    </a>
+                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
         </div>
-        {% include 'pagination.html.twig' %}
     {% else %}
-        <p class="aucun">Il n'y a aucun article pour l'instant.</p>
+        <p class="aucun">{% trans %}Il n'y a aucun article pour l'instant.{% endtrans %}</p>
     {% endif %}
 {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">{% include 'back/locale.html.twig' %}</script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/rowreorder/1.2.0/js/dataTables.rowReorder.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="{{asset('js/table.js')}}"></script>
+{% endblock %}
+

@@ -12,101 +12,34 @@
 
 {% block content %}
 
-    <h4>Mes observations</h4>
+    <h4>{% trans %}Mes observations{% endtrans %}</h4>
 
     {% if observations is not empty %}
-        <div class="col-xs-3 recherche">
-            <div class="input-group input-group-md">
-                <input type="text" class="form-control" placeholder="Recherche" style="border:0;">
-                <span class="input-group-addon" style="border:0; background: white;">
-                    <span class=" glyphicon glyphicon-search"></span></span>
-            </div>
-        </div>
 
+        <div class="tableau dataTables_wrapper table-hover">
+            <table class="display nowrap" id="data-table" cellspacing="0" width="100%">
 
-        <div class="tableau">
-
-            <table class="table">
                 <thead>
                 <tr>
-                    <th>
-                        {% set ordreDeTri = 'DESC' %}
-                        {% if rq.get('filtre') == 'id' and rq.get('ordreDeTri') == 'DESC' %}
-                            {% set ordreDeTri = 'ASC' %}
-                        {% endif %}
-                        <a href="{{ path('dashboard_observations', {'filtre': 'id', 'ordreDeTri': ordreDeTri}) }}">
-                            N°
-                            {% if  app.request.attributes.get('_route') == 'dashboard_observations'and app.request.query.get('filtre') == 'id' and app.request.query.get('ordreDeTri') == 'DESC' %}
-                                <span class="glyphicon glyphicon-arrow-down"></span>
-                            {% elseif app.request.attributes.get('_route') == 'dashboard_observations'and app.request.query.get('filtre') == 'id' and app.request.query.get('ordreDeTri') == 'ASC' %}
-                                <span class="glyphicon glyphicon-arrow-up"></span>
-                            {% else %}
-                                <span class="glyphicon glyphicon-filter"></span>
-                            {% endif %}
-                        </a>
-                    </th>
-                    <th>
-                        {% set ordreDeTri = 'DESC' %}
-                        {% if rq.get('filtre') == 'oiseau' and rq.get('ordreDeTri') == 'DESC' %}
-                            {% set ordreDeTri = 'ASC' %}
-                        {% endif %}
-                        <a href="{{ path('dashboard_observations', {'filtre': 'oiseau', 'ordreDeTri': ordreDeTri}) }}">
-                            Oiseau
-                            {% if  app.request.attributes.get('_route') == 'dashboard_observations'and app.request.query.get('filtre') == 'oiseau' and app.request.query.get('ordreDeTri') == 'DESC' %}
-                                <span class="glyphicon glyphicon-arrow-down"></span>
-                            {% elseif app.request.attributes.get('_route') == 'dashboard_observations'and app.request.query.get('filtre') == 'oiseau' and app.request.query.get('ordreDeTri') == 'ASC' %}
-                                <span class="glyphicon glyphicon-arrow-up"></span>
-                            {% else %}
-                                <span class="glyphicon glyphicon-filter"></span>
-                            {% endif %}
-                        </a>
-                    </th>
-                    <th>
-                        {% set ordreDeTri = 'DESC' %}
-                        {% if rq.get('filtre') == 'date' and rq.get('ordreDeTri') == 'DESC' %}
-                            {% set ordreDeTri = 'ASC' %}
-                        {% endif %}
-                        <a href="{{ path('dashboard_observations', {'filtre': 'date', 'ordreDeTri': ordreDeTri}) }}">
-                            Date
-                            {% if  app.request.attributes.get('_route') == 'dashboard_observations'and app.request.query.get('filtre') == 'date' and app.request.query.get('ordreDeTri') == 'DESC' %}
-                                <span class="glyphicon glyphicon-arrow-down"></span>
-                            {% elseif app.request.attributes.get('_route') == 'dashboard_observations'and app.request.query.get('filtre') == 'date' and app.request.query.get('ordreDeTri') == 'ASC' %}
-                                <span class="glyphicon glyphicon-arrow-up"></span>
-                            {% else %}
-                                <span class="glyphicon glyphicon-filter"></span>
-                            {% endif %}
-                        </a>
-                    </th>
-                    <th>
-                        {% set ordreDeTri = 'DESC' %}
-                        {% if rq.get('filtre') == 'status' and rq.get('ordreDeTri') == 'DESC' %}
-                            {% set ordreDeTri = 'ASC' %}
-                        {% endif %}
-                        <a href="{{ path('dashboard_observations', {'filtre': 'status', 'ordreDeTri': ordreDeTri}) }}">
-                            Statut
-                            {% if  app.request.attributes.get('_route') == 'dashboard_observations'and app.request.query.get('filtre') == 'status' and app.request.query.get('ordreDeTri') == 'DESC' %}
-                                <span class="glyphicon glyphicon-arrow-down"></span>
-                            {% elseif app.request.attributes.get('_route') == 'dashboard_observations'and app.request.query.get('filtre') == 'status' and app.request.query.get('ordreDeTri') == 'ASC' %}
-                                <span class="glyphicon glyphicon-arrow-up"></span>
-                            {% else %}
-                                <span class="glyphicon glyphicon-filter"></span>
-                            {% endif %}
-                        </a>
-                    </th>
-                    <th>Observation</th>
-                    <th class="tableau_action">Action</th>
+                    <th>{% trans %}N°{% endtrans %}</th>
+                    <th>{% trans %}Oiseau{% endtrans %}</th>
+                    <th>{% trans %}Date{% endtrans %}</th>
+                    <th>{% trans %}Statut{% endtrans %}</th>
+                    <th>{% trans %}Observation{% endtrans %}</th>
+                    <th class="tableau_action">{% trans %}Action{% endtrans %}</th>
                 </tr>
                 </thead>
+
                 <tbody class="fond_tableau">
                 {% for observation in observations %}
-                    <tr>
+                    <tr class="ligne_tbl">
                         <td>{{ observation.id }}</td>
 
                         <td class="taille_td">
                             {% if observation.oiseau.nomVern is not empty %}
                                 {{ observation.oiseau.nomVern }}<br>
                             {% endif %}
-                            {{ observation.oiseau.nomValide }}
+                            {{ observation.oiseau.nomComplet }}
                         </td>
 
                         <td class="texte">
@@ -114,12 +47,12 @@
                         </td>
 
                         <td>
-                            <span style="color: {{ couleurs[observation.status] }}">{{ observation.status }}</span>
+                            <span class="observation_status" style="color: {{ couleurs[observation.status] }}">{{ observation.status }}</span>
                         </td>
 
                         <td class="content_observation">
                             <div class="tableau_observation">
-                                <a href="{{ path('observation', {'id': observation.id}) }}">{{ observation.content | truncate(50) |raw }}</a>
+                                <a href="{{ path('observation', {'id': observation.id}) }}">{{ observation.content |striptags| truncate(30)}}</a>
                             </div>
                         </td>
 
@@ -137,7 +70,7 @@
                                 <a href="{{ path('observation', {'id': observation.id}) }}">
                                     <span class=" glyphicon glyphicon-eye-open icone" title="Voir l'observation"></span>
                                 </a>
-                                <a href="#">
+                                <a href="{{ path('dashboard_editObservation', {observation: observation.id}) }}">
                                     <span class=" glyphicon glyphicon-pencil icone"
                                           title="Modifier l'observation"></span>
                                 </a>
@@ -152,8 +85,18 @@
                 </tbody>
             </table>
         </div>
-        {% include 'pagination.html.twig' %}
     {% else %}
-        <p>Il n'y a aucun article pour l'instant.</p>
+        <p class="aucun">{% trans %}Il n'y a aucun article pour l'instant.{% endtrans %}</p>
     {% endif %}
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">{% include 'back/locale.html.twig' %}</script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/rowreorder/1.2.0/js/dataTables.rowReorder.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="{{asset('js/table.js')}}"></script>
+{% endblock %}
+
+

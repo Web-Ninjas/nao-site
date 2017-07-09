@@ -1,39 +1,47 @@
-{% extends "layout.html.twig" %}
+{% extends "back-layout.html.twig" %}
 
-{% block body %}
+{% block content %}
 
-    <h2>Rédiger un article</h2>
+    <h4>{% trans %}Rédiger un article{% endtrans %}</h4>
 
-{{ form_start(form) }}
-	{{ form_errors(form) }}
+    <div style="background-color: #9DC8C8;color: white;padding-left: 23px; padding-bottom: 23px; padding-right: 23px">
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
 
-	{{ form_row(form.title) }}
-    {{ form_row(form.content, {'id' : 'summernote'}) }}
-    {{ form_row(form.enregistrer) }}
+        <div class="row">
+            <div class="col-sm-6 col-xs-12">
+                {{ form_row(form.title) }}
+            </div>
+            <div class="col-sm-6 col-xs-12 file">
+                {{ form_row (form.file) }}
+            </div>
+        </div>
 
-{{ form_end(form) }}
+        {{ form_row(form.content, {'id' : 'summernote'}) }}
 
-    <p>
-        <a href="{{ path('dashboard_utilisateurs') }}" class="btn btn-default">
-            <i class="glyphicon glyphicon-chevron-left"></i>
-            Retour à la page d'accueil
-        </a>
-    </p>
+
+        <div class="envoyer">
+            {{ form_row(form.enregistrer, {'label': 'Enregister','attr': {'class': 'btn envoyer_formulaire' }}) }}
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+
 
 {% endblock %}
 
 {% block javascripts %}
-	{{ parent() }}
+    {{ parent() }}
 
-	<script type="text/javascript">
-		$(document).ready(function() {
-	  		$('#summernote').summernote({
-	  			height: 300,                 // set editor height
-	  			minHeight: null,             // set minimum height of editor
-	  			maxHeight: null,             // set maximum height of editor
-	  			focus: true                  // set focus to editable area after initializing summernote
-			});
-		});
-	</script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#summernote').summernote({
+                height: 300,                 // set editor height
+                minHeight: null,             // set minimum height of editor
+                maxHeight: null,             // set maximum height of editor
+                focus: true                  // set focus to editable area after initializing summernote
+            });
+        });
+    </script>
 
 {% endblock %}

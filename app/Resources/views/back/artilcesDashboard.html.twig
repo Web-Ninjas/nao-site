@@ -1,0 +1,93 @@
+{% extends "back-layout.html.twig" %}
+
+{% set rq = app.request.query %}
+
+{% block content %}
+
+    <h4>{% trans %}Mes articles{% endtrans %}</h4>
+
+    {% if articles is not empty %}
+
+        <div class="tableau table-hover">
+            <table class="display nowrap" id="data-table" cellspacing="0" width="100%">
+
+                <thead>
+                <tr>
+                    <th>{% trans %}Contributeur{% endtrans %}</th>
+                    <th>{% trans %}Date{% endtrans %}</th>
+                    <th>{% trans %}Publié le{% endtrans %}</th>
+                    <th>{% trans %}Titre article{% endtrans %}</th>
+                    <th class="tableau_action">{% trans %}Action{% endtrans %}</th>
+                </tr>
+                </thead>
+
+                <tbody class="fond_tableau">
+                {% for article in articles %}
+                    <tr class="ligne_tbl">
+                        <td>
+                            {{ article.author.username }}
+                        </td>
+
+                        <td>
+                            {{ article.date | date('d-m-Y') }}
+                        </td>
+                        <td>
+                            {% if article.published is not null %}
+                                {{ article.published| date('d-m-Y')  }}
+                            {% else  %}
+                                {% trans %}Non publié{% endtrans %}
+                            {% endif %}
+                        </td>
+                        <td class="content_observation">
+                            {{ article.title |striptags| truncate(20)}}
+                            <div class="tableau_observation">
+                                <a href="{{ path('article', {'slug': article.slug}) }}">{{ article.content |striptags| truncate(30) }}</a>
+                            </div>
+                        </td>
+
+                        <td class="tableau_action action">
+
+                            <a href="{{ path('article', {'slug': article.slug}) }}">
+                                <span class=" glyphicon glyphicon-eye-open icone" title="Voir l'article"></span>
+                            </a>
+
+                            {% if article.published == null %}
+                            <a href="{{ path('dashboard_editArticle', {article: article.slug}) }}">
+                                <span class=" glyphicon glyphicon-pencil icone" title="Modifier l'article"></span>
+                            </a>
+
+                            <a href="{{ path('supprimerArticle', {'slug': article.slug, 'redirect': 'all_articles'}) }}">
+                                <span class=" glyphicon glyphicon-trash icone" title="Supprimer l'article"></span>
+                            </a>
+                            {% endif %}
+
+                            {% if is_granted('ROLE_ADMIN') and article.published == null %}
+                                <a href={{ path('dashboard_publier-article', {'slug': article.slug, 'redirect': 'all_articles'}) }}>
+                                    <span class=" glyphicon glyphicon-ok" title="Valider l'article"></span>
+                                </a>
+                            {% elseif  is_granted('ROLE_ADMIN') and article.published != null%}
+                                <a href={{ path('dashboard_depublier-article', {'slug': article.slug, 'redirect': 'all_articles'}) }}>
+                                    <span class=" glyphicon glyphicon-remove" title="Dépublier l'article"></span>
+                                </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="aucun">{% trans %}Il n'y a aucun article pour l'instant.{% endtrans %}</p>
+    {% endif %}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">{% include 'back/locale.html.twig' %}</script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/rowreorder/1.2.0/js/dataTables.rowReorder.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
+
+   <script type="text/javascript" src="{{asset('js/table.js')}}"></script>
+{% endblock %}

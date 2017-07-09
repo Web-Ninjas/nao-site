@@ -1,0 +1,147 @@
+{% extends "layout.html.twig" %}
+
+{% block body %}
+
+    <h2>{% trans %}Modifier une observation{% endtrans %}</h2>
+
+    <div class="row obs">
+
+        <div class="col-lg-6 col-xs-12">
+
+            {{ form(form) }}
+
+        </div>
+
+
+        <div class="locateField col-lg-6 col-xs-12">
+            <span>{% trans %}Emplacement :{% endtrans %}</span>
+            <button id="btn-locate">{% trans %}Me localiser{% endtrans %}</button>
+            <div id="map"></div>
+        </div>
+
+    </div><!-- row -->
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js"></script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZjdDWppQRZkoIfeqHtm644-ncPYj9eXw&v=3&callback=initMap"></script>
+    <script>
+
+
+        {# // Permet autocomplete #}
+        var sourceList = [];
+        {% for oiseauName in listOiseauNames %}
+        sourceList.push( "{{ oiseauName }}" );
+        {% endfor %}
+
+        var myLat, myLng;
+
+        $(function(){
+
+            $('#appbundle_observation_nomOiseau').autocomplete({
+                source: sourceList
+            });
+
+            $('#btn-locate').on('click', function(){
+
+                if (navigator.geolocation)
+                {
+                    navigator.geolocation.getCurrentPosition(function(pos) {
+                        myLat = pos.coords.latitude;
+                        myLng = pos.coords.longitude;
+                        setMyLocationMarker();
+                        updateCoorLabels(myLat, myLng);
+                    });
+                }
+            });
+
+            // Listener pour si l'utilisateur change manuellement lat ou lng
+            $('#appbundle_observation_latitude').on('change', function(){
+                refreshLatLngData();
+                setMyLocationMarker();
+            });
+
+            $('#appbundle_observation_longitude').on('change', function(){
+                refreshLatLngData();
+                setMyLocationMarker();
+            });
+        });
+
+        function refreshLatLngData()
+        {
+            myLat = Number($('#appbundle_observation_latitude').val());
+            myLng = Number($('#appbundle_observation_longitude').val());
+        }
+
+        function setMyLocationMarker()
+        {
+            withDrawMarkers()
+
+            var marker = new google.maps.Marker({
+                map: map,
+                draggable: true,
+                icon: defaultIcon,
+                position: {lat: myLat, lng: myLng},
+                animation: google.maps.Animation.DROP,
+            });
+            markers.push(marker);
+
+            // Listener quand on bouge le marker
+            google.maps.event.addListener(marker, 'dragend', function (event) {
+                updateCoorLabels(event.latLng.lat(), event.latLng.lng());
+                refreshLatLngData();
+            });
+        }
+
+        function updateCoorLabels(lat, lng)
+        {
+            $('#appbundle_observation_latitude').val(lat);
+            $('#appbundle_observation_longitude').val(lng);
+        }
+
+        function makeMarkerIcon(markerColor)
+        {
+            var markerImage = new google.maps.MarkerImage(
+                'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|' + markerColor + '|40|_|%E2%80%A2',
+                new google.maps.Size(21, 34),
+                new google.maps.Point(0, 0),
+                new google.maps.Point(10, 34),
+                new google.maps.Size(21, 34),
+                );
+            return markerImage;
+        }
+
+        function initMap()
+        {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: {{ observation.latitude }}, lng: {{ observation.longitude }} },
+                zoom: 7,
+                mapTypeControle: false,
+                maxZoom: 12,
+                streetViewControl: false
+            });
+
+            var icon = makeMarkerIcon('9DC8C8');
+
+            var marker = new google.maps.Marker({
+                map: map,
+                draggable: true,
+                icon: icon,
+                position: {lat: {{ observation.latitude }}, lng: {{ observation.longitude }} },
+                title: '{{ observation.nomOiseau }}',
+                animation: google.maps.Animation.DROP
+            });
+
+            // Listener quand on bouge le marker
+            google.maps.event.addListener(marker, 'dragend', function (event) {
+                updateCoorLabels(event.latLng.lat(), event.latLng.lng());
+                refreshLatLngData();
+            });
+        }
+
+    </script>
+{% endblock %}

@@ -11,104 +11,43 @@
 {% set rq = app.request.query %}
 
 {% block content %}
-    <h4>Mes observations</h4>
+
+    <h4>{% trans %}Toutes les observations{% endtrans %}</h4>
 
     {% if observations is not empty %}
-        <div class="col-xs-3 recherche">
-            <div class="input-group input-group-md">
-                <input type="text" class="form-control" placeholder="Recherche" style="border:0;">
-                <span class="input-group-addon" style="border:0; background: white;">
-                    <span class=" glyphicon glyphicon-search"></span></span>
-            </div>
-        </div>
 
+        <div class="tableau table-hover">
+            <table class="display nowrap" id="data-table" cellspacing="0" width="100%">
 
-        <div class="tableau">
-
-            <table class="table">
                 <thead>
                 <tr>
-                    <th>
-                        {% set ordreDeTri = 'DESC' %}
-                        {% if rq.get('filtre') == 'author' and rq.get('ordreDeTri') == 'DESC' %}
-                            {% set ordreDeTri = 'ASC' %}
-                        {% endif %}
-                        <a href="{{ path('dashboard_all_observations', {'filtre': 'author', 'ordreDeTri': ordreDeTri}) }}">
-                            Utilisateur
-                            {% if  app.request.attributes.get('_route') == 'dashboard_all_observations'and app.request.query.get('filtre') == 'author' and app.request.query.get('ordreDeTri') == 'DESC' %}
-                                <span class="glyphicon glyphicon-arrow-down"></span>
-                            {% elseif app.request.attributes.get('_route') == 'dashboard_all_observations'and app.request.query.get('filtre') == 'author' and app.request.query.get('ordreDeTri') == 'ASC' %}
-                                <span class="glyphicon glyphicon-arrow-up"></span>
-                            {% else %}
-                                <span class="glyphicon glyphicon-filter"></span>
-                            {% endif %}
-                        </a>
-                    </th>
-                    <th>
-                        {% set ordreDeTri = 'DESC' %}
-                        {% if rq.get('filtre') == 'status' and rq.get('ordreDeTri') == 'DESC' %}
-                            {% set ordreDeTri = 'ASC' %}
-                        {% endif %}
-                        <a href="{{ path('dashboard_all_observations', {'filtre': 'status', 'ordreDeTri': ordreDeTri}) }}">
-                            Statut
-                            {% if  app.request.attributes.get('_route') == 'dashboard_all_observations'and app.request.query.get('filtre') == 'status' and app.request.query.get('ordreDeTri') == 'DESC' %}
-                                <span class="glyphicon glyphicon-arrow-down"></span>
-                            {% elseif app.request.attributes.get('_route') == 'dashboard_all_observations'and app.request.query.get('filtre') == 'status' and app.request.query.get('ordreDeTri') == 'ASC' %}
-                                <span class="glyphicon glyphicon-arrow-up"></span>
-                            {% else %}
-                                <span class="glyphicon glyphicon-filter"></span>
-                            {% endif %}
-                        </a>
-                    </th>
-                    <th>Observation</th>
-                    <th>
-                        {% set ordreDeTri = 'DESC' %}
-                        {% if rq.get('filtre') == 'date' and rq.get('ordreDeTri') == 'DESC' %}
-                            {% set ordreDeTri = 'ASC' %}
-                        {% endif %}
-                        <a href="{{ path('dashboard_all_observations', {'filtre': 'date', 'ordreDeTri': ordreDeTri}) }}">
-                            Date
-                            {% if  app.request.attributes.get('_route') == 'dashboard_all_observations'and app.request.query.get('filtre') == 'date' and app.request.query.get('ordreDeTri') == 'DESC' %}
-                                <span class="glyphicon glyphicon-arrow-down"></span>
-                            {% elseif app.request.attributes.get('_route') == 'dashboard_all_observations'and app.request.query.get('filtre') == 'date' and app.request.query.get('ordreDeTri') == 'ASC' %}
-                                <span class="glyphicon glyphicon-arrow-up"></span>
-                            {% else %}
-                                <span class="glyphicon glyphicon-filter"></span>
-                            {% endif %}
-                        </a>
-                    </th>
-                    <th>
-                        {% set ordreDeTri = 'DESC' %}
-                        {% if rq.get('filtre') == 'validateur' and rq.get('ordreDeTri') == 'DESC' %}
-                            {% set ordreDeTri = 'ASC' %}
-                        {% endif %}
-                        <a href="{{ path('dashboard_all_observations', {'filtre': 'validateur', 'ordreDeTri': ordreDeTri}) }}">
-                            Validateur
-                            {% if  app.request.attributes.get('_route') == 'dashboard_all_observations'and app.request.query.get('filtre') == 'validateur' and app.request.query.get('ordreDeTri') == 'DESC' %}
-                                <span class="glyphicon glyphicon-arrow-down"></span>
-                            {% elseif app.request.attributes.get('_route') == 'dashboard_all_observations'and app.request.query.get('filtre') == 'validateur' and app.request.query.get('ordreDeTri') == 'ASC' %}
-                                <span class="glyphicon glyphicon-arrow-up"></span>
-                            {% else %}
-                                <span class="glyphicon glyphicon-filter"></span>
-                            {% endif %}
-                        </a>
-                    </th>
-                    <th class="tableau_action">Action</th>
+                    <th>{% trans %}Utilisateur{% endtrans %}</th>
+                    <th>{% trans %}Statut{% endtrans %}</th>
+                    <th>{% trans %}Observation{% endtrans %}</th>
+                    <th>{% trans %}Date{% endtrans %}</th>
+                    <th>{% trans %}Validateur{% endtrans %}</th>
+                    <th class="tableau_action">{% trans %}Action{% endtrans %}</th>
                 </tr>
                 </thead>
+
                 <tbody class="fond_tableau">
                 {% for observation in observations %}
-                    <tr>
+                    <tr class="ligne_tbl">
                         <td>
                             {{ observation.author.username }}
                         </td>
                         <td>
-                            <span style="color: {{ couleurs[observation.status] }}">{{ observation.status }}</span>
+                            <span class="observation_status"
+                                  style="color: {{ couleurs[observation.status] }}">{{ observation.status }}</span>
                         </td>
 
                         <td class="content_observation">
+                            {% if observation.oiseau.nomVern is not empty %}
+                                {{ observation.oiseau.nomVern }}<br>
+                            {% endif %}
+                            {{ observation.oiseau.nomComplet }}
                             <div class="tableau_observation">
-                                <a href="{{ path('observation', {'id': observation.id}) }}">{{ observation.content | truncate(50) |raw }}</a>
+                                <a href="{{ path('observation', {'id': observation.id}) }}">{{ observation.content |striptags| truncate(30) }}</a>
                             </div>
                         </td>
 
@@ -125,6 +64,12 @@
                                 <a href="{{ path('observation', {'id': observation.id}) }}">
                                     <span class=" glyphicon glyphicon-eye-open icone" title="Voir l'observation"></span>
                                 </a>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <a href="{{ path('supprimerObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
+                                    <span class=" glyphicon glyphicon-trash icone"
+                                          title="Supprimer l'observation"></span>
+                                    </a>
+                                {% endif %}
                             {% elseif observation.status ==  constant('AppBundle\\Entity\\Observation::SUPPRIMEE') %}
                                 <a href="{{ path('supprimerObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
                                     <span class=" glyphicon glyphicon-trash icone"
@@ -135,34 +80,45 @@
                                 <a href="{{ path('observation', {'id': observation.id}) }}">
                                     <span class=" glyphicon glyphicon-eye-open icone" title="Voir l'observation"></span>
                                 </a>
-                                <a href="#">
+                                {% if is_granted('ROLE_ADMIN') or observation.author == app.user.username %}
+                                    <a href="{{ path('dashboard_editObservation', {observation: observation.id}) }}">
                                     <span class=" glyphicon glyphicon-pencil icone"
                                           title="Modifier l'observation"></span>
+                                    </a>
+                                {% endif %}
+
+                                <a href="{{ path('observation', {'id': observation.id}) }}">
+                                <span class=" glyphicon glyphicon-share-alt icone"
+                                      title="Observation à modifier"></span>
                                 </a>
-                                <a href="{{ path('demandeDeModificationObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
-                                    <span class=" glyphicon glyphicon-share-alt icone"
-                                          title="Observation à modifier"></span>
-                                </a>
+
+
                                 <a href="{{ path('validerObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
                                     <span class=" glyphicon glyphicon-ok icone" title="Valider l'observation"></span>
                                 </a>
-                                <a href="{{ path('supprimerObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
+                                {% if is_granted('ROLE_ADMIN') or observation.author == app.user.username %}
+                                    <a href="{{ path('supprimerObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
                                     <span class=" glyphicon glyphicon-trash icone"
                                           title="Supprimer l'observation"></span>
-                                </a>
-
+                                    </a>
+                                {% endif %}
                             {% else %}
                                 <a href="{{ path('observation', {'id': observation.id}) }}">
                                     <span class=" glyphicon glyphicon-eye-open icone" title="Voir l'observation"></span>
                                 </a>
-                                <a href="#">
+                                {% if is_granted('ROLE_ADMIN') or observation.author == app.user.username %}
+                                    <a href="{{ path('dashboard_editObservation', {observation: observation.id}) }}">
                                     <span class=" glyphicon glyphicon-pencil icone"
                                           title="Modifier l'observation"></span>
+                                    </a>
+                                {% endif %}
+
+                                <a href="{{ path('observation', {'id': observation.id}) }}">
+                                <span class=" glyphicon glyphicon-share-alt icone"
+                                      title="Observation à modifier"></span>
                                 </a>
-                                <a href="{{ path('demandeDeModificationObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
-                                    <span class=" glyphicon glyphicon-share-alt icone"
-                                          title="Observation à modifier"></span>
-                                </a>
+
+
                                 <a href="{{ path('validerObservation', {'id': observation.id,'redirect': 'all_observations'}) }}">
                                     <span class=" glyphicon glyphicon-ok icone" title="Valider l'observation"></span>
                                 </a>
@@ -170,10 +126,12 @@
                                     <span class=" glyphicon glyphicon-exclamation-sign icone"
                                           title="Signaler l'observation"></span>
                                 </a>
-                                <a href="{{ path('supprimerObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
+                                {% if is_granted('ROLE_ADMIN') or observation.author == app.user.username %}
+                                    <a href="{{ path('supprimerObservation', {'id': observation.id, 'redirect': 'all_observations'}) }}">
                                     <span class=" glyphicon glyphicon-trash icone"
                                           title="Supprimer l'observation"></span>
-                                </a>
+                                    </a>
+                                {% endif %}
                             {% endif %}
                         </td>
                     </tr>
@@ -181,8 +139,20 @@
                 </tbody>
             </table>
         </div>
-        {% include 'pagination.html.twig' %}
     {% else %}
-        <p class="aucun">Il n'y a aucun article pour l'instant.</p>
+        <p class="aucun">{% trans %}Il n'y a aucun article pour l'instant.{% endtrans %}</p>
     {% endif %}
 {% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">{% include 'back/locale.html.twig' %}</script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/rowreorder/1.2.0/js/dataTables.rowReorder.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="{{ asset('js/table.js') }}"></script>
+{% endblock %}
+

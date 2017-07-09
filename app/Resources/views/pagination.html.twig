@@ -3,7 +3,7 @@
         {% if pagination.page > 1 %}
             <li>
                 <a  class="dernier-page" href="{{ path(pagination.nomRoute, pagination.paramsRoute|merge({'page': 1})|merge(app.request.query)) }}">
-                    <<
+                    1
                 </a>
             </li>
             <li>

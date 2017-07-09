@@ -5,12 +5,14 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use UserBundle\Entity\User;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Observation
  *
  * @ORM\Table(name="observation")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ObservationRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Observation
 {
@@ -31,16 +33,19 @@ class Observation
     private $id;
 
     /**
+    * @Assert\NotBlank(groups={"ajout"})
+    */
+    private $nomOiseau;
+
+    /**
     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\OiseauTaxref")
     * @ORM\JoinColumn(nullable=false)
-    * @Assert\NotBlank()
     */
     private $oiseau;
 
     /**
     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User",inversedBy="observations")
     * @ORM\JoinColumn(nullable=false)
-    * @Assert\NotBlank()
     */
     private $author;
     
@@ -49,8 +54,8 @@ class Observation
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="datetime")
-     * @Assert\NotBlank()
-     * @Assert\DateTime()
+     * @Assert\NotBlank(groups={"ajout"})
+     * @Assert\DateTime(groups={"ajout"})
      */
     private $date;
 
@@ -58,7 +63,7 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="content", type="text")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"ajout"})
      */
     private $content;
 
@@ -73,7 +78,7 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="longitude", type="decimal", precision=25, scale=20)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"ajout"})
      */
     private $longitude;
 
@@ -81,7 +86,7 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="latitude", type="decimal", precision=25, scale=20)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"ajout"})
      */
     private $latitude;
 
@@ -89,17 +94,33 @@ class Observation
      * @var string
      *
      * @ORM\Column(name="photo", type="string", length=255, nullable=true)
-     * @Assert\File(mimeTypes={ "image/jpeg", "image/png", "image/jpg"})
-     * @Assert\Image
+     * @Assert\File(mimeTypes={ "image/jpeg", "image/png", "image/jpg"}, groups={"ajout"})
+     * @Assert\Image(groups={"ajout"})
      */
-    private $photo;
+    private $photoExtension = null;
+
+    /**
+     * @Assert\File(mimeTypes={ "image/jpeg", "image/png", "image/jpg"}, groups={"ajout"})
+     */
+    private $photoFile;
+
+    private $tempPhotoFilename;
+
+    /**
+     * @ORM\Column(name="altPhoto", type="string", length=255, nullable=true)
+    */
+    private $altPhoto;
 
     /**
      * @var string
      *
      * @ORM\Column(name="audio", type="string", length=255, nullable=true)
      */
-    private $audio;
+    private $audioExtension = null;
+
+    private $audioFile;
+
+    private $tempAudioFilename;
 
     /**
      * @var int
@@ -122,13 +143,17 @@ class Observation
      */
     private $deleted;
 
-
-
     /**
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
      * @ORM\JoinColumn(nullable=true)
      */
     private $validateur;
+
+    public function __construct()
+    {
+        $this->date = new \DateTime('now');
+        $this->status = self::A_VALIDER;
+    }
 
     /**
      * @return mixed
@@ -310,54 +335,6 @@ class Observation
     }
 
     /**
-     * Set photo
-     *
-     * @param string $photo
-     *
-     * @return Observation
-     */
-    public function setPhoto($photo)
-    {
-        $this->photo = $photo;
-
-        return $this;
-    }
-
-    /**
-     * Get photo
-     *
-     * @return string
-     */
-    public function getPhoto()
-    {
-        return $this->photo;
-    }
-
-    /**
-     * Set audio
-     *
-     * @param string $audio
-     *
-     * @return Observation
-     */
-    public function setAudio($audio)
-    {
-        $this->audio = $audio;
-
-        return $this;
-    }
-
-    /**
-     * Get audio
-     *
-     * @return string
-     */
-    public function getAudio()
-    {
-        return $this->audio;
-    }
-
-    /**
      * Set status
      *
      * @param integer $status
@@ -428,5 +405,229 @@ class Observation
     {
         return $this->deleted;
     }
-}
 
+    public function getNomOiseau()
+    {
+        if ($this->oiseau === null)
+        {
+            return null;
+        }
+        return $this->oiseau->getNomValide();
+    }
+
+    public function setNomOiseau($nom)
+    {
+        $this->nomOiseau = $nom;
+    }
+
+     /**
+      * @ORM\PrePersist()
+      * @ORM\PreUpdate()
+      */
+      public function preUpload()
+      {
+        // Si jamais il n'y a pas de fichier (champ facultatif), on ne fait rien
+        if (null !== $this->photoFile) {
+          $this->photoExtension = $this->photoFile->guessExtension();
+          $this->altPhoto = $this->photoFile->getClientOriginalName();
+        }
+
+        if (null !== $this->audioFile) {
+          $this->audioExtension = $this->audioFile->guessExtension();
+        }
+
+        return;
+      }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        // Si jamais il n'y a pas de fichier (champ facultatif), on ne fait rien
+        if (null !== $this->photoFile) 
+        {
+            // Si on avait un ancien fichier, on le supprime
+            if (null !== $this->tempPhotoFilename) 
+            {
+              $oldFile = $this->getUploadRootDir().'/'.$this->id.'.'.$this->tempPhotoFilename;
+                if (file_exists($oldFile)) 
+                    unlink($oldFile);
+            }
+
+            // On déplace le fichier envoyé dans le répertoire de notre choix
+            $this->photoFile->move(
+            $this->getUploadRootDir(), // Le répertoire de destination
+            $this->id.'.'.$this->photoExtension   // Le nom du fichier à créer, ici « id.extension »
+            ); 
+        } 
+
+        if (null !== $this->audioFile) 
+        {
+            // Si on avait un ancien fichier, on le supprime
+            if (null !== $this->tempAudioFilename) 
+            {
+              $oldFile = $this->getUploadRootDir().'/'.$this->id.'.'.$this->tempAudioFilename;
+                if (file_exists($oldFile)) 
+                    unlink($oldFile);
+            }
+
+            // On déplace le fichier envoyé dans le répertoire de notre choix
+            $this->audioFile->move(
+            $this->getUploadRootDir(), // Le répertoire de destination
+            $this->id.'.'.$this->audioExtension   // Le nom du fichier à créer, ici « id.extension »
+            ); 
+        } 
+
+        return;  
+    }
+
+    /**
+    * @ORM\PreRemove()
+    */
+    public function preRemoveUpload()
+    {
+     // On sauvegarde temporairement le nom du fichier, car il dépend de l'id
+     $this->tempPhotoFilename = $this->getUploadRootDir().'/'.$this->id.'.'.$this->photoExtension;
+     $this->tempAudioFilename = $this->getUploadRootDir().'/'.$this->id.'.'.$this->audioExtension;
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+     public function removeUpload()
+     {
+        // En PostRemove, on n'a pas accès à l'id, on utilise notre nom sauvegardé
+        if (file_exists($this->tempPhotoFilename)) 
+        {
+            // On supprime le fichier
+            unlink($this->tempPhotoFilename);
+        }
+
+        if (file_exists($this->tempAudioFilename)) 
+        {
+            // On supprime le fichier
+            unlink($this->tempAudioFilename);
+        }
+    }
+
+    public function getUploadDir()
+    {
+        // On retourne le chemin relatif vers l'image pour un navigateur (relatif au répertoire /web donc)
+        return 'uploads/observations';
+    }
+
+    protected function getUploadRootDir()
+    {
+        // On retourne le chemin relatif vers l'image pour notre code PHP
+        return __DIR__.'/../../../web/'.$this->getUploadDir();
+    }
+
+    public function getPhotoWebPath()
+    {
+        if ($this->getPhotoExtension()) {
+            return $this->getUploadDir().'/'.$this->getId().'.'.$this->getPhotoExtension();
+        }
+    }
+
+    public function getAudioWebPath()
+    {
+        if ($this->getAudioExtension()) {
+            return $this->getUploadDir().'/'.$this->getId().'.'.$this->getAudioExtension();
+        }
+        return null;
+    }
+
+    /**
+     * Set photoExtension
+     *
+     * @param string $photoExtension
+     *
+     * @return Observation
+     */
+    public function setPhotoExtension($photoExtension)
+    {
+        $this->photoExtension = $photoExtension;
+
+        return $this;
+    }
+
+    /**
+     * Get photoExtension
+     *
+     * @return string
+     */
+    public function getPhotoExtension()
+    {
+        return $this->photoExtension;
+    }
+
+    /**
+     * Set altPhoto
+     *
+     * @param string $altPhoto
+     *
+     * @return Observation
+     */
+    public function setAltPhoto($altPhoto)
+    {
+        $this->altPhoto = $altPhoto;
+
+        return $this;
+    }
+
+    /**
+     * Get altPhoto
+     *
+     * @return string
+     */
+    public function getAltPhoto()
+    {
+        return $this->altPhoto;
+    }
+
+    /**
+     * Set audioExtension
+     *
+     * @param string $audioExtension
+     *
+     * @return Observation
+     */
+    public function setAudioExtension($audioExtension)
+    {
+        $this->audioExtension = $audioExtension;
+
+        return $this;
+    }
+
+    /**
+     * Get audioExtension
+     *
+     * @return string
+     */
+    public function getAudioExtension()
+    {
+        return $this->audioExtension;
+    }
+
+    public function getPhotoFile()
+    {
+        return $this->photoFile;
+    }
+
+    public function setPhotoFile($photoFile)
+    {
+        $this->photoFile = $photoFile;
+    }
+
+    public function getAudioFile()
+    {
+        return $this->audioFile;
+    }
+
+    public function setAudioFile($audioFile)
+    {
+        $this->audioFile = $audioFile;
+    }
+}
