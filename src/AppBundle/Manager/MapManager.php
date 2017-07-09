@@ -2,18 +2,28 @@
 
 namespace AppBundle\Manager;
 
+use AppBundle\Entity\Observation;
+use Doctrine\ORM\EntityManagerInterface;
+
 class MapManager
 {
+	/** @var EntityManagerInterface */
 	private $em;
 
-	public function __construct($em)
+	public function __construct(EntityManagerInterface $em)
 	{
 		$this->em = $em;
 	}
 
+	/**
+	 * @param $name
+	 * @param $periode
+	 * @return array
+	 */
 	public function getPublishedObservationsForOiseauNameAndDate($name, $periode)
 	{
-		$minDate;
+		$minDate = null;
+
 		if ($periode == '(Origine)') {
 			$minDate = null;
 		} else {
@@ -59,14 +69,17 @@ class MapManager
 		$listObservationsArray = $this->arrayOfObjectsToArrayOfArray($listObservations);
 
 		return $listObservationsArray;
-	}	
+	}
 
+	/**
+	 * @param Observation[] $list
+	 * @return array
+	 */
 	public function arrayOfObjectsToArrayOfArray($list)
 	{
 		$listObservationsArray = array();
 
-		foreach ($list as $observation) 
-		{
+		foreach ($list as $observation) {
 			// Si il y aune photo on note le chemin sinon on le met à null
 			if ($observation->getPhotoExtension() != null) {
 				$photoPath = '/nao-site/web/' .$observation->getPhotoWebPath();

@@ -25,7 +25,7 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
             $qb->andWhere('a.author = :author');
             $qb->setParameter('author', $user);
         }
-        
+
         return $qb->getQuery()->getSingleScalarResult();
     }
 
@@ -74,11 +74,11 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
         }
 
         $qb = $this->createQueryBuilder('a')
-            ->select('a, author') //Que fait cette ligne ?
+            ->select('a, author')//Que fait cette ligne ?
             ->where('a.deleted IS NULL')
             ->andWhere('a.published IS NOT NULL')
-            ->join('a.author', 'author') // Innutile pour la page actualités
-            ->addSelect('author'); 
+            ->join('a.author', 'author')// Innutile pour la page actualités
+            ->addSelect('author');
 
         if ($user !== null) {
             $qb->andWhere('a.author = :author');
@@ -97,16 +97,17 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
         }
 
         $query = $qb->getQuery();
-        
+
 
         $premierResultat = ($page - 1) * $nbMaxParPage;
         $query->setFirstResult($premierResultat)->setMaxResults($nbMaxParPage);
         $paginator = new Paginator($query);
 
-        if ( ($paginator->count() <= $premierResultat) && $page != 1) {
+        if (($paginator->count() <= $premierResultat) && $page != 1) {
             throw new NotFoundHttpException('La page demandée n\'existe pas.'); // page 404, sauf pour la première page
         }
 
         return $paginator;
     }
+    
 }

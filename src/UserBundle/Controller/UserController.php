@@ -98,8 +98,9 @@ class UserController extends Controller
             // Envoi du mail à l'utilisateur avec le token ($uniqid)
             $mailer->envoyerMailReinitMdp($user);
             
-
             $this->addFlash('notice', 'Demande de modification envoyée par e-mail');
+
+            return $this->redirectToRoute('reset');
         }
 
         return $this->render(':front:reset.html.twig', array(
@@ -113,13 +114,12 @@ class UserController extends Controller
      */
     public function reinitMdpAction($token, Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
-
         $em = $this->getDoctrine();
 
         $user = $em->getRepository('UserBundle:User')->findOneBy(['tokenRegenerationMotDePasse' => $token]);
 
         if ($user == null) {
-            throw $this->createNotFoundException('Token non trouvé : '.$token);
+            throw $this->createNotFoundException('Token non trouvé : ' . $token);
         }
 
         // propose le formulaire demandant 2 fois le nouveau mot de passe
@@ -138,14 +138,13 @@ class UserController extends Controller
             $this->addFlash('notice', 'Votre mot de passe à bien été modifié');
 
             return $this->redirectToRoute('login');
-            
+
         }
-        
+
         // affichage du formulaire
         return $this->render(':front:reinitMdp.html.twig', array(
             'form' => $form->createView()
         ));
     }
-    
-    
 }
+

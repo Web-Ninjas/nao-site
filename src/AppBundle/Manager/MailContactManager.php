@@ -4,23 +4,23 @@ namespace AppBundle\Manager;
 
 use AppBundle\Entity\Observation;
 use AppBundle\Form\Model\Contact;
-use Symfony\Bridge\Doctrine\Tests\Fixtures\User;
 use Symfony\Bundle\TwigBundle\TwigEngine;
 
 class MailContactManager
-{/** @var TwigEngine */
+{
+    /** @var TwigEngine */
     private $view;
 
     /** @var string */
-    private $from;
+    private $userEmail;
 
     /** @var \Swift_Mailer */
     private $mailer;
 
-    public function __construct(TwigEngine $view, $from, \Swift_Mailer $mailer)
+    public function __construct(TwigEngine $view, $userEmail, \Swift_Mailer $mailer)
     {
         $this->view = $view;
-        $this->from = $from;
+        $this->userEmail = $userEmail;
         $this->mailer = $mailer;
     }
 
@@ -36,7 +36,7 @@ class MailContactManager
             ->setContentType('text/html')//Message en HTML
             ->setSubject('NAO - Contact')
             ->setFrom($contact->getEmail())// Email de l'expéditeur est le destinataire du mail
-            ->setTo('nao.site.w@gmail.com')// destinataire du mail
+            ->setTo($this->userEmail)// destinataire du mail
             ->setBody($this->view->render('/mail/mailContact.html.twig', array('contact'=>$contact))); // contenu du mail
 
         $this->mailer->send($message);//Envoi mail
@@ -53,7 +53,7 @@ class MailContactManager
         $message = \Swift_Message::newInstance()
             ->setContentType('text/html')//Message en HTML
             ->setSubject('Observation à modifier')
-            ->setFrom('nao.site.w@gmail.com')// Email de l'expéditeur est le destinataire du mail
+            ->setFrom($this->userEmail)// Email de l'expéditeur est le destinataire du mail
             ->setTo($observation->getAuthor()->getEmail())// destinataire du mail
             ->setBody($this->view->render('mail/mailNonValidationObservation.html.twig', array('observation'=>$observation))); // contenu du mail
 

@@ -20,18 +20,18 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
         $qd = $this->createQueryBuilder('o');
         if ($oiseau !== null) {
             $qd->where('o.oiseau = :oiseau')
-            ->setParameter('oiseau', $oiseau);
+                ->setParameter('oiseau', $oiseau);
         }
         if ($minDate !== null) {
             $qd->andWhere('o.date >= :dateFrom')
-            ->setParameter('dateFrom', $minDate);
+                ->setParameter('dateFrom', $minDate);
         }
 
         $qd->andWhere('o.publish IS NOT NULL')
-        ->leftJoin('o.oiseau', 'bird')
-        ->addSelect('bird')
-        ->leftJoin('o.author', 'auth')
-        ->addSelect('auth');
+            ->leftJoin('o.oiseau', 'bird')
+            ->addSelect('bird')
+            ->leftJoin('o.author', 'auth')
+            ->addSelect('auth');
 
         return $qd
             ->getQuery()
@@ -41,11 +41,11 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
     public function findAllPublishedWithOiseauAndAuthor()
     {
         $qd = $this->createQueryBuilder('o')
-        ->where('o.publish IS NOT NULL')
-        ->leftJoin('o.oiseau', 'bird')
-        ->addSelect('bird')
-        ->leftJoin('o.author', 'auth')
-        ->addSelect('auth');
+            ->where('o.publish IS NOT NULL')
+            ->leftJoin('o.oiseau', 'bird')
+            ->addSelect('bird')
+            ->leftJoin('o.author', 'auth')
+            ->addSelect('auth');
 
         return $qd
             ->getQuery()
@@ -57,8 +57,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
         $qb = $this->createQueryBuilder('o');
         $qb
             ->select('COUNT(o.id)')
-            ->andWhere('o.deleted IS NULL');
-        ;
+            ->andWhere('o.deleted IS NULL');;
 
         if ($user !== null) {
             $qb->andWhere('o.author = :author');
@@ -67,7 +66,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getQuery()->getSingleScalarResult();
     }
-    
+
     public function listeObservationsNonSupprimer(User $user = null)
     {
         $qb = $this->createQueryBuilder('o');

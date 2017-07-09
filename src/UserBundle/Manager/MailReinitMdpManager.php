@@ -31,15 +31,13 @@ class MailReinitMdpManager
      */
     public function envoyerMailReinitMdp(User $user)
     {
-
         $message = \Swift_Message::newInstance()
             ->setContentType('text/html')//Message en HTML
             ->setSubject('Réinitialisation de votre mot de passe')
-            ->setFrom('nao.site.w@gmail.com')// Email de l'expéditeur est le destinataire du mail
+            ->setFrom($this->from)// Email de l'expéditeur est le destinataire du mail
             ->setTo($user->getEmail())// destinataire du mail
             ->setBody($this->view->render('/mail/mailReinit.html.twig', array('user'=>$user))); // contenu du mail
 
         $this->mailer->send($message);//Envoi mail
     }
-
 }

@@ -24,7 +24,6 @@ use UserBundle\Form\ModifMdp;
 
 class BackController extends Controller
 {
-
     /**
      * @Route("/dashboard/menu", name="dashboard_menu")
      * @Method({"GET"})
@@ -32,7 +31,6 @@ class BackController extends Controller
      */
     public function menuAction()
     {
-
         $em = $this->getDoctrine()->getManager();
 
         $mesObsCount = $em->getRepository('AppBundle:Observation')->countNbObservations($this->getUser());
@@ -61,7 +59,6 @@ class BackController extends Controller
      */
     public function profilAction(Request $request)
     {
-
         $user = $this->getUser();
 
         // Faire le formulaire et l'envoyer à la vue pour l'affichage !
@@ -98,7 +95,6 @@ class BackController extends Controller
                 }
             }
 
-
             // On enregistre en bdd
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
@@ -108,7 +104,6 @@ class BackController extends Controller
 
             return $this->redirectToRoute('dashboard_profil');
         }
-
 
         return $this->render('back/profilDashboard.html.twig', array(
             'form' => $form->createView()
@@ -122,9 +117,7 @@ class BackController extends Controller
      */
     public function modifMdpAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $em)
     {
-
         $user = $this->getUser();
-
 
         $form = $this->get('form.factory')->create(ModifMdp::class, $user);
         $form->handleRequest($request);
@@ -141,7 +134,6 @@ class BackController extends Controller
 
             return $this->redirectToRoute('dashboard_profil');
         }
-
 
         return $this->render(':back:modifMdp.html.twig', array(
             'form' => $form->createView()
@@ -213,7 +205,6 @@ class BackController extends Controller
 
         return $this->redirectToRoute('observation', array(
             "id" => $observation->getId()));
-
     }
 
     /**
@@ -242,7 +233,6 @@ class BackController extends Controller
         return $this->redirectToRoute('observation', array(
                 "id" => $observation->getId())
         );
-
     }
 
     /**
@@ -275,7 +265,6 @@ class BackController extends Controller
 
         return $this->redirectToRoute('observation', array(
             "id" => $observation->getId()));
-
     }
 
     /**
@@ -285,7 +274,6 @@ class BackController extends Controller
      */
     public function articlesAction()
     {
-
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('AppBundle:Article');
 
@@ -336,13 +324,12 @@ class BackController extends Controller
             return $this->redirectToRoute('dashboard_all_articles');
         }
 
-        if ($redirect === 'actualites'){
+        if ($redirect === 'actualites') {
             return $this->redirectToRoute('actualites');
         }
 
         return $this->redirectToRoute('article', array(
             "slug" => $article->getSlug()));
-
     }
 
 
@@ -387,7 +374,6 @@ class BackController extends Controller
             'form' => $form->createView(),
             'user' => $user
         ));
-
     }
 
     /**
@@ -410,11 +396,9 @@ class BackController extends Controller
         if ($redirect === 'utilisateurs') {
             return $this->redirectToRoute('dashboard_utilisateurs');
         }
-
-
+        
         return $this->redirectToRoute('', array(
             "id" => $user->getId()));
-
     }
 
     /**
@@ -450,7 +434,6 @@ class BackController extends Controller
         return $this->redirectToRoute('detailUtilisateur', array(
             "id" => $user->getId(),
         ));
-
     }
 
     /**
@@ -472,8 +455,8 @@ class BackController extends Controller
             $user->setNSiret(NULL);
             $user->setRoles(['ROLE_PARTICULIER']);
         } elseif (in_array('ROLE_CONTRIBUTEUR', $user->getRoles())) {
-             $user->setDemandeContributeur(NULL);
-             $user->setRoles(['ROLE_NATURALISTE']);
+            $user->setDemandeContributeur(NULL);
+            $user->setRoles(['ROLE_NATURALISTE']);
         }
 
         $em->flush();
@@ -486,7 +469,6 @@ class BackController extends Controller
 
         return $this->redirectToRoute('detailUtilisateur', array(
             "id" => $user->getId()));
-
     }
 
     /**
@@ -522,7 +504,6 @@ class BackController extends Controller
         return $this->render(':back:redigerArticle.html.twig', array(
             'form' => $form->createView(),
         ));
-
     }
 
     /**
@@ -532,14 +513,12 @@ class BackController extends Controller
      */
     public function adminAction(Request $request, $identifier)
     {
-
         $page = $this->getDoctrine()->getRepository('AppBundle:Page')->findOneBy(
             array('nameIdentifier' => $identifier)
         );
 
         $page->setLastUpdate(new \Datetime());
-
-
+        
         $form = $this->get('form.factory')->create(AdminType::class, $page);
 
         $form->handleRequest($request);
@@ -567,10 +546,9 @@ class BackController extends Controller
      * @Route("/dashboard/editArticle/{article}", name="dashboard_editArticle")
      * @Method({"GET","POST"})
      * @Security("has_role('ROLE_CONTRIBUTEUR') ")
-    */
+     */
     public function editArticleAction(Article $article, Request $request)
     {
-
         $form = $this->get('form.factory')->create(ArticleType::class, $article);
         $form->handleRequest($request);
 
@@ -591,7 +569,7 @@ class BackController extends Controller
             'article' => $article
         ));
     }
-    
+
     /**
      * @Route("/dashboard/editObservation/{observation}", name="dashboard_editObservation")
      * @Method({"GET","POST"})
@@ -613,17 +591,17 @@ class BackController extends Controller
         $listOiseauNames = [];
         // Met en forme les noms pour l'autocomplete
         foreach ($listOiseaux as $oiseau) {
-            $listOiseauNames[] = $oiseau->getNomVern() .' - ' .$oiseau->getNomComplet();
+            $listOiseauNames[] = $oiseau->getNomVern() . ' - ' . $oiseau->getNomComplet();
         }
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
 
             // On récupère l'oiseau en bdd d'après son nom formatté dans la barre de recherche autocomplete
             $nomOiseau = $request->request->get('appbundle_observation')['nomOiseau'];
-            if (strpos($nomOiseau, '-') !== false){
+            if (strpos($nomOiseau, '-') !== false) {
                 $nomOiseau = substr($nomOiseau, strpos($nomOiseau, "-") + 2);
             }
-           
+
             $oiseau = $em->getRepository('AppBundle:OiseauTaxref')->findOneBy([
                 'nomComplet' => $nomOiseau
             ]);
@@ -640,7 +618,7 @@ class BackController extends Controller
             } else {
                 $observation->setStatus(Observation::A_VALIDER);
             }
-            
+
             // On enregistre en bdd
             $em = $this->getDoctrine()->getManager();
             $em->flush();
@@ -690,6 +668,7 @@ class BackController extends Controller
         $this->addFlash('notice', "L'acticle a bien été dépublié !");
 
         return $this->redirectToRoute('dashboard_all_articles', array(
-        "slug" => $article->getSlug()));
+            "slug" => $article->getSlug()));
+    }
 }
-}
+

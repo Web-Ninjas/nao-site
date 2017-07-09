@@ -27,7 +27,7 @@ class ContactType extends AbstractType
         $builder
             ->add('nom',    TextType::class)
             ->add('prenom',    TextType::class)
-            ->add('email',    EmailType::class, array('constraints' =>(array(new Email())))  )
+            ->add('email',    EmailType::class)
             ->add('contenu',   TextareaType::class)
             ->add('envoyer',      SubmitType::class)
             ->add('captchaCode', 'Captcha\Bundle\CaptchaBundle\Form\Type\CaptchaType', array(
